@@ -143,7 +143,7 @@ static int check_newer_ab_build(ZipWrap* zip)
 
     if (!deviceExists) {
         printf("Package is for product %s but expected %s\n",
-             pkg_device.c_str(), value);
+            pkg_device.c_str(), value);
         return INSTALL_ERROR;
     }
 
