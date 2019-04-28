@@ -460,7 +460,7 @@ int main(int argc, char **argv) {
 	    std::string Password;
 	    TWFunc::Exec_Cmd("mount -w "+PartitionManager.Get_Android_Root_Path());
 	    LOGINFO("SHRP Decrypt: Seaching for decryption key\n");
-	    if(TWFunc::Path_Exists(basePath+"/etc/cryptPass")){
+	    if(TWFunc::Path_Exists(basePath+"/etc/cryptPass")) {
 	      LOGINFO("SHRP Decrypt: Decryption key found\n");
 #ifndef TW_EXCLUDE_ENCRYPTED_BACKUPS
 	      TWFunc::read_file(TWFunc::dencryptFile(basePath+"/etc/","cryptPass"),Password);
@@ -469,18 +469,21 @@ int main(int argc, char **argv) {
 				TWFunc::read_file(basePath+"/etc/cryptPass",Password);
 #endif
 		  //PendingWork
-	      if(PartitionManager.Decrypt_Device(Password)!=0){
+	      if(PartitionManager.Decrypt_Device(Password)!=0) {
 	        LOGINFO("SHRP Decrypt: Decryption key not matched with the original key\n");
 	        TWFunc::Exec_Cmd("rm -r "+basePath+"/etc/cryptPass");
 					LOGINFO("SHRP Decrypt: Removed incorrect key which are already saved in system\n");
-	        if (gui_startPage("decrypt", 1, 1) != 0) {
-	          LOGERR("Failed to start decrypt GUI page.\n");
-	        } else {
-	          // Check for and load custom theme if present
-	          TWFunc::check_selinux_support();
-	          gui_loadCustomResources();
-	        }
-	      }else{
+					if (DataManager::GetIntValue(TW_IS_FBE)) {
+					  DataManager::SetValue("tw_crypto_user_id", "0");
+					}
+				  if (gui_startPage("decrypt", 1, 1) != 0) {
+					  LOGERR("Failed to start decrypt GUI page.\n");
+					} else {
+						// Check for and load custom theme if present
+						TWFunc::check_selinux_support();
+						gui_loadCustomResources();
+					}
+	      } else {
 	        LOGINFO("SHRP Decrypt: Successfully decrypted by saved key.\n");
 			DataManager::SetValue(TW_IS_ENCRYPTED, 0);
 			int has_datamedia;
@@ -494,18 +497,21 @@ int main(int argc, char **argv) {
 				}
 			}
 			PartitionManager.Decrypt_Adopted();
-	      }
+	     }
 	    } else {
 			LOGINFO("SHRP Decrypt: Decryption key not found.\n");
 			LOGINFO("Is encrypted, do decrypt page first\n");
-			if (gui_startPage("decrypt", 1, 1) != 0) {
-				LOGERR("Failed to start decrypt GUI page.\n");
+		  if (DataManager::GetIntValue(TW_IS_FBE)) {
+			  DataManager::SetValue("tw_crypto_user_id", "0");
+			}
+		  if (gui_startPage("decrypt", 1, 1) != 0) {
+			  LOGERR("Failed to start decrypt GUI page.\n");
 			} else {
-	        	// Check for and load custom theme if present
-	        	TWFunc::check_selinux_support();
-	        	gui_loadCustomResources();
-	    	}
-	    }
+				// Check for and load custom theme if present
+				TWFunc::check_selinux_support();
+				gui_loadCustomResources();
+			}
+	  }
 	} else if (datamedia) {
 		TWFunc::check_selinux_support();
 		if (tw_get_default_metadata(DataManager::GetSettingsStoragePath().c_str()) != 0) {
@@ -516,8 +522,7 @@ int main(int argc, char **argv) {
 	}
 
 	// Fixup the RTC clock on devices which require it
-	if (crash_counter == 0)
-		TWFunc::Fixup_Time_On_Boot();
+	if (crash_counter == 0) TWFunc::Fixup_Time_On_Boot();
 
 	// Read the settings file
 	TWFunc::Update_Log_File();
@@ -529,7 +534,8 @@ int main(int argc, char **argv) {
 	std::string cacheDir = TWFunc::get_cache_dir();
 	std::string orsFile = cacheDir + "/recovery/openrecoveryscript";
 
-	if (TWFunc::Path_Exists(SCRIPT_FILE_TMP) || (DataManager::GetIntValue(TW_IS_ENCRYPTED) == 0 && TWFunc::Path_Exists(orsFile))) {
+	if (TWFunc::Path_Exists(SCRIPT_FILE_TMP) ||
+	(DataManager::GetIntValue(TW_IS_ENCRYPTED) == 0 && TWFunc::Path_Exists(orsFile))) {
 		OpenRecoveryScript::Run_OpenRecoveryScript();
 	}
 
