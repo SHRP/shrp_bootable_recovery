@@ -278,7 +278,6 @@ int main(int argc, char **argv) {
 	lockCheck();
 
 	bool Shutdown = false;
-	bool SkipDecryption = false;
 	string Send_Intent = "";
 	{
 		TWPartition* misc = PartitionManager.Find_Partition_By_Path("/misc");
@@ -312,9 +311,6 @@ int main(int argc, char **argv) {
 				if (*ptr) {
 					string ORSCommand = "install ";
 					ORSCommand.append(ptr);
-
-					// If we have a map of blocks we don't need to mount data.
-					SkipDecryption = *ptr == '@';
 
 					if (!OpenRecoveryScript::Insert_ORS_Command(ORSCommand))
 						break;
@@ -385,10 +381,7 @@ int main(int argc, char **argv) {
 #endif
 	// Offer to decrypt if the device is encrypted
 	if (DataManager::GetIntValue(TW_IS_ENCRYPTED) != 0) {
-	  if (SkipDecryption) {
-	    LOGINFO("Skipping decryption\n");
-	  } else {
-	    LOGINFO("Is encrypted, do decrypt page first\n");
+			// Start SHRP Decryption firstly
 	    std::string Password;
 	    TWFunc::Exec_Cmd("mount -w "+PartitionManager.Get_Android_Root_Path());
 	    LOGINFO("SHRP Decrypt: Seaching for decryption key\n");
@@ -426,17 +419,17 @@ int main(int argc, char **argv) {
 			}
 			PartitionManager.Decrypt_Adopted();
 	      }
-	    }else{
+	    } else {
 				LOGINFO("SHRP Decrypt: Decryption key not found.\n");
-	      if (gui_startPage("decrypt", 1, 1) != 0) {
-	        LOGERR("Failed to start decrypt GUI page.\n");
-	      } else {
+	    }
+			LOGINFO("Is encrypted, do decrypt page first\n");
+			if (gui_startPage("decrypt", 1, 1) != 0) {
+				LOGERR("Failed to start decrypt GUI page.\n");
+			} else {
 	        // Check for and load custom theme if present
 	        TWFunc::check_selinux_support();
 	        gui_loadCustomResources();
-	      }
 	    }
-	  }
 	} else if (datamedia) {
 		TWFunc::check_selinux_support();
 		if (tw_get_default_metadata(DataManager::GetSettingsStoragePath().c_str()) != 0) {
@@ -459,7 +452,8 @@ int main(int argc, char **argv) {
 	// Run any outstanding OpenRecoveryScript
 	std::string cacheDir = TWFunc::get_cache_dir();
 	std::string orsFile = cacheDir + "/recovery/openrecoveryscript";
-	if ((DataManager::GetIntValue(TW_IS_ENCRYPTED) == 0 || SkipDecryption) && (TWFunc::Path_Exists(SCRIPT_FILE_TMP) || TWFunc::Path_Exists(orsFile))) {
+
+	if (TWFunc::Path_Exists(SCRIPT_FILE_TMP) || (DataManager::GetIntValue(TW_IS_ENCRYPTED) == 0 && TWFunc::Path_Exists(orsFile))) {
 		OpenRecoveryScript::Run_OpenRecoveryScript();
 	}
 
