@@ -714,7 +714,6 @@ void DataManager::SetDefaultValues()
 #ifdef TW_INCLUDE_INJECTTWRP
 	printf("TW_INCLUDE_INJECTTWRP := true\n");
 	mConst.SetValue(TW_HAS_INJECTTWRP, "1");
-	mPersist(TW_INJECT_AFTER_ZIP, "1");
 #else
 	mConst.SetValue(TW_HAS_INJECTTWRP, "0");
 #endif
@@ -744,7 +743,7 @@ void DataManager::SetDefaultValues()
 #endif
 	mConst.SetValue(TW_MIN_SYSTEM_VAR, TW_MIN_SYSTEM_SIZE);
 	mData.SetValue(TW_BACKUP_NAME, "(Auto Generate)");
-
+	mPersist.SetValue(TW_HAS_INJECTTWRP, "0");
 	mPersist.SetValue(TW_INSTALL_REBOOT_VAR, "0");
 	mPersist.SetValue(TW_SIGNED_ZIP_VERIFY_VAR, "0");
 	mPersist.SetValue(TW_DISABLE_FREE_SPACE_VAR, "0");
@@ -776,6 +775,7 @@ void DataManager::SetDefaultValues()
 	mData.SetValue("tw_background_thread_running", "0");
 	mData.SetValue(TW_RESTORE_FILE_DATE, "0");
 	mPersist.SetValue("tw_military_time", "0");
+	mPersist.SetValue("tw_inject_after_zip", "0");
 
 #ifdef TW_INCLUDE_CRYPTO
 	mPersist.SetValue(TW_USE_SHA2, "1");
