@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<recovery>
+	<details>
+		<resolution width="1080" height="1920"/>
+		<author>Teamwin | epicX</author>
+		<title>SKY HAWK RECOVERY PROJECT</title>
+		<description>Sky_hawK_status_bar_handler</description>
+		<preview>preview.png</preview>
+		<themeversion>3</themeversion>
+	</details>
+	<variables>
+		<variable name="c_battery_bar_triger" value="0" persist="0"/>
+		<variable name="c_status_bar_triger" value="0" persist="0"/>
+		<variable name="c_battery_icon_triger" value="0" persist="0"/>
+		<variable name="c_battery_portrait_icon_triger" value="1" persist="0"/>
+		<variable name="c_battery_circle_icon_triger" value="0" persist="0"/>
+		<variable name="c_battery_txt_triger" value="0" persist="0"/>
+		<variable name="c_time_txt_triger" value="0" persist="0"/>
+		<variable name="c_rounded_corner_trigger" value="0" persist="0"/>
+		<variable name="c_rounded_corner_type_1" value="1" persist="0"/>
+		<variable name="c_rounded_corner_type_2" value="0" persist="0"/>
+		<variable name="c_rounded_corner_type_3" value="0" persist="0"/>
+		<variable name="c_dash_ico_default" value="1" persist="0"/>
+		<variable name="c_dash_ico_black" value="0" persist="0"/>
+		<variable name="c_dash_ico_white" value="0" persist="0"/>
+		<variable name="c_dash_ico_aex" value="0" persist="0"/>
+		<variable name="c_nav_type_pie" value="1" persist="0"/>
+		<variable name="c_nav_type_samsung" value="0" persist="0"/>
+		<variable name="c_nav_type_nxt_bit" value="0" persist="0"/>
+		<variable name="c_nav_type_custom" value="0" persist="0"/>
+		<variable name="c_nav_bg" value="0" persist="0"/>
+		<variable name="c_white_bg" value="1" persist="0"/>
+		<variable name="c_dark_bg" value="0" persist="0"/>
+		<variable name="c_black_bg" value="0" persist="0"/>
+		<variable name="c_midnightblue_bg" value="0" persist="0"/>
+		<variable name="c_wetasphalt_bg" value="0" persist="0"/>
+		<variable name="c_text_color_black" value="1" persist="0"/>
+		<variable name="c_text_color_white" value="0" persist="0"/>
+		<variable name="c_text_color_blue" value="0" persist="0"/>
+		<variable name="c_text_color_indigo" value="0" persist="0"/>
+		<variable name="c_text_color_brown" value="0" persist="0"/>
+		<variable name="c_text_color_teal" value="0" persist="0"/>
+		<variable name="c_text_color_orange" value="0" persist="0"/>
+		<variable name="c_text_color_red" value="0" persist="0"/>
+		<variable name="c_text_color_rr" value="0" persist="0"/>
+		<variable name="c_text_color_pink" value="0" persist="0"/>
+		<variable name="c_text_color_rpink" value="0" persist="0"/>
+		<variable name="c_text_color_green" value="0" persist="0"/>
+		<variable name="c_text_color_cyan" value="0" persist="0"/>
+		<variable name="c_text_color_yellow" value="0" persist="0"/>
+		<variable name="c_text_color_purple" value="0" persist="0"/>
+		<variable name="c_acc_color_black" value="1" persist="0"/>
+		<variable name="c_acc_color_white" value="0" persist="0"/>
+		<variable name="c_acc_color_blue" value="0" persist="0"/>
+		<variable name="c_acc_color_indigo" value="0" persist="0"/>
+		<variable name="c_acc_color_brown" value="0" persist="0"/>
+		<variable name="c_acc_color_teal" value="0" persist="0"/>
+		<variable name="c_acc_color_orange" value="0" persist="0"/>
+		<variable name="c_acc_color_red" value="0" persist="0"/>
+		<variable name="c_acc_color_rr" value="0" persist="0"/>
+		<variable name="c_acc_color_pink" value="0" persist="0"/>
+		<variable name="c_acc_color_rpink" value="0" persist="0"/>
+		<variable name="c_acc_color_green" value="0" persist="0"/>
+		<variable name="c_acc_color_cyan" value="0" persist="0"/>
+		<variable name="c_acc_color_yellow" value="0" persist="0"/>
+		<variable name="c_acc_color_purple" value="0" persist="0"/>
+		<variable name="c_notch_mode" value="0" persist="0"/>
+	</variables>
+</recovery>

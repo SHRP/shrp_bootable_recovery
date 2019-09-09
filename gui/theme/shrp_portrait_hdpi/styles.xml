@@ -1,0 +1,164 @@
+<?xml version="1.0"?>
+<recovery>
+	<styles>
+		<style name="input">
+			<background color="%c_white%"/>
+			<cursor color="%c_grey%" hasfocus="1" width="%input_line_width%"/>
+			<font resource="font_m" color="%c_grey%"/>
+		</style>
+		<style name="checkbox">
+			<font resource="c_dashboard_text_sort" color="%c_black%"/>
+			<image checked="checkbox_true" unchecked="checkbox_false"/>
+		</style>
+		<!--epicX_button/text_style_start-->
+		<style name="c_text_dashboard">
+			<font resource="c_dashboard_header" color="%c_black%"/>
+		</style>
+		<style name="c_text_dashboard2">
+			<font resource="c_dashboard_header" color="%c_white%"/>
+		</style>
+		<style name="c_reboot_text">
+			<font resource="c_dashboard_text" color="%c_black%"/>
+		</style>
+		<style name="c_main_text_header">
+			<font resource="c_header" color="%c_black%"/>
+		</style>
+		<style name="c_file_menu">
+			<font resource="c_menu" color="%c_black%"/>
+		</style>
+		<style name="c_main_text_header_file">
+			<font resource="c_header" color="%c_white%"/>
+		</style>
+		<style name="c_main_text_header_failed">
+			<font resource="c_header" color="#FF0000"/>
+		</style>
+		<style name="c_main_text_header2">
+			<font resource="c_header" color="%c_white%"/>
+		</style>
+		<style name="c_main_text_header_passed">
+			<font resource="c_header" color="#0083E6"/>
+		</style>
+		<style name="c_sub">
+			<font resource="c_dashboard_text_sort" color="%c_grey%"/>
+		</style>
+		<style name="c_sub_failed">
+			<font resource="c_dashboard_text_sort" color="#FF0000"/>
+		</style>
+		<style name="c_addon_special">
+			<font resource="c_addon_epicx" color="%c_grey%"/>
+		</style>
+		<style name="c_dash_text_grid">
+			<font resource="c_menu" color="%c_grey%"/>
+			<image resource="c_dash_text_box"/>
+		</style>
+		<style name="c_positive_btn">
+			<highlight color="%highlight_color%"/>
+			<font resource="c_dashboard_text_sort" color="#ffffff"/>
+			<image resource="c_on_button"/>
+		</style>
+		<style name="c_negative_btn">
+			<highlight color="%highlight_color%"/>
+			<font resource="c_dashboard_text_sort" color="#ffffff"/>
+			<image resource="c_off_button"/>
+		</style>
+		<style name="c_circle3">
+			<highlight color="%highlight_color%"/>
+			<font resource="c_menu" color="%c_circle_color_handler%"/>
+			<image resource="c_circle3"/>
+		</style>
+		<style name="c_circle4">
+			<highlight color="%highlight_color%"/>
+			<font resource="c_menu" color="%c_circle_color_handler%"/>
+			<image resource="c_circle4"/>
+		</style>
+		<style name="Goon">
+			<font resource="c_menu" color="%c_circle_color_handler%"/>
+		</style>
+		<style name="c_file_trans_bg_style">
+			<highlight color="%highlight_color%"/>
+			<font resource="c_dashboard_text_sort" color="%c_black%"/>
+		</style>
+		<style name="c_queue">
+			<highlight color="%highlight_color%"/>
+			<font resource="font_l" color="%text_button_color%"/>
+			<image resource="c_queue"/>
+		</style>
+		<style name="c_tab">
+			<highlight color="%highlight_color%"/>
+			<font resource="c_dashboard_header" color="%c_grey%"/>
+			<image resource="c_tab_backup_bg"/>
+		</style>
+		<style name="c_tab_set">
+			<highlight color="%highlight_color%"/>
+			<font resource="c_dashboard_header" color="%c_black%"/>
+			<image resource="c_tab_backup_bg"/>
+		</style>
+		<!--epicX_button/text_style_end-->
+
+		<style name="fab">
+			<highlight color="%highlight_color%"/>
+			<font resource="font_m" color="%button_text_color%"/>
+		</style>
+
+		<style name="terminal">
+			<background color="%c_white%"/>
+			<fastscroll rectcolor="%c_black%" w="%fastscroll_w%" rectw="%fastscroll_rectw%" recth="%fastscroll_recth%"/>
+			<font resource="font_s" spacing="3" color="%c_grey%"/>
+		</style>
+		<style name="fileselector">
+			<background color="%c_white%"/>
+			<fastscroll rectcolor="%c_black%" w="%fastscroll_w%" rectw="%fastscroll_rectw%" recth="%fastscroll_recth%" />
+			<icon folder="folder" file="file" />
+			<font resource="font_s" color="%c_black%" />
+		</style>
+		<style name="c_file_for_magisk">
+			<background color="%c_white%"/>
+			<fastscroll rectcolor="%c_black%" w="%fastscroll_w%" rectw="%fastscroll_rectw%" recth="%fastscroll_recth%" />
+			<icon folder="c_modules" file="file" />
+			<font resource="font_s" color="%c_black%" />
+		</style>
+
+		<style name="listbox">
+			<background color="%c_white%"/>
+			<fastscroll rectcolor="%c_black%" w="%fastscroll_w%" rectw="%fastscroll_rectw%" recth="%fastscroll_recth%" />
+			<icon selected="radio_true" unselected="radio_false" />
+			<font resource="font_s" color="%c_grey%"/>
+		</style>
+		<style name="console">
+			<background color="%c_white%"/>
+			<font resource="c_console_font" color="%c_black%"/>
+		</style>
+
+		<style name="scrolllist">
+			<background color="%c_white%"/>
+			<font resource="font_s" color="%c_black%"/>
+			<fastscroll rectcolor="%c_black%" w="%fastscroll_w%" linew="%fastscroll_linew%" rectw="%fastscroll_rectw%" recth="%fastscroll_recth%"/>
+		</style>
+
+		<style name="partitionlist">
+			<background color="%c_white%"/>
+			<fastscroll rectcolor="%c_black%" w="%fastscroll_w%" linew="%fastscroll_linew%" rectw="%fastscroll_rectw%" recth="%fastscroll_recth%"/>
+			<icon selected="checkbox_true" unselected="checkbox_false"/>
+			<font resource="font_s" color="%c_grey%"/>
+		</style>
+
+		<style name="partitionlist_storage">
+			<background color="%c_white%"/>
+			<placement x="50" y="%c_hawk_base_second_header%" w="970" h="1500"/>
+			<fastscroll rectcolor="%c_black%" w="%fastscroll_w%" linew="%fastscroll_linew%" rectw="%fastscroll_rectw%" recth="%fastscroll_recth%"/>
+			<icon selected="radio_true" unselected="radio_false"/>
+			<font resource="font_s" color="%c_grey%"/>
+		</style>
+
+		<style name="slidervalue">
+			<resource handle="handle"/>
+			<font resource="c_hider" color="%c_white%"/>
+			<colors line="%c_black%"/>
+			<dimensions lineh="%slidervalue_lineh%" linepadding="%slidervalue_padding%" sliderw="%slidervalue_sliderw%" sliderh="%slidervalue_sliderh%"/>
+		</style>
+
+		<style name="patternpassword">
+			<size name="tw_gui_pattern_grid_size" default="3"/>
+		</style>
+	</styles>
+</recovery>

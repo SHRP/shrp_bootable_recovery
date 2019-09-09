@@ -1,0 +1,16 @@
+#!/sbin/sh
+# Magisk Manager for Recovery Mode (mm)
+# Copyright (C) 2017-2019, VR25 @ xda-developers
+# License: GPLv3+
+# We are adding this file in Skyhawk Recovery Project to extend the Recovery Feature.
+# Thank You VR25.
+main(){
+if [ -f /cache/.disable_magisk ] || [ -f /data/cache/.disable_magisk ]; then
+        echo "Core mode on";
+	exit 108;
+else
+        echo "core mode off";
+        exit 0;
+fi
+}
+main

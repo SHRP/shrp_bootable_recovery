@@ -153,7 +153,7 @@ ifeq ($(TW_CUSTOM_THEME),)
                 endif
             else ifeq ($(shell test $(GUI_WIDTH) -lt $(GUI_HEIGHT); echo $$?),0)
                 ifeq ($(shell test $(GUI_WIDTH) -ge 720; echo $$?),0)
-                    TW_THEME := portrait_hdpi
+                    TW_THEME := shrp_portrait_hdpi
                 else
                     TW_THEME := portrait_mdpi
                 endif
