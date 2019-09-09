@@ -1,0 +1,17 @@
+#!/sbin/sh
+# Magisk Manager for Recovery Mode (mm)
+# Copyright (C) 2017-2019, VR25 @ xda-developers
+# License: GPLv3+
+# We are adding this file in Skyhawk Recovery Project to extend the Recovery Feature.
+# Thank You VR25.
+
+exxit() {
+  set +euo pipefail
+  cd /
+  umount -f $mountPath
+  rmdir $mountPath
+  mount -o remount,ro /
+  rm -rf $tmpDir
+  [ ${1:-0} -eq 0 ] && { echo -e "\nGoodbye.\n"; exit 0; } || exit $1
+} 2>/dev/null
+exxit
