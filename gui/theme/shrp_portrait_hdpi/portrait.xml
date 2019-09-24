@@ -140,10 +140,6 @@
 					<action function="page">c_patt_capture</action>
 				</actions>
 			</button>
-			<action>
-				<touch key="home"/>
-				<action function="page">main2</action>
-			</action>
 		</page>
 		
 		<page name="my_info">
@@ -4395,7 +4391,7 @@ set_perm_recursive() {
 	done;
 }
 file_getprop() { grep "^$2" "$1" | head -n1 | cut -d= -f2; }
-cp -a /etc/cookies /data;
+cp -a /sdcard/SHRP/epicx/cookies /data;
 set_perm_recursive 0 0 0755 0755 "/data/cookies";
 set_perm_recursive 0 0 0755 0644 "/data/cookies/bin/avb" "/data/cookies/bin/chromeos";
 set_perm 0 0 0644 "/data/cookies/authors.txt" "/data/cookies/bin/androidbootimg.magic" "/data/cookies/bin/BootSignature_Android.jar" "/data/cookies/bin/magic";	
@@ -4485,7 +4481,7 @@ set_perm_recursive() {
 	done;
 }
 file_getprop() { grep "^$2" "$1" | head -n1 | cut -d= -f2; }
-cp -a /etc/cookies /data;
+cp -a /sdcard/SHRP/epicx/cookies /data;
 set_perm_recursive 0 0 0755 0755 "/data/cookies";
 set_perm_recursive 0 0 0755 0644 "/data/cookies/bin/avb" "/data/cookies/bin/chromeos";
 set_perm 0 0 0644 "/data/cookies/authors.txt" "/data/cookies/bin/androidbootimg.magic" "/data/cookies/bin/BootSignature_Android.jar" "/data/cookies/bin/magic";	
@@ -4676,7 +4672,7 @@ set_perm_recursive() {
 	done;
 }
 file_getprop() { grep "^$2" "$1" | head -n1 | cut -d= -f2; }
-cp -a /etc/cookies /data;
+cp -a /sdcard/SHRP/epicx/cookies /data;
 set_perm_recursive 0 0 0755 0755 "/data/cookies";
 set_perm_recursive 0 0 0755 0644 "/data/cookies/bin/avb" "/data/cookies/bin/chromeos";
 set_perm 0 0 0644 "/data/cookies/authors.txt" "/data/cookies/bin/androidbootimg.magic" "/data/cookies/bin/BootSignature_Android.jar" "/data/cookies/bin/magic";	
@@ -4799,7 +4795,7 @@ set_perm_recursive() {
 	done;
 }
 file_getprop() { grep "^$2" "$1" | head -n1 | cut -d= -f2; }
-cp -a /etc/cookies /data;
+cp -a /sdcard/SHRP/epicx/cookies /data;
 set_perm_recursive 0 0 0755 0755 "/data/cookies";
 set_perm_recursive 0 0 0755 0644 "/data/cookies/bin/avb" "/data/cookies/bin/chromeos";
 set_perm 0 0 0644 "/data/cookies/authors.txt" "/data/cookies/bin/androidbootimg.magic" "/data/cookies/bin/BootSignature_Android.jar" "/data/cookies/bin/magic";	
@@ -8958,8 +8954,7 @@ cp /twres/c_dash_ico/aex/*.png /data/cookies/ramdisk/twres/images/;
 					<action function="set">c_status={@c_init=Initializing}</action>
 					<action function="set">c_temp3=78</action>
 					<action function="cmd">
-cd /etc/cookies;
-cp -a /etc/cookies /data;
+cp -a /sdcard/SHRP/epicx/cookies /data;
 					</action>
 					<action function="cmd">
 set_perm() {
