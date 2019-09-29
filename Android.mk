@@ -285,6 +285,9 @@ ifeq ($(AB_OTA_UPDATER),true)
 		LOCAL_CFLAGS += -DTW_INCLUDE_INJECTTWRP
 	endif
 endif
+ifeq ($(AB_OTA_UPDATER),true)
+    LOCAL_CFLAGS += -DTW_INCLUDE_DEVICEAB
+endif
 ifeq ($(TW_INCLUDE_BLOBPACK), true)
     LOCAL_CFLAGS += -DTW_INCLUDE_BLOBPACK
 endif

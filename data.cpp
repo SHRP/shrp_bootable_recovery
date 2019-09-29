@@ -717,6 +717,12 @@ void DataManager::SetDefaultValues()
 #else
 	mConst.SetValue(TW_HAS_INJECTTWRP, "0");
 #endif
+#ifdef TW_INCLUDE_DEVICEAB
+	printf("TW_INCLUDE_DEVICEAB := true\n");
+	mConst.SetValue(TW_HAS_DEVICEAB, "1");
+#else
+	mConst.SetValue(TW_HAS_DEVICEAB, "0");
+#endif
 #ifdef TW_HAS_DOWNLOAD_MODE
 	printf("TW_HAS_DOWNLOAD_MODE := true\n");
 	mConst.SetValue(TW_DOWNLOAD_MODE, "1");
@@ -776,6 +782,7 @@ void DataManager::SetDefaultValues()
 	mData.SetValue(TW_RESTORE_FILE_DATE, "0");
 	mPersist.SetValue("tw_military_time", "0");
 	mPersist.SetValue("tw_inject_after_zip", "0");
+	mPersist.SetValue(TW_HAS_DEVICEAB, "0");
 
 #ifdef TW_INCLUDE_CRYPTO
 	mPersist.SetValue(TW_USE_SHA2, "1");
