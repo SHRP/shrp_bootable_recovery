@@ -609,6 +609,20 @@ sh c_core_checker;
 			</text>
 
 			<checkbox>
+				<condition var1="tw_has_injecttwrp" var2="1"/>
+				<placement x="%c_hawk_base_column%" y="1425"/>
+				<text>{@inject_twrp_chk=Inject TWRP after install}</text>
+				<data variable="tw_inject_after_zip"/>
+			</checkbox>
+
+			<checkbox>
+				<condition var1="tw_has_deviceab" var2="1"/>
+				<placement x="%c_hawk_base_column%" y="1500"/>
+				<text>{@active_slot_install=Install in the active slot}</text>
+				<data variable="tw_active_slot_install"/>
+			</checkbox>
+
+			<checkbox>
 				<placement x="%c_hawk_base_column%" y="1575"/>
 				<text>{@zip_sig_chk=Zip signature verification}</text>
 				<data variable="tw_signed_zip_verify"/>
@@ -618,13 +632,6 @@ sh c_core_checker;
 				<placement x="%c_hawk_base_column%" y="1650"/>
 				<text>{@install_reboot_chk=Reboot after installation is complete}</text>
 				<data variable="tw_install_reboot"/>
-			</checkbox>
-
-			<checkbox>
-				<condition var1="tw_has_injecttwrp" var2="1"/>
-				<placement x="%c_hawk_base_column%" y="1500"/>
-				<text>{@inject_twrp_chk=Inject TWRP after install}</text>
-				<data variable="tw_inject_after_zip"/>
 			</checkbox>
 
 			<button style="c_queue">
