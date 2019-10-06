@@ -1123,6 +1123,10 @@ int GUIAction::flash(std::string arg)
     	string cmd = "setprop tw_active_slot_install 0";
 		TWFunc::Exec_Cmd(cmd);
     }
+    // Remount system as R/W, just in case
+    string cmd = "mount -w /system"
+    TWFunc::Exec_Cmd(cmd);
+    gui_msg("remount_system_rw=[i] Remounted system as R/W!")
 	return 0;
 }
 
