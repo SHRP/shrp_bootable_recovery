@@ -874,5 +874,6 @@
 		<string name="c_c2a">Camera 2 Api enabler/disabler</string>
 		<string name="cache_dalvik_done">-- Dalvik Cache Directories Wipe Complete!</string>
 		<string name="active_slot_install">Install in the active slot</string>
+		<string name="remount_system_rw">[i] Remounted system as R/W!</string>
 	</resources>
 </language>
