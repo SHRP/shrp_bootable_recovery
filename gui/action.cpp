@@ -1124,9 +1124,11 @@ int GUIAction::flash(std::string arg)
 		TWFunc::Exec_Cmd(cmd);
     }
     // Remount system as R/W, just in case
-    string cmd = "mount -w /system"
+    string cmd = "umount -f /system";
     TWFunc::Exec_Cmd(cmd);
-    gui_msg("remount_system_rw=[i] Remounted system as R/W!")
+    string cmdtwo = "mount -w /system";
+    TWFunc::Exec_Cmd(cmdtwo);
+    gui_msg("remount_system_rw=[i] Remounted system as R/W!");
 	return 0;
 }
 
