@@ -896,5 +896,7 @@
 		<string name="c_show_lc">Show date on lockscreen</string>
 		<string name="c_dev_mode">Dev mode</string>
 		<string name="c_stock_dashboard_ico">Stock</string>
+		<string name="ozip_decrypt_decryption">Starting Ozip Decryption...</string>
+		<string name="ozip_decrypt_finish">Ozip Decryption Finished!</string>
 	</resources>
 </language>
