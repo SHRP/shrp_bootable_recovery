@@ -419,13 +419,7 @@ int TWinstall_zip(const char* path, int* wipe_cache) {
 		int skip_tv;
 		DataManager::GetValue("c_skip_tv", skip_tv);
 		// Additionally verify the compatibility of the package.
-		if(skip_tv){
-			LOGINFO("Treble Compatibility Checking Skipped\n");
-			ret_val = Prepare_Update_Binary(path, &Zip, wipe_cache);
-			if (ret_val == INSTALL_SUCCESS)
-				ret_val = Run_Update_Binary(path, &Zip, wipe_cache, UPDATE_BINARY_ZIP_TYPE);
-		}else{
-		if (!verify_package_compatibility(&Zip)) {
+		if (DataManager::GetIntValue(TW_SKIP_COMPATIBILITY_CHECK) == 0 && !verify_package_compatibility(&Zip)) {
 			gui_err("zip_compatible_err=Zip Treble compatibility error!");
 			Zip.Close();
 #ifdef USE_MINZIP
