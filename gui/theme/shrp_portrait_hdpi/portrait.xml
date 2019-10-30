@@ -12,8 +12,10 @@
 		<page name="button_check">
 			<action>
 				<conditions>
-					<condition var1="lock_enabled" op="=" var2="1"/>
-					<condition var1="patt_lock_enabled" op="=" var2="0"/>
+					<condition var1="lock_enabled" op="&gt;" var2="0"/>
+					<condition var1="lock_enabled" op="&lt;" var2="2"/>
+					<!--condition var1="lock_enabled" op="=" var2="1"/-->
+					<condition var1="patt_lock_enabled" op="!=" var2="1"/>
 				</conditions>
 				<actions>
 					<action function="stopmtp"/>
@@ -22,8 +24,12 @@
 			</action>
 			<action>
 				<conditions>
-					<condition var1="lock_enabled" op="=" var2="1"/>
-					<condition var1="patt_lock_enabled" op="=" var2="1"/>
+					<condition var1="lock_enabled" op="&gt;" var2="0"/>
+					<condition var1="lock_enabled" op="&lt;" var2="2"/>
+					<!--condition var1="lock_enabled" op="=" var2="1"/>
+					<condition var1="patt_lock_enabled" op="=" var2="1"/-->
+					<condition var1="patt_lock_enabled" op="&gt;" var2="0"/>
+					<condition var1="patt_lock_enabled" op="&lt;" var2="2"/>
 				</conditions>
 				<actions>
 					<action function="stopmtp"/>
@@ -32,8 +38,8 @@
 			</action>
 			<action>
 				<conditions>
-					<condition var1="lock_enabled" op="=" var2="0"/>
-					<condition var1="patt_lock_enabled" op="=" var2="0"/>
+					<condition var1="lock_enabled" op="!=" var2="1"/>
+					<condition var1="patt_lock_enabled" op="!=" var2="1"/>
 				</conditions>
 				<actions>
 					<action function="page">main2</action>
@@ -145,19 +151,15 @@
 		<page name="my_info">
 			<template name="c_page"/>
 			<template name="c_status_bar"/>
-			
 			<image>
 				<placement x="135" y="75"/>
 				<image resource="c_logo"/>
 			</image>
-			<image>
-				<placement x="156" y="750"/>
-				<image resource="c_about_tile"/>
-			</image>
+			
 			<button>
-				<placement x="221" y="808" w="630" h="148"/>
+				<placement x="156" y="750"/>
 				<font resource="c_list" color="%c_black%"/>
-				<fill color="%transparent%"/>
+				<image resource="c_about_tile"/>
 				<text>{@c_shrp_about=S H R P}</text>
 			</button>
 			
@@ -244,7 +246,6 @@
 
 		<page name="main2">
 			<template name="c_page"/>
-			<template name="c_list_view_dashboard"/>
 			<template name="c_status_bar"/>
 			<text color="%c_grey%">
 				<condition var1="c_list_view" op="=" var2="0"/>
@@ -356,11 +357,14 @@
 				<text>{@c_tools=Tools}</text>
 			</text>
 			<button>
-				<condition var1="c_list_view" op="=" var2="0"/>
+				<conditions>
+					<condition var1="c_list_view" op="=" var2="0"/>
+					<!--condition var1="c_res_error" op="!=" var2="1"/-->
+				</conditions>
 				<placement x="99" y="%dash_ico_3rd_row%"/>
 				<image resource="c_dashboard_magisk"/>
 				<actions>
-					<action function="cmd">
+					<!--action function="cmd">
 cd /twres/magisk/;
 sh mm;
 sh init;
@@ -368,9 +372,17 @@ sh init;
 					<action function="cmd">
 cd /twres/magisk/;
 sh c_core_checker;
-</action>
+</action-->
+					<action function="shrp_init"/>
 					<action function="page">c_splash_magisk</action>
 				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="tw_is_encrypted" op="=" var2="1"/>
+				</conditions>
+				<placement x="99" y="%dash_ico_3rd_row%"/>
+				<image resource="c_dashboard_magisk"/>
 			</button>
 			<button style="c_dash_text_grid">
 				<condition var1="c_list_view" op="=" var2="0"/>
@@ -381,7 +393,10 @@ sh c_core_checker;
 				<condition var1="c_list_view" op="=" var2="0"/>
 				<placement x="343" y="%dash_ico_3rd_row%"/>
 				<image resource="c_mod"/>
-				<action function="page">c_splash_theme</action>
+				<actions>
+					<action function="shrp_init"/>
+					<action function="page">c_splash_theme</action>
+				</actions>
 			</button>
 			<button style="c_dash_text_grid">
 				<condition var1="c_list_view" op="=" var2="0"/>
@@ -500,7 +515,7 @@ sh c_core_checker;
 			<!--fill color="%c_black%">
 				<placement x="890" y="1495" w="85" h="60"/>
 			</fill-->
-
+			
 			<button>
 				<placement x="860" y="1450"/>
 				<image resource="c_storage"/>
@@ -786,7 +801,10 @@ sh c_core_checker;
 				<actions>
 					<action function="sleep">50000</action>
 					<action function="set">tw_back=main2</action>
-					<action function="page">reboot_system_routine</action>
+					<action function="set">tw_action=reboot</action>
+					<action function="set">tw_action_param=system</action>
+					<action function="set">tw_reboot_param=system</action>
+					<action function="reboot">%tw_reboot_param%</action>
 				</actions>
 			</action>
 		</page>
@@ -875,23 +893,6 @@ sh c_core_checker;
 				<action function="set">tw_show_exclamation=0</action>
 				<action function="set">tw_show_reboot=0</action>
 				<action function="page">%tw_clear_destination%</action>
-			</action>
-		</page>
-
-		<page name="reboot_system_routine">
-			<action>
-				<action function="set">tw_action=reboot</action>
-				<action function="set">tw_action_param=system</action>
-				<action function="set">tw_has_action2=0</action>
-				<action function="set">tw_text1={@no_os1=No OS Installed! Are you}</action>
-				<action function="set">tw_text2={@no_osrb=sure you wish to reboot?}</action>
-				<action function="set">tw_text3=</action>
-				<action function="set">tw_text4=</action>
-				<action function="set">tw_action_text1={@rebooting=Rebooting...}</action>
-				<action function="set">tw_action_text2=</action>
-				<action function="set">tw_complete_text1={@rebooting=Rebooting...}</action>
-				<action function="set">tw_slider_text={@swipe_reboot=Swipe to Reboot}</action>
-				<action function="page">rebootcheck</action>
 			</action>
 		</page>
 
@@ -1092,40 +1093,6 @@ sh c_core_checker;
 			</action>
 		</page>
 
-		<page name="rebootcheck">
-			<action>
-				<condition var1="tw_backup_system_size" op="&gt;=" var2="%tw_min_system%"/>
-				<action function="page">appcheck</action>
-			</action>
-
-			<action>
-				<condition var1="tw_backup_system_size" op="&lt;" var2="%tw_min_system%"/>
-				<action function="page">confirm_action</action>
-			</action>
-		</page>
-
-		<page name="appcheck">
-			<action>
-				<condition var1="tw_app_prompt" var2="1"/>
-				<action function="checkforapp"></action>
-			</action>
-
-			<action>
-				<condition var1="tw_app_prompt" op="!=" var2="1"/>
-				<action function="reboot">%tw_reboot_param%</action>
-			</action>
-
-			<action>
-				<condition var1="tw_app_install_status" var2="1"/>
-				<action function="page">rebootapp</action>
-			</action>
-
-			<action>
-				<condition var1="tw_app_install_status" var2="2"/>
-				<action function="reboot">%tw_reboot_param%</action>
-			</action>
-		</page>
-
 		<page name="wipe">
 			<template name="c_page"/>
 			<template name="c_status_bar"/>
@@ -1157,6 +1124,8 @@ sh c_core_checker;
 			<button>
 				<placement x="586" y="1628"/>
 				<image resource="c_advance_wipe"/>
+				<font resource="c_dashboard_text_sort" color="%c_white%"/>
+				<text>{@advanced_wipe_hdr=Advance Wipe}</text>
 				<actions>
 					<action function="set">partitionlisterror=0</action>
 					<action function="page">advancedwipe</action>
@@ -1170,6 +1139,8 @@ sh c_core_checker;
 				</conditions>
 				<placement x="586" y="1270"/>
 				<image resource="c_format_data"/>
+				<font resource="c_dashboard_text_sort" color="%c_white%"/>
+				<text>{@c_format_data2=Remove Encryption}</text>
 				<actions>
 					<action function="set">tw_back=wipe</action>
 					<action function="set">tw_action=wipe</action>
@@ -1187,6 +1158,8 @@ sh c_core_checker;
 				<condition var1="tw_has_data_media" var2="1"/>
 				<placement x="586" y="1270"/>
 				<image resource="c_format_data"/>
+				<font resource="c_dashboard_text_sort" color="%c_white%"/>
+				<text>{@c_format_data=Format Data}</text>
 				<actions>
 					<action function="page">formatdata</action>
 				</actions>
@@ -1194,10 +1167,12 @@ sh c_core_checker;
 
 			<button>
 				<placement x="586" y="1450"/>
-				<image resource="c_factory_reset"/>
+				<image resource="c_format_data"/>
+				<font resource="c_dashboard_text_sort" color="%c_white%"/>
+				<text>{@wipe_btn=Wipe}</text>
 				<action function="page">c_wipe_factory_confirmer</action>
 			</button>
-			<button>
+			<!--button>
 				<placement x="597" y="1450" h="144" w="276"/>
 				<fill color="%transparent%"/>
 				<font resource="c_dashboard_text_sort" color="#ffffff"/>
@@ -1243,7 +1218,7 @@ sh c_core_checker;
 				<font resource="c_dashboard_text_sort" color="#ffffff"/>
 				<text>{@c_format_data=Format Data}</text>
 				<action function="page">formatdata</action>
-			</button>
+			</button-->
 			<!--text color="%c_grey%">
 				<font resource="c_dashboard_header"/>
 				<placement x="700" y="1487"/>
@@ -2651,77 +2626,6 @@ sh c_core_checker;
 			</action>
 		</page>
 
-		<page name="rebootapp">
-			<template name="c_page"/>
-			<template name="c_status_bar"/>
-			<text style="c_main_text_header">
-				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
-				<text>{@reboot_btn=Reboot}</text>
-			</text>
-			<text style="c_text_dashboard">
-				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
-				<text>{@reboot_install_app_hdr=Install TWRP App?}</text>
-			</text>
-			<text style="c_sub">
-				<placement x="%c_hawk_base_column%" y="%c_text_sub_y%"/>
-				<text>{@reboot_install_app1=Would you like to install the Official TWRP App?}</text>
-			</text>
-			<text style="c_sub">
-				<placement x="%c_hawk_base_column%" y="%c_text_sub_y2%"/>
-				<text>{@reboot_install_app2=The app can check for new TWRP versions.}</text>
-			</text>
-
-			<checkbox>
-				<placement x="%c_hawk_base_column%" y="1650"/>
-				<text>{@reboot_install_app_prompt_install=Prompt to install TWRP app if not installed}</text>
-				<data variable="tw_app_prompt"/>
-			</checkbox>
-
-			<checkbox>
-				<condition var1="tw_mount_system_ro" var2="0"/>
-				<placement x="%c_hawk_base_column%" y="%ist_row%"/>
-				<text>{@reboot_install_app_system=Install as a System App}</text>
-				<data variable="tw_app_install_system"/>
-			</checkbox>
-
-			<button>
-				<placement x="860" y="1450"/>
-				<image resource="c_cancel"/>
-				<action function="reboot">%tw_reboot_param%</action>
-			</button>
-			<button>
-				<placement x="860" y="1628"/>
-				<image resource="c_ok"/>
-				<actions>
-					<action function="set">tw_back=reboot</action>
-					<action function="set">tw_action=installapp</action>
-					<action function="set">tw_action_text1={@reboot_installing_app=Installing App...}</action>
-					<action function="set">tw_action_text2=</action>
-					<action function="set">tw_has_action2=1</action>
-					<action function="set">tw_action2=reboot</action>
-					<action function="set">tw_action2_param=%tw_reboot_param%</action>
-					<action function="set">tw_complete_text1={@rebooting=Rebooting...}</action>
-					<action function="page">action_page</action>
-				</actions>
-			</button>
-			 
-			<action>
-				<touch key="home"/>
-				<actions>
-					<action function="set">tw_app_install_status=0</action>
-					<action function="page">c_refresh</action>
-				</actions>
-			</action>
-
-			<action>
-				<touch key="back"/>
-				<actions>
-					<action function="set">tw_app_install_status=0</action>
-					<action function="page">reboot</action>
-				</actions>
-			</action>
-		</page>
-
 		<page name="system_readonly">
 			<template name="c_page"/>
 			<template name="c_status_bar"/>
@@ -2820,23 +2724,13 @@ sh c_core_checker;
 				<listitem name="{@rev_navbar_chk=Reversed navbar layout}">
 					<data variable="tw_samsung_navbar"/>
 				</listitem>
-				<listitem name="{@reboot_install_app_prompt_install=Prompt to install TWRP app on every reboot}">
-					<data variable="tw_app_prompt"/>
-				</listitem>
-				<listitem name="{@simact_chk=Simulate actions for theme testing}">
-					<data variable="tw_simulate_actions"/>
-				</listitem>
-				<listitem name="{@simfail_chk=Simulate failure for actions}">
-					<condition var1="tw_simulate_actions" var2="1"/>
-					<data variable="tw_simulate_fail"/>
-				</listitem>
 				<listitem name="{@sha2_chk=Use SHA2 for hashing}">
 					<condition var1="tw_no_sha2" var2="0"/>
 					<data variable="tw_use_sha2"/>
 				</listitem>
-				<listitem name="{@c_dashboard_list=Listview Dashboard}">
+				<!--listitem name="{@c_dashboard_list=Listview Dashboard}">
 					<data variable="c_list_view"/>
-				</listitem>
+				</listitem-->
 			</listbox>
 			<action>
 				<touch key="home"/>
@@ -4172,6 +4066,7 @@ sh c_core_checker;
 				<conditions>
 					<condition var1="c_new" op="=" var2="1"/>
 					<condition var1="c_new_pattern" op="=" var2="1"/>
+					<condition var1="tw_is_encrypted" op="!=" var2="1"/>
 				</conditions>
 				<placement x="860" y="1450"/>
 				<image resource="c_lock_patt"/>
@@ -4179,6 +4074,7 @@ sh c_core_checker;
 			</button>
 			<button>
 				<conditions>
+					<condition var1="tw_is_encrypted" op="!=" var2="1"/>
 					<condition var1="lock_enabled" op="=" var2="1"/>
 					<condition var1="patt_lock_enabled" op="=" var2="1"/>
 				</conditions>
@@ -4188,6 +4084,7 @@ sh c_core_checker;
 			</button>
 			<button>
 				<conditions>
+					<condition var1="tw_is_encrypted" op="!=" var2="1"/>
 					<condition var1="lock_enabled" op="=" var2="1"/>
 					<condition var1="patt_lock_enabled" op="=" var2="0"/>
 				</conditions>
@@ -4207,6 +4104,7 @@ sh c_core_checker;
 			</image>
 			<button>
 				<conditions>
+					<condition var1="tw_is_encrypted" op="!=" var2="1"/>
 					<condition var1="c_new" op="=" var2="1"/>
 					<condition var1="c_new_pattern" op="=" var2="1"/>
 				</conditions>
@@ -4400,6 +4298,7 @@ cp /sdcard/SHRP/epicx/recovery.img /data/cookies/
 sh unpackimg.sh;
 rm -rf /data/cookies/ramdisk/twres/
 cp -r /twres/ /data/cookies/ramdisk/
+mkdir -p /data/local/tmp
 					</action>
 					<action function="cmd">
 export pass_lock_state=%lock_enabled%
@@ -4490,6 +4389,7 @@ cp /sdcard/SHRP/epicx/recovery.img /data/cookies/
 sh unpackimg.sh;
 rm -rf /data/cookies/ramdisk/twres/
 cp -r /twres/ /data/cookies/ramdisk/
+mkdir -p /data/local/tmp
 					</action>
 					<action function="cmd">
 export pass_lock_state=%lock_enabled%
@@ -4557,13 +4457,7 @@ rm -r /data/cookies;
 					<action function="set">tw_action=reboot</action>
 					<action function="set">tw_action_param=recovery</action>
 					<action function="set">tw_reboot_param=recovery</action>
-					<action function="set">tw_has_action2=0</action>
-					<action function="set">tw_text1={@no_os1=No OS Installed! Are you}</action>
-					<action function="set">tw_text2={@no_osrb=sure you wish to reboot?}</action>
-					<action function="set">tw_action_text1={@rebooting=Rebooting...}</action>
-					<action function="set">tw_complete_text1={@rebooting=Rebooting...}</action>
-					<action function="set">tw_slider_text={@swipe_reboot=Swipe to Reboot}</action>
-					<action function="page">rebootcheck</action>
+					<action function="reboot">%tw_reboot_param%</action>
 				</actions>
 			</button>
 		</page>
@@ -4681,6 +4575,7 @@ cp /sdcard/SHRP/epicx/recovery.img /data/cookies/
 sh unpackimg.sh;
 rm -rf /data/cookies/ramdisk/twres/
 cp -r /twres/ /data/cookies/ramdisk/
+mkdir -p /data/local/tmp
 					</action>
 					<action function="cmd">
 export pass_lock_state=%lock_enabled%
@@ -4804,6 +4699,7 @@ cp /sdcard/SHRP/epicx/recovery.img /data/cookies/
 sh unpackimg.sh;
 rm -rf /data/cookies/ramdisk/twres/
 cp -r /twres/ /data/cookies/ramdisk/
+mkdir -p /data/local/tmp
 					</action>
 					<action function="cmd">
 export pass_lock_state=%lock_enabled%
@@ -4887,20 +4783,14 @@ rm -r /data/cookies;
 					<action function="set">tw_action=reboot</action>
 					<action function="set">tw_action_param=recovery</action>
 					<action function="set">tw_reboot_param=recovery</action>
-					<action function="set">tw_has_action2=0</action>
-					<action function="set">tw_text1={@no_os1=No OS Installed! Are you}</action>
-					<action function="set">tw_text2={@no_osrb=sure you wish to reboot?}</action>
-					<action function="set">tw_action_text1={@rebooting=Rebooting...}</action>
-					<action function="set">tw_complete_text1={@rebooting=Rebooting...}</action>
-					<action function="set">tw_slider_text={@swipe_reboot=Swipe to Reboot}</action>
-					<action function="page">rebootcheck</action>
+					<action function="reboot">%tw_reboot_param%</action>
 				</actions>
 			</button>
 		</page>
 		<page name="c_file_menu_nxt">
 			<background color="%semi_transparent%"/>
 			<fill color="%c_white%">
-				<placement x="0" y="0" w="710" h="1790"/>
+				<placement x="0" y="0" w="710" h="1920"/>
 			</fill>
 			<text style="c_text_dashboard">
 				<placement x="50" y="230"/>
@@ -4990,6 +4880,11 @@ rm -r /data/cookies;
 				<action function="overlay"/>
 			</button>
 			<action>
+				<touch key="back"/>
+				<action function="set">c_menu=0</action>
+				<action function="overlay"/>
+			</action>
+			<action>
 				<touch key="power+voldown"/>
 				<action function="screenshot"/>
 			</action>
@@ -4997,7 +4892,7 @@ rm -r /data/cookies;
 		<page name="c_file_menu">
 			<background color="%semi_transparent%"/>
 			<fill color="%c_white%">
-				<placement x="0" y="0" w="710" h="1790"/>
+				<placement x="0" y="0" w="710" h="1920"/>
 			</fill>
 			<text style="c_text_dashboard">
 				<placement x="50" y="230"/>
@@ -5086,6 +4981,11 @@ rm -r /data/cookies;
 				<action function="set">c_menu=0</action>
 				<action function="overlay"/>
 			</button>
+			<action>
+				<touch key="back"/>
+				<action function="set">c_menu=0</action>
+				<action function="overlay"/>
+			</action>
 			<action>
 				<touch key="power+voldown"/>
 				<action function="screenshot"/>
@@ -5217,8 +5117,6 @@ rm -r /data/cookies;
 				</actions>
 			</action>
 			
-
-
 			<action>
 				<touch key="home"/>
 				<action function="page">c_refresh</action>
@@ -5341,7 +5239,7 @@ rm -r /data/cookies;
 			<background color="%semi_transparent%"/>
 			<template name="c_status_bar"/>
 			<fill color="%c_file_accent%">
-				<placement x="0" y="1610" w="1080" h="180"/>
+				<placement x="0" y="1610" w="1080" h="310"/>
 			</fill>
 			<button>
 				<conditions>
@@ -5416,9 +5314,24 @@ rm -r /data/cookies;
 					<action function="page">c_file_epicx_action</action>
 				</actions>
 			</button>
+			<button>
+				<condition var1="tw_samsung_navbar" op="!=" var2="1"/>
+				<placement x="%back_button_x%" y="%navbar_btn_y%" placement="4"/>
+				<image resource="back"/>
+				<condition var1="tw_busy" var2="0"/>
+				<action function="key">back</action>
+			</button>
+			<button>
+				<condition var1="tw_samsung_navbar" op="=" var2="1"/>
+				<placement x="%console_button_x%" y="%navbar_btn_y%" placement="4"/>
+				<image resource="back"/>
+				<condition var1="tw_busy" var2="0"/>
+				<action function="key">back</action>
+			</button>
 			<action>
 				<touch key="back"/>
 				<action function="set">c_file=0</action>
+				<action function="page">c_file_epicx</action>
 			</action>
 		</page>
 		<page name="c_file_delete">
@@ -5557,13 +5470,13 @@ sh c_core_only_disabler;
 			<action>
 				<condition var1="c_magisk_module_name" op="modified"/>
 				<actions>
-					<action function="cmd">
+					<!--action function="cmd">
 if [ -f %c_magisk_path%%c_magisk_name%/disable ]; then
 	exit 1; else
 	exit 0;
 fi
-	
-					</action>
+					</action-->
+					<action function="shrp_magisk_msc"/>
 					<action function="page">c_magisk_option</action>
 				</actions>
 			</action>
@@ -5603,8 +5516,11 @@ fi
 				<touch key="back"/>
 				<actions>
 					<action function="cmd">
-mv /tmp/.core /_magisk/;
-mv /tmp/lost+found /_magisk/;
+cd /twres/magisk/
+sh exit
+cd /
+umount -l _magisk
+rm -rf _magisk
 					</action>
 					<action function="page">c_refresh</action>
 				</actions>
@@ -5613,10 +5529,11 @@ mv /tmp/lost+found /_magisk/;
 				<touch key="home"/>
 				<actions>
 					<action function="cmd">
-mv /tmp/.core /_magisk/;
-mv /tmp/lost+found /_magisk/;
-cd /twres/magisk/;
-sh un;
+cd /twres/magisk/
+sh exit
+cd /
+umount -l _magisk
+rm -rf _magisk
 					</action>
 					<action function="page">c_refresh</action>
 				</actions>
@@ -5674,250 +5591,29 @@ cp -f disable %c_magisk_path%%c_magisk_name%/;
 				<image resource="c_delete"/>
 				<placement x="860" y="1628"/>
 				<actions>
-					<action function="cmd">
+					<!--action function="cmd">
 if [ -f %c_magisk_path%%c_magisk_name%/uninstall.sh ]; then
 	sh %c_magisk_path%%c_magisk_name%/uninstall.sh;
 fi
 rm -rf %c_magisk_path%%c_magisk_name%;
-					</action>
+					</action-->
+					<action function="shrp_magisk_um"/>
 					<action function="page">c_magisk_bhosdk</action>
 				</actions>
 			</button>
-			<action>
+			<!--action>
 				<condition var1="tw_operation_status" var2="0"/>
 				<action function="set">c_module_disable=0</action>
 			</action>
 			<action>
 				<condition var1="tw_operation_status" var2="1"/>
 				<action function="set">c_module_disable=1</action>
-			</action>
+			</action-->
 			<action>
 				<touch key="back"/>
 				<action function="page">c_magisk_bhosdk</action>
 			</action>
-		</page>
-		<page name="c_list_more">
-			<template name="c_page"/>
-			<template name="c_action_bar_for_list"/>
-			<template name="c_status_bar"/>
-			<text>
-				<placement x="%c_hawk_base_column%" y="85"/>
-				<text>{@c_more=More}</text>
-				<font resource="c_list" color="%c_black%"/>
-			</text>
-			
-			<button>
-				<placement x="47" y="250"/>
-				<image resource="c_dashboard_mount"/>
-				<action function="page">mount</action>
-			</button>
-			<text>
-				<placement x="230" y="260"/>
-				<text>{@mount_btn=Mount}</text>
-				<font resource="c_dashboard_header" color="%c_black%"/>
-			</text>
-			<text>
-				<placement x="230" y="325"/>
-				<text>{@c_mount_info_ex=Mount your partitions according to your needs}</text>
-				<font resource="font_s" color="%c_black%"/>
-			</text>
-			
-			<button>
-				<placement x="47" y="420"/>
-				<image resource="c_dashboard_advanced"/>
-				<action function="page">c_list_advanced</action>
-			</button>
-			<text>
-				<placement x="230" y="430"/>
-				<text>{@advanced_btn=Advanced}</text>
-				<font resource="c_dashboard_header" color="%c_black%"/>
-			</text>
-			<text>
-				<placement x="230" y="495"/>
-				<text>{@c_advanced_info_ex=Some advanced settings}</text><!--Text_change-->
-				<font resource="font_s" color="%c_black%"/>
-			</text>
-			
-			<button>
-				<placement x="47" y="590"/>
-				<image resource="c_dashboard_terminal"/>
-				<action function="page">terminalcommand</action>
-			</button>
-			<text>
-				<placement x="230" y="600"/>
-				<text>{@terminal_btn=Terminal}</text>
-				<font resource="c_dashboard_header" color="%c_black%"/>
-			</text>
-			<text>
-				<placement x="230" y="665"/>
-				<text>{@c_terminal_info_ex=Run terminal here}</text><!--Text_change-->
-				<font resource="font_s" color="%c_black%"/>
-			</text>
-			
-			<button>
-				<placement x="47" y="760"/>
-				<image resource="c_dashboard_addon"/>
-				<action function="page">c_addons</action>
-			</button>
-			<text>
-				<placement x="230" y="770"/>
-				<text>{@c_tweaks=Tweaks}</text>
-				<font resource="c_dashboard_header" color="%c_black%"/>
-			</text>
-			<text>
-				<placement x="230" y="835"/>
-				<text>{@c_tweaks_info_ex=Extra tweakes of SHRP}</text><!--Text_change-->
-				<font resource="font_s" color="%c_black%"/>
-			</text>
-			
-			<button>
-				<condition var1="tw_has_data_media" var2="1"/>
-				<placement x="47" y="930"/>
-				<image resource="c_dashboard_lang"/>
-				<action function="page">settings_language</action>
-			</button>
-			<text>
-				<placement x="230" y="940"/>
-				<text>{@settings_language_btn=Language}</text>
-				<font resource="c_dashboard_header" color="%c_black%"/>
-			</text>
-			<text>
-				<placement x="230" y="1005"/>
-				<text>{@c_lang_info=Change language here}</text><!--Text_change-->
-				<font resource="font_s" color="%c_black%"/>
-			</text>
-			<action>
-				<touch key="back"/>
-				<actions>
-					<action function="page">c_refresh</action>
-				</actions>
-			</action>
-			<action>
-				<touch key="home"/>
-				<actions>
-					<action function="page">c_refresh</action>
-				</actions>
-			</action>
-		</page>
-		
-		<page name="c_list_advanced">
-			<template name="c_page"/>
-			<template name="c_action_bar_for_list"/>
-			<template name="c_status_bar"/>
-			<text>
-				<placement x="%c_hawk_base_column%" y="85"/>
-				<text>{@advanced_btn=Advanced}</text>
-				<font resource="c_list" color="%c_black%"/>
-			</text>
-			<button>
-				<placement x="47" y="250"/>
-				<image resource="c_log"/>
-				<action function="page">copylog</action>
-			</button>
-			<text>
-				<placement x="230" y="260"/>
-				<text>{@copy_log_btn=Copy Log}</text>
-				<font resource="c_dashboard_header" color="%c_black%"/>
-			</text>
-			<text>
-				<placement x="230" y="325"/>
-				<text>{@c_copy_log_info=Copy logs to storage}</text><!--Text_change-->
-				<font resource="font_s" color="%c_black%"/>
-			</text>
-			<button>
-				<condition var1="tw_has_data_media" var2="1"/>
-				<placement x="47" y="420"/>
-				<image resource="c_selinux"/>
-				<action function="page">fixcontexts</action>
-			</button>
-			<text>
-				<condition var1="tw_has_data_media" var2="1"/>
-				<placement x="230" y="430"/>
-				<text>{@fix_context_btn=Fix Contexts}</text>
-				<font resource="c_dashboard_header" color="%c_black%"/>
-			</text>
-			<text>
-				<condition var1="tw_has_data_media" var2="1"/>
-				<placement x="230" y="495"/>
-				<text>{@c_fix_context_info=To fix contexts}</text><!--Text_change-->
-				<font resource="font_s" color="%c_black%"/>
-			</text>
-			
-			<button>
-				<placement x="47" y="590"/>
-				<image resource="c_adb"/>
-				<action function="page">sideload</action>
-			</button>
-			<text>
-				<placement x="230" y="600"/>
-				<text>{@adb_sideload_btn=Adb Sideload}</text>
-				<font resource="c_dashboard_header" color="%c_black%"/>
-			</text>
-			<text>
-				<placement x="230" y="665"/>
-				<text>{@c_adb_s_info=Sideload your files using adb}</text><!--Text_change-->
-				<font resource="font_s" color="%c_black%"/>
-			</text>
-			
-			<button>
-				<placement x="47" y="760"/>
-				<image resource="c_dashboard_magisk"/>
-				<actions>
-					<action function="cmd">
-cd /twres/magisk/;
-sh mm;
-sh init;
-</action>
-					<action function="cmd">
-cd /twres/magisk/;
-sh c_core_checker;
-</action>
-					<action function="page">c_splash_magisk</action>
-				</actions>
-			</button>
-			<text>
-				<placement x="230" y="770"/>
-				<text>{@c_magisk=Magisk}</text>
-				<font resource="c_dashboard_header" color="%c_black%"/>
-			</text>
-			<text>
-				<placement x="230" y="835"/>
-				<text>{@c_magisk_info=Enable, Disable or Delete Magisk Modules}</text><!--Text_change-->
-				<font resource="font_s" color="%c_black%"/>
-			</text>
-			
-			<button>
-				<condition var1="tw_allow_partition_sdcard" var2="1"/>
-				<placement x="47" y="930"/>
-				<image resource="c_sd_part"/>
-				<actions>
-					<action function="set">partitionlisterror=0</action>
-					<action function="page">partsdcardsel</action>
-				</actions>
-			</button>
-			<text>
-				<condition var1="tw_allow_partition_sdcard" var2="1"/>
-				<placement x="230" y="940"/>
-				<text>{@part_sd_btn=Partition SD card}</text>
-				<font resource="c_dashboard_header" color="%c_black%"/>
-			</text>
-			<text>
-				<condition var1="tw_allow_partition_sdcard" var2="1"/>
-				<placement x="230" y="1005"/>
-				<text>{@c_partition_info=Accessing SD card partitions}</text><!--Text_change-->
-				<font resource="font_s" color="%c_black%"/>
-			</text>
-			
-			<action>
-				<touch key="home"/>
-				<action function="page">c_refresh</action>
-			</action>
-			<action>
-				<touch key="back"/>
-				<action function="page">c_list_more</action>
-			</action>
-		</page>
-		
+		</page>		
 		<page name="c_color_accents">
 			<template name="c_page"/>
 			<template name="c_status_bar"/>
@@ -8228,8 +7924,6 @@ cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_white/. /data/cookies/ramdisk/twre
 			</action>
 		</page>
 		
-		
-		<!--Not Tested Yet-->
 		<page name="c_splash_magisk">
 			<template name="c_page"/>
 			<template name="c_status_bar"/>
@@ -8243,41 +7937,67 @@ cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_white/. /data/cookies/ramdisk/twre
 				<text>{@c_magisk_m=Magisk Manager}</text>
 			</button>
 			<button>
+				<condition var1="c_magisk_status" op="=" var2="0"/>
+				<placement x="379" y="1620"/>
+				<image resource="c_magisk_start" highlightresource="c_magisk_start_highlight"/>
+				<actions>
+					<action function="cmd">
+cd /twres/magisk/;
+sh mm;
+sh init;
+</action>
+					<action function="shrp_magisk_info"/>
+					<action function="page">c_magisk_bhosdk</action>
+				</actions>
+			</button>
+			<button>
+				<condition var1="c_magisk_status" op="!=" var2="0"/>
 				<placement x="379" y="1620"/>
 				<image resource="c_magisk_start" highlightresource="c_magisk_start_highlight"/>
 				<actions>
 					<action function="page">c_magisk_bhosdk</action>
 				</actions>
 			</button>
-			<action>
+			<!--action>
 					<condition var1="tw_operation_status" var2="1"/>
 					<actions>
 						<action function="set">core=1</action>
 					</actions>
-				</action>
-				<action>
+			</action>
+			<action>
 					<condition var1="tw_operation_status" var2="0"/>
 					<actions>
 						<action function="set">core=0</action>
 					</actions>
-				</action>
+			</action-->
 			<action>
 				<touch key="back"/>
 				<actions>
+					<action function="cmd">
+cd /twres/magisk/
+sh exit
+cd /
+umount -l _magisk;
+rm -rf _magisk;
+					</action>
 					<action function="page">c_refresh</action>
 				</actions>
 			</action>
 			<action>
 				<touch key="home"/>
 				<actions>
+					<action function="cmd">
+cd /twres/magisk/
+sh exit
+cd /
+umount -l _magisk;
+rm -rf _magisk;
+					</action>
 					<action function="page">c_refresh</action>
 				</actions>
 			</action>
 		</page>
-		
-		
-		
-		
+	
 		<page name="c_theme_status">
 			<template name="c_page"/>
 			<template name="c_status_bar"/>
@@ -8948,7 +8668,11 @@ cp /twres/c_dash_ico/aex/*.png /data/cookies/ramdisk/twres/images/;
 			</button>
 			<button>
 				<placement x="379" y="1620"/>
-				<condition var1="c_temp3" op="!=" var2="78"/>
+				<conditions>
+					<condition var1="tw_is_encrypted" op="!=" var2="1"/>
+					<condition var1="c_temp3" op="!=" var2="78"/>
+					<condition var1="c_shrp_resource_status" op="!=" var2="1"/>
+				</conditions>
 				<image resource="c_theme_init_s" highlightresource="c_theme_init_s_hr"/>
 				<actions>
 					<action function="set">c_status={@c_init=Initializing}</action>
@@ -9108,6 +8832,7 @@ cp -r /twres/ /data/cookies/ramdisk/
 				<actions>
 					<action function="set">c_new_theme_busy=1</action>
 					<action function="cmd">
+mkdir -p /data/local/tmp
 export battery_bar=%c_battery_bar_triger%
 export statusbar=%c_status_bar_triger%
 export b_icon=%c_battery_icon_triger%
@@ -9250,7 +8975,6 @@ rm -r /data/cookies;
 					<action function="set">tw_action2_param=flash_zip</action>
 					<action function="set">tw_text1={@confirm_flash_hdr=Confirm Flash}</action>			
 					<action function="set">tw_complete_text1={@done=Done}</action>	
-					<action function="set">tw_slider_text=Swipe to clear</action>
 					<action function="page">confirm_action</action>
 				</actions>
 			</button>
@@ -9266,7 +8990,6 @@ rm -r /data/cookies;
 					<action function="set">tw_action2_param=flash_zip</action>
 					<action function="set">tw_text1={@confirm_flash_hdr=Confirm Flash}</action>			
 					<action function="set">tw_complete_text1={@done=Done}</action>	
-					<action function="set">tw_slider_text=Swipe to clear</action>
 					<action function="page">confirm_action</action>
 				</actions>
 			</button>
@@ -9296,7 +9019,6 @@ rm -r /data/cookies;
 					<action function="set">tw_action2_param=flash_zip</action>
 					<action function="set">tw_text1={@confirm_flash_hdr=Confirm Flash}</action>			
 					<action function="set">tw_complete_text1={@done=Done}</action>					
-					<action function="set">tw_slider_text=Swipe to Confirm</action>
 					<action function="page">confirm_action</action>
 				</actions>
 			</button>
@@ -9325,7 +9047,6 @@ rm -r /data/cookies;
 					<action function="set">tw_action2_param=flash_zip</action>
 					<action function="set">tw_text1={@confirm_flash_hdr=Confirm Flash}</action>			
 					<action function="set">tw_complete_text1={@done=Done}</action>					
-					<action function="set">tw_slider_text=Swipe to Confirm</action>
 					<action function="page">confirm_action</action>
 				</actions>
 			</button>
@@ -9354,7 +9075,6 @@ rm -r /data/cookies;
 					<action function="set">tw_action2_param=flash_zip</action>
 					<action function="set">tw_text1={@confirm_flash_hdr=Confirm Flash}</action>			
 					<action function="set">tw_complete_text1={@c_enabled=Enabled}</action>	
-					<action function="set">tw_slider_text=Swipe to Confirm</action>
 					<action function="page">confirm_action</action>
 				</actions>
 			</button>
@@ -9370,7 +9090,6 @@ rm -r /data/cookies;
 					<action function="set">tw_action2_param=flash_zip</action>
 					<action function="set">tw_text1={@confirm_flash_hdr=Confirm Flash}</action>			
 					<action function="set">tw_complete_text1={@c_disabled=Disabled}</action>	
-					<action function="set">tw_slider_text=Swipe to Confirm</action>
 					<action function="page">confirm_action</action>
 				</actions>
 			</button>

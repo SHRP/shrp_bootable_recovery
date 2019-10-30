@@ -41,6 +41,9 @@
 		<style name="c_sub">
 			<font resource="c_dashboard_text_sort" color="%c_grey%"/>
 		</style>
+		<style name="c_sub_slot">
+			<font resource="c_dashboard_text_sort" color="%c_circle_color_handler%"/>
+		</style>
 		<style name="c_sub_failed">
 			<font resource="c_dashboard_text_sort" color="#FF0000"/>
 		</style>
@@ -93,6 +96,10 @@
 			<font resource="c_dashboard_header" color="%c_black%"/>
 			<image resource="c_tab_backup_bg"/>
 		</style>
+		<!--style name="c_about_shrp_bg">
+			<font resource="c_list" color="%c_black%"/>
+			<image resource="c_about_tile"/>
+		</style-->
 		<!--epicX_button/text_style_end-->
 
 		<style name="fab">
@@ -103,7 +110,7 @@
 		<style name="terminal">
 			<background color="%c_white%"/>
 			<fastscroll rectcolor="%c_black%" w="%fastscroll_w%" rectw="%fastscroll_rectw%" recth="%fastscroll_recth%"/>
-			<font resource="font_s" spacing="3" color="%c_grey%"/>
+			<font resource="c_console_font" spacing="3" color="%c_grey%"/>
 		</style>
 		<style name="fileselector">
 			<background color="%c_white%"/>
