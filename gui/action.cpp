@@ -234,6 +234,11 @@ GUIAction::GUIAction(xml_node<>* node)
 		ADD_ACTION(uninstalltwrpsystemapp);
 		ADD_ACTION(repackimage);
 		ADD_ACTION(fixabrecoverybootloop);
+		ADD_ACTION(shrp_init);
+		ADD_ACTION(shrp_magisk_info);
+		ADD_ACTION(shrp_magisk_msc);
+		ADD_ACTION(shrp_magisk_um);
+		ADD_ACTION(flashlight);
 	}
 
 	// First, get the action
@@ -2185,5 +2190,168 @@ int GUIAction::fixabrecoverybootloop(std::string arg __unused)
 	op_status = 0;
 exit:
 	operation_end(op_status);
+	return 0;
+}
+//SHRP_GUI_Funcs()
+int GUIAction::shrp_init(std::string arg __unused){
+	if(!TWFunc::Path_Exists("/data/adb/magisk")){
+		LOGINFO("Magisk Not Installed\n");
+		DataManager::SetValue("c_magisk_status",1);
+	}else{
+		LOGINFO("Magisk Found\n");
+		DataManager::SetValue("c_magisk_status",0);
+	}
+	if(!TWFunc::Path_Exists("/sdcard/SHRP")){
+		LOGINFO("SHRP Resources Not Found at /sdcard/SHRP\n");
+		LOGINFO("Fix this issue by reflashing SHRP ZIP\n");
+		DataManager::SetValue("c_shrp_resource_status",1);
+	}else{
+		if(!TWFunc::Path_Exists("/sdcard/SHRP/epicx/cookies")){
+			LOGINFO("AIK Not Found at /sdcard/SHRP/epicx/cookies\n");
+			DataManager::SetValue("c_shrp_resource_status",1);
+		}else{
+			LOGINFO("SHRP Resources Found\n");
+			DataManager::SetValue("c_shrp_resource_status",0);
+		}
+	}
+	return 0;
+}
+int GUIAction::shrp_magisk_info(std::string arg __unused){
+	TWFunc::Exec_Cmd("sh /twres/scripts/magisk_ver.sh");
+	string core_only_1="/cache/.disable_magisk";
+	string core_only_2="/data/cache/.disable_magisk";
+	string h1;
+	if(TWFunc::Path_Exists("/tmp/magisk_var.txt")){
+		TWFunc::read_file("/tmp/magisk_var.txt",h1);
+	}else{
+		LOGINFO("Magisk Version Not Found\n");
+	}
+	if(h1=="17100 "){
+		DataManager::SetValue("c_magisk_ver","17.1");
+	}else if(h1=="20000 "){
+		LOGINFO("Magisk Ver 20 Detected\n");
+		DataManager::SetValue("c_magisk_ver","20");
+	}else if(h1=="18100 "){
+		DataManager::SetValue("c_magisk_ver","18.1");
+	}else if(h1=="20000"){
+		LOGINFO("Magisk Ver 20 Detected Without Space\n");
+		DataManager::SetValue("c_magisk_ver","20");
+	}
+	if(TWFunc::Path_Exists(core_only_1)||TWFunc::Path_Exists(core_only_2)){
+		DataManager::SetValue("core",1);
+	}else{
+		DataManager::SetValue("core",0);
+	}
+	return 0;
+}
+int GUIAction::shrp_magisk_msc(std::string arg __unused){//SHRP Magisk Module Status Checker
+	string magisk_path,module_name;
+	string shrp_path;
+	DataManager::GetValue("c_magisk_path", magisk_path);
+	DataManager::GetValue("c_magisk_name", module_name);
+	shrp_path=magisk_path+module_name+"/disable";
+	if(!TWFunc::Path_Exists(shrp_path)){
+		DataManager::SetValue("c_module_disable",0);
+	}else{
+		DataManager::SetValue("c_module_disable",1);
+	}
+	return 0;
+}
+int GUIAction::shrp_magisk_um(std::string arg __unused){//SHRP Magisk Module Uninstaller
+	string magisk_path,module_name,cmd;
+	string shrp_path;
+	DataManager::GetValue("c_magisk_path", magisk_path);
+	DataManager::GetValue("c_magisk_name", module_name);
+	shrp_path=magisk_path+module_name+"/uninstall.sh";
+	cmd="sh "+shrp_path;
+	if(TWFunc::Path_Exists(shrp_path)){
+		TWFunc::Exec_Cmd(cmd);
+	}else{
+		LOGINFO("uninstall.sh Not Found\n");
+	}
+	cmd="rm -rf "+magisk_path+module_name;
+	TWFunc::Exec_Cmd(cmd);
+	LOGINFO("Module Uninstalled\n");
+	return 0;
+}
+int GUIAction::flashlight(std::string arg __unused){
+	string cmd,max_b,trigger;
+	int temp,switch_tmp;
+	temp=switch_tmp=0;
+	if(TWFunc::Path_Exists("/sys/class/leds/")){
+		if(TWFunc::Path_Exists("/sys/class/leds/led:torch/")){
+			temp=1;
+			TWFunc::read_file("/sys/class/leds/led:torch/max_brightness",max_b);
+		}else if(TWFunc::Path_Exists("/sys/class/leds/led:torch_0/")){
+			temp=2;
+			TWFunc::read_file("/sys/class/leds/led:torch_0/max_brightness",max_b);
+		}else if(TWFunc::Path_Exists("/sys/class/leds/led:flash/")){
+			temp=3;
+			TWFunc::read_file("/sys/class/leds/led:flash/max_brightness",max_b);
+		}else if(TWFunc::Path_Exists("/sys/class/leds/led:flashlight/")){
+			temp=4;
+			TWFunc::read_file("/sys/class/leds/led:flashlight/max_brightness",max_b);
+		}else if(TWFunc::Path_Exists("/sys/class/leds/led:torch-light/")){
+			temp=5;
+			TWFunc::read_file("/sys/class/leds/led:torch-light/max_brightness",max_b);
+		}else{
+			LOGINFO("FlashLight-----------\nError\nFlashLight Does not support on your device\n");
+		}
+		if(TWFunc::Path_Exists("/sys/class/leds/led:switch/")){
+			switch_tmp=1;
+		}else if(TWFunc::Path_Exists("/sys/class/leds/led:switch_0/")){
+			switch_tmp=2;
+		}
+		DataManager::GetValue("c_flashlight_status", trigger);
+		if(trigger=="0"){
+			DataManager::SetValue("c_flashlight_status","1");
+			if(temp==1){
+				cmd="echo " + max_b + " > /sys/class/leds/led:torch/brightness";
+				TWFunc::Exec_Cmd(cmd);
+			}else if(temp==2){
+				cmd="echo " + max_b + " > /sys/class/leds/led:torch_0/brightness";
+				TWFunc::Exec_Cmd(cmd);
+				cmd="echo " + max_b + " > /sys/class/leds/led:torch_1/brightness";
+				TWFunc::Exec_Cmd(cmd);
+			}else if(temp==3){
+				cmd="echo " + max_b + " > /sys/class/leds/led:flash/brightness";
+				TWFunc::Exec_Cmd(cmd);
+			}else if(temp==4){
+				cmd="echo " + max_b + " > /sys/class/leds/led:flashlight/brightness";
+				TWFunc::Exec_Cmd(cmd);
+			}else if(temp==5){
+				cmd="echo " + max_b + " > /sys/class/leds/led:torch-light/brightness";
+				TWFunc::Exec_Cmd(cmd);
+			}
+			if(switch_tmp==1){
+				cmd="echo 1 > /sys/class/leds/led:switch/brightness";
+				TWFunc::Exec_Cmd(cmd);
+			}else if(switch_tmp==2){
+				cmd="echo 1 > /sys/class/leds/led:switch_0/brightness";
+				TWFunc::Exec_Cmd(cmd);
+			}
+		}else{
+			DataManager::SetValue("c_flashlight_status","0");
+			if(temp==1){
+				TWFunc::Exec_Cmd("echo 0 > /sys/class/leds/led:torch/brightness");
+			}else if(temp==2){
+				TWFunc::Exec_Cmd("echo 0 > /sys/class/leds/led:torch_0/brightness");
+				TWFunc::Exec_Cmd("echo 0 > /sys/class/leds/led:torch_1/brightness");
+			}else if(temp==3){
+				TWFunc::Exec_Cmd("echo 0 > /sys/class/leds/led:flash/brightness");
+			}else if(temp==4){
+				TWFunc::Exec_Cmd("echo 0 > /sys/class/leds/led:flashlight/brightness");
+			}else if(temp==5){
+				TWFunc::Exec_Cmd("echo 0 > /sys/class/leds/led:torch-light/brightness");
+			}
+			if(switch_tmp==1){
+				TWFunc::Exec_Cmd("echo 0 > /sys/class/leds/led:switch/brightness");
+			}else if(switch_tmp==2){
+				TWFunc::Exec_Cmd("echo 0 > /sys/class/leds/led:switch_0/brightness");
+			}
+		}
+	}else{
+		LOGINFO("FlashLight-----------\nError\nFlashLight Does not support on your device\n");
+	}
 	return 0;
 }
