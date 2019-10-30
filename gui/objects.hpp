@@ -370,6 +370,11 @@ protected:
 	int uninstalltwrpsystemapp(std::string arg);
 	int repackimage(std::string arg);
 	int fixabrecoverybootloop(std::string arg);
+	int shrp_init(std::string arg);
+	int shrp_magisk_info(std::string arg);
+	int shrp_magisk_msc(std::string arg);
+	int shrp_magisk_um(std::string arg);
+	int flashlight(std::string arg);
 
 	int simulate;
 };
