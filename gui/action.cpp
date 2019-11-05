@@ -145,6 +145,22 @@ void ActionThread::run(void *data)
 	delete d;
 }
 
+string value_process(string main){
+	int i=0,j=0;
+	char value[50];
+	while(main[i]!='='){
+		i++;
+	}
+	while(main[i]!=0){
+		value[j]=main[++i];
+		j++;
+	}
+	main=value;
+	i=main.size();
+	main[--i]=0;
+	return main;
+}
+
 GUIAction::GUIAction(xml_node<>* node)
 	: GUIObject(node)
 {
@@ -237,8 +253,13 @@ GUIAction::GUIAction(xml_node<>* node)
 		ADD_ACTION(shrp_init);
 		ADD_ACTION(shrp_magisk_info);
 		ADD_ACTION(shrp_magisk_msc);
+		ADD_ACTION(shrp_magisk_mi);
 		ADD_ACTION(shrp_magisk_um);
 		ADD_ACTION(flashlight);
+		ADD_ACTION(sig);
+		ADD_ACTION(unlock);
+		ADD_ACTION(set_lock);
+		ADD_ACTION(reset_lock);
 	}
 
 	// First, get the action
@@ -2220,22 +2241,18 @@ int GUIAction::shrp_magisk_info(std::string arg __unused){
 	TWFunc::Exec_Cmd("sh /twres/scripts/magisk_ver.sh");
 	string core_only_1="/cache/.disable_magisk";
 	string core_only_2="/data/cache/.disable_magisk";
-	string h1;
+	uint64_t h1=0;
+	float v;
 	if(TWFunc::Path_Exists("/tmp/magisk_var.txt")){
 		TWFunc::read_file("/tmp/magisk_var.txt",h1);
 	}else{
 		LOGINFO("Magisk Version Not Found\n");
 	}
-	if(h1=="17100 "){
-		DataManager::SetValue("c_magisk_ver","17.1");
-	}else if(h1=="20000 "){
-		LOGINFO("Magisk Ver 20 Detected\n");
-		DataManager::SetValue("c_magisk_ver","20");
-	}else if(h1=="18100 "){
-		DataManager::SetValue("c_magisk_ver","18.1");
-	}else if(h1=="20000"){
-		LOGINFO("Magisk Ver 20 Detected Without Space\n");
-		DataManager::SetValue("c_magisk_ver","20");
+	if(h1<1000){
+		DataManager::SetValue("c_magisk_ver","N/A");
+	}else{
+		v=(float)h1/1000;
+		DataManager::SetValue("c_magisk_ver",v);
 	}
 	if(TWFunc::Path_Exists(core_only_1)||TWFunc::Path_Exists(core_only_2)){
 		DataManager::SetValue("core",1);
@@ -2246,15 +2263,44 @@ int GUIAction::shrp_magisk_info(std::string arg __unused){
 }
 int GUIAction::shrp_magisk_msc(std::string arg __unused){//SHRP Magisk Module Status Checker
 	string magisk_path,module_name;
-	string shrp_path;
 	DataManager::GetValue("c_magisk_path", magisk_path);
 	DataManager::GetValue("c_magisk_name", module_name);
-	shrp_path=magisk_path+module_name+"/disable";
-	if(!TWFunc::Path_Exists(shrp_path)){
+	magisk_path=magisk_path+module_name+"/disable";
+	if(!TWFunc::Path_Exists(magisk_path)){
 		DataManager::SetValue("c_module_disable",0);
 	}else{
 		DataManager::SetValue("c_module_disable",1);
 	}
+	return 0;
+}
+int GUIAction::shrp_magisk_mi(std::string arg __unused){//SHRP Magisk Module Information Gatherer
+	char chr[50];
+	string name,version,author,module_path,path_1;
+	DataManager::GetValue("c_magisk_path", module_path);
+	DataManager::GetValue("c_magisk_name", path_1);
+	module_path=module_path+path_1+"/module.prop";
+	if(TWFunc::Path_Exists(module_path)){
+		int i=0;
+		FILE *f=fopen(module_path.c_str(),"r");
+		while(i<5){
+			fgets(chr,50,f);
+			if(i==1){name=chr;}
+			if(i==2){version=chr;}
+			if(i==4){author=chr;}
+			i++;
+		}
+		fclose(f);
+		name=value_process(name);
+		version=value_process(version);
+		author=value_process(author);
+	}else{
+		name="N/A";
+		version="N/A";
+		author="N/A";
+	}
+	DataManager::SetValue("c_mm_name",name);
+	DataManager::SetValue("c_mm_ver",version);
+	DataManager::SetValue("c_mm_author",author);
 	return 0;
 }
 int GUIAction::shrp_magisk_um(std::string arg __unused){//SHRP Magisk Module Uninstaller
@@ -2353,5 +2399,137 @@ int GUIAction::flashlight(std::string arg __unused){
 	}else{
 		LOGINFO("FlashLight-----------\nError\nFlashLight Does not support on your device\n");
 	}
+	return 0;
+}
+int GUIAction::sig(std::string arg __unused){
+	int size,used,free;
+	unsigned long long mb = 1048576;
+	string partition;
+	TWPartition* ptr;
+	//PartitionManager.Update_shrp_sidebar();
+	LOGINFO("SIG Started : \n");
+//Start_Internal_Sdcard
+	DataManager::GetValue("internal_storage_location", partition);
+	LOGINFO("Internal : %s\n",partition.c_str());
+	if(partition==""||partition==" "){
+		LOGINFO("IF TRUE Hoise\n");
+		DataManager::SetValue("c_i_p","0");
+		DataManager::SetValue("c_i_status","Not Available");
+	}else{
+		LOGINFO("IF False Hoise\n");
+		ptr=PartitionManager.Find_Partition_By_Path(partition);
+		if(ptr==NULL){
+			LOGINFO("Ptr NULL Ache\n");
+			DataManager::SetValue("c_i_p","0");
+			DataManager::SetValue("c_i_status","Not Available");
+		}else{
+			LOGINFO("Ptr NULL nei\n");
+			ptr->Update_Size(true);
+			size=ptr->Size / mb;
+			used=ptr->Used / mb;
+			free=ptr->Free / mb;
+			LOGINFO("Internal storage er Pulled size : SIZE %d | Used %d | FREE %d\n",size,used,free);
+			LOGINFO("Function ke ami pathachhi : SIZE %d | Used %d | FREE %d\n",size,size-free,free);
+			TWFunc::process_space(size,free,size-free,1);
+		}
+	}
+//Start_External_Sdcard
+	DataManager::GetValue("external_storage_location", partition);
+	LOGINFO("External : %s\n",partition.c_str());
+	if(partition==""||partition==" "){
+		LOGINFO("IF TRUE Hoise\n");
+		DataManager::SetValue("c_e_p","0");
+		DataManager::SetValue("c_e_status","Not Available");
+	}else{
+		LOGINFO("IF False Hoise\n");
+		ptr=PartitionManager.Find_Partition_By_Path(partition);
+		if(ptr==NULL){
+			LOGINFO("Ptr NULL Ache\n");
+			DataManager::SetValue("c_e_p","0");
+			DataManager::SetValue("c_e_status","Not Available");
+		}else{
+			LOGINFO("Ptr NULL nei\n");
+			ptr->Update_Size(true);
+			size=ptr->Size / mb;
+			used=ptr->Used / mb;
+			free=ptr->Free / mb;
+			LOGINFO("External storage er Pulled size : SIZE %d | Used %d | FREE %d\n",size,used,free);
+			TWFunc::process_space(size,free,used,2);
+		}
+	}
+//Start_OTG
+	DataManager::GetValue("usb_otg_location", partition);
+	LOGINFO("OTG : %s\n",partition.c_str());
+	if(partition==""||partition==" "){
+		LOGINFO("IF TRUE Hoise\n");
+		DataManager::SetValue("c_o_p","0");
+		DataManager::SetValue("c_o_status","Not Available");
+	}else{
+		LOGINFO("IF False Hoise\n");
+		ptr=PartitionManager.Find_Partition_By_Path(partition);
+		if(ptr==NULL){
+			LOGINFO("Ptr NULL Ache\n");
+			DataManager::SetValue("c_o_p","0");
+			DataManager::SetValue("c_o_status","Not Available");
+		}else{
+			LOGINFO("Ptr NULL nei\n");
+			ptr->Update_Size(true);
+			size=ptr->Size / mb;
+			used=ptr->Used / mb;
+			free=ptr->Free / mb;
+			LOGINFO("OTG storage er Pulled size : SIZE %d | Used %d | FREE %d\n",size,used,free);
+			TWFunc::process_space(size,free,used,3);
+		}
+	}
+	return 0;
+}
+int GUIAction::unlock(std::string arg){
+	FILE *f;
+	char pull[50];
+	string lock_pass,b_arg;
+	b_arg=arg;
+	f=fopen("/twres/slts","r");
+	if(f==NULL){
+		//PageManager Will Change The Page
+		PageManager::ChangePage("main2");
+	}else{
+		fgets(pull,50,f);
+		fclose(f);
+		stringstream f1;
+		f1<<pull;
+		f1>>lock_pass;
+		arg=lock_pass[0]+arg;
+		if(lock_pass==arg){
+			PartitionManager.Enable_MTP();
+			DataManager::SetValue("main_pass",b_arg.c_str());
+			PageManager::ChangePage("main2");
+			//PageManager Will Change The Page
+		}else{
+			//PageManager Will Loop The Page
+			PageManager::ChangePage("pass_failed");
+		}
+	}
+	return 0;
+}
+int GUIAction::set_lock(std::string arg){
+	FILE *f;
+	string pass;
+	DataManager::GetValue("main_pass", pass);
+	f=fopen("twres/slts","w");
+	if(f==NULL){
+		//Failed To Create File
+	}else{
+		pass=arg+pass;
+		//Write that File
+		fputs(pass.c_str(),f);
+		fclose(f);
+	}
+	return 0;
+}
+int GUIAction::reset_lock(std::string arg __unused){
+	FILE *f;
+	f=fopen("twres/slts","w");
+	fputs("0",f);
+	fclose(f);
 	return 0;
 }
