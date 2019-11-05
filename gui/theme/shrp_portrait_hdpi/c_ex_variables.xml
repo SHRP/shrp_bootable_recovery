@@ -9,14 +9,14 @@
 		<themeversion>3</themeversion>
 	</details>
 	<variables>
-		<variable name="usb_otg_location" value="/usb-otg"/>
+		<variable name="usb_otg_location" value="/usbotg"/>
 		<variable name="external_storage_location" value="/external_sd"/>
 		<variable name="internal_storage_location" value="/sdcard"/>
-		<variable name="device_code_name" value=""/>
-		<variable name="device_maintainer_name" value="DNI9"/>
+		<variable name="device_code_name" value="c103"/>
+		<variable name="device_maintainer_name" value="epicX"/>
 		<variable name="shrp_ver" value="V2.1"/>
 		<variable name="shrp_ver_status" value="Stable"/>
-		<variable name="has_edl_mode" value="0"/>
+		<variable name="has_edl_mode" value="1"/>
 		<variable name="has_flashlight" value="1"/>
 	</variables>
 	<templates>

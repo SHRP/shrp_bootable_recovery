@@ -216,6 +216,7 @@
 		<image name="c_advanced" filename="c_advanced" retainaspect="1"/>
 		<image name="c_download_mode" filename="c_download_mode" retainaspect="1"/>
 		<image name="c_edl_mode" filename="c_edl_mode" retainaspect="1"/>
+		<image name="c_storage_icon" filename="c_storage_icon" retainaspect="1"/>
 
 	</resources>
 
@@ -307,20 +308,8 @@
 		<variable name="c_filefrom" value=""/>
 		<variable name="c_mv" value="0"/>
 		<variable name="c_menu" value="0"/>
-		<!--variable name="c_res_error" value="0" persist="0"/-->
-		<variable name="c_magisk_status" value="69" persist="0"/>
-		<variable name="c_shrp_resource_status" value="69" persist="0"/>
-		<variable name="c_magisk_ver" value="69" persist="0"/>
-		<variable name="c_lock_screen_date" value="N/A" persist="0"/>
-		<!--variable name="c_flashlight_triger" value="0"/-->
 		<variable name="c_new_theme_busy" value="0"/>
-		<variable name="c_magisk_path" value="/_magisk/"/>
-		<variable name="c_magisk_module_name" value=""/>
-		<variable name="c_magisk_name" value=""/>
-		<variable name="core" value="N/A"/>
 		<variable name="c_flashlight_status" value="0" persist="0"/>
-		<variable name="c_m_exist" value="1"/>
-		<variable name="c_module_disable" value=""/>
 		<variable name="c_temp" value="pepe" persist="0"/>
 		<variable name="c_temp2" value="pepe" persist="1"/>
 		<variable name="c_temp3" value="pepe" persist="0"/>

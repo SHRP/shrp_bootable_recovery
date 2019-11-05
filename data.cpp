@@ -777,6 +777,35 @@ void DataManager::SetDefaultValues()
 	mData.SetValue(TW_RESTORE_FILE_DATE, "0");
 	mPersist.SetValue("tw_military_time", "0");
 
+	//SHRP constant variables
+	mConst.SetValue("shrp_ver", "2.2");
+	mConst.SetValue("shrp_ver_status", "Beta");
+	mConst.SetValue("internal_storage_location", "/sdcard");
+	mConst.SetValue("c_magisk_path", "/_magisk/");
+
+	//SHRP SemiConstant variables
+	mData.SetValue("c_magisk_status", "0");
+	mData.SetValue("c_shrp_resource_status", "0");
+	mData.SetValue("c_magisk_ver", "0");
+	mData.SetValue("c_lock_screen_date", "0");
+	mData.SetValue("c_mm_name", "0");
+	mData.SetValue("c_mm_ver", "0");
+	mData.SetValue("c_mm_author", "0");
+	mData.SetValue("c_i_p", "0");
+	mData.SetValue("c_i_status", "Not Available");
+	mData.SetValue("c_e_p", "0");
+	mData.SetValue("c_e_status", "Not Available");
+	mData.SetValue("c_o_p", "0");
+	mData.SetValue("c_o_status", "Not Available");
+	mData.SetValue("c_r_p", "0");
+	mData.SetValue("c_r_status", "Not Available");
+	mData.SetValue("c_magisk_module_name", "0");
+	mData.SetValue("c_magisk_name", "0");
+	mData.SetValue("core", "0");
+	mData.SetValue("c_m_exist", "0");
+	mData.SetValue("c_module_disable", "0");
+	mData.SetValue("c_target_destination", "main2");
+
 #ifdef TW_INCLUDE_CRYPTO
 	mPersist.SetValue(TW_USE_SHA2, "1");
 	mPersist.SetValue(TW_NO_SHA2, "0");

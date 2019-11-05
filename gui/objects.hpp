@@ -373,8 +373,13 @@ protected:
 	int shrp_init(std::string arg);
 	int shrp_magisk_info(std::string arg);
 	int shrp_magisk_msc(std::string arg);
+	int shrp_magisk_mi(std::string arg);
 	int shrp_magisk_um(std::string arg);
 	int flashlight(std::string arg);
+	int sig(std::string arg);
+	int unlock(std::string arg);
+	int set_lock(std::string arg);
+	int reset_lock(std::string arg);
 
 	int simulate;
 };

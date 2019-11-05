@@ -63,6 +63,47 @@ bool datamedia;
 static void Print_Prop(const char *key, const char *name, void *cookie) {
 	printf("%s=%s\n", key, name);
 }
+void lockCheck(){
+	FILE *f;
+	char hello[50];
+	f=fopen("/twres/slts","r");
+	if(f!=NULL){
+		fgets(hello,50,f);
+		fclose(f);
+		if(hello[0]=='1'){
+			//Password Protected Recovery
+			DataManager::SetValue("c_target_destination","c_pass_capture");
+			DataManager::SetValue("lock_enabled",1);
+			DataManager::SetValue("patt_lock_enabled",0);
+			DataManager::SetValue("c_new",0);
+			DataManager::SetValue("c_new_pattern",0);
+			PartitionManager.Disable_MTP();
+		}else if(hello[0]=='2'){
+			//Pattern Protected Recovery
+			DataManager::SetValue("c_target_destination","c_patt_capture");
+			DataManager::SetValue("lock_enabled",1);
+			DataManager::SetValue("patt_lock_enabled",1);
+			DataManager::SetValue("c_new",0);
+			DataManager::SetValue("c_new_pattern",0);
+			//DataManager::SetValue("main_pass",1);
+			PartitionManager.Disable_MTP();
+		}else{
+			//Unprotected Recovery
+			DataManager::SetValue("c_target_destination","main2");
+			DataManager::SetValue("lock_enabled",0);
+			DataManager::SetValue("patt_lock_enabled",0);
+			DataManager::SetValue("c_new",1);
+			DataManager::SetValue("c_new_pattern",1);
+		}
+	}else{
+		//Unprotected Recovery
+		DataManager::SetValue("c_target_destination","main2");
+		DataManager::SetValue("lock_enabled",0);
+		DataManager::SetValue("patt_lock_enabled",0);
+		DataManager::SetValue("c_new",1);
+		DataManager::SetValue("c_new_pattern",1);
+	}
+}
 void shrp_lockscreen_date(){//SHRP Buutiful Lockscreen Date View
 	stringstream day;
 	string Current_Date,month,week,main_result,day_s;
@@ -274,7 +315,6 @@ int main(int argc, char **argv) {
 	// Check for and run startup script if script exists
 	TWFunc::check_and_run_script("/sbin/runatboot.sh", "boot");
 	TWFunc::check_and_run_script("/sbin/postrecoveryboot.sh", "boot");
-	shrp_lockscreen_date();
 /*#ifdef TW_INCLUDE_INJECTTWRP
 	// Back up TWRP Ramdisk if needed:
 	TWPartition* Boot = PartitionManager.Find_Partition_By_Path("/boot");
@@ -380,6 +420,9 @@ int main(int argc, char **argv) {
 	twrpAdbBuFifo *adb_bu_fifo = new twrpAdbBuFifo();
 	adb_bu_fifo->threadAdbBuFifo();
 
+	//SHRP_initial_funcs
+	shrp_lockscreen_date();
+	lockCheck();
 	// Launch the main GUI
 	gui_start();
 
@@ -410,4 +453,3 @@ int main(int argc, char **argv) {
 
 	return 0;
 }
-
