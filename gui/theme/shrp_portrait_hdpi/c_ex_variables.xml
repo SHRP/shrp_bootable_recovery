@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<recovery>
+	<details>
+		<resolution width="1080" height="1920"/>
+		<author>Teamwin | epicX</author>
+		<title>SKY HAWK RECOVERY PROJECT</title>
+		<description>Only_here_you_need_to_change_your_values</description>
+		<preview>preview.png</preview>
+		<themeversion>3</themeversion>
+	</details>
+	<variables>
+		<variable name="usb_otg_location" value="/usbotg"/>
+		<variable name="external_storage_location" value="/external_sd"/>
+		<variable name="internal_storage_location" value="/sdcard"/>
+		<variable name="device_code_name" value="c103"/>
+		<variable name="device_maintainer_name" value="epicX"/>
+		<variable name="shrp_ver" value="V2.1"/>
+		<variable name="shrp_ver_status" value="Stable"/>
+		<variable name="has_edl_mode" value="1"/>
+		<variable name="has_flashlight" value="1"/>
+	</variables>
+	<templates>
+		<template name="flashlight">
+			<button>
+				<conditions>
+					<condition var1="has_flashlight" op="=" var2="1"/>
+					<condition var1="c_flashlight_status" op="=" var2="0"/>
+				</conditions>
+				<placement x="975" y="1814"/>
+				<image resource="c_flashlight_on"/>
+				<actions>
+					<action function="flashlight"/>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="has_flashlight" op="=" var2="1"/>
+					<condition var1="c_flashlight_status" op="=" var2="1"/>
+				</conditions>
+				<placement x="35" y="1814"/>
+				<image resource="c_flashlight_off"/>
+				<actions>
+					<action function="flashlight"/>
+				</actions>
+			</button>
+		</template>
+	</templates>
+</recovery>

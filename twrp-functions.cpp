@@ -391,6 +391,88 @@ int32_t TWFunc::timespec_diff_ms(timespec& start, timespec& end)
 			((start.tv_sec * 1000) + start.tv_nsec/1000000);
 }
 
+float round(float var) {
+	float value = (int)(var * 100 + .5);
+	return(float)value / 100;
+}
+
+void TWFunc::process_space(int size,int free,int used,int signal){
+	string partition,temp,tmp;
+	int p_val_usage=0;
+	float size_g,free_g;
+	LOGINFO("Process Space 69 Edition Started:\n");
+	if(size<=0){
+		LOGINFO("Size Zero ache\n");
+		tmp="Not Available";
+		p_val_usage=0;
+	}else{
+		LOGINFO("FREE Size Zero r theke besi\n");
+		if(free>=1024){
+			LOGINFO("IF True Hoise\n");
+			free_g=(float)free/1024;
+			LOGINFO("Value of float before rounding - %f\n",free_g);
+			free_g=round(free_g);
+			LOGINFO("Value of float after rounding - %f\n",free_g);
+			{
+			stringstream buff;
+			buff<<free_g;
+			buff>>temp;
+			tmp=temp;
+			tmp=tmp+" GB free of ";
+			}
+			LOGINFO("TMP : %s\n",tmp.c_str());
+		}else{
+			LOGINFO("IF False Hoise\n");
+			{
+			stringstream buff;
+			buff<<free;
+			buff>>temp;
+			tmp=temp;
+			tmp=tmp+" MB free of ";
+			}
+		}
+		if(size>=1024){
+			LOGINFO("IF True Hoise\n");
+			size_g=(float)size/1024;
+			size_g=round(size_g);
+			{
+			stringstream buff;
+			buff<<size_g;
+			buff>>temp;
+			tmp=tmp+temp+" GB";
+			}
+		}else{
+			LOGINFO("IF False Hoise\n");
+			{
+			stringstream buff;
+			buff<<size;
+			buff>>temp;
+			tmp=temp;
+			tmp=tmp+temp+" MB";
+			}
+		}
+		p_val_usage=used*100/size;
+		LOGINFO("Percentage : %d\n",p_val_usage);
+	}
+	switch(signal){
+		case 1:
+			DataManager::SetValue("c_i_p",p_val_usage);
+			DataManager::SetValue("c_i_status",tmp);
+			LOGINFO("Final OUTPUT INTERNAL : %s  | Percentage : %d\n",tmp.c_str(),p_val_usage);
+			break;
+		case 2:
+			DataManager::SetValue("c_e_p",p_val_usage);
+			DataManager::SetValue("c_e_status",tmp);
+			LOGINFO("Final OUTPUT EXTERNAL : %s  | Percentage : %d\n",tmp.c_str(),p_val_usage);
+			break;
+		case 3:
+			DataManager::SetValue("c_o_p",p_val_usage);
+			DataManager::SetValue("c_o_status",tmp);
+			LOGINFO("Final OUTPUT OTG : %s  | Percentage : %d\n",tmp.c_str(),p_val_usage);
+			break;
+	}
+}
+
 #ifndef BUILD_TWRPTAR_MAIN
 
 // Returns "/path" from a full /path/to/file.name

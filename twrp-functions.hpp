@@ -69,6 +69,7 @@ public:
 	static vector<string> split_string(const string &in, char del, bool skip_empty);
 	static timespec timespec_diff(timespec& start, timespec& end);	            // Return a diff for 2 times
 	static int32_t timespec_diff_ms(timespec& start, timespec& end);            // Returns diff in ms
+	static void process_space(int size,int free,int used,int signal);
 
 #ifndef BUILD_TWRPTAR_MAIN
 	static void install_htc_dumlock(void);                                      // Installs HTC Dumlock
