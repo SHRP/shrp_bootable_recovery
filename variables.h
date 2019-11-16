@@ -140,6 +140,8 @@
 #define TW_MILITARY_TIME            "tw_military_time"
 #define TW_USE_SHA2                 "tw_use_sha2"
 #define TW_NO_SHA2                  "tw_no_sha2"
+#define TW_HAS_DEVICEAB             "tw_has_deviceab"
+#define TW_ACTIVE_SLOT_INSTALL	    "tw_active_slot_install"
 
 // Also used:
 //   tw_boot_is_mountable

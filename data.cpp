@@ -714,9 +714,14 @@ void DataManager::SetDefaultValues()
 #ifdef TW_INCLUDE_INJECTTWRP
 	printf("TW_INCLUDE_INJECTTWRP := true\n");
 	mConst.SetValue(TW_HAS_INJECTTWRP, "1");
-	mPersist(TW_INJECT_AFTER_ZIP, "1");
 #else
 	mConst.SetValue(TW_HAS_INJECTTWRP, "0");
+#endif
+#ifdef TW_INCLUDE_DEVICEAB
+	printf("TW_INCLUDE_DEVICEAB := true\n");
+	mConst.SetValue(TW_HAS_DEVICEAB, "1");
+#else
+	mConst.SetValue(TW_HAS_DEVICEAB, "0");
 #endif
 #ifdef TW_HAS_DOWNLOAD_MODE
 	printf("TW_HAS_DOWNLOAD_MODE := true\n");
@@ -744,7 +749,7 @@ void DataManager::SetDefaultValues()
 #endif
 	mConst.SetValue(TW_MIN_SYSTEM_VAR, TW_MIN_SYSTEM_SIZE);
 	mData.SetValue(TW_BACKUP_NAME, "(Auto Generate)");
-
+	mPersist.SetValue(TW_HAS_INJECTTWRP, "0");
 	mPersist.SetValue(TW_INSTALL_REBOOT_VAR, "0");
 	mPersist.SetValue(TW_SIGNED_ZIP_VERIFY_VAR, "0");
 	mPersist.SetValue(TW_DISABLE_FREE_SPACE_VAR, "0");
@@ -776,6 +781,8 @@ void DataManager::SetDefaultValues()
 	mData.SetValue("tw_background_thread_running", "0");
 	mData.SetValue(TW_RESTORE_FILE_DATE, "0");
 	mPersist.SetValue("tw_military_time", "0");
+	mPersist.SetValue("tw_inject_after_zip", "0");
+	mPersist.SetValue(TW_HAS_DEVICEAB, "0");
 
 	//SHRP constant variables
 	mConst.SetValue("shrp_ver", "2.2");
