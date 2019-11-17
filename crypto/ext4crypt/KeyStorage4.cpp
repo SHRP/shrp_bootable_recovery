@@ -177,12 +177,12 @@ bool getEphemeralWrappedKey(km::KeyFormat format, KeyBuffer& kmKey, KeyBuffer* k
             return true;
         }
         if (ret != km::ErrorCode::KEY_REQUIRES_UPGRADE) return false;
-        LOG(DEBUG) << "Upgrading key" << std::endl;
+        LOG(DEBUG) << "Upgrading key";
         std::string kmKeyStr(reinterpret_cast<const char*>(kmKey.data()), kmKey.size());
         std::string newKey;
         if (!keymaster.upgradeKey(kmKeyStr, km::AuthorizationSet(), &newKey)) return false;
         memcpy(reinterpret_cast<void*>(kmKey.data()), newKey.c_str(), kmKey.size());
-        LOG(INFO) << "Key upgraded" << std::endl;
+        LOG(INFO) << "Key upgraded";
         export_again = true;
     }
     //Should never come here
