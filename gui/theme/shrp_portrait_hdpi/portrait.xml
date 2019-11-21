@@ -2111,7 +2111,7 @@ sh c_core_checker;
 				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
 				<text>{@restore_sel_store_hdr=Select Backup from %tw_storage_display_name% (%tw_storage_free_size% MB)}</text>
 			</text>
-			<fileselector>
+			<fileselector style="c_restore">
 				<placement x="%c_hawk_base_column%" y="%file_selector_default_y%" w="%file_selector_default_w%" h="%file_selector_default_h%"/>
 				<filter folders="1" files="1" nav="0" extn=".ab"/>
 				<path name="tw_backups_folder"/>

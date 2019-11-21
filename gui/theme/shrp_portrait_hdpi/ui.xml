@@ -217,6 +217,7 @@
 		<image name="c_download_mode" filename="c_download_mode" retainaspect="1"/>
 		<image name="c_edl_mode" filename="c_edl_mode" retainaspect="1"/>
 		<image name="c_storage_icon" filename="c_storage_icon" retainaspect="1"/>
+        <image name="backup" filename="backup" retainaspect="1"/>
 
 	</resources>
 

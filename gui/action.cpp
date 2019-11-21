@@ -2379,6 +2379,39 @@ int GUIAction::flashlight(std::string arg __unused){
 	string cmd,max_b,trigger;
 	int temp,switch_tmp;
 	temp=switch_tmp=0;
+#ifdef SHRP_CUSTOM_FLASHLIGHT
+	string p1,p2,p3;
+	DataManager::GetValue("c_flashlight_status", trigger);
+	DataManager::GetValue("c_flashlight_max_brightness", max_b);
+	DataManager::GetValue("c_flashlight_path_1", p1);
+	DataManager::GetValue("c_flashlight_path_2", p2);
+	DataManager::GetValue("c_flashlight_path_3", p3);
+	if(trigger=="1"){
+		DataManager::SetValue("c_flashlight_status","0");
+		cmd="echo " + max_b + " > " + p1;
+		TWFunc::Exec_Cmd(cmd);
+		if(p2.size()>3){
+			cmd="echo " + max_b + " > " + p1;
+			TWFunc::Exec_Cmd(cmd);
+		}
+		if(p3.size()>3){
+			cmd="echo 1 > " + p3;
+			TWFunc::Exec_Cmd(cmd);
+		}
+	}else{
+		DataManager::SetValue("c_flashlight_status","1");
+		cmd="echo 0 > " + p1;
+		TWFunc::Exec_Cmd(cmd);
+		if(p2.size()>3){
+			cmd="echo 0 > " + p1;
+			TWFunc::Exec_Cmd(cmd);
+		}
+		if(p3.size()>3){
+			cmd="echo 0 > " + p3;
+			TWFunc::Exec_Cmd(cmd);
+		}
+	}
+#else
 	if(TWFunc::Path_Exists("/sys/class/leds/")){
 		if(TWFunc::Path_Exists("/sys/class/leds/led:torch/")){
 			temp=1;
@@ -2454,8 +2487,10 @@ int GUIAction::flashlight(std::string arg __unused){
 	}else{
 		LOGINFO("FlashLight-----------\nError\nFlashLight Does not support on your device\n");
 	}
+#endif
 	return 0;
 }
+
 int GUIAction::sig(std::string arg __unused){
 	int size,used,free;
 	unsigned long long mb = 1048576;
@@ -2543,7 +2578,11 @@ int GUIAction::unlock(std::string arg){
 	char pull[50];
 	string lock_pass,b_arg;
 	b_arg=arg;
-	f=fopen("/twres/slts","r");
+	if(TWFunc::Path_Exists("/sdcard/SHRP/epicx/slts")){
+		f=fopen("/sdcard/SHRP/epicx/slts","r");
+	}else{
+		f=fopen("/twres/slts","r");
+	}
 	if(f==NULL){
 		//PageManager Will Change The Page
 		PageManager::ChangePage("main2");
