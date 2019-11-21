@@ -207,7 +207,7 @@
 				<placement x="0" y="1430" w="1080" h="148"/>
 				<font resource="c_dashboard_text_sort" color="%c_black%"/>
 				<fill color="%transparent%"/>
-				<text> epicX | Dni9 | Giovix92 | Teamwin  </text>
+				<text> epicX | Dni9 | Giovix92 | Teamwin | Topjohnwu | osmOsis   </text>
 			</button>
 			<button>
 				<placement x="0" y="1550" w="1080" h="148"/>
@@ -222,7 +222,7 @@
 				<placement x="0" y="1645" w="1080" h="148"/>
 				<font resource="c_dashboard_text_sort" color="%c_black%"/>
 				<fill color="%transparent%"/>
-				<text> osmOsis | VR25 | Pritish | Kirill | Burak D. | ZJRDroid | LayeardDevMod </text>
+				<text> VR25 | Pritish | Kirill | Burak D. | ZJRDroid | LayeardDevMod </text>
 			</button>
 
 			<action>

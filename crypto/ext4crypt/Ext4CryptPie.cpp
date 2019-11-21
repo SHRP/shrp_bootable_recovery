@@ -208,11 +208,11 @@ static bool read_and_fixate_user_ce_key(userid_t user_id,
 }
 
 static bool is_wrapped_key_supported_common(const std::string& mount_point) {
-    LOG(DEBUG) << "Determining wrapped-key support for " << mount_point << std::endl;
+    LOG(DEBUG) << "Determining wrapped-key support for " << mount_point;
     std::string wrapped_key_supported = android::base::GetProperty("fbe.data.wrappedkey", "false");
-    LOG(DEBUG) << "fbe.data.wrappedkey = " << wrapped_key_supported << std::endl;
+    LOG(DEBUG) << "fbe.data.wrappedkey = " << wrapped_key_supported;
     if (mount_point == DATA_MNT_POINT && wrapped_key_supported == "true") {
-        LOG(DEBUG) << "Wrapped key supported on " << mount_point << std::endl;
+        LOG(DEBUG) << "Wrapped key supported on " << mount_point;
         return true;
     } else {
         return false;

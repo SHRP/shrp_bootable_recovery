@@ -296,14 +296,7 @@ int TWPartitionManager::Process_Fstab(string Fstab_Filename, bool Display_Error)
 				while (!Decrypt_Data->Mount(false) && --retry_count)
 					usleep(500);
 				if (Decrypt_Data->Mount(false)) {
-					if (!Decrypt_Data->Decrypt_FBE_DE()) {
-						LOGINFO("Trying wrapped key.\n");
-						property_set("fbe.data.wrappedkey", "true");
-						if (!Decrypt_Data->Decrypt_FBE_DE()) {
-							LOGERR("Unable to decrypt FBE device\n");
-						}
-					}
-
+					Decrypt_Data->Decrypt_FBE_DE();
 				} else {
 					LOGINFO("Failed to mount data after metadata decrypt\n");
 				}
@@ -2960,7 +2953,7 @@ void TWPartitionManager::read_uevent() {
 
 	int len = recv(uevent_pfd.fd, buf, sizeof(buf), MSG_DONTWAIT);
 	if (len == -1) {
-		LOGERR("recv error on uevent\n");
+//		LOGERR("recv error on uevent\n");
 		return;
 	}
 	/*int i = 0; // Print all uevent output for test /debug

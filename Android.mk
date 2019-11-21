@@ -403,6 +403,10 @@ endif
 ifneq ($(TW_CLOCK_OFFSET),)
 	LOCAL_CFLAGS += -DTW_CLOCK_OFFSET=$(TW_CLOCK_OFFSET)
 endif
+ifeq ($(TW_EXCLUDE_TWRPAPP),true)
+    LOCAL_CFLAGS += -DTW_EXCLUDE_TWRPAPP
+endif
+
 TWRP_REQUIRED_MODULES += \
     dump_image \
     erase_image \
@@ -518,6 +522,19 @@ endif
 ifeq ($(shell test $(PLATFORM_SDK_VERSION) -ge 28; echo $$?),0)
     TWRP_REQUIRED_MODULES += sload.f2fs
 endif
+endif
+
+ifeq ($(shell test $(PLATFORM_SDK_VERSION) -ge 26; echo $$?),0)
+    TWRP_REQUIRED_MODULES += ld.config.txt
+    ifeq ($(BOARD_VNDK_RUNTIME_DISABLE),true)
+        LOCAL_POST_INSTALL_CMD += \
+            sed '0,/^namespace.default.search.paths\s\{1,\}/!b;//a\namespace.default.search.paths += \/sbin' \
+                $(TARGET_OUT_ETC)/ld.config.vndk_lite.txt > $(TARGET_RECOVERY_ROOT_OUT)/sbin/ld.config.txt;
+    else
+        LOCAL_POST_INSTALL_CMD += \
+            sed '0,/^namespace.default.search.paths\s\{1,\}/!b;//a\namespace.default.search.paths += \/sbin' \
+                $(TARGET_OUT_ETC)/ld.config.txt > $(TARGET_RECOVERY_ROOT_OUT)/sbin/ld.config.txt;
+    endif
 endif
 
 ifeq ($(shell test $(PLATFORM_SDK_VERSION) -ge 25; echo $$?),0)
