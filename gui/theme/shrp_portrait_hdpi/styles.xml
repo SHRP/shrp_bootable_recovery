@@ -124,6 +124,12 @@
 			<icon folder="c_modules" file="file" />
 			<font resource="font_s" color="%c_black%" />
 		</style>
+        <style name="c_restore">
+			<background color="%c_white%"/>
+			<fastscroll rectcolor="%c_black%" w="%fastscroll_w%" rectw="%fastscroll_rectw%" recth="%fastscroll_recth%" />
+			<icon folder="backup" file="backup" />
+			<font resource="font_s" color="%c_black%" />
+		</style>
 
 		<style name="listbox">
 			<background color="%c_white%"/>
