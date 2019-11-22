@@ -406,6 +406,13 @@ endif
 ifeq ($(TW_EXCLUDE_TWRPAPP),true)
     LOCAL_CFLAGS += -DTW_EXCLUDE_TWRPAPP
 endif
+#SHRP Build Flags
+ifeq ($(SHRP_CUSTOM_FLASHLIGHT),true)
+    LOCAL_CFLAGS += -DSHRP_CUSTOM_FLASHLIGHT
+endif
+ifeq ($(SHRP_LITE),true)
+    LOCAL_CFLAGS += -DSHRP_LITE
+endif
 
 TWRP_REQUIRED_MODULES += \
     dump_image \
