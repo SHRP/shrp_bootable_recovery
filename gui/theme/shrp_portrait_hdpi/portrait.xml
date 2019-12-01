@@ -717,6 +717,11 @@ sh c_core_checker;
 				<text>{@c_passed=Successful}</text>
 			</text>
 
+			<action>
+				<action function="set">tw_active_slot_install=0</action>
+				<action function="set">tw_inject_after_zip=0</action>
+			</action>
+
 			<text style="c_text_dashboard">
 				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
 				<text>{@c_flash_finished=Flashing Finished}</text>
