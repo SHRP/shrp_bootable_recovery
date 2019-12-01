@@ -875,5 +875,7 @@
 		<string name="cache_dalvik_done">-- Dalvik Cache Directories Wipe Complete!</string>
 		<string name="active_slot_install">Install in the active slot</string>
 		<string name="remount_system_rw">[i] Remounted system as R/W!</string>
+		<string name="unpacking_image">Unpacking {1}...</string>
+		<string name="repacking_image">Repacking {1}...</string>
 	</resources>
 </language>
