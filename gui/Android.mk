@@ -78,6 +78,16 @@ endif
 ifeq ($(TW_ROUND_SCREEN), true)
     LOCAL_CFLAGS += -DTW_ROUND_SCREEN
 endif
+#SHRP Build Flags
+ifeq ($(SHRP_CUSTOM_FLASHLIGHT),true)
+    LOCAL_CFLAGS += -DSHRP_CUSTOM_FLASHLIGHT
+endif
+ifeq ($(SHRP_LITE),true)
+    LOCAL_CFLAGS += -DSHRP_LITE
+endif
+ifeq ($(SHRP_AB),true)
+    LOCAL_CFLAGS += -DSHRP_AB
+endif
 
 LOCAL_C_INCLUDES += \
     bionic \

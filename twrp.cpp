@@ -166,6 +166,18 @@ void shrp_lockscreen_date(){//SHRP Buutiful Lockscreen Date View
 	main_result=week+day_s+month;
 	DataManager::SetValue("c_lock_screen_date",main_result);
 }
+void disp_info(){
+	string tmp;
+	DataManager::GetValue("shrp_ver",tmp);
+	tmp="SHRP Version - "+tmp;
+	gui_msg(Msg(tmp.c_str()));
+	DataManager::GetValue("shrp_ver_status",tmp);
+	tmp="Status - "+tmp;
+	gui_msg(Msg(tmp.c_str()));
+	DataManager::GetValue("device_code_name",tmp);
+	tmp="Device - "+tmp;
+	gui_msg(Msg(tmp.c_str()));
+}
 
 int main(int argc, char **argv) {
 	// Recovery needs to install world-readable files, so clear umask
@@ -427,6 +439,7 @@ int main(int argc, char **argv) {
 	//SHRP_initial_funcs
 	shrp_lockscreen_date();
 	lockCheck();
+	disp_info();
 	// Launch the main GUI
 	gui_start();
 
