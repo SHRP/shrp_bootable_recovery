@@ -812,6 +812,14 @@ void DataManager::SetDefaultValues()
 	mData.SetValue("c_m_exist", "0");
 	mData.SetValue("c_module_disable", "0");
 	mData.SetValue("c_target_destination", "main2");
+	mData.SetValue("c_queue_enabled", "0");
+	mData.SetValue("c_skip_tv", "0");
+	//SHRP_LOCK_VARS
+	mData.SetValue("lock_enabled", "0");
+	mData.SetValue("patt_lock_enabled", "0");
+	mData.SetValue("main_pass", "1");
+	mData.SetValue("c_new", "1");
+	mData.SetValue("c_new_pattern", "1");
 
 #ifdef TW_INCLUDE_CRYPTO
 	mPersist.SetValue(TW_USE_SHA2, "1");

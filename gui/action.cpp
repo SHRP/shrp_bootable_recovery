@@ -215,6 +215,7 @@ GUIAction::GUIAction(xml_node<>* node)
 		ADD_ACTION(setlanguage);
 		ADD_ACTION(checkforapp);
 		ADD_ACTION(togglebacklight);
+		ADD_ACTION(flashlight);
 
 		// remember actions that run in the caller thread
 		for (mapFunc::const_iterator it = mf.begin(); it != mf.end(); ++it)
@@ -254,11 +255,14 @@ GUIAction::GUIAction(xml_node<>* node)
 		ADD_ACTION(shrp_magisk_msc);
 		ADD_ACTION(shrp_magisk_mi);
 		ADD_ACTION(shrp_magisk_um);
-		ADD_ACTION(flashlight);
 		ADD_ACTION(sig);
 		ADD_ACTION(unlock);
 		ADD_ACTION(set_lock);
 		ADD_ACTION(reset_lock);
+		ADD_ACTION(c_unpack);
+		ADD_ACTION(c_repack);
+		ADD_ACTION(flashOP);
+		ADD_ACTION(sandy);
 	}
 
 	// First, get the action
@@ -1846,6 +1850,12 @@ int GUIAction::flashimage(std::string arg __unused)
 	string path, filename;
 	DataManager::GetValue("tw_zip_location", path);
 	DataManager::GetValue("tw_file", filename);
+	//Exp Start
+	string test;
+	DataManager::GetValue("tw_flash_partition", test);
+	LOGINFO("Path = %s\nFile Name = %s\nPartition = %s",path.c_str(),filename.c_str(),test.c_str());
+
+	//Exp End
 	if (PartitionManager.Flash_Image(path, filename))
 		op_status = 0; // success
 	else
@@ -2625,5 +2635,93 @@ int GUIAction::reset_lock(std::string arg __unused){
 	f=fopen("twres/slts","w");
 	fputs("0",f);
 	fclose(f);
+	return 0;
+}
+int GUIAction::c_unpack(std::string arg){
+	TWFunc::Exec_Cmd("cp -a /sdcard/SHRP/epicx/cookies /data");
+	TWFunc::Exec_Cmd("cp /sdcard/SHRP/epicx/recovery.img /data/cookies/");
+	TWFunc::Exec_Cmd("sh /data/cookies/unpackimg.sh");
+	TWFunc::Exec_Cmd("rm -rf /data/cookies/ramdisk/twres/");
+	TWFunc::Exec_Cmd("cp -r /twres/ /data/cookies/ramdisk/");
+	TWFunc::Exec_Cmd("mkdir -p /data/local/tmp");
+	if(arg=="1"){
+		PageManager::ChangePage("c_new_shrp_theme_dashboard");
+	}
+	return 0;
+}
+int GUIAction::c_repack(std::string arg __unused){
+	if(TWFunc::Path_Exists("/data/cookies/ramdisk/twres/fonts/")&&TWFunc::Path_Exists("/data/cookies/ramdisk/twres/images/")&&TWFunc::Path_Exists("/data/cookies/ramdisk/twres/languages/")&&TWFunc::Path_Exists("/data/cookies/ramdisk/twres/magisk/")&&TWFunc::Path_Exists("/data/cookies/ramdisk/twres/scripts/")&&TWFunc::Path_Exists("/data/cookies/ramdisk/twres/bg_res.xml")&&TWFunc::Path_Exists("/data/cookies/ramdisk/twres/c_ex_variables.xml")&&TWFunc::Path_Exists("/data/cookies/ramdisk/twres/c_page.xml")&&TWFunc::Path_Exists("/data/cookies/ramdisk/twres/c_status_bar_h.xml")&&TWFunc::Path_Exists("/data/cookies/ramdisk/twres/notch_handled_var.xml")&&TWFunc::Path_Exists("/data/cookies/ramdisk/twres/portrait.xml")&&TWFunc::Path_Exists("/data/cookies/ramdisk/twres/splash.xml")&&TWFunc::Path_Exists("/data/cookies/ramdisk/twres/styles.xml")&&TWFunc::Path_Exists("/data/cookies/ramdisk/twres/txt_res.xml")&&TWFunc::Path_Exists("/data/cookies/ramdisk/twres/ui.xml")){
+		LOGINFO("Repack: ALL Required Files are found\n");
+		if(TWFunc::Exec_Cmd("sh /data/cookies/repackimg.sh;")!=0){
+			LOGINFO("Repack: Repacking failed\n");
+		}else{
+			LOGINFO("Repack: Repacking Successful\n");
+			//FILE* f;
+			//char chr[50];
+			//f=fopen("/shrp_vital","r");
+			//fgets(chr,50,f);
+			//string cmd=chr;
+			//cmd=value_process(cmd);
+			TWFunc::Exec_Cmd("mv /data/cookies/image-new.img /data/cookies/image_new.img");
+			//cmd="dd if=/data/cookies/image-new.img of="+cmd;
+			//TWFunc::Exec_Cmd(cmd);
+#ifdef SHRP_AB
+			Repack_Options_struct Repack_Options;
+			Repack_Options.Disable_Verity = false;
+			Repack_Options.Disable_Force_Encrypt = false;
+			Repack_Options.Backup_first=true;//Doubt
+			Repack_Options.Type = REPLACE_RAMDISK;
+			string path = "/data/cookies/image_new.img";
+			PartitionManager.Repack_Images(path, Repack_Options);
+#else
+			DataManager::SetValue("tw_flash_partition","/recovery;");
+			DataManager::SetValue("tw_action","flashimage");
+			DataManager::SetValue("tw_has_action2","0");
+			DataManager::SetValue("tw_zip_location","/data/cookies");
+			DataManager::SetValue("tw_file","image_new.img");
+			GUIAction::flashimage("guun");
+#endif
+			LOGINFO("Repack: Flashing Successful\n");
+			TWFunc::Exec_Cmd("rm -r /data/cookies");
+		}
+	}
+	return 0;
+}
+int GUIAction::flashOP(std::string arg){
+	int p,s=0;
+	char tmp[10];
+	p=arg.find_last_of(".");
+	p++;
+	while(arg[p]!=0){
+		tmp[s++]=arg[p++];
+	}
+	tmp[s]=0;
+	arg=tmp;
+	DataManager::GetValue("c_queue_enabled",s);
+	if(arg=="zip"){
+		GUIAction::queuezip("bappa");
+		DataManager::SetValue("c_queue_enabled","1");
+		PageManager::ChangePage("flash_confirm");
+	}else if(arg=="img"&&s==1){
+		PageManager::ChangePage("flash_confirm");
+	}else if(arg=="img"&&s==0){
+		PageManager::ChangePage("flashimage_confirm");
+	}
+	return 0;
+}
+int GUIAction::sandy(std::string arg __unused){
+	FILE *f;
+	char line[200];
+	string text;
+	f=fopen("/sdcard/pepe.txt","r");
+	int i=0;
+	do{
+		line[i]=(char)fgetc(f);
+		i++;
+	}while(line[i]!=EOF);
+	text=line;
+	fclose(f);
+	gui_msg(Msg(text.c_str()));
+	PageManager::ChangePage("install");
 	return 0;
 }
