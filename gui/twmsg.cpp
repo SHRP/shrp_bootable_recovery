@@ -22,6 +22,12 @@
 
 #include "twmsg.h"
 #include <cctype>
+extern "C" {
+#include "../twcommon.h"
+#include "../variables.h"
+#include "cutils/properties.h"
+#include "../adb_install.h"
+};
 
 std::string Message::GetFormatString(const std::string& name) const
 {
@@ -49,6 +55,7 @@ public:
 // conversion to final string
 Message::operator std::string() const
 {
+	LOGINFO("Before Operation - %s\n", name.c_str());
 	// do resource lookup
 	std::string str = GetFormatString(name);
 
@@ -67,6 +74,7 @@ Message::operator std::string() const
 
 		str.replace(pos, end - pos + 1, vartext);
 	}
+	LOGINFO("After Operation - %s\n", str.c_str());
 	// TODO: complain about too many or too few numbered replacement variables
 	return str;
 }
@@ -83,25 +91,29 @@ public:
 		std::string default_value;
 
 		size_t pos = name.find('=');
-		if (pos == std::string::npos) {
-			resname = name;
-		} else {
-			resname = name.substr(0, pos);
-			default_value = name.substr(pos + 1);
-		}
+		int x=name.find('=');
+		if(x!=-1){
+			if (pos == std::string::npos) {
+				resname = name;
+			} else {
+				resname = name.substr(0, pos);
+				default_value = name.substr(pos + 1);
+			}
 #ifndef BUILD_TWRPTAR_MAIN
-		const ResourceManager* res = PageManager::GetResources();
-		if (res) {
-			if (default_value.empty())
-				return res->FindString(resname);
-			else
-				return res->FindString(resname, default_value);
-		}
+			const ResourceManager* res = PageManager::GetResources();
+			if (res) {
+				if (default_value.empty())
+					return res->FindString(resname);
+				else
+					return res->FindString(resname, default_value);
+			}
 #endif
-		if (!default_value.empty()) {
-			return default_value;
+			if (!default_value.empty()) {
+				return default_value;
+			}
 		}
 		return name;
+
 	}
 };
 ResourceLookup resourceLookup;

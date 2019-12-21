@@ -413,6 +413,9 @@ endif
 ifeq ($(SHRP_LITE),true)
     LOCAL_CFLAGS += -DSHRP_LITE
 endif
+ifeq ($(SHRP_AB),true)
+    LOCAL_CFLAGS += -DSHRP_AB
+endif
 
 TWRP_REQUIRED_MODULES += \
     dump_image \

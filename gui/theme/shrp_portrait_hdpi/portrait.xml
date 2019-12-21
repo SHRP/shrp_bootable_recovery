@@ -157,6 +157,7 @@
 				<font resource="c_list" color="%c_black%"/>
 				<image resource="c_about_tile"/>
 				<text>{@c_shrp_about=S H R P}</text>
+				<action function="sandy"/>
 			</button>
 			<button>
 				<placement x="0" y="980" w="1080" h="148"/>
@@ -486,30 +487,16 @@ sh c_core_checker;
 			</text>
 
 			<fileselector>
-				<condition var1="tw_selectimage" var2="0"/>
 				<placement x="%c_hawk_base_column%" y="%file_selector_default_y%" w="%file_selector_default_w%" h="1460"/>
-				<filter extn=".zip" folders="1" files="1"/>
+				<filter folders="1" files="1"/>
 				<path name="tw_zip_location" default="/sdcard"/>
 				<sort name="tw_gui_sort_order"/>
 				<data name="tw_filename"/>
 				<selection name="tw_file"/>
 			</fileselector>
-
-			<fileselector>
-				<condition var1="tw_selectimage" var2="1"/>
-				<placement x="%c_hawk_base_column%" y="%file_selector_default_y%" w="%file_selector_default_w%" h="1460"/>
-				<filter extn=".img" folders="1" files="1"/>
-				<path name="tw_zip_location" default="/sdcard"/>
-				<sort name="tw_gui_sort_order"/>
-				<data name="tw_filename"/>
-				<selection name="tw_file"/>
-			</fileselector>
-			<!--fill color="%c_black%">
-				<placement x="890" y="1495" w="85" h="60"/>
-			</fill-->
 
 			<button>
-				<placement x="860" y="1450"/>
+				<placement x="860" y="1628"/>
 				<image resource="c_storage"/>
 				<actions>
 					<action function="set">tw_back=install</action>
@@ -517,28 +504,17 @@ sh c_core_checker;
 				</actions>
 			</button>
 
-			<button>
-				<condition var1="tw_selectimage" var2="0"/>
-				<placement x="860" y="1628"/>
-				<image resource="c_img"/>
-				<actions>
-					<action function="set">tw_selectimage=1</action>
-					<action function="page">install</action>
-				</actions>
-			</button>
-
-			<button>
-				<condition var1="tw_selectimage" var2="1"/>
-				<placement x="860" y="1628"/>
-				<image resource="c_zip"/>
-				<actions>
-					<action function="set">tw_selectimage=0</action>
-					<action function="page">install</action>
-				</actions>
-			</button>
-
-
 			<action>
+				<conditions>
+					<condition var1="tw_filename" op="modified"/>
+				</conditions>
+				<actions>
+					<action function="flashOP">%tw_filename%</action>
+				</actions>
+			</action>
+
+
+			<!--action>
 				<conditions>
 					<condition var1="tw_selectimage" var2="0"/>
 					<condition var1="tw_filename" op="modified"/>
@@ -555,15 +531,17 @@ sh c_core_checker;
 					<condition var1="tw_filename" op="modified"/>
 				</conditions>
 				<action function="page">flashimage_confirm</action>
-			</action>
+			</action-->
 
 			<action>
 				<touch key="back"/>
+				<!--action function="set">c_queue_enabled=0</action-->
 				<action function="page">c_refresh</action>
 			</action>
 
 			<action>
 				<touch key="home"/>
+				<!--action function="set">c_queue_enabled=0</action-->
 				<action function="page">c_refresh</action>
 			</action>
 		</page>
@@ -652,6 +630,7 @@ sh c_core_checker;
 				<image resource="c_cancel"/>
 				<actions>
 					<action function="queueclear"/>
+					<action function="set">c_queue_enabled=0</action>
 					<action function="page">install</action>
 				</actions>
 			</button>
@@ -666,7 +645,8 @@ sh c_core_checker;
 			<action>
 				<touch key="back"/>
 				<actions>
-					<action function="cancelzip"/>
+					<action function="queueclear"/>
+					<action function="set">c_queue_enabled=0</action>
 					<action function="page">install</action>
 				</actions>
 			</action>
@@ -674,7 +654,8 @@ sh c_core_checker;
 			<action>
 				<touch key="home"/>
 				<actions>
-					<action function="cancelzip"/>
+					<action function="queueclear"/>
+					<action function="set">c_queue_enabled=0</action>
 					<action function="page">c_refresh</action>
 				</actions>
 			</action>
@@ -2735,6 +2716,9 @@ sh c_core_checker;
 				<!--listitem name="{@c_dashboard_list=Listview Dashboard}">
 					<data variable="c_list_view"/>
 				</listitem-->
+				<listitem name="Skip Treble Compatibility Varification">
+					<data variable="c_skip_tv"/>
+				</listitem>
 			</listbox>
 			<action>
 				<touch key="home"/>
@@ -3992,6 +3976,7 @@ sh c_core_checker;
 			<button>
 				<placement x="860" y="1628"/>
 				<image resource="c_flash"/>
+				<action function="set">c_queue_enabled=0</action>
 				<action function="flash">flash_zip</action>
 			</button>
 			<action>
@@ -4000,6 +3985,8 @@ sh c_core_checker;
 			</action>
 			<action>
 				<touch key="home"/>
+				<action function="queueclear"/>
+				<action function="set">c_queue_enabled=0</action>
 				<action function="page">c_refresh</action>
 			</action>
 		</page>
@@ -4070,7 +4057,7 @@ sh c_core_checker;
 				<conditions>
 					<condition var1="c_new" op="=" var2="1"/>
 					<condition var1="c_new_pattern" op="=" var2="1"/>
-					<condition var1="tw_is_encrypted" op="!=" var2="1"/>
+					<!--condition var1="tw_is_encrypted" op="!=" var2="1"/-->
 				</conditions>
 				<placement x="860" y="1450"/>
 				<image resource="c_lock_patt"/>
@@ -4078,7 +4065,7 @@ sh c_core_checker;
 			</button>
 			<button>
 				<conditions>
-					<condition var1="tw_is_encrypted" op="!=" var2="1"/>
+					<!--condition var1="tw_is_encrypted" op="!=" var2="1"/-->
 					<condition var1="lock_enabled" op="=" var2="1"/>
 					<condition var1="patt_lock_enabled" op="=" var2="1"/>
 				</conditions>
@@ -4088,7 +4075,7 @@ sh c_core_checker;
 			</button>
 			<button>
 				<conditions>
-					<condition var1="tw_is_encrypted" op="!=" var2="1"/>
+					<!--condition var1="tw_is_encrypted" op="!=" var2="1"/-->
 					<condition var1="lock_enabled" op="=" var2="1"/>
 					<condition var1="patt_lock_enabled" op="=" var2="0"/>
 				</conditions>
@@ -4276,43 +4263,9 @@ sh c_core_checker;
 					<action function="set">password_before_2=</action>
 					<action function="set">c_status={@c_repacking=Repacking} {@recovery=Recovery}</action>
 					<action function="set_lock">2</action>
-					<action function="cmd">
-set_perm() {
-	uid=$1; gid=$2; mod=$3;
-	shift 3;
-	chown $uid:$gid "$@" || chown $uid.$gid "$@";
-	chmod $mod "$@";
-}
-set_perm_recursive() {
-	uid=$1; gid=$2; dmod=$3; fmod=$4;
-	shift 4;
-	until [ ! "$1" ]; do
-	chown -R $uid:$gid "$1" || chown -R $uid.$gid "$1";
-	find "$1" -type d -exec chmod $dmod {} +;
-	find "$1" -type f -exec chmod $fmod {} +;
-	shift;
-	done;
-}
-file_getprop() { grep "^$2" "$1" | head -n1 | cut -d= -f2; }
-cp -a /sdcard/SHRP/epicx/cookies /data;
-set_perm_recursive 0 0 0755 0755 "/data/cookies";
-set_perm_recursive 0 0 0755 0644 "/data/cookies/bin/avb" "/data/cookies/bin/chromeos";
-set_perm 0 0 0644 "/data/cookies/authors.txt" "/data/cookies/bin/androidbootimg.magic" "/data/cookies/bin/BootSignature_Android.jar" "/data/cookies/bin/magic";
-cd /data/cookies;
-cp /sdcard/SHRP/epicx/recovery.img /data/cookies/
-sh unpackimg.sh;
-rm -rf /data/cookies/ramdisk/twres/
-cp -r /twres/ /data/cookies/ramdisk/
-mkdir -p /data/local/tmp
-					</action>
+					<action function="c_unpack">0</action>
 					<action function="set">c_status={@c_flashing=Flashing} {@recovery=Recovery}</action>
-					<action function="cmd">
-file_getprop() { grep "^$2" "$1" | head -n1 | cut -d= -f2; }
-cd /data/cookies;
-sh repackimg.sh;
-dd if=/data/cookies/image-new.img of=$(file_getprop /shrp_vital ro.shrp.recovery.block);
-rm -r /data/cookies;
-					</action>
+					<action function="c_repack"/>
 					<action function="set">c_status={@done=Done}</action>
 					<action function="set">c_new_theme_busy=0</action>
 					<action function="page">set_pass_successful</action>
@@ -4357,43 +4310,9 @@ rm -r /data/cookies;
 					<action function="set">password_before_2=</action>
 					<action function="set">c_status={@c_repacking=Repacking} {@recovery=Recovery}</action>
 					<action function="set_lock">1</action>
-					<action function="cmd">
-set_perm() {
-	uid=$1; gid=$2; mod=$3;
-	shift 3;
-	chown $uid:$gid "$@" || chown $uid.$gid "$@";
-	chmod $mod "$@";
-}
-set_perm_recursive() {
-	uid=$1; gid=$2; dmod=$3; fmod=$4;
-	shift 4;
-	until [ ! "$1" ]; do
-	chown -R $uid:$gid "$1" || chown -R $uid.$gid "$1";
-	find "$1" -type d -exec chmod $dmod {} +;
-	find "$1" -type f -exec chmod $fmod {} +;
-	shift;
-	done;
-}
-file_getprop() { grep "^$2" "$1" | head -n1 | cut -d= -f2; }
-cp -a /sdcard/SHRP/epicx/cookies /data;
-set_perm_recursive 0 0 0755 0755 "/data/cookies";
-set_perm_recursive 0 0 0755 0644 "/data/cookies/bin/avb" "/data/cookies/bin/chromeos";
-set_perm 0 0 0644 "/data/cookies/authors.txt" "/data/cookies/bin/androidbootimg.magic" "/data/cookies/bin/BootSignature_Android.jar" "/data/cookies/bin/magic";
-cd /data/cookies;
-cp /sdcard/SHRP/epicx/recovery.img /data/cookies/
-sh unpackimg.sh;
-rm -rf /data/cookies/ramdisk/twres/
-cp -r /twres/ /data/cookies/ramdisk/
-mkdir -p /data/local/tmp
-					</action>
+					<action function="c_unpack">0</action>
 					<action function="set">c_status={@c_flashing=Flashing} {@recovery=Recovery}</action>
-					<action function="cmd">
-file_getprop() { grep "^$2" "$1" | head -n1 | cut -d= -f2; }
-cd /data/cookies;
-sh repackimg.sh;
-dd if=/data/cookies/image-new.img of=$(file_getprop /shrp_vital ro.shrp.recovery.block);
-rm -r /data/cookies;
-					</action>
+					<action function="c_repack"/>
 					<action function="set">c_status={@done=Done}</action>
 					<action function="set">c_new_theme_busy=0</action>
 					<action function="page">set_pass_successful</action>
@@ -4444,6 +4363,10 @@ rm -r /data/cookies;
 					<action function="reboot">%tw_reboot_param%</action>
 				</actions>
 			</button>
+			<action>
+				<touch key="home"/>
+				<action function="page">c_refresh</action>
+			</action>
 		</page>
 		<page name="set_pass_failed">
 			<template name="c_page"/>
@@ -4533,43 +4456,9 @@ rm -r /data/cookies;
 					<action function="set">patt_lock_enabled=0</action>
 					<action function="set">c_status={@c_repacking=Repacking} {@recovery=Recovery}</action>
 					<action function="reset_lock"/>
-					<action function="cmd">
-set_perm() {
-	uid=$1; gid=$2; mod=$3;
-	shift 3;
-	chown $uid:$gid "$@" || chown $uid.$gid "$@";
-	chmod $mod "$@";
-}
-set_perm_recursive() {
-	uid=$1; gid=$2; dmod=$3; fmod=$4;
-	shift 4;
-	until [ ! "$1" ]; do
-	chown -R $uid:$gid "$1" || chown -R $uid.$gid "$1";
-	find "$1" -type d -exec chmod $dmod {} +;
-	find "$1" -type f -exec chmod $fmod {} +;
-	shift;
-	done;
-}
-file_getprop() { grep "^$2" "$1" | head -n1 | cut -d= -f2; }
-cp -a /sdcard/SHRP/epicx/cookies /data;
-set_perm_recursive 0 0 0755 0755 "/data/cookies";
-set_perm_recursive 0 0 0755 0644 "/data/cookies/bin/avb" "/data/cookies/bin/chromeos";
-set_perm 0 0 0644 "/data/cookies/authors.txt" "/data/cookies/bin/androidbootimg.magic" "/data/cookies/bin/BootSignature_Android.jar" "/data/cookies/bin/magic";
-cd /data/cookies;
-cp /sdcard/SHRP/epicx/recovery.img /data/cookies/
-sh unpackimg.sh;
-rm -rf /data/cookies/ramdisk/twres/
-cp -r /twres/ /data/cookies/ramdisk/
-mkdir -p /data/local/tmp
-					</action>
+					<action function="c_unpack">0</action>
 					<action function="set">c_status={@c_flashing=Flashing} {@recovery=Recovery}</action>
-					<action function="cmd">
-file_getprop() { grep "^$2" "$1" | head -n1 | cut -d= -f2; }
-cd /data/cookies;
-sh repackimg.sh;
-dd if=/data/cookies/image-new.img of=$(file_getprop /shrp_vital ro.shrp.recovery.block);
-rm -r /data/cookies;
-					</action>
+					<action function="c_repack"/>
 					<action function="set">c_temp=120</action>
 					<action function="set">c_status={@done=Done}</action>
 					<action function="set">c_new_theme_busy=0</action>
@@ -4647,43 +4536,9 @@ rm -r /data/cookies;
 					<action function="set">patt_lock_enabled=0</action>
 					<action function="set">c_status={@c_repacking=Repacking} {@recovery=Recovery}</action>
 					<action function="reset_lock"/>
-					<action function="cmd">
-set_perm() {
-	uid=$1; gid=$2; mod=$3;
-	shift 3;
-	chown $uid:$gid "$@" || chown $uid.$gid "$@";
-	chmod $mod "$@";
-}
-set_perm_recursive() {
-	uid=$1; gid=$2; dmod=$3; fmod=$4;
-	shift 4;
-	until [ ! "$1" ]; do
-	chown -R $uid:$gid "$1" || chown -R $uid.$gid "$1";
-	find "$1" -type d -exec chmod $dmod {} +;
-	find "$1" -type f -exec chmod $fmod {} +;
-	shift;
-	done;
-}
-file_getprop() { grep "^$2" "$1" | head -n1 | cut -d= -f2; }
-cp -a /sdcard/SHRP/epicx/cookies /data;
-set_perm_recursive 0 0 0755 0755 "/data/cookies";
-set_perm_recursive 0 0 0755 0644 "/data/cookies/bin/avb" "/data/cookies/bin/chromeos";
-set_perm 0 0 0644 "/data/cookies/authors.txt" "/data/cookies/bin/androidbootimg.magic" "/data/cookies/bin/BootSignature_Android.jar" "/data/cookies/bin/magic";
-cd /data/cookies;
-cp /sdcard/SHRP/epicx/recovery.img /data/cookies/
-sh unpackimg.sh;
-rm -rf /data/cookies/ramdisk/twres/
-cp -r /twres/ /data/cookies/ramdisk/
-mkdir -p /data/local/tmp
-					</action>
+					<action function="c_unpack">0</action>
 					<action function="set">c_status={@c_flashing=Flashing} {@recovery=Recovery}</action>
-					<action function="cmd">
-file_getprop() { grep "^$2" "$1" | head -n1 | cut -d= -f2; }
-cd /data/cookies;
-sh repackimg.sh;
-dd if=/data/cookies/image-new.img of=$(file_getprop /shrp_vital ro.shrp.recovery.block);
-rm -r /data/cookies;
-					</action>
+					<action function="c_repack"/>
 					<action function="set">c_status={@done=Done}</action>
 					<action function="set">c_new_theme_busy=0</action>
 					<action function="page">c_reset_successful</action>
@@ -8873,7 +8728,6 @@ cp /twres/c_dash_ico/aex/*.png /data/cookies/ramdisk/twres/images/;
 			<button>
 				<placement x="379" y="1620"/>
 				<conditions>
-					<condition var1="tw_is_encrypted" op="!=" var2="1"/>
 					<condition var1="c_temp3" op="!=" var2="78"/>
 					<condition var1="c_shrp_resource_status" op="!=" var2="1"/>
 				</conditions>
@@ -8881,51 +8735,7 @@ cp /twres/c_dash_ico/aex/*.png /data/cookies/ramdisk/twres/images/;
 				<actions>
 					<action function="set">c_status={@c_init=Initializing}</action>
 					<action function="set">c_temp3=78</action>
-					<action function="cmd">
-cp -a /sdcard/SHRP/epicx/cookies /data;
-					</action>
-					<action function="cmd">
-set_perm() {
-	uid=$1; gid=$2; mod=$3;
-	shift 3;
-	chown $uid:$gid "$@" || chown $uid.$gid "$@";
-	chmod $mod "$@";
-}
-set_perm_recursive() {
-	uid=$1; gid=$2; dmod=$3; fmod=$4;
-	shift 4;
-	until [ ! "$1" ]; do
-	chown -R $uid:$gid "$1" || chown -R $uid.$gid "$1";
-	find "$1" -type d -exec chmod $dmod {} +;
-	find "$1" -type f -exec chmod $fmod {} +;
-	shift;
-	done;
-}
-set_perm_recursive 0 0 0755 0755 "/data/cookies";
-set_perm_recursive 0 0 0755 0644 "/data/cookies/bin/avb" "/data/cookies/bin/chromeos";
-set_perm 0 0 0644 "/data/cookies/authors.txt" "/data/cookies/bin/androidbootimg.magic" "/data/cookies/bin/BootSignature_Android.jar" "/data/cookies/bin/magic";
-					</action>
-					<action function="set">c_status={@c_a_done=Almost Done}</action>
-					<action function="cmd">
-file_getprop() { grep "^$2" "$1" | head -n1 | cut -d= -f2; }
-cd /data/cookies;
-cp /sdcard/SHRP/epicx/recovery.img /data/cookies/
-sh unpackimg.sh;
-rm -rf /data/cookies/ramdisk/twres/
-cp -r /twres/ /data/cookies/ramdisk/
-					</action>
-					<action function="set">c_temp3=pepe</action>
-					<action function="page">check_error_theme_init</action>
-				</actions>
-			</button>
-			<button>
-				<placement x="379" y="1620"/>
-				<condition var1="c_temp4" op="=" var2="78"/>
-				<image resource="oka" highlightresource="oka"/>
-				<actions>
-					<action function="set">c_temp3=pepe</action>
-					<action function="set">c_temp4=pepe</action>
-					<action function="page">copylog</action>
+					<action function="c_unpack">1</action>
 				</actions>
 			</button>
 			<text>
@@ -8944,23 +8754,6 @@ cp -r /twres/ /data/cookies/ramdisk/
 				<touch key="home"/>
 				<actions>
 					<action function="page">c_refresh</action>
-				</actions>
-			</action>
-		</page>
-		<page name="check_error_theme_init">
-			<action>
-				<condition var1="tw_operation_status" var2="1"/>
-				<actions>
-					<action function="set">c_temp3=78</action>
-					<action function="set">c_temp4=78</action>
-					<action function="set">c_status={@c_init_failed=Initialization Failed}</action>
-					<action function="page">c_splash_theme</action>
-				</actions>
-			</action>
-			<action>
-				<condition var1="tw_operation_status" var2="0"/>
-				<actions>
-					<action function="page">c_new_shrp_theme_dashboard</action>
 				</actions>
 			</action>
 		</page>
@@ -9101,21 +8894,9 @@ rm /data/cookies/ramdisk/twres/c_status_bar_h.xml
 cp /twres/cache/c_status_bar_h.xml /data/cookies/ramdisk/twres/
 					</action>
 					<action function="set">c_status={@c_repacking=Repacking} {@recovery=Recovery}</action>
-					<action function="cmd">
-cd /data/cookies;
-cp -r /data/cookies/ramdisk/twres /
-sh repackimg.sh;
-					</action>
+					<action function="c_repack"/>
 					<action function="set">c_status={@c_flashing=Flashing} {@recovery=Recovery}</action>
-					<action function="cmd">
-cd /data/cookies;
-file_getprop() { grep "^$2" "$1" | head -n1 | cut -d= -f2; }
-dd if=/data/cookies/image-new.img of=$(file_getprop /shrp_vital ro.shrp.recovery.block);
-					</action>
 					<action function="set">c_status={@c_rm_o_files=Removing Old files}</action>
-					<action function="cmd">
-rm -r /data/cookies;
-					</action>
 					<action function="set">c_status={@done=Done}</action>
 					<action function="set">c_new_theme_busy=0</action>
 					<action function="reload"/>
@@ -9153,8 +8934,6 @@ rm -r /data/cookies;
 				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
 				<text>{@c_tweaks_info=Collection of tweaks}</text>
 			</text>
-
-
 			<text style="c_addon_special">
 				<placement x="%c_hawk_base_column%" y="%c_text_sub_y%"/>
 				<text>{@c_subs=Substratum Overlay}</text>
