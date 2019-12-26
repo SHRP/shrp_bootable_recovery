@@ -1107,6 +1107,11 @@ int GUIAction::flash(std::string arg)
 {
 	int active_slot = 0;
 	int inject_shrp = 0;
+	int mkinject_zip = 0;
+	string cmdsysonesar = "umount -f /system_root";
+	string cmdsystwosar = "mount -w /system_root";
+	string cmdsysone = "umount -f /system";
+	string cmdsystwo = "mount -w /system";
     backup_before_flash();
     if (DataManager::GetIntValue(TW_HAS_DEVICEAB) == 1 && DataManager::GetIntValue(TW_ACTIVE_SLOT_INSTALL) == 1) {
     	string cmd = "setprop tw_active_slot_install 1";
@@ -1120,7 +1125,7 @@ int GUIAction::flash(std::string arg)
     }
     if (DataManager::GetIntValue(TW_HAS_DEVICEAB) == 1 && DataManager::GetIntValue(TW_MKINJECT_AFTER_ZIP) == 1) {
     	string cmd = "setprop tw_mkinject_after_zip 1";
-    	TWFunc::Exec_cmd(cmd);
+    	TWFunc::Exec_Cmd(cmd);
     	mkinject_zip = 1;
     }
 	int i, ret_val = 0, wipe_cache = 0;
@@ -1151,11 +1156,6 @@ int GUIAction::flash(std::string arg)
 		PartitionManager.Wipe_By_Path("/cache");
 	}
 
-	if (reinject_after_flash() == 0) {
-	    PartitionManager.Update_System_Details();
-    }
-
-	operation_end(ret_val);
 	// This needs to be after the operation_end call so we change pages before we change variables that we display on the screen
 	DataManager::SetValue(TW_ZIP_QUEUE_COUNT, zip_queue_index);
 	// Reset active slot counter to 0
@@ -1170,31 +1170,46 @@ int GUIAction::flash(std::string arg)
 		TWFunc::Exec_Cmd(cmd);
     }
     // Remount system as R/W, just in case
-    string cmd = "umount -f /dev/block/bootdevice/by-name/system";
-    TWFunc::Exec_Cmd(cmd);
-    string cmdtwo = "mount -w /dev/block/bootdevice/by-name/system";
-    TWFunc::Exec_Cmd(cmdtwo);
-    gui_msg("remount_system_rw=[i] Remounted system as R/W!");
-    // Inject Magisk
-     if (mkinject_zip == 1) {
-		mkinject_zip = 0;
-    	string cmd = "setprop tw_mkinject_after_zip 0";
-		TWFunc::Exec_Cmd(cmd);
-		DataManager::SetValue("tw_filename", "/sdcard/SHRP/epicx/c_magisk");
-		TWFunc::SetPerformanceMode(true);
-		ret_val = flash_zip(zip_path, &wipe_cache);
-		if (ret_val != 0) {
-			gui_msg(Msg(msg::kError, "zip_err=Error while re-injecting magisk!")(zip_path));
-			ret_val = 1;
-			break;
-		}
-		//Re-inject system again, just in case
-		string cmd = "umount -f /dev/block/bootdevice/by-name/system";
-    	TWFunc::Exec_Cmd(cmd);
-    	string cmdtwo = "mount -w /dev/block/bootdevice/by-name/system";
-    	TWFunc::Exec_Cmd(cmdtwo);
+    if (TWFunc::Path_Exists("/system/system"))
+    {
+    	TWFunc::Exec_Cmd(cmdsysonesar);
+    	TWFunc::Exec_Cmd(cmdsystwosar);
+    	gui_msg("remount_system_rw=[i] Remounted system_root as R/W!");
+    }
+    else
+    {
+   		TWFunc::Exec_Cmd(cmdsysone);
+    	TWFunc::Exec_Cmd(cmdsystwo);
     	gui_msg("remount_system_rw=[i] Remounted system as R/W!");
     }
+    // Inject Magisk
+    if (mkinject_zip == 1) {
+		mkinject_zip = 0;
+    	string cmdmk = "setprop tw_mkinject_after_zip 0";
+		TWFunc::Exec_Cmd(cmdmk);
+		TWFunc::SetPerformanceMode(true);
+		ret_val = flash_zip("/sdcard/SHRP/epicx/c_magisk.zip", &wipe_cache);
+		TWFunc::SetPerformanceMode(false);
+		//Re-inject system again, just in case
+    	if (TWFunc::Path_Exists("/system/system"))
+   		{
+    		TWFunc::Exec_Cmd(cmdsysonesar);
+    		TWFunc::Exec_Cmd(cmdsystwosar);
+    		gui_msg("remount_system_rw=[i] Remounted system_root as R/W!");
+    	}
+    	else
+    	{
+   			TWFunc::Exec_Cmd(cmdsysone);
+    		TWFunc::Exec_Cmd(cmdsystwo);
+    		gui_msg("remount_system_rw=[i] Remounted system as R/W!");
+    	}
+    }
+
+    if (reinject_after_flash() == 0) {
+	    PartitionManager.Update_System_Details();
+    }
+
+	operation_end(ret_val);
 	return 0;
 }
 
@@ -2684,7 +2699,7 @@ int GUIAction::c_repack(std::string arg __unused){
 			Repack_Options_struct Repack_Options;
 			Repack_Options.Disable_Verity = false;
 			Repack_Options.Disable_Force_Encrypt = false;
-			Repack_Options.Backup_first=true;//Doubt
+			Repack_Options.Backup_First=true;//Doubt
 			Repack_Options.Type = REPLACE_RAMDISK;
 			string path = "/data/cookies/image_new.img";
 			PartitionManager.Repack_Images(path, Repack_Options);
