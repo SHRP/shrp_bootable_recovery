@@ -200,7 +200,7 @@ bool GUIFileSelector::fileSort(FileData d1, FileData d2)
 		return 0;
 
 	switch (mSortOrder) {
-		case 3: // by size largest first
+		/*case 3: // by size largest first
 			if (d1.fileSize == d2.fileSize || d1.fileType == DT_DIR) // some directories report a different size than others - but this is not the size of the files inside the directory, so we just sort by name on directories
 				return (strcasecmp(d1.fileName.c_str(), d2.fileName.c_str()) < 0);
 			return d1.fileSize < d2.fileSize;
@@ -215,7 +215,7 @@ bool GUIFileSelector::fileSort(FileData d1, FileData d2)
 		case -2: // by date oldest first
 			if (d1.lastModified == d2.lastModified)
 				return (strcasecmp(d1.fileName.c_str(), d2.fileName.c_str()) > 0);
-			return d1.lastModified > d2.lastModified;
+			return d1.lastModified > d2.lastModified;*/
 		case -1: // by name descending
 			return (strcasecmp(d1.fileName.c_str(), d2.fileName.c_str()) > 0);
 		default: // should be a 1 - sort by name ascending
@@ -268,9 +268,9 @@ int GUIFileSelector::GetFileList(const std::string folder)
 		data.userId = st.st_uid;
 		data.groupId = st.st_gid;
 		data.fileSize = st.st_size;
-		data.lastAccess = st.st_atime;
-		data.lastModified = st.st_mtime;
-		data.lastStatChange = st.st_ctime;
+		//data.lastAccess = st.st_atime;
+		//data.lastModified = st.st_mtime;
+		//data.lastStatChange = st.st_ctime;
 
 		if (data.fileType == DT_UNKNOWN) {
 			data.fileType = TWFunc::Get_D_Type_From_Stat(path);

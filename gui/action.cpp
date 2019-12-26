@@ -2506,78 +2506,57 @@ int GUIAction::sig(std::string arg __unused){
 	unsigned long long mb = 1048576;
 	string partition;
 	TWPartition* ptr;
-	//PartitionManager.Update_shrp_sidebar();
-	LOGINFO("SIG Started : \n");
 //Start_Internal_Sdcard
 	DataManager::GetValue("internal_storage_location", partition);
-	LOGINFO("Internal : %s\n",partition.c_str());
 	if(partition==""||partition==" "){
-		LOGINFO("IF TRUE Hoise\n");
 		DataManager::SetValue("c_i_p","0");
 		DataManager::SetValue("c_i_status","Not Available");
 	}else{
-		LOGINFO("IF False Hoise\n");
 		ptr=PartitionManager.Find_Partition_By_Path(partition);
 		if(ptr==NULL){
-			LOGINFO("Ptr NULL Ache\n");
 			DataManager::SetValue("c_i_p","0");
 			DataManager::SetValue("c_i_status","Not Available");
 		}else{
-			LOGINFO("Ptr NULL nei\n");
-			ptr->Update_Size(true);
+			//ptr->Update_Size(true);
 			size=ptr->Size / mb;
 			used=ptr->Used / mb;
 			free=ptr->Free / mb;
-			LOGINFO("Internal storage er Pulled size : SIZE %d | Used %d | FREE %d\n",size,used,free);
-			LOGINFO("Function ke ami pathachhi : SIZE %d | Used %d | FREE %d\n",size,size-free,free);
 			TWFunc::process_space(size,free,size-free,1);
 		}
 	}
 //Start_External_Sdcard
 	DataManager::GetValue("external_storage_location", partition);
-	LOGINFO("External : %s\n",partition.c_str());
 	if(partition==""||partition==" "){
-		LOGINFO("IF TRUE Hoise\n");
 		DataManager::SetValue("c_e_p","0");
 		DataManager::SetValue("c_e_status","Not Available");
 	}else{
-		LOGINFO("IF False Hoise\n");
 		ptr=PartitionManager.Find_Partition_By_Path(partition);
 		if(ptr==NULL){
-			LOGINFO("Ptr NULL Ache\n");
 			DataManager::SetValue("c_e_p","0");
 			DataManager::SetValue("c_e_status","Not Available");
 		}else{
-			LOGINFO("Ptr NULL nei\n");
-			ptr->Update_Size(true);
+			//ptr->Update_Size(true);
 			size=ptr->Size / mb;
 			used=ptr->Used / mb;
 			free=ptr->Free / mb;
-			LOGINFO("External storage er Pulled size : SIZE %d | Used %d | FREE %d\n",size,used,free);
 			TWFunc::process_space(size,free,used,2);
 		}
 	}
 //Start_OTG
 	DataManager::GetValue("usb_otg_location", partition);
-	LOGINFO("OTG : %s\n",partition.c_str());
 	if(partition==""||partition==" "){
-		LOGINFO("IF TRUE Hoise\n");
 		DataManager::SetValue("c_o_p","0");
 		DataManager::SetValue("c_o_status","Not Available");
 	}else{
-		LOGINFO("IF False Hoise\n");
 		ptr=PartitionManager.Find_Partition_By_Path(partition);
 		if(ptr==NULL){
-			LOGINFO("Ptr NULL Ache\n");
 			DataManager::SetValue("c_o_p","0");
 			DataManager::SetValue("c_o_status","Not Available");
 		}else{
-			LOGINFO("Ptr NULL nei\n");
-			ptr->Update_Size(true);
+			//ptr->Update_Size(true);
 			size=ptr->Size / mb;
 			used=ptr->Used / mb;
 			free=ptr->Free / mb;
-			LOGINFO("OTG storage er Pulled size : SIZE %d | Used %d | FREE %d\n",size,used,free);
 			TWFunc::process_space(size,free,used,3);
 		}
 	}
