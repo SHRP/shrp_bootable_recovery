@@ -593,6 +593,14 @@ sh c_core_checker;
 				<text>%tw_file%</text>
 			</text>
 
+			<!--1350-->
+			<checkbox>
+				<condition var1="tw_has_injecttwrp" var2="1"/>
+				<placement x="%c_hawk_base_column%" y="1350"/>
+				<text>{@inject_twrp_chk=Inject Magisk after install}</text>
+				<data variable="tw_mkinject_after_zip"/>
+			</checkbox>
+			
 			<checkbox>
 				<condition var1="tw_has_injecttwrp" var2="1"/>
 				<placement x="%c_hawk_base_column%" y="1425"/>
