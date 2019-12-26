@@ -596,7 +596,7 @@ sh c_core_checker;
 			<checkbox>
 				<condition var1="tw_has_injecttwrp" var2="1"/>
 				<placement x="%c_hawk_base_column%" y="1425"/>
-				<text>{@inject_twrp_chk=Inject TWRP after install}</text>
+				<text>{@inject_twrp_chk=Inject SHRP after install}</text>
 				<data variable="tw_inject_after_zip"/>
 			</checkbox>
 
