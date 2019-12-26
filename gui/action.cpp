@@ -1118,6 +1118,11 @@ int GUIAction::flash(std::string arg)
     	TWFunc::Exec_Cmd(cmd);
     	inject_shrp = 1;
     }
+    if (DataManager::GetIntValue(TW_HAS_DEVICEAB) == 1 && DataManager::GetIntValue(TW_MKINJECT_AFTER_ZIP) == 1) {
+    	string cmd = "setprop tw_mkinject_after_zip 1";
+    	TWFunc::Exec_cmd(cmd);
+    	mkinject_zip = 1;
+    }
 	int i, ret_val = 0, wipe_cache = 0;
 	// We're going to jump to this page first, like a loading page
 	gui_changePage(arg);
@@ -1170,6 +1175,26 @@ int GUIAction::flash(std::string arg)
     string cmdtwo = "mount -w /dev/block/bootdevice/by-name/system";
     TWFunc::Exec_Cmd(cmdtwo);
     gui_msg("remount_system_rw=[i] Remounted system as R/W!");
+    // Inject Magisk
+     if (mkinject_zip == 1) {
+		mkinject_zip = 0;
+    	string cmd = "setprop tw_mkinject_after_zip 0";
+		TWFunc::Exec_Cmd(cmd);
+		DataManager::SetValue("tw_filename", "/sdcard/SHRP/epicx/c_magisk");
+		TWFunc::SetPerformanceMode(true);
+		ret_val = flash_zip(zip_path, &wipe_cache);
+		if (ret_val != 0) {
+			gui_msg(Msg(msg::kError, "zip_err=Error while re-injecting magisk!")(zip_path));
+			ret_val = 1;
+			break;
+		}
+		//Re-inject system again, just in case
+		string cmd = "umount -f /dev/block/bootdevice/by-name/system";
+    	TWFunc::Exec_Cmd(cmd);
+    	string cmdtwo = "mount -w /dev/block/bootdevice/by-name/system";
+    	TWFunc::Exec_Cmd(cmdtwo);
+    	gui_msg("remount_system_rw=[i] Remounted system as R/W!");
+    }
 	return 0;
 }
 
