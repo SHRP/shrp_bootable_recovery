@@ -92,7 +92,8 @@
 		<string name="folder">Folder:</string>
 		<string name="file">File:</string>
 		<string name="zip_sig_chk">Zip signature verification</string>
-		<string name="inject_twrp_chk">Inject TWRP after install</string>
+		<string name="inject_shrp_chk">Inject SHRP after install</string>
+		<string name="inject_magisk_chk">Inject Magisk after install</string>
 		<string name="install_reboot_chk">Reboot after installation is complete</string>
 		<string name="options_hdr">Options</string>
 		<string name="confirm_flash_hdr">Confirm Flash</string>
