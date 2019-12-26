@@ -1106,11 +1106,17 @@ int GUIAction::reinject_after_flash()
 int GUIAction::flash(std::string arg)
 {
 	int active_slot = 0;
+	int inject_shrp = 0;
     backup_before_flash();
     if (DataManager::GetIntValue(TW_HAS_DEVICEAB) == 1 && DataManager::GetIntValue(TW_ACTIVE_SLOT_INSTALL) == 1) {
     	string cmd = "setprop tw_active_slot_install 1";
 		TWFunc::Exec_Cmd(cmd);
 		active_slot = 1;
+    }
+    if (DataManager::GetIntValue(TW_HAS_DEVICEAB) == 1 && DataManager::GetIntValue(TW_INJECT_AFTER_ZIP) == 1) {
+    	string cmd = "setprop tw_inject_after_zip 1";
+    	TWFunc::Exec_Cmd(cmd);
+    	inject_shrp = 1;
     }
 	int i, ret_val = 0, wipe_cache = 0;
 	// We're going to jump to this page first, like a loading page
@@ -1151,6 +1157,11 @@ int GUIAction::flash(std::string arg)
 	if (active_slot == 1) {
 		active_slot = 0;
     	string cmd = "setprop tw_active_slot_install 0";
+		TWFunc::Exec_Cmd(cmd);
+    }
+    if (inject_shrp == 1) {
+		inject_shrp = 0;
+    	string cmd = "setprop tw_inject_after_zip 0";
 		TWFunc::Exec_Cmd(cmd);
     }
     // Remount system as R/W, just in case
