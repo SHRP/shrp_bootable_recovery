@@ -169,14 +169,16 @@ void shrp_lockscreen_date(){//SHRP Buutiful Lockscreen Date View
 void disp_info(){
 	string tmp;
 	DataManager::GetValue("shrp_ver",tmp);
-	tmp="SHRP Version - "+tmp;
-	gui_msg(Msg(tmp.c_str()));
+	DataManager::SetValue("console_flag","0");
+	tmp="={}SHRP Version - "+tmp;
+	gui_msg(Msg(tmp.c_str(),0));
 	DataManager::GetValue("shrp_ver_status",tmp);
-	tmp="Status - "+tmp;
-	gui_msg(Msg(tmp.c_str()));
+	tmp="=//Status - "+tmp;
+	gui_msg(Msg(tmp.c_str(),0));
 	DataManager::GetValue("device_code_name",tmp);
-	tmp="Device - "+tmp;
-	gui_msg(Msg(tmp.c_str()));
+	tmp="=\\Device - "+tmp;
+	gui_msg(Msg(tmp.c_str(),0));
+	DataManager::SetValue("console_flag","1");
 }
 
 int main(int argc, char **argv) {
