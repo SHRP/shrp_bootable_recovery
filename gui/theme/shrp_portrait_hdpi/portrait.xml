@@ -4717,6 +4717,14 @@ sh c_core_checker;
 				<placement x="50" y="230"/>
 				<text>{@c_side_bar_head=Storages}</text>
 			</text>
+			<button>
+				<placement x="590" y="250"/>
+				<image resource="c_reload"/>
+				<actions>
+					<action function="refreshsizes"/>
+					<action function="sig"/>
+				</actions>
+			</button>
 			<image>
 				<placement x="50" y="350"/>
 				<image resource="c_file_root"/>
