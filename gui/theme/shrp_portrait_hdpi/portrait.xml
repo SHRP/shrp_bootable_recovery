@@ -5553,6 +5553,50 @@ sh c_core_only_disabler;
 			</action>
 			<button style="c_circle4">
 				<placement x="860" y="1628"/>
+				<conditions>
+					<condition var1="c_magisk_status" op="=" var2="1"/>
+					<condition var1="c_magisk_update" op="!=" var2="1"/>
+				</conditions>
+				<text>{@c_root=Root}</text>
+				<actions>
+					<action function="set">tw_back=c_magisk_bhosdk</action>
+					<action function="set">tw_filename=/sdcard/SHRP/epicx/c_magisk.zip</action>
+					<action function="set">tw_action=queuezip</action>
+					<action function="set">tw_has_action2=1</action>
+					<action function="set">tw_action2=flash</action>
+					<action function="set">tw_action2_param=flash_zip</action>
+					<action function="set">tw_text1={@confirm_flash_hdr=Confirm Flash}</action>
+					<action function="set">tw_complete_text1={@done=Done}</action>
+					<action function="set">tw_slider_text=Swipe to Confirm</action>
+					<action function="page">confirm_action</action>
+				</actions>
+			</button>
+			<button style="c_circle4">
+				<placement x="860" y="1628"/>
+				<conditions>
+					<condition var1="c_magisk_status" op="!=" var2="1"/>
+					<condition var1="c_magisk_update" op="=" var2="1"/>
+				</conditions>
+				<text>{@c_root=Root}</text>
+				<actions>
+					<action function="set">tw_back=c_magisk_bhosdk</action>
+					<action function="set">tw_filename=/sdcard/SHRP/epicx/c_magisk.zip</action>
+					<action function="set">tw_action=queuezip</action>
+					<action function="set">tw_has_action2=1</action>
+					<action function="set">tw_action2=flash</action>
+					<action function="set">tw_action2_param=flash_zip</action>
+					<action function="set">tw_text1={@confirm_flash_hdr=Confirm Flash}</action>
+					<action function="set">tw_complete_text1={@done=Done}</action>
+					<action function="set">tw_slider_text=Swipe to Confirm</action>
+					<action function="page">confirm_action</action>
+				</actions>
+			</button>
+			<button style="c_circle4">
+				<placement x="860" y="1628"/>
+				<conditions>
+					<condition var1="c_magisk_status" op="=" var2="1"/>
+					<condition var1="c_magisk_update" op="=" var2="1"/>
+				</conditions>
 				<text>{@c_root=Root}</text>
 				<actions>
 					<action function="set">tw_back=c_magisk_bhosdk</action>
@@ -5568,7 +5612,31 @@ sh c_core_only_disabler;
 				</actions>
 			</button>
 			<button style="c_circle3">
+				<placement x="860" y="1628"/>
+				<conditions>
+					<condition var1="c_magisk_status" op="!=" var2="1"/>
+					<condition var1="c_magisk_update" op="!=" var2="1"/>
+				</conditions>
+				<text>{@c_unroot=Unroot}</text>
+				<actions>
+					<action function="set">tw_back=c_magisk_bhosdk</action>
+					<action function="set">tw_filename=/sdcard/SHRP/epicx/unmagisk.zip</action>
+					<action function="set">tw_action=queuezip</action>
+					<action function="set">tw_has_action2=1</action>
+					<action function="set">tw_action2=flash</action>
+					<action function="set">tw_action2_param=flash_zip</action>
+					<action function="set">tw_text1={@confirm_flash_hdr=Confirm Flash}</action>
+					<action function="set">tw_complete_text1={@done=Done}</action>
+					<action function="set">tw_slider_text=Swipe to Confirm</action>
+					<action function="page">confirm_action</action>
+				</actions>
+			</button>
+			<button style="c_circle3">
 				<placement x="860" y="1450"/>
+				<conditions>
+					<condition var1="c_magisk_status" op="=" var2="0"/>
+					<condition var1="c_magisk_update" op="=" var2="1"/>
+				</conditions>
 				<text>{@c_unroot=Unroot}</text>
 				<actions>
 					<action function="set">tw_back=c_magisk_bhosdk</action>
