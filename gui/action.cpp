@@ -2728,12 +2728,14 @@ int GUIAction::flashOP(std::string arg){
 	int p,s=0;
 	char tmp[10];
 	p=arg.find_last_of(".");
-	p++;
-	while(arg[p]!=0){
-		tmp[s++]=arg[p++];
+	if(p!=-1){
+		p++;
+		while(arg[p]!=0){
+			tmp[s++]=arg[p++];
+		}
+		tmp[s]=0;
+		arg=tmp;
 	}
-	tmp[s]=0;
-	arg=tmp;
 	DataManager::GetValue("c_queue_enabled",s);
 	if(arg=="zip"){
 		GUIAction::queuezip("bappa");
