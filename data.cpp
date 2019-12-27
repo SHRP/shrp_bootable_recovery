@@ -789,6 +789,7 @@ void DataManager::SetDefaultValues()
 	mConst.SetValue("shrp_ver_status", "Beta");
 	mConst.SetValue("internal_storage_location", "/sdcard");
 	mConst.SetValue("c_magisk_path", "/_magisk/");
+	mConst.SetValue("c_magisk_stock_var", "20.0");
 
 	//SHRP SemiConstant variables
 	mData.SetValue("c_magisk_status", "0");
@@ -814,6 +815,7 @@ void DataManager::SetDefaultValues()
 	mData.SetValue("c_target_destination", "main2");
 	mData.SetValue("c_queue_enabled", "0");
 	mData.SetValue("c_skip_tv", "0");
+	mData.SetValue("c_magisk_update", "0");
 	//SHRP_LOCK_VARS
 	mData.SetValue("lock_enabled", "0");
 	mData.SetValue("patt_lock_enabled", "0");

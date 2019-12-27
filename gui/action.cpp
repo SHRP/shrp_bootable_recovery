@@ -2361,14 +2361,21 @@ int GUIAction::shrp_magisk_info(std::string arg __unused){
 	float v;
 	if(TWFunc::Path_Exists("/tmp/magisk_var.txt")){
 		TWFunc::read_file("/tmp/magisk_var.txt",h1);
+		if(h1<1000){
+			DataManager::SetValue("c_magisk_ver","N/A");
+			DataManager::SetValue("c_magisk_update","1");
+		}else{
+			v=(float)h1/1000;
+			DataManager::SetValue("c_magisk_ver",v);
+			float tmp;
+			DataManager::GetValue("c_magisk_stock_var", tmp);
+			if(tmp>v){
+				DataManager::SetValue("c_magisk_update","1");
+			}
+		}
 	}else{
 		LOGINFO("Magisk Version Not Found\n");
-	}
-	if(h1<1000){
-		DataManager::SetValue("c_magisk_ver","N/A");
-	}else{
-		v=(float)h1/1000;
-		DataManager::SetValue("c_magisk_ver",v);
+		DataManager::SetValue("c_magisk_update","1");
 	}
 	if(TWFunc::Path_Exists(core_only_1)||TWFunc::Path_Exists(core_only_2)){
 		DataManager::SetValue("core",1);
