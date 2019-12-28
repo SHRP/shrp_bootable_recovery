@@ -263,6 +263,7 @@ GUIAction::GUIAction(xml_node<>* node)
 		ADD_ACTION(c_repack);
 		ADD_ACTION(flashOP);
 		ADD_ACTION(sandy);
+		ADD_ACTION(clearInput);
 	}
 
 	// First, get the action
@@ -2762,5 +2763,10 @@ int GUIAction::sandy(std::string arg __unused){
 	fclose(f);
 	gui_msg(Msg(text.c_str()));
 	PageManager::ChangePage("install");
+	return 0;
+}
+int GUIAction::clearInput(std::string arg){
+	DataManager::SetValue(arg.c_str(),"");
+	PageManager::ChangePage("backupname1");
 	return 0;
 }

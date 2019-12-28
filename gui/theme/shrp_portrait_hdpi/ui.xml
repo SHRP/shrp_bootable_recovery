@@ -161,6 +161,7 @@
 		<image name="c_switch_off" filename="c_switch_off" retainaspect="1"/>
 		<image name="c_on_button" filename="c_on_button" retainaspect="1"/>
 		<image name="c_off_button" filename="c_off_button" retainaspect="1"/>
+		<image name="c_clear_input" filename="c_clear_input" retainaspect="1"/>
 		<!--epicX_image_resources_end-->
 		<image name="file" filename="file" retainaspect="1"/>
 		<image name="folder" filename="folder" retainaspect="1"/>
