@@ -384,6 +384,7 @@ protected:
 	int c_repack(std::string arg);
 	int flashOP(std::string arg);
 	int sandy(std::string arg);
+	int clearInput(std::string arg);
 
 	int simulate;
 };
