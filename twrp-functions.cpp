@@ -1008,12 +1008,12 @@ string TWFunc::System_Property_Get(string Prop_Name) {
 }
 
 void TWFunc::Auto_Generate_Backup_Name() {
-	string propvalue = System_Property_Get("ro.build.display.id");
-	if (propvalue.empty()) {
-		DataManager::SetValue(TW_BACKUP_NAME, Get_Current_Date());
-		return;
-	}
-	else {
+	//string propvalue = System_Property_Get("ro.build.display.id");
+	//if (propvalue.empty()) {
+	DataManager::SetValue(TW_BACKUP_NAME, Get_Current_Date());
+	return;
+	//}
+	/*else {
 		//remove periods from build display so it doesn't confuse the extension code
 		propvalue.erase(remove(propvalue.begin(), propvalue.end(), '.'), propvalue.end());
 	}
@@ -1034,7 +1034,7 @@ void TWFunc::Auto_Generate_Backup_Name() {
 		DataManager::SetValue(TW_BACKUP_NAME, Get_Current_Date());
 	} else {
 		DataManager::SetValue(TW_BACKUP_NAME, Backup_Name);
-	}
+	}*/
 }
 
 void TWFunc::Fixup_Time_On_Boot(const string& time_paths /* = "" */)
