@@ -56,7 +56,6 @@ public:
 // conversion to final string
 Message::operator std::string() const
 {
-	LOGINFO("Before Pepe Operation - %s\n", name.c_str());
 	cx=z;
 	// do resource lookup
 	std::string str = GetFormatString(name);
@@ -78,8 +77,6 @@ Message::operator std::string() const
 			str.replace(pos, end - pos + 1, vartext);
 		}
 	}
-
-	LOGINFO("After Pepe Operation - %s\n", str.c_str());
 	// TODO: complain about too many or too few numbered replacement variables
 	return str;
 }
