@@ -113,6 +113,11 @@ void shrp_lockscreen_date(){//SHRP Buutiful Lockscreen Date View
 	string Current_Date,month,week,main_result,day_s;
 	time_t seconds = time(0);
 	struct tm *t = localtime(&seconds);
+	{
+		string time;
+		DataManager::GetValue("tw_ls_time",time);
+		DataManager::SetValue("tw_ls_time",time.c_str());
+	}
 	int m=t->tm_mon+1;
 	int y=t->tm_year+1900;
 	int d=t->tm_mday;
@@ -168,17 +173,16 @@ void shrp_lockscreen_date(){//SHRP Buutiful Lockscreen Date View
 }
 void disp_info(){
 	string tmp;
+	gui_msg(Msg("|SKYHAWK RECOVERY PROJECT",0));
 	DataManager::GetValue("shrp_ver",tmp);
-	DataManager::SetValue("console_flag","0");
-	tmp="={}SHRP Version - "+tmp;
+	tmp="|Version - "+tmp;
 	gui_msg(Msg(tmp.c_str(),0));
 	DataManager::GetValue("shrp_ver_status",tmp);
-	tmp="=//Status - "+tmp;
+	tmp="|Status - "+tmp;
 	gui_msg(Msg(tmp.c_str(),0));
 	DataManager::GetValue("device_code_name",tmp);
-	tmp="=\\Device - "+tmp;
+	tmp="|Device - "+tmp;
 	gui_msg(Msg(tmp.c_str(),0));
-	DataManager::SetValue("console_flag","1");
 }
 
 int main(int argc, char **argv) {

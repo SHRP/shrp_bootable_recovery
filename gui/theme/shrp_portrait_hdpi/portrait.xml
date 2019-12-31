@@ -4627,108 +4627,6 @@ sh c_core_checker;
 				<placement x="50" y="230"/>
 				<text>{@c_side_bar_head=Storages}</text>
 			</text>
-			<image>
-				<placement x="50" y="350"/>
-				<image resource="c_file_root"/>
-			</image>
-			<image>
-				<placement x="50" y="500"/>
-				<image resource="c_file_sdcard"/>
-			</image>
-			<image>
-				<placement x="50" y="650"/>
-				<image resource="c_file_exsdcard"/>
-			</image>
-			<image>
-				<placement x="50" y="800"/>
-				<image resource="c_file_otg"/>
-			</image>
-			<text style="c_file_menu">
-				<placement x="170" y="350"/>
-				<text>{@c_side_bar_root=Root}</text>
-			</text>
-			<text style="c_file_menu">
-				<placement x="170" y="390"/>
-				<text>/</text>
-			</text>
-			<text style="c_file_menu">
-				<placement x="170" y="500"/>
-				<text>{@c_side_bar_internal=Internal Storage}</text>
-			</text>
-			<text style="c_file_menu">
-				<placement x="170" y="540"/>
-				<text>%internal_storage_location%</text>
-			</text>
-			<text style="c_file_menu">
-				<placement x="170" y="650"/>
-				<text>{@c_side_bar_external=External Storage}</text>
-			</text>
-			<text style="c_file_menu">
-				<placement x="170" y="690"/>
-				<text>%external_storage_location%</text>
-			</text>
-			<text style="c_file_menu">
-				<placement x="170" y="800"/>
-				<text>{@c_side_bar_otg=OTG}</text>
-			</text>
-			<text style="c_file_menu">
-				<placement x="170" y="840"/>
-				<text>%usb_otg_location%</text>
-			</text>
-			<button>
-				<placement x="37" y="337" w="584" h="113"/>
-				<fill color="%transparent%"/>
-				<action function="set">c_menu=0</action>
-				<action function="set">tw_file_location2=/</action>
-				<action function="overlay"/>
-			</button>
-			<button>
-				<placement x="37" y="487" w="584" h="113"/>
-				<fill color="%transparent%"/>
-				<action function="set">c_menu=0</action>
-				<action function="set">tw_file_location2=%internal_storage_location%</action>
-				<action function="overlay"/>
-			</button>
-			<button>
-				<placement x="37" y="637" w="584" h="113"/>
-				<fill color="%transparent%"/>
-				<action function="set">c_menu=0</action>
-				<action function="set">tw_file_location2=%external_storage_location%</action>
-				<action function="overlay"/>
-			</button>
-			<button>
-				<placement x="37" y="787" w="584" h="113"/>
-				<fill color="%transparent%"/>
-				<action function="set">c_menu=0</action>
-				<action function="set">tw_file_location2=%usb_otg_location%</action>
-				<action function="overlay"/>
-			</button>
-			<button>
-				<condition var1="c_menu" op="=" var2="1"/>
-				<placement x="860" y="1450"/>
-				<image resource="c_file_back"/>
-				<action function="set">c_menu=0</action>
-				<action function="overlay"/>
-			</button>
-			<action>
-				<touch key="back"/>
-				<action function="set">c_menu=0</action>
-				<action function="overlay"/>
-			</action>
-			<action>
-				<touch key="power+voldown"/>
-				<action function="screenshot"/>
-			</action>
-		</page>
-		<page name="c_file_menu">
-			<background color="%semi_transparent%"/>
-			<fill color="%c_white%">
-				<placement x="0" y="0" w="710" h="1920"/>
-			</fill>
-			<text style="c_text_dashboard">
-				<placement x="50" y="230"/>
-				<text>{@c_side_bar_head=Storages}</text>
-			</text>
 			<button>
 				<placement x="590" y="250"/>
 				<image resource="c_reload"/>
@@ -4752,6 +4650,14 @@ sh c_core_checker;
 			<fill color="%nav_bg%">
 				<placement x="165" y="450" w="440" h="7"/>
 			</fill>
+			<!--RootButton-->
+			<button>
+				<placement x="36" y="330" w="612" h="138"/>
+				<fill color="%transparent%"/>
+				<action function="set">tw_file_location2=/</action>
+				<action function="set">c_menu=0</action>
+				<action function="overlay"/>
+			</button>
 			<image>
 				<placement x="50" y="524"/>
 				<image resource="c_file_sdcard"/>
@@ -4856,6 +4762,15 @@ sh c_core_checker;
 				<placement x="165" y="624" w="440" h="7"/>
 			</fill>
 
+			<!--InternalStorageButton-->
+			<button>
+				<placement x="36" y="504" w="612" h="138"/>
+				<fill color="%transparent%"/>
+				<action function="set">tw_file_location2=%internal_storage_location%</action>
+				<action function="set">c_menu=0</action>
+				<action function="overlay"/>
+			</button>
+
 			<image>
 				<placement x="50" y="698"/>
 				<image resource="c_file_exsdcard"/>
@@ -4871,6 +4786,102 @@ sh c_core_checker;
 			<fill color="%nav_bg%">
 				<placement x="165" y="798" w="440" h="7"/>
 			</fill>
+			<!--10% 44-->
+			<fill color="%c_black%">
+				<conditions>
+					<condition var1="c_e_p" op="&gt;" var2="0"/>
+					<condition var1="c_e_p" op="&lt;" var2="11"/>
+				</conditions>
+				<placement x="165" y="798" w="44" h="7"/>
+			</fill>
+			<!--20% 88-->
+			<fill color="%c_black%">
+				<conditions>
+					<condition var1="c_e_p" op="&gt;" var2="10"/>
+					<condition var1="c_e_p" op="&lt;" var2="21"/>
+				</conditions>
+				<placement x="165" y="798" w="88" h="7"/>
+			</fill>
+
+			<!--30% 132-->
+			<fill color="%c_black%">
+				<conditions>
+					<condition var1="c_e_p" op="&gt;" var2="20"/>
+					<condition var1="c_e_p" op="&lt;" var2="31"/>
+				</conditions>
+				<placement x="165" y="798" w="132" h="7"/>
+			</fill>
+
+			<!--40% 176-->
+			<fill color="%c_black%">
+				<conditions>
+					<condition var1="c_e_p" op="&gt;" var2="30"/>
+					<condition var1="c_e_p" op="&lt;" var2="41"/>
+				</conditions>
+				<placement x="165" y="798" w="176" h="7"/>
+			</fill>
+
+			<!--50% 220-->
+			<fill color="%c_black%">
+				<conditions>
+					<condition var1="c_e_p" op="&gt;" var2="40"/>
+					<condition var1="c_e_p" op="&lt;" var2="51"/>
+				</conditions>
+				<placement x="165" y="798" w="220" h="7"/>
+			</fill>
+
+			<!--60% 264-->
+			<fill color="%c_black%">
+				<conditions>
+					<condition var1="c_e_p" op="&gt;" var2="50"/>
+					<condition var1="c_e_p" op="&lt;" var2="61"/>
+				</conditions>
+				<placement x="165" y="798" w="264" h="7"/>
+			</fill>
+
+			<!--70% 308-->
+			<fill color="%c_black%">
+				<conditions>
+					<condition var1="c_e_p" op="&gt;" var2="60"/>
+					<condition var1="c_e_p" op="&lt;" var2="71"/>
+				</conditions>
+				<placement x="165" y="798" w="308" h="7"/>
+			</fill>
+
+			<!--80% 352-->
+			<fill color="%c_black%">
+				<conditions>
+					<condition var1="c_e_p" op="&gt;" var2="70"/>
+					<condition var1="c_e_p" op="&lt;" var2="81"/>
+				</conditions>
+				<placement x="165" y="798" w="352" h="7"/>
+			</fill>
+
+			<!--90% 396-->
+			<fill color="%c_black%">
+				<conditions>
+					<condition var1="c_e_p" op="&gt;" var2="80"/>
+					<condition var1="c_e_p" op="&lt;" var2="91"/>
+				</conditions>
+				<placement x="165" y="798" w="396" h="7"/>
+			</fill>
+
+			<!--100% 440-->
+			<fill color="%c_black%">
+				<conditions>
+					<condition var1="c_e_p" op="&gt;" var2="90"/>
+					<condition var1="c_e_p" op="&lt;" var2="101"/>
+				</conditions>
+				<placement x="165" y="798" w="440" h="7"/>
+			</fill>
+			<!--ExternalStorageButton-->
+			<button>
+				<placement x="36" y="678" w="612" h="138"/>
+				<fill color="%transparent%"/>
+				<action function="set">tw_file_location2=%external_storage_location%</action>
+				<action function="set">c_menu=0</action>
+				<action function="overlay"/>
+			</button>
 			<image>
 				<placement x="50" y="872"/>
 				<image resource="c_file_otg"/>
@@ -4974,6 +4985,406 @@ sh c_core_checker;
 				</conditions>
 				<placement x="165" y="972" w="440" h="7"/>
 			</fill>
+			<!--OTGStorageButton-->
+			<button>
+				<placement x="36" y="852" w="612" h="138"/>
+				<fill color="%transparent%"/>
+				<action function="set">tw_file_location2=%usb_otg_location%</action>
+				<action function="set">c_menu=0</action>
+				<action function="overlay"/>
+			</button>
+			<button>
+				<condition var1="c_menu" op="=" var2="1"/>
+				<placement x="860" y="1450"/>
+				<image resource="c_file_back"/>
+				<action function="set">c_menu=0</action>
+				<action function="overlay"/>
+			</button>
+			<action>
+				<touch key="back"/>
+				<action function="set">c_menu=0</action>
+				<action function="overlay"/>
+			</action>
+			<action>
+				<touch key="power+voldown"/>
+				<action function="screenshot"/>
+			</action>
+		</page>
+		<page name="c_file_menu">
+			<background color="%semi_transparent%"/>
+			<fill color="%c_white%">
+				<placement x="0" y="0" w="710" h="1920"/>
+			</fill>
+			<text style="c_text_dashboard">
+				<placement x="50" y="230"/>
+				<text>{@c_side_bar_head=Storages}</text>
+			</text>
+			<button>
+				<placement x="590" y="250"/>
+				<image resource="c_reload"/>
+				<actions>
+					<action function="refreshsizes"/>
+					<action function="sig"/>
+				</actions>
+			</button>
+			<image>
+				<placement x="50" y="350"/>
+				<image resource="c_file_root"/>
+			</image>
+			<text style="c_file_menu">
+				<placement x="170" y="350"/>
+				<text>{@c_side_bar_root=Root}</text>
+			</text>
+			<text style="c_reboot_text">
+				<placement x="170" y="400"/>
+				<text>%c_r_status%</text>
+			</text>
+			<fill color="%nav_bg%">
+				<placement x="165" y="450" w="440" h="7"/>
+			</fill>
+			<!--RootButton-->
+			<button>
+				<placement x="36" y="330" w="612" h="138"/>
+				<fill color="%transparent%"/>
+				<action function="set">tw_file_location1=/</action>
+				<action function="set">c_menu=0</action>
+				<action function="overlay"/>
+			</button>
+			<image>
+				<placement x="50" y="524"/>
+				<image resource="c_file_sdcard"/>
+			</image>
+			<text style="c_file_menu">
+				<placement x="170" y="524"/>
+				<text>{@c_side_bar_internal=Internal Storage}</text>
+			</text>
+			<text style="c_reboot_text">
+				<placement x="170" y="574"/>
+				<text>%c_i_status%</text>
+			</text>
+			<fill color="%nav_bg%">
+				<placement x="165" y="624" w="440" h="7"/>
+			</fill>
+			<!--10% 44-->
+			<fill color="%c_black%">
+				<conditions>
+					<condition var1="c_i_p" op="&gt;" var2="0"/>
+					<condition var1="c_i_p" op="&lt;" var2="11"/>
+				</conditions>
+				<placement x="165" y="624" w="44" h="7"/>
+			</fill>
+			<!--20% 88-->
+			<fill color="%c_black%">
+				<conditions>
+					<condition var1="c_i_p" op="&gt;" var2="10"/>
+					<condition var1="c_i_p" op="&lt;" var2="21"/>
+				</conditions>
+				<placement x="165" y="624" w="88" h="7"/>
+			</fill>
+
+			<!--30% 132-->
+			<fill color="%c_black%">
+				<conditions>
+					<condition var1="c_i_p" op="&gt;" var2="20"/>
+					<condition var1="c_i_p" op="&lt;" var2="31"/>
+				</conditions>
+				<placement x="165" y="624" w="132" h="7"/>
+			</fill>
+
+			<!--40% 176-->
+			<fill color="%c_black%">
+				<conditions>
+					<condition var1="c_i_p" op="&gt;" var2="30"/>
+					<condition var1="c_i_p" op="&lt;" var2="41"/>
+				</conditions>
+				<placement x="165" y="624" w="176" h="7"/>
+			</fill>
+
+			<!--50% 220-->
+			<fill color="%c_black%">
+				<conditions>
+					<condition var1="c_i_p" op="&gt;" var2="40"/>
+					<condition var1="c_i_p" op="&lt;" var2="51"/>
+				</conditions>
+				<placement x="165" y="624" w="220" h="7"/>
+			</fill>
+
+			<!--60% 264-->
+			<fill color="%c_black%">
+				<conditions>
+					<condition var1="c_i_p" op="&gt;" var2="50"/>
+					<condition var1="c_i_p" op="&lt;" var2="61"/>
+				</conditions>
+				<placement x="165" y="624" w="264" h="7"/>
+			</fill>
+
+			<!--70% 308-->
+			<fill color="%c_black%">
+				<conditions>
+					<condition var1="c_i_p" op="&gt;" var2="60"/>
+					<condition var1="c_i_p" op="&lt;" var2="71"/>
+				</conditions>
+				<placement x="165" y="624" w="308" h="7"/>
+			</fill>
+
+			<!--80% 352-->
+			<fill color="%c_black%">
+				<conditions>
+					<condition var1="c_i_p" op="&gt;" var2="70"/>
+					<condition var1="c_i_p" op="&lt;" var2="81"/>
+				</conditions>
+				<placement x="165" y="624" w="352" h="7"/>
+			</fill>
+
+			<!--90% 396-->
+			<fill color="%c_black%">
+				<conditions>
+					<condition var1="c_i_p" op="&gt;" var2="80"/>
+					<condition var1="c_i_p" op="&lt;" var2="91"/>
+				</conditions>
+				<placement x="165" y="624" w="396" h="7"/>
+			</fill>
+
+			<!--100% 440-->
+			<fill color="%c_black%">
+				<conditions>
+					<condition var1="c_i_p" op="&gt;" var2="90"/>
+					<condition var1="c_i_p" op="&lt;" var2="101"/>
+				</conditions>
+				<placement x="165" y="624" w="440" h="7"/>
+			</fill>
+
+			<!--InternalStorageButton-->
+			<button>
+				<placement x="36" y="504" w="612" h="138"/>
+				<fill color="%transparent%"/>
+				<action function="set">tw_file_location1=%internal_storage_location%</action>
+				<action function="set">c_menu=0</action>
+				<action function="overlay"/>
+			</button>
+
+			<image>
+				<placement x="50" y="698"/>
+				<image resource="c_file_exsdcard"/>
+			</image>
+			<text style="c_file_menu">
+				<placement x="170" y="698"/>
+				<text>{@c_side_bar_external=External Storage}</text>
+			</text>
+			<text style="c_reboot_text">
+				<placement x="170" y="748"/>
+				<text>%c_e_status%</text>
+			</text>
+			<fill color="%nav_bg%">
+				<placement x="165" y="798" w="440" h="7"/>
+			</fill>
+			<!--10% 44-->
+			<fill color="%c_black%">
+				<conditions>
+					<condition var1="c_e_p" op="&gt;" var2="0"/>
+					<condition var1="c_e_p" op="&lt;" var2="11"/>
+				</conditions>
+				<placement x="165" y="798" w="44" h="7"/>
+			</fill>
+			<!--20% 88-->
+			<fill color="%c_black%">
+				<conditions>
+					<condition var1="c_e_p" op="&gt;" var2="10"/>
+					<condition var1="c_e_p" op="&lt;" var2="21"/>
+				</conditions>
+				<placement x="165" y="798" w="88" h="7"/>
+			</fill>
+
+			<!--30% 132-->
+			<fill color="%c_black%">
+				<conditions>
+					<condition var1="c_e_p" op="&gt;" var2="20"/>
+					<condition var1="c_e_p" op="&lt;" var2="31"/>
+				</conditions>
+				<placement x="165" y="798" w="132" h="7"/>
+			</fill>
+
+			<!--40% 176-->
+			<fill color="%c_black%">
+				<conditions>
+					<condition var1="c_e_p" op="&gt;" var2="30"/>
+					<condition var1="c_e_p" op="&lt;" var2="41"/>
+				</conditions>
+				<placement x="165" y="798" w="176" h="7"/>
+			</fill>
+
+			<!--50% 220-->
+			<fill color="%c_black%">
+				<conditions>
+					<condition var1="c_e_p" op="&gt;" var2="40"/>
+					<condition var1="c_e_p" op="&lt;" var2="51"/>
+				</conditions>
+				<placement x="165" y="798" w="220" h="7"/>
+			</fill>
+
+			<!--60% 264-->
+			<fill color="%c_black%">
+				<conditions>
+					<condition var1="c_e_p" op="&gt;" var2="50"/>
+					<condition var1="c_e_p" op="&lt;" var2="61"/>
+				</conditions>
+				<placement x="165" y="798" w="264" h="7"/>
+			</fill>
+
+			<!--70% 308-->
+			<fill color="%c_black%">
+				<conditions>
+					<condition var1="c_e_p" op="&gt;" var2="60"/>
+					<condition var1="c_e_p" op="&lt;" var2="71"/>
+				</conditions>
+				<placement x="165" y="798" w="308" h="7"/>
+			</fill>
+
+			<!--80% 352-->
+			<fill color="%c_black%">
+				<conditions>
+					<condition var1="c_e_p" op="&gt;" var2="70"/>
+					<condition var1="c_e_p" op="&lt;" var2="81"/>
+				</conditions>
+				<placement x="165" y="798" w="352" h="7"/>
+			</fill>
+
+			<!--90% 396-->
+			<fill color="%c_black%">
+				<conditions>
+					<condition var1="c_e_p" op="&gt;" var2="80"/>
+					<condition var1="c_e_p" op="&lt;" var2="91"/>
+				</conditions>
+				<placement x="165" y="798" w="396" h="7"/>
+			</fill>
+
+			<!--100% 440-->
+			<fill color="%c_black%">
+				<conditions>
+					<condition var1="c_e_p" op="&gt;" var2="90"/>
+					<condition var1="c_e_p" op="&lt;" var2="101"/>
+				</conditions>
+				<placement x="165" y="798" w="440" h="7"/>
+			</fill>
+			<!--ExternalStorageButton-->
+			<button>
+				<placement x="36" y="678" w="612" h="138"/>
+				<fill color="%transparent%"/>
+				<action function="set">tw_file_location1=%external_storage_location%</action>
+				<action function="set">c_menu=0</action>
+				<action function="overlay"/>
+			</button>
+			<image>
+				<placement x="50" y="872"/>
+				<image resource="c_file_otg"/>
+			</image>
+			<text style="c_file_menu">
+				<placement x="170" y="872"/>
+				<text>{@c_side_bar_otg=OTG}</text>
+			</text>
+			<text style="c_reboot_text">
+				<placement x="170" y="922"/>
+				<text>%c_o_status%</text>
+			</text>
+			<fill color="%nav_bg%">
+				<placement x="165" y="972" w="440" h="7"/>
+			</fill>
+			<!--10% 44-->
+			<fill color="%c_black%">
+				<conditions>
+					<condition var1="c_o_p" op="&gt;" var2="0"/>
+					<condition var1="c_o_p" op="&lt;" var2="11"/>
+				</conditions>
+				<placement x="165" y="972" w="44" h="7"/>
+			</fill>
+			<!--20% 88-->
+			<fill color="%c_black%">
+				<conditions>
+					<condition var1="c_o_p" op="&gt;" var2="10"/>
+					<condition var1="c_o_p" op="&lt;" var2="21"/>
+				</conditions>
+				<placement x="165" y="972" w="88" h="7"/>
+			</fill>
+
+			<!--30% 132-->
+			<fill color="%c_black%">
+				<conditions>
+					<condition var1="c_o_p" op="&gt;" var2="20"/>
+					<condition var1="c_o_p" op="&lt;" var2="31"/>
+				</conditions>
+				<placement x="165" y="972" w="132" h="7"/>
+			</fill>
+
+			<!--40% 176-->
+			<fill color="%c_black%">
+				<conditions>
+					<condition var1="c_o_p" op="&gt;" var2="30"/>
+					<condition var1="c_o_p" op="&lt;" var2="41"/>
+				</conditions>
+				<placement x="165" y="972" w="176" h="7"/>
+			</fill>
+
+			<!--50% 220-->
+			<fill color="%c_black%">
+				<conditions>
+					<condition var1="c_o_p" op="&gt;" var2="40"/>
+					<condition var1="c_o_p" op="&lt;" var2="51"/>
+				</conditions>
+				<placement x="165" y="972" w="220" h="7"/>
+			</fill>
+
+			<!--60% 264-->
+			<fill color="%c_black%">
+				<conditions>
+					<condition var1="c_o_p" op="&gt;" var2="50"/>
+					<condition var1="c_o_p" op="&lt;" var2="61"/>
+				</conditions>
+				<placement x="165" y="972" w="264" h="7"/>
+			</fill>
+
+			<!--70% 308-->
+			<fill color="%c_black%">
+				<conditions>
+					<condition var1="c_o_p" op="&gt;" var2="60"/>
+					<condition var1="c_o_p" op="&lt;" var2="71"/>
+				</conditions>
+				<placement x="165" y="972" w="308" h="7"/>
+			</fill>
+
+			<!--80% 352-->
+			<fill color="%c_black%">
+				<conditions>
+					<condition var1="c_o_p" op="&gt;" var2="70"/>
+					<condition var1="c_o_p" op="&lt;" var2="81"/>
+				</conditions>
+				<placement x="165" y="972" w="352" h="7"/>
+			</fill>
+
+			<!--90% 396-->
+			<fill color="%c_black%">
+				<conditions>
+					<condition var1="c_o_p" op="&gt;" var2="80"/>
+					<condition var1="c_o_p" op="&lt;" var2="91"/>
+				</conditions>
+				<placement x="165" y="972" w="396" h="7"/>
+			</fill>
+
+			<!--100% 440-->
+			<fill color="%c_black%">
+				<conditions>
+					<condition var1="c_o_p" op="&gt;" var2="90"/>
+					<condition var1="c_o_p" op="&lt;" var2="101"/>
+				</conditions>
+				<placement x="165" y="972" w="440" h="7"/>
+			</fill>
+			<!--OTGStorageButton-->
+			<button>
+				<placement x="36" y="852" w="612" h="138"/>
+				<fill color="%transparent%"/>
+				<action function="set">tw_file_location1=%usb_otg_location%</action>
+				<action function="set">c_menu=0</action>
+				<action function="overlay"/>
+			</button>
 			<!--image>
 				<placement x="50" y="350"/>
 				<image resource="c_file_root"/>
