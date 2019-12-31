@@ -491,7 +491,7 @@
 				<placement x="0" y="400" w="1080" h="378"/>
 				<fill color="%transparent%"/>
 				<font resource="c_lock_clock" color="#ffffffff"/>
-				<text>%tw_time%</text>
+				<text>%tw_ls_time%</text>
 			</button>
 			<button>
 				<placement x="0" y="700" w="1080" h="100"/>

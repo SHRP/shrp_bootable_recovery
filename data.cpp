@@ -816,6 +816,7 @@ void DataManager::SetDefaultValues()
 	mData.SetValue("c_queue_enabled", "0");
 	mData.SetValue("c_skip_tv", "0");
 	mData.SetValue("c_magisk_update", "0");
+	mData.SetValue("tw_ls_time", "0");
 	//SHRP_LOCK_VARS
 	mData.SetValue("lock_enabled", "0");
 	mData.SetValue("patt_lock_enabled", "0");
@@ -1005,6 +1006,33 @@ int DataManager::GetMagicValue(const string& varName, string& value)
 				sprintf(tmp, "%d:%02d", current->tm_hour, current->tm_min);
 			else
 				sprintf(tmp, "%d:%02d AM", current->tm_hour == 0 ? 12 : current->tm_hour, current->tm_min);
+		}
+		value = tmp;
+		return 0;
+	}
+	else if (varName == "tw_ls_time")
+	{
+		char tmp[32];
+
+		struct tm *current;
+		time_t now;
+		int tw_military_time;
+		now = time(0);
+		current = localtime(&now);
+		GetValue(TW_MILITARY_TIME, tw_military_time);
+		if (current->tm_hour >= 12)
+		{
+			if (tw_military_time == 1)
+				sprintf(tmp, "%d:%02d", current->tm_hour, current->tm_min);
+			else
+				sprintf(tmp, "%d:%02d", current->tm_hour == 12 ? 12 : current->tm_hour - 12, current->tm_min);
+		}
+		else
+		{
+			if (tw_military_time == 1)
+				sprintf(tmp, "%d:%02d", current->tm_hour, current->tm_min);
+			else
+				sprintf(tmp, "%d:%02d", current->tm_hour == 0 ? 12 : current->tm_hour, current->tm_min);
 		}
 		value = tmp;
 		return 0;
