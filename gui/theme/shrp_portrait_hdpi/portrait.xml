@@ -5976,7 +5976,7 @@ sh c_core_only_disabler;
 				<text>{@c_root=Root}</text>
 				<actions>
 					<action function="set">tw_back=c_magisk_bhosdk</action>
-					<action function="set">tw_filename=/sdcard/SHRP/epicx/c_magisk.zip</action>
+					<action function="set">tw_filename=/sdcard/SHRP/addons/c_magisk.zip</action>
 					<action function="set">tw_action=queuezip</action>
 					<action function="set">tw_has_action2=1</action>
 					<action function="set">tw_action2=flash</action>
@@ -5996,7 +5996,7 @@ sh c_core_only_disabler;
 				<text>{@c_root=Root}</text>
 				<actions>
 					<action function="set">tw_back=c_magisk_bhosdk</action>
-					<action function="set">tw_filename=/sdcard/SHRP/epicx/c_magisk.zip</action>
+					<action function="set">tw_filename=/sdcard/SHRP/addons/c_magisk.zip</action>
 					<action function="set">tw_action=queuezip</action>
 					<action function="set">tw_has_action2=1</action>
 					<action function="set">tw_action2=flash</action>
@@ -6016,7 +6016,7 @@ sh c_core_only_disabler;
 				<text>{@c_root=Root}</text>
 				<actions>
 					<action function="set">tw_back=c_magisk_bhosdk</action>
-					<action function="set">tw_filename=/sdcard/SHRP/epicx/c_magisk.zip</action>
+					<action function="set">tw_filename=/sdcard/SHRP/addons/c_magisk.zip</action>
 					<action function="set">tw_action=queuezip</action>
 					<action function="set">tw_has_action2=1</action>
 					<action function="set">tw_action2=flash</action>
@@ -6036,7 +6036,7 @@ sh c_core_only_disabler;
 				<text>{@c_unroot=Unroot}</text>
 				<actions>
 					<action function="set">tw_back=c_magisk_bhosdk</action>
-					<action function="set">tw_filename=/sdcard/SHRP/epicx/unmagisk.zip</action>
+					<action function="set">tw_filename=/sdcard/SHRP/addons/unmagisk.zip</action>
 					<action function="set">tw_action=queuezip</action>
 					<action function="set">tw_has_action2=1</action>
 					<action function="set">tw_action2=flash</action>
@@ -6056,7 +6056,7 @@ sh c_core_only_disabler;
 				<text>{@c_unroot=Unroot}</text>
 				<actions>
 					<action function="set">tw_back=c_magisk_bhosdk</action>
-					<action function="set">tw_filename=/sdcard/SHRP/epicx/unmagisk.zip</action>
+					<action function="set">tw_filename=/sdcard/SHRP/addons/unmagisk.zip</action>
 					<action function="set">tw_action=queuezip</action>
 					<action function="set">tw_has_action2=1</action>
 					<action function="set">tw_action2=flash</action>
@@ -9450,7 +9450,7 @@ rm -r /data/cookies;
 				<text>Normal</text>
 				<actions>
 					<action function="set">tw_back=c_addons</action>
-					<action function="set">tw_filename=/sdcard/SHRP/epicx/s_oms.zip</action>
+					<action function="set">tw_filename=/sdcard/SHRP/addons/s_oms.zip</action>
 					<action function="set">tw_action=queuezip</action>
 					<action function="set">tw_has_action2=1</action>
 					<action function="set">tw_action2=flash</action>
@@ -9465,7 +9465,7 @@ rm -r /data/cookies;
 				<text>Legacy</text>
 				<actions>
 					<action function="set">tw_back=c_addons</action>
-					<action function="set">tw_filename=/sdcard/SHRP/epicx/s_non_oms.zip</action>
+					<action function="set">tw_filename=/sdcard/SHRP/addons/s_non_oms.zip</action>
 					<action function="set">tw_action=queuezip</action>
 					<action function="set">tw_has_action2=1</action>
 					<action function="set">tw_action2=flash</action>
@@ -9494,7 +9494,7 @@ rm -r /data/cookies;
 				<text>{@c_clear=Clear}</text>
 				<actions>
 					<action function="set">tw_back=c_addons</action>
-					<action function="set">tw_filename=/sdcard/SHRP/epicx/rfp.zip</action>
+					<action function="set">tw_filename=/sdcard/SHRP/addons/rfp.zip</action>
 					<action function="set">tw_action=queuezip</action>
 					<action function="set">tw_has_action2=1</action>
 					<action function="set">tw_action2=flash</action>
@@ -9522,7 +9522,7 @@ rm -r /data/cookies;
 				<text>{@c_disable=Disable}</text>
 				<actions>
 					<action function="set">tw_back=c_addons</action>
-					<action function="set">tw_filename=/sdcard/SHRP/epicx/c_fixed_encryption.zip</action>
+					<action function="set">tw_filename=/sdcard/SHRP/addons/c_fixed_encryption.zip</action>
 					<action function="set">tw_action=queuezip</action>
 					<action function="set">tw_has_action2=1</action>
 					<action function="set">tw_action2=flash</action>
@@ -9550,7 +9550,7 @@ rm -r /data/cookies;
 				<text>{@c_enable=Enable}</text>
 				<actions>
 					<action function="set">tw_back=c_addons</action>
-					<action function="set">tw_filename=/sdcard/SHRP/epicx/api2on.zip</action>
+					<action function="set">tw_filename=/sdcard/SHRP/addons/api2on.zip</action>
 					<action function="set">tw_action=queuezip</action>
 					<action function="set">tw_has_action2=1</action>
 					<action function="set">tw_action2=flash</action>
@@ -9565,7 +9565,7 @@ rm -r /data/cookies;
 				<text>{@c_disable=Disable}</text>
 				<actions>
 					<action function="set">tw_back=c_addons</action>
-					<action function="set">tw_filename=/sdcard/SHRP/epicx/api2off.zip</action>
+					<action function="set">tw_filename=/sdcard/SHRP/addons/api2off.zip</action>
 					<action function="set">tw_action=queuezip</action>
 					<action function="set">tw_has_action2=1</action>
 					<action function="set">tw_action2=flash</action>

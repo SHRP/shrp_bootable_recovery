@@ -66,8 +66,8 @@ static void Print_Prop(const char *key, const char *name, void *cookie) {
 void lockCheck(){
 	FILE *f;
 	char hello[50];
-	if(TWFunc::Path_Exists("/sdcard/SHRP/epicx/slts")){
-		f=fopen("/sdcard/SHRP/epicx/slts","r");
+	if(TWFunc::Path_Exists("/sdcard/SHRP/data/slts")){
+		f=fopen("/sdcard/SHRP/data/slts","r");
 	}else{
 		f=fopen("/twres/slts","r");
 	}
