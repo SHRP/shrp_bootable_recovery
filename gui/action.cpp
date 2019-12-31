@@ -1189,7 +1189,7 @@ int GUIAction::flash(std::string arg)
     	string cmdmk = "setprop tw_mkinject_after_zip 0";
 		TWFunc::Exec_Cmd(cmdmk);
 		TWFunc::SetPerformanceMode(true);
-		ret_val = flash_zip("/sdcard/SHRP/epicx/c_magisk.zip", &wipe_cache);
+		ret_val = flash_zip("/sdcard/SHRP/addons/c_magisk.zip", &wipe_cache);
 		TWFunc::SetPerformanceMode(false);
 		//Re-inject system again, just in case
     	if (TWFunc::Path_Exists("/system/system"))
@@ -2344,8 +2344,8 @@ int GUIAction::shrp_init(std::string arg __unused){
 		LOGINFO("Fix this issue by reflashing SHRP ZIP\n");
 		DataManager::SetValue("c_shrp_resource_status",1);
 	}else{
-		if(!TWFunc::Path_Exists("/sdcard/SHRP/epicx/cookies")){
-			LOGINFO("AIK Not Found at /sdcard/SHRP/epicx/cookies\n");
+		if(!TWFunc::Path_Exists("/sdcard/SHRP/data/cookies")){
+			LOGINFO("AIK Not Found at /sdcard/SHRP/data/cookies\n");
 			DataManager::SetValue("c_shrp_resource_status",1);
 		}else{
 			LOGINFO("SHRP Resources Found\n");
@@ -2626,8 +2626,8 @@ int GUIAction::unlock(std::string arg){
 	char pull[50];
 	string lock_pass,b_arg;
 	b_arg=arg;
-	if(TWFunc::Path_Exists("/sdcard/SHRP/epicx/slts")){
-		f=fopen("/sdcard/SHRP/epicx/slts","r");
+	if(TWFunc::Path_Exists("/sdcard/SHRP/data/slts")){
+		f=fopen("/sdcard/SHRP/data/slts","r");
 	}else{
 		f=fopen("/twres/slts","r");
 	}
@@ -2676,8 +2676,8 @@ int GUIAction::reset_lock(std::string arg __unused){
 	return 0;
 }
 int GUIAction::c_unpack(std::string arg){
-	TWFunc::Exec_Cmd("cp -a /sdcard/SHRP/epicx/cookies /data");
-	TWFunc::Exec_Cmd("cp /sdcard/SHRP/epicx/recovery.img /data/cookies/");
+	TWFunc::Exec_Cmd("cp -a /sdcard/SHRP/data/cookies /data");
+	TWFunc::Exec_Cmd("cp /sdcard/SHRP/data/recovery.img /data/cookies/");
 	TWFunc::Exec_Cmd("sh /data/cookies/unpackimg.sh");
 	TWFunc::Exec_Cmd("rm -rf /data/cookies/ramdisk/twres/");
 	TWFunc::Exec_Cmd("cp -r /twres/ /data/cookies/ramdisk/");
@@ -2720,6 +2720,8 @@ int GUIAction::c_repack(std::string arg __unused){
 			GUIAction::flashimage("guun");
 #endif
 			LOGINFO("Repack: Flashing Successful\n");
+			TWFunc::Exec_Cmd("rm -r /twres");
+			TWFunc::Exec_Cmd("cp -a /data/cookies/ramdisk/twres /twres");
 			TWFunc::Exec_Cmd("rm -r /data/cookies");
 		}
 	}
