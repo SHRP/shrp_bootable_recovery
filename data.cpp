@@ -814,9 +814,12 @@ void DataManager::SetDefaultValues()
 	mData.SetValue("c_module_disable", "0");
 	mData.SetValue("c_target_destination", "main2");
 	mData.SetValue("c_queue_enabled", "0");
-	mData.SetValue("c_skip_tv", "0");
 	mData.SetValue("c_magisk_update", "0");
 	mData.SetValue("tw_ls_time", "0");
+	//SHRP_PERSISTED_VARS
+	mPersist.SetValue("c_temp2", "pepe");
+	mPersist.SetValue("c_skip_tv", "0");
+	mPersist.SetValue("c_dateview", "0");
 	//SHRP_LOCK_VARS
 	mData.SetValue("lock_enabled", "0");
 	mData.SetValue("patt_lock_enabled", "0");
@@ -824,7 +827,7 @@ void DataManager::SetDefaultValues()
 	mData.SetValue("c_new", "1");
 	mData.SetValue("c_new_pattern", "1");
 
-	//SHRP_BOARDCONFIGS_Variables
+	//SHRP_BOARDCONFIGS_Variables (type - const)
 #ifdef SHRP_MAINTAINER
 	mConst.SetValue("device_maintainer_name", EXPAND(SHRP_MAINTAINER));
 #else
