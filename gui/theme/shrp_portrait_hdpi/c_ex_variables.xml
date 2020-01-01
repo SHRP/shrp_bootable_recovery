@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<recovery>
+	<details>
+		<resolution width="1080" height="1920"/>
+		<author>Teamwin | epicX</author>
+		<title>SKY HAWK RECOVERY PROJECT</title>
+		<description>Only_here_you_need_to_change_your_values</description>
+		<preview>preview.png</preview>
+		<themeversion>3</themeversion>
+	</details>
+	<templates>
+		<template name="flashlight">
+			<button>
+				<conditions>
+					<condition var1="has_flashlight" op="=" var2="1"/>
+					<condition var1="c_flashlight_status" op="=" var2="0"/>
+				</conditions>
+				<placement x="975" y="1814"/>
+				<image resource="c_flashlight_on"/>
+				<actions>
+					<action function="flashlight"/>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="has_flashlight" op="=" var2="1"/>
+					<condition var1="c_flashlight_status" op="=" var2="1"/>
+				</conditions>
+				<placement x="35" y="1814"/>
+				<image resource="c_flashlight_off"/>
+				<actions>
+					<action function="flashlight"/>
+				</actions>
+			</button>
+		</template>
+	</templates>
+</recovery>

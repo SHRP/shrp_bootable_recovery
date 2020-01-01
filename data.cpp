@@ -824,6 +824,79 @@ void DataManager::SetDefaultValues()
 	mData.SetValue("c_new", "1");
 	mData.SetValue("c_new_pattern", "1");
 
+	//SHRP_BOARDCONFIGS_Variables
+#ifdef SHRP_MAINTAINER
+	mConst.SetValue("device_maintainer_name", EXPAND(SHRP_MAINTAINER));
+#else
+	mConst.SetValue("device_maintainer_name", "N/A");
+#endif
+
+#ifdef SHRP_DEVICE_CODE
+	mConst.SetValue("device_code_name", EXPAND(SHRP_DEVICE_CODE));
+#else
+	mConst.SetValue("device_code_name", "N/A");
+#endif
+
+#ifdef SHRP_INTERNAL
+	mConst.SetValue("internal_storage_location", EXPAND(SHRP_INTERNAL));
+#else
+	mConst.SetValue("internal_storage_location", "/sdcard");
+#endif
+
+#ifdef SHRP_EXTERNAL
+	mConst.SetValue("external_storage_location", EXPAND(SHRP_EXTERNAL));
+#else
+	mConst.SetValue("external_storage_location", "/");
+#endif
+
+#ifdef SHRP_OTG
+	mConst.SetValue("usb_otg_location", EXPAND(SHRP_OTG));
+#else
+	mConst.SetValue("usb_otg_location", "/");
+#endif
+
+#ifdef SHRP_EDL_MODE
+	mConst.SetValue("has_edl_mode", EXPAND(SHRP_EDL_MODE));
+#else
+	mConst.SetValue("has_edl_mode", "0");
+#endif
+
+#ifdef SHRP_FLASH
+	mConst.SetValue("has_flashlight", EXPAND(SHRP_FLASH));
+#else
+	mConst.SetValue("has_flashlight", "0");
+#endif
+
+#ifdef SHRP_FONP_1
+	mConst.SetValue("c_flashlight_path_1", EXPAND(SHRP_FONP_1));
+#else
+	mConst.SetValue("c_flashlight_path_1", "");
+#endif
+
+#ifdef SHRP_FONP_2
+	mConst.SetValue("c_flashlight_path_2", EXPAND(SHRP_FONP_2));
+#else
+	mConst.SetValue("c_flashlight_path_2", "");
+#endif
+
+#ifdef SHRP_FONP_3
+	mConst.SetValue("c_flashlight_path_3", EXPAND(SHRP_FONP_3));
+#else
+	mConst.SetValue("c_flashlight_path_3", "");
+#endif
+
+#ifdef SHRP_FLASH_MAX_BRIGHTNESS
+	mConst.SetValue("c_flashlight_max_brightness", EXPAND(SHRP_FLASH_MAX_BRIGHTNESS));
+#else
+	mConst.SetValue("c_flashlight_max_brightness", "");
+#endif
+
+#ifdef SHRP_REC
+	mConst.SetValue("shrp_rec", EXPAND(SHRP_REC));
+#else
+	mConst.SetValue("shrp_rec", "");
+#endif
+
 #ifdef TW_INCLUDE_CRYPTO
 	mPersist.SetValue(TW_USE_SHA2, "1");
 	mPersist.SetValue(TW_NO_SHA2, "0");
