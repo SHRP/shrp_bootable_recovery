@@ -241,18 +241,15 @@
 			<template name="c_page"/>
 			<template name="c_status_bar"/>
 			<text color="%c_grey%">
-				<condition var1="c_list_view" op="=" var2="0"/>
 				<font resource="c_header_s"/>
 				<placement x="550" y="%main_head%"/>
 				<text>{@c_skyhawk=SKY HAWK}</text>
 			</text>
 			<text style="c_text_dashboard">
-				<condition var1="c_list_view" op="=" var2="0"/>
 				<placement x="%c_hawk_base_column%" y="%sub_head%"/>
 				<text>{@c_essentials=Essentials}</text>
 			</text>
 			<button>
-				<condition var1="c_list_view" op="=" var2="0"/>
 				<placement x="99" y="%dash_ico_1st_row%"/>
 				<image resource="c_dashboard_flash"/>
 				<actions>
@@ -262,128 +259,90 @@
 				</actions>
 			</button>
 			<button style="c_dash_text_grid">
-				<condition var1="c_list_view" op="=" var2="0"/>
 				<placement x="69" y="%dash_txt_1st_row%"/>
 				<text>{@c_flash=Flash}</text>
 			</button>
 			<button>
-				<condition var1="c_list_view" op="=" var2="0"/>
 				<placement x="343" y="%dash_ico_1st_row%"/>
 				<image resource="c_dashboard_wipe"/>
 				<action function="page">wipe</action>
 			</button>
 			<button style="c_dash_text_grid">
-				<condition var1="c_list_view" op="=" var2="0"/>
 				<placement x="313" y="%dash_txt_1st_row%"/>
 				<text>{@wipe_btn=Wipe}</text>
 			</button>
 			<button>
-				<condition var1="c_list_view" op="=" var2="0"/>
 				<placement x="587" y="%dash_ico_1st_row%"/>
 				<image resource="c_dashboard_backup"/>
 				<action function="page">backup</action>
 			</button>
 			<button style="c_dash_text_grid">
-				<condition var1="c_list_view" op="=" var2="0"/>
 				<placement x="557" y="%dash_txt_1st_row%"/>
 				<text>{@backup_btn=Backup}</text>
 			</button>
 			<button>
-				<condition var1="c_list_view" op="=" var2="0"/>
 				<placement x="831" y="%dash_ico_1st_row%"/>
 				<image resource="c_dashboard_restore"/>
 				<action function="page">restore</action>
 			</button>
 			<button style="c_dash_text_grid">
-				<condition var1="c_list_view" op="=" var2="0"/>
 				<placement x="801" y="%dash_txt_1st_row%"/>
 				<text>{@restore_btn=Restore}</text>
 			</button>
 
 			<button>
-				<condition var1="c_list_view" op="=" var2="0"/>
 				<placement x="99" y="%dash_ico_2nd_row%"/>
 				<image resource="c_dashboard_mount"/>
 				<action function="page">mount</action>
 			</button>
 			<button style="c_dash_text_grid">
-				<condition var1="c_list_view" op="=" var2="0"/>
 				<placement x="69" y="%dash_txt_2nd_row%"/>
 				<text>{@mount_btn=Mount}</text>
 			</button>
 			<button>
-				<condition var1="c_list_view" op="=" var2="0"/>
 				<placement x="343" y="%dash_ico_2nd_row%"/>
 				<image resource="c_dashboard_filemanager"/>
 				<action function="page">c_file_epicx</action>
 			</button>
 			<button style="c_dash_text_grid">
-				<condition var1="c_list_view" op="=" var2="0"/>
 				<placement x="313" y="%dash_txt_2nd_row%"/>
 				<text>{@files_btn=Files}</text>
 			</button>
 			<button>
-				<condition var1="c_list_view" op="=" var2="0"/>
 				<placement x="587" y="%dash_ico_2nd_row%"/>
 				<image resource="c_dashboard_terminal"/>
 				<action function="page">terminalcommand</action>
 			</button>
 			<button style="c_dash_text_grid">
-				<condition var1="c_list_view" op="=" var2="0"/>
 				<placement x="557" y="%dash_txt_2nd_row%"/>
 				<text>{@terminal_btn=Terminal}</text>
 			</button>
 			<button>
-				<condition var1="c_list_view" op="=" var2="0"/>
 				<placement x="831" y="%dash_ico_2nd_row%"/>
 				<image resource="c_dashboard_advanced"/>
 				<action function="page">advanced</action>
 			</button>
 			<button style="c_dash_text_grid">
-				<condition var1="c_list_view" op="=" var2="0"/>
 				<placement x="801" y="%dash_txt_2nd_row%"/>
 				<text>{@advanced_hdr=Advanced}</text>
 			</button>
 			<text style="c_text_dashboard">
-				<condition var1="c_list_view" op="=" var2="0"/>
 				<placement x="%c_hawk_base_column%" y="%sub_head2%"/>
 				<text>{@c_tools=Tools}</text>
 			</text>
 			<button>
-				<conditions>
-					<condition var1="c_list_view" op="=" var2="0"/>
-					<!--condition var1="c_res_error" op="!=" var2="1"/-->
-				</conditions>
 				<placement x="99" y="%dash_ico_3rd_row%"/>
 				<image resource="c_dashboard_magisk"/>
 				<actions>
-					<!--action function="cmd">
-cd /twres/magisk/;
-sh mm;
-sh init;
-</action>
-					<action function="cmd">
-cd /twres/magisk/;
-sh c_core_checker;
-</action-->
 					<action function="shrp_init"/>
 					<action function="page">c_splash_magisk</action>
 				</actions>
 			</button>
-			<button>
-				<conditions>
-					<condition var1="tw_is_encrypted" op="=" var2="1"/>
-				</conditions>
-				<placement x="99" y="%dash_ico_3rd_row%"/>
-				<image resource="c_dashboard_magisk"/>
-			</button>
 			<button style="c_dash_text_grid">
-				<condition var1="c_list_view" op="=" var2="0"/>
 				<placement x="69" y="%dash_txt_3rd_row%"/>
 				<text>{@c_magisk=Magisk}</text>
 			</button>
 			<button>
-				<condition var1="c_list_view" op="=" var2="0"/>
 				<placement x="343" y="%dash_ico_3rd_row%"/>
 				<image resource="c_mod"/>
 				<actions>
@@ -392,73 +351,60 @@ sh c_core_checker;
 				</actions>
 			</button>
 			<button style="c_dash_text_grid">
-				<condition var1="c_list_view" op="=" var2="0"/>
 				<placement x="313" y="%dash_txt_3rd_row%"/>
 				<text>{@c_theme=Theme}</text>
 			</button>
 			<button>
-				<condition var1="c_list_view" op="=" var2="0"/>
 				<placement x="587" y="%dash_ico_3rd_row%"/>
 				<image resource="c_dashboard_addon"/>
 				<action function="page">c_addons</action>
 			</button>
 			<button style="c_dash_text_grid">
-				<condition var1="c_list_view" op="=" var2="0"/>
 				<placement x="557" y="%dash_txt_3rd_row%"/>
 				<text>{@c_tweaks=Tweaks}</text>
 			</button>
 			<button>
-				<condition var1="c_list_view" op="=" var2="0"/>
 				<placement x="831" y="%dash_ico_3rd_row%"/>
 				<image resource="c_dashboard_settings"/>
 				<action function="page">settings</action>
 			</button>
 			<button style="c_dash_text_grid">
-				<condition var1="c_list_view" op="=" var2="0"/>
 				<placement x="801" y="%dash_txt_3rd_row%"/>
 				<text>{@settings_btn=Settings}</text>
 			</button>
 			<button>
-				<condition var1="c_list_view" op="=" var2="0"/>
 				<placement x="99" y="%dash_ico_4th_row%"/>
 				<image resource="c_dashboard_lock"/>
 				<action function="page">c_lock_ui</action>
 			</button>
 			<button style="c_dash_text_grid">
-				<condition var1="c_list_view" op="=" var2="0"/>
 				<placement x="69" y="%dash_txt_4th_row%"/>
 				<text>{@c_security=Security}</text>
 			</button>
 			<button>
-				<condition var1="c_list_view" op="=" var2="0"/>
 				<placement x="343" y="%dash_ico_4th_row%"/>
 				<image resource="c_dashboard_lang"/>
 				<action function="page">settings_language</action>
 			</button>
 			<button style="c_dash_text_grid">
-				<condition var1="c_list_view" op="=" var2="0"/>
 				<placement x="313" y="%dash_txt_4th_row%"/>
 				<text>{@settings_language_btn=Language}</text>
 			</button>
 			<button>
-				<condition var1="c_list_view" op="=" var2="0"/>
 				<placement x="587" y="%dash_ico_4th_row%"/>
 				<image resource="c_dashboard_reboot"/>
 				<action function="overlay">reboot</action>
 			</button>
 			<button style="c_dash_text_grid">
-				<condition var1="c_list_view" op="=" var2="0"/>
 				<placement x="557" y="%dash_txt_4th_row%"/>
 				<text>{@reboot_btn=Reboot}</text>
 			</button>
 			<button>
-				<condition var1="c_list_view" op="=" var2="0"/>
 				<placement x="831" y="%dash_ico_4th_row%"/>
 				<image resource="c_dashboard_about"/>
 				<action function="page">my_info</action>
 			</button>
 			<button style="c_dash_text_grid">
-				<condition var1="c_list_view" op="=" var2="0"/>
 				<placement x="801" y="%dash_txt_4th_row%"/>
 				<text>{@c_about=About}</text>
 			</button>
@@ -2725,24 +2671,22 @@ sh c_core_checker;
 					<condition var1="tw_no_sha2" var2="0"/>
 					<data variable="tw_use_sha2"/>
 				</listitem>
-				<!--listitem name="{@c_dashboard_list=Listview Dashboard}">
-					<data variable="c_list_view"/>
-				</listitem-->
 				<listitem name="Skip Treble Compatibility Varification">
 					<data variable="c_skip_tv"/>
+				</listitem>
+				<listitem name="Show Date on lockscreen">
+					<data variable="c_dateview"/>
 				</listitem>
 			</listbox>
 			<action>
 				<touch key="home"/>
 				<action function="page">c_refresh</action>
 			</action>
-
 			<action>
 				<touch key="back"/>
 				<action function="page">c_refresh</action>
 			</action>
 		</page>
-
 
 		<page name="settings_timezone">
 			<template name="c_page"/>
