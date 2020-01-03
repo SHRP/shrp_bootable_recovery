@@ -2677,6 +2677,9 @@
 				<listitem name="Show Date on lockscreen">
 					<data variable="c_dateview"/>
 				</listitem>
+				<listitem name="Dev Mode">
+					<data variable="c_devMode"/>
+				</listitem>
 			</listbox>
 			<action>
 				<touch key="home"/>
@@ -4572,7 +4575,7 @@
 				<text>{@c_side_bar_head=Storages}</text>
 			</text>
 			<button>
-				<placement x="590" y="250"/>
+				<placement x="546" y="246"/>
 				<image resource="c_reload"/>
 				<actions>
 					<action function="refreshsizes"/>
@@ -4964,7 +4967,7 @@
 				<text>{@c_side_bar_head=Storages}</text>
 			</text>
 			<button>
-				<placement x="590" y="250"/>
+				<placement x="546" y="246"/>
 				<image resource="c_reload"/>
 				<actions>
 					<action function="refreshsizes"/>

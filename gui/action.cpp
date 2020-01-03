@@ -2688,7 +2688,7 @@ int GUIAction::c_unpack(std::string arg){
 	return 0;
 }
 int GUIAction::c_repack(std::string arg __unused){
-	if(TWFunc::Path_Exists("/data/cookies/ramdisk/twres/fonts/")&&TWFunc::Path_Exists("/data/cookies/ramdisk/twres/images/")&&TWFunc::Path_Exists("/data/cookies/ramdisk/twres/languages/")&&TWFunc::Path_Exists("/data/cookies/ramdisk/twres/magisk/")&&TWFunc::Path_Exists("/data/cookies/ramdisk/twres/scripts/")&&TWFunc::Path_Exists("/data/cookies/ramdisk/twres/bg_res.xml")&&TWFunc::Path_Exists("/data/cookies/ramdisk/twres/c_ex_variables.xml")&&TWFunc::Path_Exists("/data/cookies/ramdisk/twres/c_page.xml")&&TWFunc::Path_Exists("/data/cookies/ramdisk/twres/c_status_bar_h.xml")&&TWFunc::Path_Exists("/data/cookies/ramdisk/twres/notch_handled_var.xml")&&TWFunc::Path_Exists("/data/cookies/ramdisk/twres/portrait.xml")&&TWFunc::Path_Exists("/data/cookies/ramdisk/twres/splash.xml")&&TWFunc::Path_Exists("/data/cookies/ramdisk/twres/styles.xml")&&TWFunc::Path_Exists("/data/cookies/ramdisk/twres/txt_res.xml")&&TWFunc::Path_Exists("/data/cookies/ramdisk/twres/ui.xml")){
+	if(TWFunc::Path_Exists("/data/cookies/ramdisk/twres/fonts/")&&TWFunc::Path_Exists("/data/cookies/ramdisk/twres/images/")&&TWFunc::Path_Exists("/data/cookies/ramdisk/twres/languages/")&&TWFunc::Path_Exists("/data/cookies/ramdisk/twres/magisk/")&&TWFunc::Path_Exists("/data/cookies/ramdisk/twres/scripts/")&&TWFunc::Path_Exists("/data/cookies/ramdisk/twres/bg_res.xml")&&TWFunc::Path_Exists("/data/cookies/ramdisk/twres/c_page.xml")&&TWFunc::Path_Exists("/data/cookies/ramdisk/twres/c_status_bar_h.xml")&&TWFunc::Path_Exists("/data/cookies/ramdisk/twres/notch_handled_var.xml")&&TWFunc::Path_Exists("/data/cookies/ramdisk/twres/portrait.xml")&&TWFunc::Path_Exists("/data/cookies/ramdisk/twres/splash.xml")&&TWFunc::Path_Exists("/data/cookies/ramdisk/twres/styles.xml")&&TWFunc::Path_Exists("/data/cookies/ramdisk/twres/txt_res.xml")&&TWFunc::Path_Exists("/data/cookies/ramdisk/twres/ui.xml")){
 		LOGINFO("Repack: ALL Required Files are found\n");
 		if(TWFunc::Exec_Cmd("sh /data/cookies/repackimg.sh;")!=0){
 			LOGINFO("Repack: Repacking failed\n");
@@ -2724,6 +2724,12 @@ int GUIAction::c_repack(std::string arg __unused){
 			TWFunc::Exec_Cmd("cp -a /data/cookies/ramdisk/twres /twres");
 			TWFunc::Exec_Cmd("rm -r /data/cookies");
 		}
+	}
+	int z;
+	DataManager::GetValue("c_devMode", z);
+	if(z){
+		DataManager::SetValue("tw_include_kernel_log", "1");
+		GUIAction::copylog("Dummy");
 	}
 	return 0;
 }
