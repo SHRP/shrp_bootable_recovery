@@ -901,6 +901,12 @@ void DataManager::SetDefaultValues()
 	mConst.SetValue("shrp_rec", "");
 #endif
 
+#ifdef SHRP_AB
+	mConst.SetValue("shrp_ab", "1");
+#else
+	mConst.SetValue("shrp_ab", "0");
+#endif
+
 #ifdef TW_INCLUDE_CRYPTO
 	mPersist.SetValue(TW_USE_SHA2, "1");
 	mPersist.SetValue(TW_NO_SHA2, "0");
