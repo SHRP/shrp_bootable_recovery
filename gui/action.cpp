@@ -2688,11 +2688,12 @@ int GUIAction::c_unpack(std::string arg){
 	return 0;
 }
 int GUIAction::c_repack(std::string arg __unused){
-	if(TWFunc::Path_Exists("/data/cookies/ramdisk/twres/fonts/")&&TWFunc::Path_Exists("/data/cookies/ramdisk/twres/images/")&&TWFunc::Path_Exists("/data/cookies/ramdisk/twres/languages/")&&TWFunc::Path_Exists("/data/cookies/ramdisk/twres/magisk/")&&TWFunc::Path_Exists("/data/cookies/ramdisk/twres/scripts/")&&TWFunc::Path_Exists("/data/cookies/ramdisk/twres/bg_res.xml")&&TWFunc::Path_Exists("/data/cookies/ramdisk/twres/c_page.xml")&&TWFunc::Path_Exists("/data/cookies/ramdisk/twres/c_status_bar_h.xml")&&TWFunc::Path_Exists("/data/cookies/ramdisk/twres/notch_handled_var.xml")&&TWFunc::Path_Exists("/data/cookies/ramdisk/twres/portrait.xml")&&TWFunc::Path_Exists("/data/cookies/ramdisk/twres/splash.xml")&&TWFunc::Path_Exists("/data/cookies/ramdisk/twres/styles.xml")&&TWFunc::Path_Exists("/data/cookies/ramdisk/twres/txt_res.xml")&&TWFunc::Path_Exists("/data/cookies/ramdisk/twres/ui.xml")){
+	if(TWFunc::Path_Exists("/twres/fonts/")&&TWFunc::Path_Exists("/twres/images/")&&TWFunc::Path_Exists("/twres/languages/")&&TWFunc::Path_Exists("/twres/magisk/")&&TWFunc::Path_Exists("/twres/scripts/")&&TWFunc::Path_Exists("/twres/bg_res.xml")&&TWFunc::Path_Exists("/twres/c_page.xml")&&TWFunc::Path_Exists("/twres/c_status_bar_h.xml")&&TWFunc::Path_Exists("/twres/notch_handled_var.xml")&&TWFunc::Path_Exists("/twres/portrait.xml")&&TWFunc::Path_Exists("/twres/splash.xml")&&TWFunc::Path_Exists("/twres/styles.xml")&&TWFunc::Path_Exists("/twres/txt_res.xml")&&TWFunc::Path_Exists("/twres/ui.xml")){
 		LOGINFO("Repack: ALL Required Files are found\n");
-		if(TWFunc::Exec_Cmd("sh /data/cookies/repackimg.sh;")!=0){
-			LOGINFO("Repack: Repacking failed\n");
+		if(TWFunc::Exec_Cmd("sh /twres/scripts/sync.sh;")!=0){
+			LOGINFO("Repack: Syncing failed\n");
 		}else{
+			TWFunc::Exec_Cmd("sh /twres/scripts/repack.sh;");
 			LOGINFO("Repack: Repacking Successful\n");
 			//FILE* f;
 			//char chr[50];
@@ -2700,29 +2701,38 @@ int GUIAction::c_repack(std::string arg __unused){
 			//fgets(chr,50,f);
 			//string cmd=chr;
 			//cmd=value_process(cmd);
-			TWFunc::Exec_Cmd("mv /data/cookies/image-new.img /data/cookies/image_new.img");
+			//TWFunc::Exec_Cmd("mv /data/cookies/image-new.img /data/cookies/image_new.img");
 			//cmd="dd if=/data/cookies/image-new.img of="+cmd;
 			//TWFunc::Exec_Cmd(cmd);
 #ifdef SHRP_AB
-			Repack_Options_struct Repack_Options;
+			/*Repack_Options_struct Repack_Options;
 			Repack_Options.Disable_Verity = false;
 			Repack_Options.Disable_Force_Encrypt = false;
 			Repack_Options.Backup_First=true;//Doubt
 			Repack_Options.Type = REPLACE_RAMDISK;
-			string path = "/data/cookies/image_new.img";
-			PartitionManager.Repack_Images(path, Repack_Options);
+			string path = "/tmp/work/newRec.img";
+			PartitionManager.Repack_Images(path, Repack_Options);*/
+			TWFunc::Exec_Cmd("dd if=newRec.img of=/dev/block/bootdevice/by-name/boot_a");
+			LOGINFO("A/B: boot_a pushing Successful\n");
+			TWFunc::Exec_Cmd("rm -r /tmp/work");
+			TWFunc::Exec_Cmd("sh /twres/scripts/nxtPatch.sh;");
+			LOGINFO("A/B: Created env for boot_b\n");
+			TWFunc::Exec_Cmd("sh /twres/scripts/sync.sh;");
+			TWFunc::Exec_Cmd("sh /twres/scripts/repack.sh;");
+			TWFunc::Exec_Cmd("dd if=newRec.img of=/dev/block/bootdevice/by-name/boot_b");
+			LOGINFO("A/B: boot_b pushing Successful\n");
 #else
 			DataManager::SetValue("tw_flash_partition","/recovery;");
 			DataManager::SetValue("tw_action","flashimage");
 			DataManager::SetValue("tw_has_action2","0");
-			DataManager::SetValue("tw_zip_location","/data/cookies");
-			DataManager::SetValue("tw_file","image_new.img");
+			DataManager::SetValue("tw_zip_location","/tmp/work");
+			DataManager::SetValue("tw_file","newRec.img");
 			GUIAction::flashimage("guun");
+			LOGINFO("A only: Flashing Successful\n");
 #endif
-			LOGINFO("Repack: Flashing Successful\n");
-			TWFunc::Exec_Cmd("rm -r /twres");
-			TWFunc::Exec_Cmd("cp -a /data/cookies/ramdisk/twres /twres");
-			TWFunc::Exec_Cmd("rm -r /data/cookies");
+			//TWFunc::Exec_Cmd("rm -r /twres");
+			//TWFunc::Exec_Cmd("cp -a /data/cookies/ramdisk/twres /twres");
+			TWFunc::Exec_Cmd("rm -r /tmp/work");
 		}
 	}
 	int z;

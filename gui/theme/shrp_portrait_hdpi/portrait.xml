@@ -4208,7 +4208,10 @@
 				<text></text>
 			</text>
 			<button>
-				<condition var1="password_before" op="=" var2="password_before_2"/>
+				<conditions>
+					<condition var1="password_before" op="=" var2="password_before_2"/>
+					<condition var1="shrp_ab" op="=" var2="0"/>
+				</conditions>
 				<placement x="860" y="1628"/>
 				<image resource="c_ok"/>
 				<actions>
@@ -4222,7 +4225,38 @@
 					<action function="set">password_before_2=</action>
 					<action function="set">c_status={@c_repacking=Repacking} {@recovery=Recovery}</action>
 					<action function="set_lock">2</action>
-					<action function="c_unpack">0</action>
+					<action function="cmd">
+export recoveryBlock=%shrp_rec%;
+sh /twres/scripts/create_env.sh;
+					</action>
+					<action function="set">c_status={@c_flashing=Flashing} {@recovery=Recovery}</action>
+					<action function="c_repack"/>
+					<action function="set">c_status={@done=Done}</action>
+					<action function="set">c_new_theme_busy=0</action>
+					<action function="page">set_pass_successful</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="password_before" op="=" var2="password_before_2"/>
+					<condition var1="shrp_ab" op="=" var2="1"/>
+				</conditions>
+				<placement x="860" y="1628"/>
+				<image resource="c_ok"/>
+				<actions>
+					<action function="set">c_new_theme_busy=1</action>
+					<action function="set">main_pass=%password_before_2%</action>
+					<action function="set">lock_enabled=1</action>
+					<action function="set">patt_lock_enabled=1</action>
+					<action function="set">c_new=0</action>
+					<action function="set">c_new_pattern=0</action>
+					<action function="set">password_before=</action>
+					<action function="set">password_before_2=</action>
+					<action function="set">c_status={@c_repacking=Repacking} {@recovery=Recovery}</action>
+					<action function="set_lock">2</action>
+					<action function="cmd">
+sh /twres/scripts/create_envAB.sh;
+					</action>
 					<action function="set">c_status={@c_flashing=Flashing} {@recovery=Recovery}</action>
 					<action function="c_repack"/>
 					<action function="set">c_status={@done=Done}</action>
@@ -4255,7 +4289,10 @@
 				<text></text>
 			</text>
 			<button>
-				<condition var1="password_before" op="=" var2="password_before_2"/>
+				<conditions>
+					<condition var1="password_before" op="=" var2="password_before_2"/>
+					<condition var1="shrp_ab" op="=" var2="0"/>
+				</conditions>
 				<placement x="860" y="1628"/>
 				<image resource="c_ok"/>
 				<actions>
@@ -4269,7 +4306,38 @@
 					<action function="set">password_before_2=</action>
 					<action function="set">c_status={@c_repacking=Repacking} {@recovery=Recovery}</action>
 					<action function="set_lock">1</action>
-					<action function="c_unpack">0</action>
+					<action function="cmd">
+export recoveryBlock=%shrp_rec%;
+sh /twres/scripts/create_env.sh;
+					</action>
+					<action function="set">c_status={@c_flashing=Flashing} {@recovery=Recovery}</action>
+					<action function="c_repack"/>
+					<action function="set">c_status={@done=Done}</action>
+					<action function="set">c_new_theme_busy=0</action>
+					<action function="page">set_pass_successful</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="password_before" op="=" var2="password_before_2"/>
+					<condition var1="shrp_ab" op="=" var2="1"/>
+				</conditions>
+				<placement x="860" y="1628"/>
+				<image resource="c_ok"/>
+				<actions>
+					<action function="set">c_new_theme_busy=1</action>
+					<action function="set">main_pass=%password_before_2%</action>
+					<action function="set">lock_enabled=1</action>
+					<action function="set">patt_lock_enabled=0</action>
+					<action function="set">c_new=0</action>
+					<action function="set">c_new_pattern=0</action>
+					<action function="set">password_before=</action>
+					<action function="set">password_before_2=</action>
+					<action function="set">c_status={@c_repacking=Repacking} {@recovery=Recovery}</action>
+					<action function="set_lock">1</action>
+					<action function="cmd">
+sh /twres/scripts/create_envAB.sh;
+					</action>
 					<action function="set">c_status={@c_flashing=Flashing} {@recovery=Recovery}</action>
 					<action function="c_repack"/>
 					<action function="set">c_status={@done=Done}</action>
@@ -4402,7 +4470,10 @@
 				<text></text>
 			</text>
 			<button>
-				<condition var1="password_old" op="=" var2="main_pass"/>
+				<conditions>
+					<condition var1="password_old" op="=" var2="main_pass"/>
+					<condition var1="shrp_ab" op="=" var2="0"/>
+				</conditions>
 				<placement x="860" y="1628"/>
 				<image resource="c_ok"/>
 				<actions>
@@ -4415,7 +4486,38 @@
 					<action function="set">patt_lock_enabled=0</action>
 					<action function="set">c_status={@c_repacking=Repacking} {@recovery=Recovery}</action>
 					<action function="reset_lock"/>
-					<action function="c_unpack">0</action>
+					<action function="cmd">
+export recoveryBlock=%shrp_rec%;
+sh /twres/scripts/create_env.sh;
+					</action>
+					<action function="set">c_status={@c_flashing=Flashing} {@recovery=Recovery}</action>
+					<action function="c_repack"/>
+					<action function="set">c_temp=120</action>
+					<action function="set">c_status={@done=Done}</action>
+					<action function="set">c_new_theme_busy=0</action>
+					<action function="page">c_reset_successful</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="password_old" op="=" var2="main_pass"/>
+					<condition var1="shrp_ab" op="=" var2="1"/>
+				</conditions>
+				<placement x="860" y="1628"/>
+				<image resource="c_ok"/>
+				<actions>
+					<action function="set">c_new_theme_busy=1</action>
+					<action function="set">main_pass=</action>
+					<action function="set">password_old=</action>
+					<action function="set">c_new=1</action>
+					<action function="set">c_new_pattern=1</action>
+					<action function="set">lock_enabled=0</action>
+					<action function="set">patt_lock_enabled=0</action>
+					<action function="set">c_status={@c_repacking=Repacking} {@recovery=Recovery}</action>
+					<action function="reset_lock"/>
+					<action function="cmd">
+sh /twres/scripts/create_envAB.sh;
+					</action>
 					<action function="set">c_status={@c_flashing=Flashing} {@recovery=Recovery}</action>
 					<action function="c_repack"/>
 					<action function="set">c_temp=120</action>
@@ -4482,7 +4584,10 @@
 				<text></text>
 			</text>
 			<button>
-				<condition var1="password_old" op="=" var2="main_pass"/>
+				<conditions>
+					<condition var1="password_old" op="=" var2="main_pass"/>
+					<condition var1="shrp_ab" op="=" var2="0"/>
+				</conditions>
 				<placement x="860" y="1628"/>
 				<image resource="c_ok"/>
 				<actions>
@@ -4495,7 +4600,37 @@
 					<action function="set">patt_lock_enabled=0</action>
 					<action function="set">c_status={@c_repacking=Repacking} {@recovery=Recovery}</action>
 					<action function="reset_lock"/>
-					<action function="c_unpack">0</action>
+					<action function="cmd">
+export recoveryBlock=%shrp_rec%;
+sh /twres/scripts/create_env.sh;
+					</action>
+					<action function="set">c_status={@c_flashing=Flashing} {@recovery=Recovery}</action>
+					<action function="c_repack"/>
+					<action function="set">c_status={@done=Done}</action>
+					<action function="set">c_new_theme_busy=0</action>
+					<action function="page">c_reset_successful</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="password_old" op="=" var2="main_pass"/>
+					<condition var1="shrp_ab" op="=" var2="1"/>
+				</conditions>
+				<placement x="860" y="1628"/>
+				<image resource="c_ok"/>
+				<actions>
+					<action function="set">c_new_theme_busy=1</action>
+					<action function="set">main_pass=</action>
+					<action function="set">password_old=</action>
+					<action function="set">c_new=1</action>
+					<action function="set">c_new_pattern=1</action>
+					<action function="set">lock_enabled=0</action>
+					<action function="set">patt_lock_enabled=0</action>
+					<action function="set">c_status={@c_repacking=Repacking} {@recovery=Recovery}</action>
+					<action function="reset_lock"/>
+					<action function="cmd">
+sh /twres/scripts/create_envAB.sh;
+					</action>
 					<action function="set">c_status={@c_flashing=Flashing} {@recovery=Recovery}</action>
 					<action function="c_repack"/>
 					<action function="set">c_status={@done=Done}</action>
@@ -6143,8 +6278,8 @@ cp -f disable %c_magisk_path%%c_magisk_name%/;
 				<image resource="white_mode_color"/>
 				<actions>
 					<action function="cmd">
-cp "/twres/c_bg/white.xml" "/data/cookies/ramdisk/twres/bg_res.xml";
-cp /data/cookies/ramdisk/twres/c_bg_sub/c_white/*.png /data/cookies/ramdisk/twres/images;
+cp "/twres/c_bg/white.xml" "/twres/bg_res.xml";
+cp /twres/c_bg_sub/c_white/*.png /twres/images;
 </action>
 					<action function="set">c_white_bg=1</action>
 					<action function="set">c_dark_bg=0</action>
@@ -6165,9 +6300,9 @@ cp /data/cookies/ramdisk/twres/c_bg_sub/c_white/*.png /data/cookies/ramdisk/twre
 				<image resource="wetasphalt_mode"/>
 				<actions>
 					<action function="cmd">
-cp "/twres/c_bg/wetasphalt.xml" "/data/cookies/ramdisk/twres/bg_res.xml";
-cp /data/cookies/ramdisk/twres/c_bg_sub/c_black/*.png /data/cookies/ramdisk/twres/images;
-cp /data/cookies/ramdisk/twres/c_bg_sub/c_dblue/*.png /data/cookies/ramdisk/twres/images;
+cp "/twres/c_bg/wetasphalt.xml" "/twres/bg_res.xml";
+cp /twres/c_bg_sub/c_black/*.png /twres/images;
+cp /twres/c_bg_sub/c_dblue/*.png /twres/images;
 </action>
 					<action function="set">c_white_bg=0</action>
 					<action function="set">c_midnightblue_bg=0</action>
@@ -6188,9 +6323,9 @@ cp /data/cookies/ramdisk/twres/c_bg_sub/c_dblue/*.png /data/cookies/ramdisk/twre
 				<image resource="midnightblue_mode"/>
 				<actions>
 					<action function="cmd">
-cp "/twres/c_bg/midnightblue.xml" "/data/cookies/ramdisk/twres/bg_res.xml";
-cp /data/cookies/ramdisk/twres/c_bg_sub/c_black/*.png /data/cookies/ramdisk/twres/images;
-cp /data/cookies/ramdisk/twres/c_bg_sub/c_aex/*.png /data/cookies/ramdisk/twres/images;
+cp "/twres/c_bg/midnightblue.xml" "/twres/bg_res.xml";
+cp /twres/c_bg_sub/c_black/*.png /twres/images;
+cp /twres/c_bg_sub/c_aex/*.png /twres/images;
 </action>
 					<action function="set">c_white_bg=0</action>
 					<action function="set">c_midnightblue_bg=1</action>
@@ -6211,9 +6346,9 @@ cp /data/cookies/ramdisk/twres/c_bg_sub/c_aex/*.png /data/cookies/ramdisk/twres/
 				<image resource="dark_black_mode_color"/>
 				<actions>
 					<action function="cmd">
-cp "/twres/c_bg/dark.xml" "/data/cookies/ramdisk/twres/bg_res.xml";
-cp /data/cookies/ramdisk/twres/c_bg_sub/c_black/*.png /data/cookies/ramdisk/twres/images;
-cp /data/cookies/ramdisk/twres/c_bg_sub/c_dark/*.png /data/cookies/ramdisk/twres/images;
+cp "/twres/c_bg/dark.xml" "/twres/bg_res.xml";
+cp /twres/c_bg_sub/c_black/*.png /twres/images;
+cp /twres/c_bg_sub/c_dark/*.png /twres/images;
 </action>
 					<action function="set">c_white_bg=0</action>
 					<action function="set">c_dark_bg=1</action>
@@ -6234,8 +6369,8 @@ cp /data/cookies/ramdisk/twres/c_bg_sub/c_dark/*.png /data/cookies/ramdisk/twres
 				<image resource="pitch_black_mode_color"/>
 				<actions>
 					<action function="cmd">
-cp "/twres/c_bg/black.xml" "/data/cookies/ramdisk/twres/bg_res.xml";
-cp /data/cookies/ramdisk/twres/c_bg_sub/c_black/*.png /data/cookies/ramdisk/twres/images;
+cp "/twres/c_bg/black.xml" "/twres/bg_res.xml";
+cp /twres/c_bg_sub/c_black/*.png /twres/images;
 </action>
 					<action function="set">c_white_bg=0</action>
 					<action function="set">c_dark_bg=0</action>
@@ -6260,7 +6395,7 @@ cp /data/cookies/ramdisk/twres/c_bg_sub/c_black/*.png /data/cookies/ramdisk/twre
 				<image resource="white_mode_color"/>
 				<actions>
 					<action function="cmd">
-cp "/twres/c_txt/c_white.xml" "/data/cookies/ramdisk/twres/txt_res.xml";
+cp "/twres/c_txt/c_white.xml" "/twres/txt_res.xml";
 </action>
 					<action function="set">c_text_color_black=0</action>
 					<action function="set">c_text_color_blue=0</action>
@@ -6291,7 +6426,7 @@ cp "/twres/c_txt/c_white.xml" "/data/cookies/ramdisk/twres/txt_res.xml";
 				<image resource="pitch_black_mode_color"/>
 				<actions>
 					<action function="cmd">
-cp "/twres/c_txt/c_black.xml" "/data/cookies/ramdisk/twres/txt_res.xml";
+cp "/twres/c_txt/c_black.xml" "/twres/txt_res.xml";
 </action>
 					<action function="set">c_text_color_black=1</action>
 					<action function="set">c_text_color_blue=0</action>
@@ -6322,7 +6457,7 @@ cp "/twres/c_txt/c_black.xml" "/data/cookies/ramdisk/twres/txt_res.xml";
 				<image resource="color_blue"/>
 				<actions>
 					<action function="cmd">
-cp "/twres/c_txt/c_blue.xml" "/data/cookies/ramdisk/twres/txt_res.xml";
+cp "/twres/c_txt/c_blue.xml" "/twres/txt_res.xml";
 </action>
 					<action function="set">c_text_color_black=0</action>
 					<action function="set">c_text_color_blue=1</action>
@@ -6353,7 +6488,7 @@ cp "/twres/c_txt/c_blue.xml" "/data/cookies/ramdisk/twres/txt_res.xml";
 				<image resource="color_teal"/>
 				<actions>
 					<action function="cmd">
-cp "/twres/c_txt/c_teal.xml" "/data/cookies/ramdisk/twres/txt_res.xml";
+cp "/twres/c_txt/c_teal.xml" "/twres/txt_res.xml";
 </action>
 					<action function="set">c_text_color_black=0</action>
 					<action function="set">c_text_color_blue=0</action>
@@ -6384,7 +6519,7 @@ cp "/twres/c_txt/c_teal.xml" "/data/cookies/ramdisk/twres/txt_res.xml";
 				<image resource="color_brown"/>
 				<actions>
 					<action function="cmd">
-cp "/twres/c_txt/c_brown.xml" "/data/cookies/ramdisk/twres/txt_res.xml";
+cp "/twres/c_txt/c_brown.xml" "/twres/txt_res.xml";
 </action>
 					<action function="set">c_text_color_black=0</action>
 					<action function="set">c_text_color_blue=0</action>
@@ -6415,7 +6550,7 @@ cp "/twres/c_txt/c_brown.xml" "/data/cookies/ramdisk/twres/txt_res.xml";
 				<image resource="color_indigo"/>
 				<actions>
 					<action function="cmd">
-cp "/twres/c_txt/c_indigo.xml" "/data/cookies/ramdisk/twres/txt_res.xml";
+cp "/twres/c_txt/c_indigo.xml" "/twres/txt_res.xml";
 </action>
 					<action function="set">c_text_color_black=0</action>
 					<action function="set">c_text_color_blue=0</action>
@@ -6446,7 +6581,7 @@ cp "/twres/c_txt/c_indigo.xml" "/data/cookies/ramdisk/twres/txt_res.xml";
 				<image resource="color_purple"/>
 				<actions>
 					<action function="cmd">
-cp "/twres/c_txt/c_purple.xml" "/data/cookies/ramdisk/twres/txt_res.xml";
+cp "/twres/c_txt/c_purple.xml" "/twres/txt_res.xml";
 </action>
 					<action function="set">c_text_color_black=0</action>
 					<action function="set">c_text_color_blue=0</action>
@@ -6477,7 +6612,7 @@ cp "/twres/c_txt/c_purple.xml" "/data/cookies/ramdisk/twres/txt_res.xml";
 				<image resource="color_green"/>
 				<actions>
 					<action function="cmd">
-cp "/twres/c_txt/c_green.xml" "/data/cookies/ramdisk/twres/txt_res.xml";
+cp "/twres/c_txt/c_green.xml" "/twres/txt_res.xml";
 </action>
 					<action function="set">c_text_color_black=0</action>
 					<action function="set">c_text_color_blue=0</action>
@@ -6508,7 +6643,7 @@ cp "/twres/c_txt/c_green.xml" "/data/cookies/ramdisk/twres/txt_res.xml";
 				<image resource="color_cyan"/>
 				<actions>
 					<action function="cmd">
-cp "/twres/c_txt/c_cyan.xml" "/data/cookies/ramdisk/twres/txt_res.xml";
+cp "/twres/c_txt/c_cyan.xml" "/twres/txt_res.xml";
 </action>
 					<action function="set">c_text_color_black=0</action>
 					<action function="set">c_text_color_blue=0</action>
@@ -6539,7 +6674,7 @@ cp "/twres/c_txt/c_cyan.xml" "/data/cookies/ramdisk/twres/txt_res.xml";
 				<image resource="color_yellow"/>
 				<actions>
 					<action function="cmd">
-cp "/twres/c_txt/c_yellow.xml" "/data/cookies/ramdisk/twres/txt_res.xml";
+cp "/twres/c_txt/c_yellow.xml" "/twres/txt_res.xml";
 </action>
 					<action function="set">c_text_color_black=0</action>
 					<action function="set">c_text_color_blue=0</action>
@@ -6574,7 +6709,7 @@ cp "/twres/c_txt/c_yellow.xml" "/data/cookies/ramdisk/twres/txt_res.xml";
 				<image resource="color_orange"/>
 				<actions>
 					<action function="cmd">
-cp "/twres/c_txt/c_orange.xml" "/data/cookies/ramdisk/twres/txt_res.xml";
+cp "/twres/c_txt/c_orange.xml" "/twres/txt_res.xml";
 </action>
 					<action function="set">c_text_color_black=0</action>
 					<action function="set">c_text_color_blue=0</action>
@@ -6605,7 +6740,7 @@ cp "/twres/c_txt/c_orange.xml" "/data/cookies/ramdisk/twres/txt_res.xml";
 				<image resource="color_rr"/>
 				<actions>
 					<action function="cmd">
-cp "/twres/c_txt/c_lred.xml" "/data/cookies/ramdisk/twres/txt_res.xml";
+cp "/twres/c_txt/c_lred.xml" "/twres/txt_res.xml";
 </action>
 					<action function="set">c_text_color_black=0</action>
 					<action function="set">c_text_color_blue=0</action>
@@ -6636,7 +6771,7 @@ cp "/twres/c_txt/c_lred.xml" "/data/cookies/ramdisk/twres/txt_res.xml";
 				<image resource="color_red"/>
 				<actions>
 					<action function="cmd">
-cp "/twres/c_txt/c_red.xml" "/data/cookies/ramdisk/twres/txt_res.xml";
+cp "/twres/c_txt/c_red.xml" "/twres/txt_res.xml";
 </action>
 					<action function="set">c_text_color_black=0</action>
 					<action function="set">c_text_color_blue=0</action>
@@ -6667,7 +6802,7 @@ cp "/twres/c_txt/c_red.xml" "/data/cookies/ramdisk/twres/txt_res.xml";
 				<image resource="color_rpink"/>
 				<actions>
 					<action function="cmd">
-cp "/twres/c_txt/c_rpink.xml" "/data/cookies/ramdisk/twres/txt_res.xml";
+cp "/twres/c_txt/c_rpink.xml" "/twres/txt_res.xml";
 </action>
 					<action function="set">c_text_color_black=0</action>
 					<action function="set">c_text_color_blue=0</action>
@@ -6698,7 +6833,7 @@ cp "/twres/c_txt/c_rpink.xml" "/data/cookies/ramdisk/twres/txt_res.xml";
 				<image resource="color_pink"/>
 				<actions>
 					<action function="cmd">
-cp "/twres/c_txt/c_pink.xml" "/data/cookies/ramdisk/twres/txt_res.xml";
+cp "/twres/c_txt/c_pink.xml" "/twres/txt_res.xml";
 </action>
 					<action function="set">c_text_color_black=0</action>
 					<action function="set">c_text_color_blue=0</action>
@@ -6740,8 +6875,8 @@ cp "/twres/c_txt/c_pink.xml" "/data/cookies/ramdisk/twres/txt_res.xml";
 				<image resource="white_mode_color"/>
 				<actions>
 					<action function="cmd">
-cp /twres/c_acc_res/white/*.png /data/cookies/ramdisk/twres/images;
-cp /data/cookies/ramdisk/twres/c_nav_sub/c_white/*.png /data/cookies/ramdisk/twres/images;
+cp /twres/c_acc_res/white/*.png /twres/images;
+cp /twres/c_nav_sub/c_white/*.png /twres/images;
 					</action>
 					<action function="set">c_acc_color_black=0</action>
 					<action function="set">c_acc_color_blue=0</action>
@@ -6772,8 +6907,8 @@ cp /data/cookies/ramdisk/twres/c_nav_sub/c_white/*.png /data/cookies/ramdisk/twr
 				<image resource="pitch_black_mode_color"/>
 				<actions>
 					<action function="cmd">
-cp /twres/c_acc_res/dark/*.png /data/cookies/ramdisk/twres/images;
-cp /data/cookies/ramdisk/twres/c_nav_sub/c_dark/*.png /data/cookies/ramdisk/twres/images;
+cp /twres/c_acc_res/dark/*.png /twres/images;
+cp /twres/c_nav_sub/c_dark/*.png /twres/images;
 					</action>
 					<action function="set">c_acc_color_black=1</action>
 					<action function="set">c_acc_color_blue=0</action>
@@ -6804,8 +6939,8 @@ cp /data/cookies/ramdisk/twres/c_nav_sub/c_dark/*.png /data/cookies/ramdisk/twre
 				<image resource="color_blue"/>
 				<actions>
 					<action function="cmd">
-cp /twres/c_acc_res/blue/*.png /data/cookies/ramdisk/twres/images;
-cp /data/cookies/ramdisk/twres/c_nav_sub/c_blue/*.png /data/cookies/ramdisk/twres/images;
+cp /twres/c_acc_res/blue/*.png /twres/images;
+cp /twres/c_nav_sub/c_blue/*.png /twres/images;
 					</action>
 					<action function="set">c_acc_color_black=0</action>
 					<action function="set">c_acc_color_blue=1</action>
@@ -6836,8 +6971,8 @@ cp /data/cookies/ramdisk/twres/c_nav_sub/c_blue/*.png /data/cookies/ramdisk/twre
 				<image resource="color_teal"/>
 				<actions>
 					<action function="cmd">
-cp /twres/c_acc_res/teal/*.png /data/cookies/ramdisk/twres/images;
-cp /data/cookies/ramdisk/twres/c_nav_sub/c_teal/*.png /data/cookies/ramdisk/twres/images;
+cp /twres/c_acc_res/teal/*.png /twres/images;
+cp /twres/c_nav_sub/c_teal/*.png /twres/images;
 					</action>
 					<action function="set">c_acc_color_black=0</action>
 					<action function="set">c_acc_color_blue=0</action>
@@ -6868,8 +7003,8 @@ cp /data/cookies/ramdisk/twres/c_nav_sub/c_teal/*.png /data/cookies/ramdisk/twre
 				<image resource="color_brown"/>
 				<actions>
 					<action function="cmd">
-cp /twres/c_acc_res/brown/*.png /data/cookies/ramdisk/twres/images;
-cp /data/cookies/ramdisk/twres/c_nav_sub/c_brown/*.png /data/cookies/ramdisk/twres/images;
+cp /twres/c_acc_res/brown/*.png /twres/images;
+cp /twres/c_nav_sub/c_brown/*.png /twres/images;
 					</action>
 					<action function="set">c_acc_color_black=0</action>
 					<action function="set">c_acc_color_blue=0</action>
@@ -6900,8 +7035,8 @@ cp /data/cookies/ramdisk/twres/c_nav_sub/c_brown/*.png /data/cookies/ramdisk/twr
 				<image resource="color_indigo"/>
 				<actions>
 					<action function="cmd">
-cp /twres/c_acc_res/indigo/*.png /data/cookies/ramdisk/twres/images;
-cp /data/cookies/ramdisk/twres/c_nav_sub/c_indigo/*.png /data/cookies/ramdisk/twres/images;
+cp /twres/c_acc_res/indigo/*.png /twres/images;
+cp /twres/c_nav_sub/c_indigo/*.png /twres/images;
 					</action>
 					<action function="set">c_acc_color_black=0</action>
 					<action function="set">c_acc_color_blue=0</action>
@@ -6932,8 +7067,8 @@ cp /data/cookies/ramdisk/twres/c_nav_sub/c_indigo/*.png /data/cookies/ramdisk/tw
 				<image resource="color_purple"/>
 				<actions>
 					<action function="cmd">
-cp /twres/c_acc_res/purple/*.png /data/cookies/ramdisk/twres/images;
-cp /data/cookies/ramdisk/twres/c_nav_sub/c_purple/*.png /data/cookies/ramdisk/twres/images;
+cp /twres/c_acc_res/purple/*.png /twres/images;
+cp /twres/c_nav_sub/c_purple/*.png /twres/images;
 					</action>
 					<action function="set">c_acc_color_black=0</action>
 					<action function="set">c_acc_color_blue=0</action>
@@ -6964,8 +7099,8 @@ cp /data/cookies/ramdisk/twres/c_nav_sub/c_purple/*.png /data/cookies/ramdisk/tw
 				<image resource="color_green"/>
 				<actions>
 					<action function="cmd">
-cp /twres/c_acc_res/green/*.png /data/cookies/ramdisk/twres/images;
-cp /data/cookies/ramdisk/twres/c_nav_sub/c_green/*.png /data/cookies/ramdisk/twres/images;
+cp /twres/c_acc_res/green/*.png /twres/images;
+cp /twres/c_nav_sub/c_green/*.png /twres/images;
 					</action>
 					<action function="set">c_acc_color_black=0</action>
 					<action function="set">c_acc_color_blue=0</action>
@@ -6996,8 +7131,8 @@ cp /data/cookies/ramdisk/twres/c_nav_sub/c_green/*.png /data/cookies/ramdisk/twr
 				<image resource="color_cyan"/>
 				<actions>
 					<action function="cmd">
-cp /twres/c_acc_res/cyan/*.png /data/cookies/ramdisk/twres/images;
-cp /data/cookies/ramdisk/twres/c_nav_sub/c_cyan/*.png /data/cookies/ramdisk/twres/images;
+cp /twres/c_acc_res/cyan/*.png /twres/images;
+cp /twres/c_nav_sub/c_cyan/*.png /twres/images;
 					</action>
 					<action function="set">c_acc_color_black=0</action>
 					<action function="set">c_acc_color_blue=0</action>
@@ -7028,8 +7163,8 @@ cp /data/cookies/ramdisk/twres/c_nav_sub/c_cyan/*.png /data/cookies/ramdisk/twre
 				<image resource="color_yellow"/>
 				<actions>
 					<action function="cmd">
-cp /twres/c_acc_res/yellow/*.png /data/cookies/ramdisk/twres/images;
-cp /data/cookies/ramdisk/twres/c_nav_sub/c_yellow/*.png /data/cookies/ramdisk/twres/images;
+cp /twres/c_acc_res/yellow/*.png /twres/images;
+cp /twres/c_nav_sub/c_yellow/*.png /twres/images;
 					</action>
 					<action function="set">c_acc_color_black=0</action>
 					<action function="set">c_acc_color_blue=0</action>
@@ -7064,8 +7199,8 @@ cp /data/cookies/ramdisk/twres/c_nav_sub/c_yellow/*.png /data/cookies/ramdisk/tw
 				<image resource="color_orange"/>
 				<actions>
 					<action function="cmd">
-cp /twres/c_acc_res/orange/*.png /data/cookies/ramdisk/twres/images;
-cp /data/cookies/ramdisk/twres/c_nav_sub/c_orange/*.png /data/cookies/ramdisk/twres/images;
+cp /twres/c_acc_res/orange/*.png /twres/images;
+cp /twres/c_nav_sub/c_orange/*.png /twres/images;
 					</action>
 					<action function="set">c_acc_color_black=0</action>
 					<action function="set">c_acc_color_blue=0</action>
@@ -7096,8 +7231,8 @@ cp /data/cookies/ramdisk/twres/c_nav_sub/c_orange/*.png /data/cookies/ramdisk/tw
 				<image resource="color_rr"/>
 				<actions>
 					<action function="cmd">
-cp /twres/c_acc_res/lred/*.png /data/cookies/ramdisk/twres/images;
-cp /data/cookies/ramdisk/twres/c_nav_sub/c_lred/*.png /data/cookies/ramdisk/twres/images;
+cp /twres/c_acc_res/lred/*.png /twres/images;
+cp /twres/c_nav_sub/c_lred/*.png /twres/images;
 					</action>
 					<action function="set">c_acc_color_black=0</action>
 					<action function="set">c_acc_color_blue=0</action>
@@ -7128,8 +7263,8 @@ cp /data/cookies/ramdisk/twres/c_nav_sub/c_lred/*.png /data/cookies/ramdisk/twre
 				<image resource="color_red"/>
 				<actions>
 					<action function="cmd">
-cp /twres/c_acc_res/red/*.png /data/cookies/ramdisk/twres/images;
-cp /data/cookies/ramdisk/twres/c_nav_sub/c_red/*.png /data/cookies/ramdisk/twres/images;
+cp /twres/c_acc_res/red/*.png /twres/images;
+cp /twres/c_nav_sub/c_red/*.png /twres/images;
 					</action>
 					<action function="set">c_acc_color_black=0</action>
 					<action function="set">c_acc_color_blue=0</action>
@@ -7160,8 +7295,8 @@ cp /data/cookies/ramdisk/twres/c_nav_sub/c_red/*.png /data/cookies/ramdisk/twres
 				<image resource="color_rpink"/>
 				<actions>
 					<action function="cmd">
-cp /twres/c_acc_res/rpink/*.png /data/cookies/ramdisk/twres/images;
-cp /data/cookies/ramdisk/twres/c_nav_sub/c_rpink/*.png /data/cookies/ramdisk/twres/images;
+cp /twres/c_acc_res/rpink/*.png /twres/images;
+cp /twres/c_nav_sub/c_rpink/*.png /twres/images;
 					</action>
 					<action function="set">c_acc_color_black=0</action>
 					<action function="set">c_acc_color_blue=0</action>
@@ -7192,8 +7327,8 @@ cp /data/cookies/ramdisk/twres/c_nav_sub/c_rpink/*.png /data/cookies/ramdisk/twr
 				<image resource="color_pink"/>
 				<actions>
 					<action function="cmd">
-cp /twres/c_acc_res/pink/*.png /data/cookies/ramdisk/twres/images;
-cp /data/cookies/ramdisk/twres/c_nav_sub/c_pink/*.png /data/cookies/ramdisk/twres/images;
+cp /twres/c_acc_res/pink/*.png /twres/images;
+cp /twres/c_nav_sub/c_pink/*.png /twres/images;
 					</action>
 					<action function="set">c_acc_color_black=0</action>
 					<action function="set">c_acc_color_blue=0</action>
@@ -7264,8 +7399,8 @@ cp /data/cookies/ramdisk/twres/c_nav_sub/c_pink/*.png /data/cookies/ramdisk/twre
 					<action function="set">c_nav_type_nxt_bit=0</action>
 					<action function="set">c_nav_type_custom=0</action>
 					<action function="cmd">
-cp -a /twres/c_nav/c_default/. /data/cookies/ramdisk/twres/c_nav_sub/;
-cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_dark/. /data/cookies/ramdisk/twres/images/;
+cp -a /twres/c_nav/c_default/. /twres/c_nav_sub/;
+cp -a /twres/c_nav_sub/c_dark/. /twres/images/;
 </action>
 				</actions>
 			</button>
@@ -7283,8 +7418,8 @@ cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_dark/. /data/cookies/ramdisk/twres
 					<action function="set">c_nav_type_nxt_bit=0</action>
 					<action function="set">c_nav_type_custom=0</action>
 					<action function="cmd">
-cp -a /twres/c_nav/c_default/. /data/cookies/ramdisk/twres/c_nav_sub/;
-cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_blue/. /data/cookies/ramdisk/twres/images/;
+cp -a /twres/c_nav/c_default/. /twres/c_nav_sub/;
+cp -a /twres/c_nav_sub/c_blue/. /twres/images/;
 </action>
 				</actions>
 			</button>
@@ -7301,8 +7436,8 @@ cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_blue/. /data/cookies/ramdisk/twres
 					<action function="set">c_nav_type_nxt_bit=0</action>
 					<action function="set">c_nav_type_custom=0</action>
 					<action function="cmd">
-cp -a /twres/c_nav/c_default/. /data/cookies/ramdisk/twres/c_nav_sub/;
-cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_brown/. /data/cookies/ramdisk/twres/images/;
+cp -a /twres/c_nav/c_default/. /twres/c_nav_sub/;
+cp -a /twres/c_nav_sub/c_brown/. /twres/images/;
 </action>
 				</actions>
 			</button>
@@ -7319,8 +7454,8 @@ cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_brown/. /data/cookies/ramdisk/twre
 					<action function="set">c_nav_type_nxt_bit=0</action>
 					<action function="set">c_nav_type_custom=0</action>
 					<action function="cmd">
-cp -a /twres/c_nav/c_default/. /data/cookies/ramdisk/twres/c_nav_sub/;
-cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_indigo/. /data/cookies/ramdisk/twres/images/;
+cp -a /twres/c_nav/c_default/. /twres/c_nav_sub/;
+cp -a /twres/c_nav_sub/c_indigo/. /twres/images/;
 </action>
 				</actions>
 			</button>
@@ -7337,8 +7472,8 @@ cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_indigo/. /data/cookies/ramdisk/twr
 					<action function="set">c_nav_type_nxt_bit=0</action>
 					<action function="set">c_nav_type_custom=0</action>
 					<action function="cmd">
-cp -a /twres/c_nav/c_default/. /data/cookies/ramdisk/twres/c_nav_sub/;
-cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_teal/. /data/cookies/ramdisk/twres/images/;
+cp -a /twres/c_nav/c_default/. /twres/c_nav_sub/;
+cp -a /twres/c_nav_sub/c_teal/. /twres/images/;
 </action>
 				</actions>
 			</button>
@@ -7355,8 +7490,8 @@ cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_teal/. /data/cookies/ramdisk/twres
 					<action function="set">c_nav_type_nxt_bit=0</action>
 					<action function="set">c_nav_type_custom=0</action>
 					<action function="cmd">
-cp -a /twres/c_nav/c_default/. /data/cookies/ramdisk/twres/c_nav_sub/;
-cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_orange/. /data/cookies/ramdisk/twres/images/;
+cp -a /twres/c_nav/c_default/. /twres/c_nav_sub/;
+cp -a /twres/c_nav_sub/c_orange/. /twres/images/;
 </action>
 				</actions>
 			</button>
@@ -7373,8 +7508,8 @@ cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_orange/. /data/cookies/ramdisk/twr
 					<action function="set">c_nav_type_nxt_bit=0</action>
 					<action function="set">c_nav_type_custom=0</action>
 					<action function="cmd">
-cp -a /twres/c_nav/c_default/. /data/cookies/ramdisk/twres/c_nav_sub/;
-cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_red/. /data/cookies/ramdisk/twres/images/;
+cp -a /twres/c_nav/c_default/. /twres/c_nav_sub/;
+cp -a /twres/c_nav_sub/c_red/. /twres/images/;
 </action>
 				</actions>
 			</button>
@@ -7391,8 +7526,8 @@ cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_red/. /data/cookies/ramdisk/twres/
 					<action function="set">c_nav_type_nxt_bit=0</action>
 					<action function="set">c_nav_type_custom=0</action>
 					<action function="cmd">
-cp -a /twres/c_nav/c_default/. /data/cookies/ramdisk/twres/c_nav_sub/;
-cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_lred/. /data/cookies/ramdisk/twres/images/;
+cp -a /twres/c_nav/c_default/. /twres/c_nav_sub/;
+cp -a /twres/c_nav_sub/c_lred/. /twres/images/;
 </action>
 				</actions>
 			</button>
@@ -7409,8 +7544,8 @@ cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_lred/. /data/cookies/ramdisk/twres
 					<action function="set">c_nav_type_nxt_bit=0</action>
 					<action function="set">c_nav_type_custom=0</action>
 					<action function="cmd">
-cp -a /twres/c_nav/c_default/. /data/cookies/ramdisk/twres/c_nav_sub/;
-cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_pink/. /data/cookies/ramdisk/twres/images/;
+cp -a /twres/c_nav/c_default/. /twres/c_nav_sub/;
+cp -a /twres/c_nav_sub/c_pink/. /twres/images/;
 </action>
 				</actions>
 			</button>
@@ -7427,8 +7562,8 @@ cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_pink/. /data/cookies/ramdisk/twres
 					<action function="set">c_nav_type_nxt_bit=0</action>
 					<action function="set">c_nav_type_custom=0</action>
 					<action function="cmd">
-cp -a /twres/c_nav/c_default/. /data/cookies/ramdisk/twres/c_nav_sub/;
-cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_rpink/. /data/cookies/ramdisk/twres/images/;
+cp -a /twres/c_nav/c_default/. /twres/c_nav_sub/;
+cp -a /twres/c_nav_sub/c_rpink/. /twres/images/;
 </action>
 				</actions>
 			</button>
@@ -7445,8 +7580,8 @@ cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_rpink/. /data/cookies/ramdisk/twre
 					<action function="set">c_nav_type_nxt_bit=0</action>
 					<action function="set">c_nav_type_custom=0</action>
 					<action function="cmd">
-cp -a /twres/c_nav/c_default/. /data/cookies/ramdisk/twres/c_nav_sub/;
-cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_green/. /data/cookies/ramdisk/twres/images/;
+cp -a /twres/c_nav/c_default/. /twres/c_nav_sub/;
+cp -a /twres/c_nav_sub/c_green/. /twres/images/;
 </action>
 				</actions>
 			</button>
@@ -7463,8 +7598,8 @@ cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_green/. /data/cookies/ramdisk/twre
 					<action function="set">c_nav_type_nxt_bit=0</action>
 					<action function="set">c_nav_type_custom=0</action>
 					<action function="cmd">
-cp -a /twres/c_nav/c_default/. /data/cookies/ramdisk/twres/c_nav_sub/;
-cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_cyan/. /data/cookies/ramdisk/twres/images/;
+cp -a /twres/c_nav/c_default/. /twres/c_nav_sub/;
+cp -a /twres/c_nav_sub/c_cyan/. /twres/images/;
 </action>
 				</actions>
 			</button>
@@ -7481,8 +7616,8 @@ cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_cyan/. /data/cookies/ramdisk/twres
 					<action function="set">c_nav_type_nxt_bit=0</action>
 					<action function="set">c_nav_type_custom=0</action>
 					<action function="cmd">
-cp -a /twres/c_nav/c_default/. /data/cookies/ramdisk/twres/c_nav_sub/;
-cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_yellow/. /data/cookies/ramdisk/twres/images/;
+cp -a /twres/c_nav/c_default/. /twres/c_nav_sub/;
+cp -a /twres/c_nav_sub/c_yellow/. /twres/images/;
 </action>
 				</actions>
 			</button>
@@ -7499,8 +7634,8 @@ cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_yellow/. /data/cookies/ramdisk/twr
 					<action function="set">c_nav_type_nxt_bit=0</action>
 					<action function="set">c_nav_type_custom=0</action>
 					<action function="cmd">
-cp -a /twres/c_nav/c_default/. /data/cookies/ramdisk/twres/c_nav_sub/;
-cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_purple/. /data/cookies/ramdisk/twres/images/;
+cp -a /twres/c_nav/c_default/. /twres/c_nav_sub/;
+cp -a /twres/c_nav_sub/c_purple/. /twres/images/;
 </action>
 				</actions>
 			</button>
@@ -7517,8 +7652,8 @@ cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_purple/. /data/cookies/ramdisk/twr
 					<action function="set">c_nav_type_nxt_bit=0</action>
 					<action function="set">c_nav_type_custom=0</action>
 					<action function="cmd">
-cp -a /twres/c_nav/c_default/. /data/cookies/ramdisk/twres/c_nav_sub/;
-cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_white/. /data/cookies/ramdisk/twres/images/;
+cp -a /twres/c_nav/c_default/. /twres/c_nav_sub/;
+cp -a /twres/c_nav_sub/c_white/. /twres/images/;
 </action>
 				</actions>
 			</button>
@@ -7548,8 +7683,8 @@ cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_white/. /data/cookies/ramdisk/twre
 					<action function="set">c_nav_type_nxt_bit=0</action>
 					<action function="set">c_nav_type_custom=0</action>
 					<action function="cmd">
-cp -a /twres/c_nav/c_samsung/. /data/cookies/ramdisk/twres/c_nav_sub/;
-cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_dark/. /data/cookies/ramdisk/twres/images/;
+cp -a /twres/c_nav/c_samsung/. /twres/c_nav_sub/;
+cp -a /twres/c_nav_sub/c_dark/. /twres/images/;
 </action>
 				</actions>
 			</button>
@@ -7567,8 +7702,8 @@ cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_dark/. /data/cookies/ramdisk/twres
 					<action function="set">c_nav_type_nxt_bit=0</action>
 					<action function="set">c_nav_type_custom=0</action>
 					<action function="cmd">
-cp -a /twres/c_nav/c_samsung/. /data/cookies/ramdisk/twres/c_nav_sub/;
-cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_blue/. /data/cookies/ramdisk/twres/images/;
+cp -a /twres/c_nav/c_samsung/. /twres/c_nav_sub/;
+cp -a /twres/c_nav_sub/c_blue/. /twres/images/;
 </action>
 				</actions>
 			</button>
@@ -7585,8 +7720,8 @@ cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_blue/. /data/cookies/ramdisk/twres
 					<action function="set">c_nav_type_nxt_bit=0</action>
 					<action function="set">c_nav_type_custom=0</action>
 					<action function="cmd">
-cp -a /twres/c_nav/c_samsung/. /data/cookies/ramdisk/twres/c_nav_sub/;
-cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_brown/. /data/cookies/ramdisk/twres/images/;
+cp -a /twres/c_nav/c_samsung/. /twres/c_nav_sub/;
+cp -a /twres/c_nav_sub/c_brown/. /twres/images/;
 </action>
 				</actions>
 			</button>
@@ -7603,8 +7738,8 @@ cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_brown/. /data/cookies/ramdisk/twre
 					<action function="set">c_nav_type_nxt_bit=0</action>
 					<action function="set">c_nav_type_custom=0</action>
 					<action function="cmd">
-cp -a /twres/c_nav/c_samsung/. /data/cookies/ramdisk/twres/c_nav_sub/;
-cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_indigo/. /data/cookies/ramdisk/twres/images/;
+cp -a /twres/c_nav/c_samsung/. /twres/c_nav_sub/;
+cp -a /twres/c_nav_sub/c_indigo/. /twres/images/;
 </action>
 				</actions>
 			</button>
@@ -7621,8 +7756,8 @@ cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_indigo/. /data/cookies/ramdisk/twr
 					<action function="set">c_nav_type_nxt_bit=0</action>
 					<action function="set">c_nav_type_custom=0</action>
 					<action function="cmd">
-cp -a /twres/c_nav/c_samsung/. /data/cookies/ramdisk/twres/c_nav_sub/;
-cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_teal/. /data/cookies/ramdisk/twres/images/;
+cp -a /twres/c_nav/c_samsung/. /twres/c_nav_sub/;
+cp -a /twres/c_nav_sub/c_teal/. /twres/images/;
 </action>
 				</actions>
 			</button>
@@ -7639,8 +7774,8 @@ cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_teal/. /data/cookies/ramdisk/twres
 					<action function="set">c_nav_type_nxt_bit=0</action>
 					<action function="set">c_nav_type_custom=0</action>
 					<action function="cmd">
-cp -a /twres/c_nav/c_samsung/. /data/cookies/ramdisk/twres/c_nav_sub/;
-cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_orange/. /data/cookies/ramdisk/twres/images/;
+cp -a /twres/c_nav/c_samsung/. /twres/c_nav_sub/;
+cp -a /twres/c_nav_sub/c_orange/. /twres/images/;
 </action>
 				</actions>
 			</button>
@@ -7657,8 +7792,8 @@ cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_orange/. /data/cookies/ramdisk/twr
 					<action function="set">c_nav_type_nxt_bit=0</action>
 					<action function="set">c_nav_type_custom=0</action>
 					<action function="cmd">
-cp -a /twres/c_nav/c_samsung/. /data/cookies/ramdisk/twres/c_nav_sub/;
-cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_red/. /data/cookies/ramdisk/twres/images/;
+cp -a /twres/c_nav/c_samsung/. /twres/c_nav_sub/;
+cp -a /twres/c_nav_sub/c_red/. /twres/images/;
 </action>
 				</actions>
 			</button>
@@ -7675,8 +7810,8 @@ cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_red/. /data/cookies/ramdisk/twres/
 					<action function="set">c_nav_type_nxt_bit=0</action>
 					<action function="set">c_nav_type_custom=0</action>
 					<action function="cmd">
-cp -a /twres/c_nav/c_samsung/. /data/cookies/ramdisk/twres/c_nav_sub/;
-cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_lred/. /data/cookies/ramdisk/twres/images/;
+cp -a /twres/c_nav/c_samsung/. /twres/c_nav_sub/;
+cp -a /twres/c_nav_sub/c_lred/. /twres/images/;
 </action>
 				</actions>
 			</button>
@@ -7693,8 +7828,8 @@ cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_lred/. /data/cookies/ramdisk/twres
 					<action function="set">c_nav_type_nxt_bit=0</action>
 					<action function="set">c_nav_type_custom=0</action>
 					<action function="cmd">
-cp -a /twres/c_nav/c_samsung/. /data/cookies/ramdisk/twres/c_nav_sub/;
-cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_pink/. /data/cookies/ramdisk/twres/images/;
+cp -a /twres/c_nav/c_samsung/. /twres/c_nav_sub/;
+cp -a /twres/c_nav_sub/c_pink/. /twres/images/;
 </action>
 				</actions>
 			</button>
@@ -7711,8 +7846,8 @@ cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_pink/. /data/cookies/ramdisk/twres
 					<action function="set">c_nav_type_nxt_bit=0</action>
 					<action function="set">c_nav_type_custom=0</action>
 					<action function="cmd">
-cp -a /twres/c_nav/c_samsung/. /data/cookies/ramdisk/twres/c_nav_sub/;
-cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_rpink/. /data/cookies/ramdisk/twres/images/;
+cp -a /twres/c_nav/c_samsung/. /twres/c_nav_sub/;
+cp -a /twres/c_nav_sub/c_rpink/. /twres/images/;
 </action>
 				</actions>
 			</button>
@@ -7729,8 +7864,8 @@ cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_rpink/. /data/cookies/ramdisk/twre
 					<action function="set">c_nav_type_nxt_bit=0</action>
 					<action function="set">c_nav_type_custom=0</action>
 					<action function="cmd">
-cp -a /twres/c_nav/c_samsung/. /data/cookies/ramdisk/twres/c_nav_sub/;
-cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_green/. /data/cookies/ramdisk/twres/images/;
+cp -a /twres/c_nav/c_samsung/. /twres/c_nav_sub/;
+cp -a /twres/c_nav_sub/c_green/. /twres/images/;
 </action>
 				</actions>
 			</button>
@@ -7747,8 +7882,8 @@ cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_green/. /data/cookies/ramdisk/twre
 					<action function="set">c_nav_type_nxt_bit=0</action>
 					<action function="set">c_nav_type_custom=0</action>
 					<action function="cmd">
-cp -a /twres/c_nav/c_samsung/. /data/cookies/ramdisk/twres/c_nav_sub/;
-cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_cyan/. /data/cookies/ramdisk/twres/images/;
+cp -a /twres/c_nav/c_samsung/. /twres/c_nav_sub/;
+cp -a /twres/c_nav_sub/c_cyan/. /twres/images/;
 </action>
 				</actions>
 			</button>
@@ -7765,8 +7900,8 @@ cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_cyan/. /data/cookies/ramdisk/twres
 					<action function="set">c_nav_type_nxt_bit=0</action>
 					<action function="set">c_nav_type_custom=0</action>
 					<action function="cmd">
-cp -a /twres/c_nav/c_samsung/. /data/cookies/ramdisk/twres/c_nav_sub/;
-cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_yellow/. /data/cookies/ramdisk/twres/images/;
+cp -a /twres/c_nav/c_samsung/. /twres/c_nav_sub/;
+cp -a /twres/c_nav_sub/c_yellow/. /twres/images/;
 </action>
 				</actions>
 			</button>
@@ -7783,8 +7918,8 @@ cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_yellow/. /data/cookies/ramdisk/twr
 					<action function="set">c_nav_type_nxt_bit=0</action>
 					<action function="set">c_nav_type_custom=0</action>
 					<action function="cmd">
-cp -a /twres/c_nav/c_samsung/. /data/cookies/ramdisk/twres/c_nav_sub/;
-cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_purple/. /data/cookies/ramdisk/twres/images/;
+cp -a /twres/c_nav/c_samsung/. /twres/c_nav_sub/;
+cp -a /twres/c_nav_sub/c_purple/. /twres/images/;
 </action>
 				</actions>
 			</button>
@@ -7801,8 +7936,8 @@ cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_purple/. /data/cookies/ramdisk/twr
 					<action function="set">c_nav_type_nxt_bit=0</action>
 					<action function="set">c_nav_type_custom=0</action>
 					<action function="cmd">
-cp -a /twres/c_nav/c_samsung/. /data/cookies/ramdisk/twres/c_nav_sub/;
-cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_white/. /data/cookies/ramdisk/twres/images/;
+cp -a /twres/c_nav/c_samsung/. /twres/c_nav_sub/;
+cp -a /twres/c_nav_sub/c_white/. /twres/images/;
 </action>
 				</actions>
 			</button>
@@ -7832,8 +7967,8 @@ cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_white/. /data/cookies/ramdisk/twre
 					<action function="set">c_nav_type_nxt_bit=1</action>
 					<action function="set">c_nav_type_custom=0</action>
 					<action function="cmd">
-cp -a /twres/c_nav/c_nxtbit/. /data/cookies/ramdisk/twres/c_nav_sub/;
-cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_dark/. /data/cookies/ramdisk/twres/images/;
+cp -a /twres/c_nav/c_nxtbit/. /twres/c_nav_sub/;
+cp -a /twres/c_nav_sub/c_dark/. /twres/images/;
 </action>
 				</actions>
 			</button>
@@ -7851,8 +7986,8 @@ cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_dark/. /data/cookies/ramdisk/twres
 					<action function="set">c_nav_type_nxt_bit=1</action>
 					<action function="set">c_nav_type_custom=0</action>
 					<action function="cmd">
-cp -a /twres/c_nav/c_nxtbit/. /data/cookies/ramdisk/twres/c_nav_sub/;
-cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_blue/. /data/cookies/ramdisk/twres/images/;
+cp -a /twres/c_nav/c_nxtbit/. /twres/c_nav_sub/;
+cp -a /twres/c_nav_sub/c_blue/. /twres/images/;
 </action>
 				</actions>
 			</button>
@@ -7869,8 +8004,8 @@ cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_blue/. /data/cookies/ramdisk/twres
 					<action function="set">c_nav_type_nxt_bit=1</action>
 					<action function="set">c_nav_type_custom=0</action>
 					<action function="cmd">
-cp -a /twres/c_nav/c_nxtbit/. /data/cookies/ramdisk/twres/c_nav_sub/;
-cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_brown/. /data/cookies/ramdisk/twres/images/;
+cp -a /twres/c_nav/c_nxtbit/. /twres/c_nav_sub/;
+cp -a /twres/c_nav_sub/c_brown/. /twres/images/;
 </action>
 				</actions>
 			</button>
@@ -7887,8 +8022,8 @@ cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_brown/. /data/cookies/ramdisk/twre
 					<action function="set">c_nav_type_nxt_bit=1</action>
 					<action function="set">c_nav_type_custom=0</action>
 					<action function="cmd">
-cp -a /twres/c_nav/c_nxtbit/. /data/cookies/ramdisk/twres/c_nav_sub/;
-cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_indigo/. /data/cookies/ramdisk/twres/images/;
+cp -a /twres/c_nav/c_nxtbit/. /twres/c_nav_sub/;
+cp -a /twres/c_nav_sub/c_indigo/. /twres/images/;
 </action>
 				</actions>
 			</button>
@@ -7905,8 +8040,8 @@ cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_indigo/. /data/cookies/ramdisk/twr
 					<action function="set">c_nav_type_nxt_bit=1</action>
 					<action function="set">c_nav_type_custom=0</action>
 					<action function="cmd">
-cp -a /twres/c_nav/c_nxtbit/. /data/cookies/ramdisk/twres/c_nav_sub/;
-cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_teal/. /data/cookies/ramdisk/twres/images/;
+cp -a /twres/c_nav/c_nxtbit/. /twres/c_nav_sub/;
+cp -a /twres/c_nav_sub/c_teal/. /twres/images/;
 </action>
 				</actions>
 			</button>
@@ -7923,8 +8058,8 @@ cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_teal/. /data/cookies/ramdisk/twres
 					<action function="set">c_nav_type_nxt_bit=1</action>
 					<action function="set">c_nav_type_custom=0</action>
 					<action function="cmd">
-cp -a /twres/c_nav/c_nxtbit/. /data/cookies/ramdisk/twres/c_nav_sub/;
-cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_orange/. /data/cookies/ramdisk/twres/images/;
+cp -a /twres/c_nav/c_nxtbit/. /twres/c_nav_sub/;
+cp -a /twres/c_nav_sub/c_orange/. /twres/images/;
 </action>
 				</actions>
 			</button>
@@ -7941,8 +8076,8 @@ cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_orange/. /data/cookies/ramdisk/twr
 					<action function="set">c_nav_type_nxt_bit=1</action>
 					<action function="set">c_nav_type_custom=0</action>
 					<action function="cmd">
-cp -a /twres/c_nav/c_nxtbit/. /data/cookies/ramdisk/twres/c_nav_sub/;
-cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_red/. /data/cookies/ramdisk/twres/images/;
+cp -a /twres/c_nav/c_nxtbit/. /twres/c_nav_sub/;
+cp -a /twres/c_nav_sub/c_red/. /twres/images/;
 </action>
 				</actions>
 			</button>
@@ -7959,8 +8094,8 @@ cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_red/. /data/cookies/ramdisk/twres/
 					<action function="set">c_nav_type_nxt_bit=1</action>
 					<action function="set">c_nav_type_custom=0</action>
 					<action function="cmd">
-cp -a /twres/c_nav/c_nxtbit/. /data/cookies/ramdisk/twres/c_nav_sub/;
-cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_lred/. /data/cookies/ramdisk/twres/images/;
+cp -a /twres/c_nav/c_nxtbit/. /twres/c_nav_sub/;
+cp -a /twres/c_nav_sub/c_lred/. /twres/images/;
 </action>
 				</actions>
 			</button>
@@ -7977,8 +8112,8 @@ cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_lred/. /data/cookies/ramdisk/twres
 					<action function="set">c_nav_type_nxt_bit=1</action>
 					<action function="set">c_nav_type_custom=0</action>
 					<action function="cmd">
-cp -a /twres/c_nav/c_nxtbit/. /data/cookies/ramdisk/twres/c_nav_sub/;
-cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_pink/. /data/cookies/ramdisk/twres/images/;
+cp -a /twres/c_nav/c_nxtbit/. /twres/c_nav_sub/;
+cp -a /twres/c_nav_sub/c_pink/. /twres/images/;
 </action>
 				</actions>
 			</button>
@@ -7995,8 +8130,8 @@ cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_pink/. /data/cookies/ramdisk/twres
 					<action function="set">c_nav_type_nxt_bit=1</action>
 					<action function="set">c_nav_type_custom=0</action>
 					<action function="cmd">
-cp -a /twres/c_nav/c_nxtbit/. /data/cookies/ramdisk/twres/c_nav_sub/;
-cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_rpink/. /data/cookies/ramdisk/twres/images/;
+cp -a /twres/c_nav/c_nxtbit/. /twres/c_nav_sub/;
+cp -a /twres/c_nav_sub/c_rpink/. /twres/images/;
 </action>
 				</actions>
 			</button>
@@ -8013,8 +8148,8 @@ cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_rpink/. /data/cookies/ramdisk/twre
 					<action function="set">c_nav_type_nxt_bit=1</action>
 					<action function="set">c_nav_type_custom=0</action>
 					<action function="cmd">
-cp -a /twres/c_nav/c_nxtbit/. /data/cookies/ramdisk/twres/c_nav_sub/;
-cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_green/. /data/cookies/ramdisk/twres/images/;
+cp -a /twres/c_nav/c_nxtbit/. /twres/c_nav_sub/;
+cp -a /twres/c_nav_sub/c_green/. /twres/images/;
 </action>
 				</actions>
 			</button>
@@ -8031,8 +8166,8 @@ cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_green/. /data/cookies/ramdisk/twre
 					<action function="set">c_nav_type_nxt_bit=1</action>
 					<action function="set">c_nav_type_custom=0</action>
 					<action function="cmd">
-cp -a /twres/c_nav/c_nxtbit/. /data/cookies/ramdisk/twres/c_nav_sub/;
-cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_cyan/. /data/cookies/ramdisk/twres/images/;
+cp -a /twres/c_nav/c_nxtbit/. /twres/c_nav_sub/;
+cp -a /twres/c_nav_sub/c_cyan/. /twres/images/;
 </action>
 				</actions>
 			</button>
@@ -8049,8 +8184,8 @@ cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_cyan/. /data/cookies/ramdisk/twres
 					<action function="set">c_nav_type_nxt_bit=1</action>
 					<action function="set">c_nav_type_custom=0</action>
 					<action function="cmd">
-cp -a /twres/c_nav/c_nxtbit/. /data/cookies/ramdisk/twres/c_nav_sub/;
-cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_yellow/. /data/cookies/ramdisk/twres/images/;
+cp -a /twres/c_nav/c_nxtbit/. /twres/c_nav_sub/;
+cp -a /twres/c_nav_sub/c_yellow/. /twres/images/;
 </action>
 				</actions>
 			</button>
@@ -8067,8 +8202,8 @@ cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_yellow/. /data/cookies/ramdisk/twr
 					<action function="set">c_nav_type_nxt_bit=1</action>
 					<action function="set">c_nav_type_custom=0</action>
 					<action function="cmd">
-cp -a /twres/c_nav/c_nxtbit/. /data/cookies/ramdisk/twres/c_nav_sub/;
-cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_purple/. /data/cookies/ramdisk/twres/images/;
+cp -a /twres/c_nav/c_nxtbit/. /twres/c_nav_sub/;
+cp -a /twres/c_nav_sub/c_purple/. /twres/images/;
 </action>
 				</actions>
 			</button>
@@ -8085,8 +8220,8 @@ cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_purple/. /data/cookies/ramdisk/twr
 					<action function="set">c_nav_type_nxt_bit=1</action>
 					<action function="set">c_nav_type_custom=0</action>
 					<action function="cmd">
-cp -a /twres/c_nav/c_nxtbit/. /data/cookies/ramdisk/twres/c_nav_sub/;
-cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_white/. /data/cookies/ramdisk/twres/images/;
+cp -a /twres/c_nav/c_nxtbit/. /twres/c_nav_sub/;
+cp -a /twres/c_nav_sub/c_white/. /twres/images/;
 </action>
 				</actions>
 			</button>
@@ -8116,8 +8251,8 @@ cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_white/. /data/cookies/ramdisk/twre
 					<action function="set">c_nav_type_nxt_bit=0</action>
 					<action function="set">c_nav_type_custom=1</action>
 					<action function="cmd">
-cp -a /twres/c_nav/c_custom/. /data/cookies/ramdisk/twres/c_nav_sub/;
-cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_dark/. /data/cookies/ramdisk/twres/images/;
+cp -a /twres/c_nav/c_custom/. /twres/c_nav_sub/;
+cp -a /twres/c_nav_sub/c_dark/. /twres/images/;
 </action>
 				</actions>
 			</button>
@@ -8135,8 +8270,8 @@ cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_dark/. /data/cookies/ramdisk/twres
 					<action function="set">c_nav_type_nxt_bit=0</action>
 					<action function="set">c_nav_type_custom=1</action>
 					<action function="cmd">
-cp -a /twres/c_nav/c_custom/. /data/cookies/ramdisk/twres/c_nav_sub/;
-cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_blue/. /data/cookies/ramdisk/twres/images/;
+cp -a /twres/c_nav/c_custom/. /twres/c_nav_sub/;
+cp -a /twres/c_nav_sub/c_blue/. /twres/images/;
 </action>
 				</actions>
 			</button>
@@ -8153,8 +8288,8 @@ cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_blue/. /data/cookies/ramdisk/twres
 					<action function="set">c_nav_type_nxt_bit=0</action>
 					<action function="set">c_nav_type_custom=1</action>
 					<action function="cmd">
-cp -a /twres/c_nav/c_custom/. /data/cookies/ramdisk/twres/c_nav_sub/;
-cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_brown/. /data/cookies/ramdisk/twres/images/;
+cp -a /twres/c_nav/c_custom/. /twres/c_nav_sub/;
+cp -a /twres/c_nav_sub/c_brown/. /twres/images/;
 </action>
 				</actions>
 			</button>
@@ -8171,8 +8306,8 @@ cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_brown/. /data/cookies/ramdisk/twre
 					<action function="set">c_nav_type_nxt_bit=0</action>
 					<action function="set">c_nav_type_custom=1</action>
 					<action function="cmd">
-cp -a /twres/c_nav/c_custom/. /data/cookies/ramdisk/twres/c_nav_sub/;
-cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_indigo/. /data/cookies/ramdisk/twres/images/;
+cp -a /twres/c_nav/c_custom/. /twres/c_nav_sub/;
+cp -a /twres/c_nav_sub/c_indigo/. /twres/images/;
 </action>
 				</actions>
 			</button>
@@ -8189,8 +8324,8 @@ cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_indigo/. /data/cookies/ramdisk/twr
 					<action function="set">c_nav_type_nxt_bit=0</action>
 					<action function="set">c_nav_type_custom=1</action>
 					<action function="cmd">
-cp -a /twres/c_nav/c_custom/. /data/cookies/ramdisk/twres/c_nav_sub/;
-cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_teal/. /data/cookies/ramdisk/twres/images/;
+cp -a /twres/c_nav/c_custom/. /twres/c_nav_sub/;
+cp -a /twres/c_nav_sub/c_teal/. /twres/images/;
 </action>
 				</actions>
 			</button>
@@ -8207,8 +8342,8 @@ cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_teal/. /data/cookies/ramdisk/twres
 					<action function="set">c_nav_type_nxt_bit=0</action>
 					<action function="set">c_nav_type_custom=1</action>
 					<action function="cmd">
-cp -a /twres/c_nav/c_custom/. /data/cookies/ramdisk/twres/c_nav_sub/;
-cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_orange/. /data/cookies/ramdisk/twres/images/;
+cp -a /twres/c_nav/c_custom/. /twres/c_nav_sub/;
+cp -a /twres/c_nav_sub/c_orange/. /twres/images/;
 </action>
 				</actions>
 			</button>
@@ -8225,8 +8360,8 @@ cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_orange/. /data/cookies/ramdisk/twr
 					<action function="set">c_nav_type_nxt_bit=0</action>
 					<action function="set">c_nav_type_custom=1</action>
 					<action function="cmd">
-cp -a /twres/c_nav/c_custom/. /data/cookies/ramdisk/twres/c_nav_sub/;
-cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_red/. /data/cookies/ramdisk/twres/images/;
+cp -a /twres/c_nav/c_custom/. /twres/c_nav_sub/;
+cp -a /twres/c_nav_sub/c_red/. /twres/images/;
 </action>
 				</actions>
 			</button>
@@ -8243,8 +8378,8 @@ cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_red/. /data/cookies/ramdisk/twres/
 					<action function="set">c_nav_type_nxt_bit=0</action>
 					<action function="set">c_nav_type_custom=1</action>
 					<action function="cmd">
-cp -a /twres/c_nav/c_custom/. /data/cookies/ramdisk/twres/c_nav_sub/;
-cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_lred/. /data/cookies/ramdisk/twres/images/;
+cp -a /twres/c_nav/c_custom/. /twres/c_nav_sub/;
+cp -a /twres/c_nav_sub/c_lred/. /twres/images/;
 </action>
 				</actions>
 			</button>
@@ -8261,8 +8396,8 @@ cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_lred/. /data/cookies/ramdisk/twres
 					<action function="set">c_nav_type_nxt_bit=0</action>
 					<action function="set">c_nav_type_custom=1</action>
 					<action function="cmd">
-cp -a /twres/c_nav/c_custom/. /data/cookies/ramdisk/twres/c_nav_sub/;
-cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_pink/. /data/cookies/ramdisk/twres/images/;
+cp -a /twres/c_nav/c_custom/. /twres/c_nav_sub/;
+cp -a /twres/c_nav_sub/c_pink/. /twres/images/;
 </action>
 				</actions>
 			</button>
@@ -8279,8 +8414,8 @@ cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_pink/. /data/cookies/ramdisk/twres
 					<action function="set">c_nav_type_nxt_bit=0</action>
 					<action function="set">c_nav_type_custom=1</action>
 					<action function="cmd">
-cp -a /twres/c_nav/c_custom/. /data/cookies/ramdisk/twres/c_nav_sub/;
-cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_rpink/. /data/cookies/ramdisk/twres/images/;
+cp -a /twres/c_nav/c_custom/. /twres/c_nav_sub/;
+cp -a /twres/c_nav_sub/c_rpink/. /twres/images/;
 </action>
 				</actions>
 			</button>
@@ -8297,8 +8432,8 @@ cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_rpink/. /data/cookies/ramdisk/twre
 					<action function="set">c_nav_type_nxt_bit=0</action>
 					<action function="set">c_nav_type_custom=1</action>
 					<action function="cmd">
-cp -a /twres/c_nav/c_custom/. /data/cookies/ramdisk/twres/c_nav_sub/;
-cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_green/. /data/cookies/ramdisk/twres/images/;
+cp -a /twres/c_nav/c_custom/. /twres/c_nav_sub/;
+cp -a /twres/c_nav_sub/c_green/. /twres/images/;
 </action>
 				</actions>
 			</button>
@@ -8315,8 +8450,8 @@ cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_green/. /data/cookies/ramdisk/twre
 					<action function="set">c_nav_type_nxt_bit=0</action>
 					<action function="set">c_nav_type_custom=1</action>
 					<action function="cmd">
-cp -a /twres/c_nav/c_custom/. /data/cookies/ramdisk/twres/c_nav_sub/;
-cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_cyan/. /data/cookies/ramdisk/twres/images/;
+cp -a /twres/c_nav/c_custom/. /twres/c_nav_sub/;
+cp -a /twres/c_nav_sub/c_cyan/. /twres/images/;
 </action>
 				</actions>
 			</button>
@@ -8333,8 +8468,8 @@ cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_cyan/. /data/cookies/ramdisk/twres
 					<action function="set">c_nav_type_nxt_bit=0</action>
 					<action function="set">c_nav_type_custom=1</action>
 					<action function="cmd">
-cp -a /twres/c_nav/c_custom/. /data/cookies/ramdisk/twres/c_nav_sub/;
-cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_yellow/. /data/cookies/ramdisk/twres/images/;
+cp -a /twres/c_nav/c_custom/. /twres/c_nav_sub/;
+cp -a /twres/c_nav_sub/c_yellow/. /twres/images/;
 </action>
 				</actions>
 			</button>
@@ -8351,8 +8486,8 @@ cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_yellow/. /data/cookies/ramdisk/twr
 					<action function="set">c_nav_type_nxt_bit=0</action>
 					<action function="set">c_nav_type_custom=1</action>
 					<action function="cmd">
-cp -a /twres/c_nav/c_custom/. /data/cookies/ramdisk/twres/c_nav_sub/;
-cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_purple/. /data/cookies/ramdisk/twres/images/;
+cp -a /twres/c_nav/c_custom/. /twres/c_nav_sub/;
+cp -a /twres/c_nav_sub/c_purple/. /twres/images/;
 </action>
 				</actions>
 			</button>
@@ -8369,8 +8504,8 @@ cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_purple/. /data/cookies/ramdisk/twr
 					<action function="set">c_nav_type_nxt_bit=0</action>
 					<action function="set">c_nav_type_custom=1</action>
 					<action function="cmd">
-cp -a /twres/c_nav/c_custom/. /data/cookies/ramdisk/twres/c_nav_sub/;
-cp -a /data/cookies/ramdisk/twres/c_nav_sub/c_white/. /data/cookies/ramdisk/twres/images/;
+cp -a /twres/c_nav/c_custom/. /twres/c_nav_sub/;
+cp -a /twres/c_nav_sub/c_white/. /twres/images/;
 </action>
 				</actions>
 			</button>
@@ -8532,8 +8667,8 @@ rm -rf _magisk;
 				<actions>
 					<action function="set">c_status_bar_triger=1</action>
 					<action function="cmd">
-rm /data/cookies/ramdisk/twres/notch_handled_var.xml
-cp /twres/cache/notch_handled_var.xml /data/cookies/ramdisk/twres/
+rm /twres/notch_handled_var.xml
+cp /twres/cache/notch_handled_var.xml /twres/
 					</action>
 				</actions>
 			</button>
@@ -8561,8 +8696,8 @@ cp /twres/cache/notch_handled_var.xml /data/cookies/ramdisk/twres/
 					<action function="set">c_battery_txt_triger=0</action>
 					<action function="set">c_time_txt_triger=0</action>
 					<action function="cmd">
-rm /data/cookies/ramdisk/twres/notch_handled_var.xml
-cp /twres/cache/default/notch_handled_var.xml /data/cookies/ramdisk/twres/
+rm /twres/notch_handled_var.xml
+cp /twres/cache/default/notch_handled_var.xml /twres/
 					</action>
 				</actions>
 			</button>
@@ -8711,9 +8846,9 @@ cp /twres/cache/default/notch_handled_var.xml /data/cookies/ramdisk/twres/
 					<action function="set">c_battery_portrait_icon_triger=1</action>
 					<action function="set">c_battery_circle_icon_triger=0</action>
 					<action function="cmd">
-cp /twres/c_battery/default/c_white/*.png /data/cookies/ramdisk/twres/c_bg_sub/c_white/;
-cp /twres/c_battery/default/c_black/*.png /data/cookies/ramdisk/twres/c_bg_sub/c_black/;
-cp /twres/c_battery/default/c_white/*.png /data/cookies/ramdisk/twres/images/;
+cp /twres/c_battery/default/c_white/*.png /twres/c_bg_sub/c_white/;
+cp /twres/c_battery/default/c_black/*.png /twres/c_bg_sub/c_black/;
+cp /twres/c_battery/default/c_white/*.png /twres/images/;
 					</action>
 				</actions>
 			</button>
@@ -8730,9 +8865,9 @@ cp /twres/c_battery/default/c_white/*.png /data/cookies/ramdisk/twres/images/;
 					<action function="set">c_battery_portrait_icon_triger=1</action>
 					<action function="set">c_battery_circle_icon_triger=0</action>
 					<action function="cmd">
-cp /twres/c_battery/default/c_white/*.png /data/cookies/ramdisk/twres/c_bg_sub/c_white/;
-cp /twres/c_battery/default/c_black/*.png /data/cookies/ramdisk/twres/c_bg_sub/c_black/;
-cp /twres/c_battery/default/c_black/*.png /data/cookies/ramdisk/twres/images/;
+cp /twres/c_battery/default/c_white/*.png /twres/c_bg_sub/c_white/;
+cp /twres/c_battery/default/c_black/*.png /twres/c_bg_sub/c_black/;
+cp /twres/c_battery/default/c_black/*.png /twres/images/;
 					</action>
 				</actions>
 			</button>
@@ -8766,9 +8901,9 @@ cp /twres/c_battery/default/c_black/*.png /data/cookies/ramdisk/twres/images/;
 					<action function="set">c_battery_portrait_icon_triger=0</action>
 					<action function="set">c_battery_circle_icon_triger=1</action>
 					<action function="cmd">
-cp /twres/c_battery/circle/c_white/*.png /data/cookies/ramdisk/twres/c_bg_sub/c_white/;
-cp /twres/c_battery/circle/c_black/*.png /data/cookies/ramdisk/twres/c_bg_sub/c_black/;
-cp /twres/c_battery/circle/c_white/*.png /data/cookies/ramdisk/twres/images/;
+cp /twres/c_battery/circle/c_white/*.png /twres/c_bg_sub/c_white/;
+cp /twres/c_battery/circle/c_black/*.png /twres/c_bg_sub/c_black/;
+cp /twres/c_battery/circle/c_white/*.png /twres/images/;
 					</action>
 				</actions>
 			</button>
@@ -8785,9 +8920,9 @@ cp /twres/c_battery/circle/c_white/*.png /data/cookies/ramdisk/twres/images/;
 					<action function="set">c_battery_portrait_icon_triger=0</action>
 					<action function="set">c_battery_circle_icon_triger=1</action>
 					<action function="cmd">
-cp /twres/c_battery/circle/c_white/*.png /data/cookies/ramdisk/twres/c_bg_sub/c_white/;
-cp /twres/c_battery/circle/c_black/*.png /data/cookies/ramdisk/twres/c_bg_sub/c_black/;
-cp /twres/c_battery/circle/c_black/*.png /data/cookies/ramdisk/twres/images/;
+cp /twres/c_battery/circle/c_white/*.png /twres/c_bg_sub/c_white/;
+cp /twres/c_battery/circle/c_black/*.png /twres/c_bg_sub/c_black/;
+cp /twres/c_battery/circle/c_black/*.png /twres/images/;
 					</action>
 				</actions>
 			</button>
@@ -8879,7 +9014,7 @@ cp /twres/c_battery/circle/c_black/*.png /data/cookies/ramdisk/twres/images/;
 					<action function="set">c_rounded_corner_type_2=0</action>
 					<action function="set">c_rounded_corner_type_3=0</action>
 					<action function="cmd">
-cp /twres/c_rounded_res/type_1/*.png /data/cookies/ramdisk/twres/images/;
+cp /twres/c_rounded_res/type_1/*.png /twres/images/;
 					</action>
 				</actions>
 			</button>
@@ -8909,7 +9044,7 @@ cp /twres/c_rounded_res/type_1/*.png /data/cookies/ramdisk/twres/images/;
 					<action function="set">c_rounded_corner_type_2=1</action>
 					<action function="set">c_rounded_corner_type_3=0</action>
 					<action function="cmd">
-cp /twres/c_rounded_res/type_2/*.png /data/cookies/ramdisk/twres/images/;
+cp /twres/c_rounded_res/type_2/*.png /twres/images/;
 					</action>
 				</actions>
 			</button>
@@ -8939,7 +9074,7 @@ cp /twres/c_rounded_res/type_2/*.png /data/cookies/ramdisk/twres/images/;
 					<action function="set">c_rounded_corner_type_2=0</action>
 					<action function="set">c_rounded_corner_type_3=1</action>
 					<action function="cmd">
-cp /twres/c_rounded_res/type_3/*.png /data/cookies/ramdisk/twres/images/;
+cp /twres/c_rounded_res/type_3/*.png /twres/images/;
 					</action>
 				</actions>
 			</button>
@@ -8963,8 +9098,8 @@ cp /twres/c_rounded_res/type_3/*.png /data/cookies/ramdisk/twres/images/;
 				<actions>
 					<action function="set">c_notch_mode=1</action>
 					<action function="cmd">
-rm /data/cookies/ramdisk/twres/notch_handled_var.xml
-cp /twres/cache/notch_mode/notch_handled_var.xml /data/cookies/ramdisk/twres/
+rm /twres/notch_handled_var.xml
+cp /twres/cache/notch_mode/notch_handled_var.xml /twres/
 					</action>
 				</actions>
 			</button>
@@ -8978,8 +9113,8 @@ cp /twres/cache/notch_mode/notch_handled_var.xml /data/cookies/ramdisk/twres/
 				<actions>
 					<action function="set">c_notch_mode=0</action>
 					<action function="cmd">
-rm /data/cookies/ramdisk/twres/notch_handled_var.xml
-cp /twres/cache/notch_handled_var.xml /data/cookies/ramdisk/twres/
+rm /twres/notch_handled_var.xml
+cp /twres/cache/notch_handled_var.xml /twres/
 					</action>
 				</actions>
 			</button>
@@ -8993,8 +9128,8 @@ cp /twres/cache/notch_handled_var.xml /data/cookies/ramdisk/twres/
 				<actions>
 					<action function="set">c_notch_mode=0</action>
 					<action function="cmd">
-rm /data/cookies/ramdisk/twres/notch_handled_var.xml
-cp /twres/cache/default/notch_handled_var.xml /data/cookies/ramdisk/twres/
+rm /twres/notch_handled_var.xml
+cp /twres/cache/default/notch_handled_var.xml /twres/
 					</action>
 				</actions>
 			</button>
@@ -9047,7 +9182,7 @@ cp /twres/cache/default/notch_handled_var.xml /data/cookies/ramdisk/twres/
 					<action function="set">c_dash_ico_white=0</action>
 					<action function="set">c_dash_ico_aex=0</action>
 					<action function="cmd">
-cp /twres/c_dash_ico/default/*.png /data/cookies/ramdisk/twres/images/;
+cp /twres/c_dash_ico/default/*.png /twres/images/;
 					</action>
 				</actions>
 			</button>
@@ -9075,7 +9210,7 @@ cp /twres/c_dash_ico/default/*.png /data/cookies/ramdisk/twres/images/;
 					<action function="set">c_dash_ico_white=0</action>
 					<action function="set">c_dash_ico_aex=0</action>
 					<action function="cmd">
-cp /twres/c_dash_ico/black/*.png /data/cookies/ramdisk/twres/images/;
+cp /twres/c_dash_ico/black/*.png /twres/images/;
 					</action>
 				</actions>
 			</button>
@@ -9103,7 +9238,7 @@ cp /twres/c_dash_ico/black/*.png /data/cookies/ramdisk/twres/images/;
 					<action function="set">c_dash_ico_white=1</action>
 					<action function="set">c_dash_ico_aex=0</action>
 					<action function="cmd">
-cp /twres/c_dash_ico/white/*.png /data/cookies/ramdisk/twres/images/;
+cp /twres/c_dash_ico/white/*.png /twres/images/;
 					</action>
 				</actions>
 			</button>
@@ -9131,7 +9266,7 @@ cp /twres/c_dash_ico/white/*.png /data/cookies/ramdisk/twres/images/;
 					<action function="set">c_dash_ico_white=0</action>
 					<action function="set">c_dash_ico_aex=1</action>
 					<action function="cmd">
-cp /twres/c_dash_ico/aex/*.png /data/cookies/ramdisk/twres/images/;
+cp /twres/c_dash_ico/aex/*.png /twres/images/;
 					</action>
 				</actions>
 			</button>
@@ -9176,12 +9311,36 @@ cp /twres/c_dash_ico/aex/*.png /data/cookies/ramdisk/twres/images/;
 				<conditions>
 					<condition var1="c_temp3" op="!=" var2="78"/>
 					<condition var1="c_shrp_resource_status" op="!=" var2="1"/>
+					<condition var1="shrp_ab" op="=" var2="0"/>
 				</conditions>
 				<image resource="c_theme_init_s" highlightresource="c_theme_init_s_hr"/>
 				<actions>
 					<action function="set">c_status={@c_init=Initializing}</action>
 					<action function="set">c_temp3=78</action>
-					<action function="c_unpack">1</action>
+					<action function="cmd">
+export recoveryBlock=%shrp_rec%;
+sh /twres/scripts/create_env.sh;
+					</action>
+					<action function="page">c_new_shrp_theme_dashboard</action>
+					<!--action function="c_unpack">1</action-->
+				</actions>
+			</button>
+			<button>
+				<placement x="379" y="1620"/>
+				<conditions>
+					<condition var1="c_temp3" op="!=" var2="78"/>
+					<condition var1="c_shrp_resource_status" op="!=" var2="1"/>
+					<condition var1="shrp_ab" op="=" var2="1"/>
+				</conditions>
+				<image resource="c_theme_init_s" highlightresource="c_theme_init_s_hr"/>
+				<actions>
+					<action function="set">c_status={@c_init=Initializing}</action>
+					<action function="set">c_temp3=78</action>
+					<action function="cmd">
+sh /twres/scripts/create_envAB.sh;
+					</action>
+					<action function="page">c_new_shrp_theme_dashboard</action>
+					<!--action function="c_unpack">1</action-->
 				</actions>
 			</button>
 			<text>
@@ -9336,8 +9495,8 @@ cd /twres/scripts
 sh statusbar_trigger_scripts.sh
 					</action>
 					<action function="cmd">
-rm /data/cookies/ramdisk/twres/c_status_bar_h.xml
-cp /twres/cache/c_status_bar_h.xml /data/cookies/ramdisk/twres/
+rm /twres/c_status_bar_h.xml
+cp /twres/cache/c_status_bar_h.xml /twres/
 					</action>
 					<action function="set">c_status={@c_repacking=Repacking} {@recovery=Recovery}</action>
 					<action function="c_repack"/>
