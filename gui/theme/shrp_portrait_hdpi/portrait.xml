@@ -157,7 +157,6 @@
 				<font resource="c_list" color="%c_black%"/>
 				<image resource="c_about_tile"/>
 				<text>{@c_shrp_about=S H R P}</text>
-				<action function="sandy"/>
 			</button>
 			<button>
 				<placement x="0" y="980" w="1080" h="148"/>
@@ -208,7 +207,7 @@
 				<placement x="0" y="1430" w="1080" h="148"/>
 				<font resource="c_dashboard_text_sort" color="%c_black%"/>
 				<fill color="%transparent%"/>
-				<text> epicX | Dni9 | Giovix92 | Teamwin | Topjohnwu | osmOsis   </text>
+				<text>epicX  Dni9  Giovix92  Teamwin  Topjohnwu  osmOsis</text>
 			</button>
 			<button>
 				<placement x="0" y="1550" w="1080" h="148"/>
@@ -223,7 +222,7 @@
 				<placement x="0" y="1645" w="1080" h="148"/>
 				<font resource="c_dashboard_text_sort" color="%c_black%"/>
 				<fill color="%transparent%"/>
-				<text> VR25 | Pritish | Kirill | Burak D. | ZJRDroid | LayeardDevMod </text>
+				<text>VR25  Pritish  Kirill  Burak D.  ZJRDroid  LayeardDevMod</text>
 			</button>
 
 			<action>
@@ -5467,82 +5466,38 @@ sh /twres/scripts/create_envAB.sh;
 				<action function="set">c_menu=0</action>
 				<action function="overlay"/>
 			</button>
-			<!--image>
-				<placement x="50" y="350"/>
-				<image resource="c_file_root"/>
-			</image>
+
+			<text style="c_text_dashboard">
+				<condition var1="tw_file_location1" op="!=" var2="/"/>
+			  <placement x="50" y="1030"/>
+			  <text>Other Operations</text>
+			</text>
 			<image>
-				<placement x="50" y="500"/>
-				<image resource="c_file_sdcard"/>
-			</image>
-			<image>
-				<placement x="50" y="650"/>
-				<image resource="c_file_exsdcard"/>
-			</image>
-			<image>
-				<placement x="50" y="800"/>
-				<image resource="c_file_otg"/>
+				<condition var1="tw_file_location1" op="!=" var2="/"/>
+			  <placement x="50" y="1150"/>
+			  <image resource="c_archive"/>
 			</image>
 			<text style="c_file_menu">
-				<placement x="170" y="350"/>
-				<text>{@c_side_bar_root=Root}</text>
+				<condition var1="tw_file_location1" op="!=" var2="/"/>
+			  <placement x="170" y="1150"/>
+			  <text>Compress</text>
 			</text>
-			<text style="c_file_menu">
-				<placement x="170" y="390"/>
-				<text>/</text>
-			</text>
-			<text style="c_file_menu">
-				<placement x="170" y="500"/>
-				<text>{@c_side_bar_internal=Internal Storage}</text>
-			</text>
-			<text style="c_file_menu">
-				<placement x="170" y="540"/>
-				<text>%internal_storage_location%</text>
-			</text>
-			<text style="c_file_menu">
-				<placement x="170" y="650"/>
-				<text>{@c_side_bar_external=External Storage}</text>
-			</text>
-			<text style="c_file_menu">
-				<placement x="170" y="690"/>
-				<text>%external_storage_location%</text>
-			</text>
-			<text style="c_file_menu">
-				<placement x="170" y="800"/>
-				<text>{@c_side_bar_otg=OTG}</text>
-			</text>
-			<text style="c_file_menu">
-				<placement x="170" y="840"/>
-				<text>%usb_otg_location%</text>
+			<text style="c_reboot_text">
+				<condition var1="tw_file_location1" op="!=" var2="/"/>
+			  <placement x="170" y="1200"/>
+			  <text>Archive Your Folder</text>
 			</text>
 			<button>
-				<placement x="37" y="337" w="584" h="113"/>
-				<fill color="%transparent%"/>
-				<action function="set">c_menu=0</action>
-				<action function="set">tw_file_location1=/</action>
-				<action function="overlay"/>
+				<condition var1="tw_file_location1" op="!=" var2="/"/>
+			  <placement x="36" y="1130" w="612" h="138"/>
+			  <fill color="%transparent%"/>
+				<actions>
+					<action function="shrp_zip_init">%tw_file_location1%</action>
+					<action function="set">c_menu=0</action>
+					<action function="overlay"/>
+					<action function="page">zipName</action>
+				</actions>
 			</button>
-			<button>
-				<placement x="37" y="487" w="584" h="113"/>
-				<fill color="%transparent%"/>
-				<action function="set">c_menu=0</action>
-				<action function="set">tw_file_location1=%internal_storage_location%</action>
-				<action function="overlay"/>
-			</button>
-			<button>
-				<placement x="37" y="637" w="584" h="113"/>
-				<fill color="%transparent%"/>
-				<action function="set">c_menu=0</action>
-				<action function="set">tw_file_location1=%external_storage_location%</action>
-				<action function="overlay"/>
-			</button>
-			<button>
-				<placement x="37" y="787" w="584" h="113"/>
-				<fill color="%transparent%"/>
-				<action function="set">c_menu=0</action>
-				<action function="set">tw_file_location1=%usb_otg_location%</action>
-				<action function="overlay"/>
-			</button-->
 			<button>
 				<condition var1="c_menu" op="=" var2="1"/>
 				<placement x="860" y="1450"/>
@@ -5554,6 +5509,83 @@ sh /twres/scripts/create_envAB.sh;
 				<touch key="back"/>
 				<action function="set">c_menu=0</action>
 				<action function="overlay"/>
+			</action>
+			<action>
+				<touch key="power+voldown"/>
+				<action function="screenshot"/>
+			</action>
+		</page>
+		<page name="zipName">
+			<template name="c_page"/>
+			<template name="c_status_bar"/>
+			<text style="c_main_text_header">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
+				<text>Zip</text>
+			</text>
+			<text style="c_text_dashboard">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
+				<text>Give a zip name</text>
+			</text>
+			<text style="c_sub">
+				<placement x="%c_hawk_base_column%" y="%c_text_sub_y_spec%"/>
+				<text>{@name=Name:}</text>
+			</text>
+			<input>
+				<placement x="185" y="%c_text_sub_y_spec%" w="710" h="64"/>
+				<text>%shrp_zipName%</text>
+				<data name="shrp_zipName"/>
+				<restrict minlen="1" maxlen="64" allow=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-_.{}[]"/>
+				<actions>
+					<action function="cmd">
+cd %tw_file_location1%
+cd ..
+zip -r %shrp_zipName%.zip %shrp_zipFolderName%
+					</action>
+					<action function="page">c_file_epicx</action>
+				</actions>
+			</input>
+			<template name="keyboardtemplate"/>
+			<action>
+				<touch key="back"/>
+				<action function="page">c_file_epicx</action>
+			</action>
+			<action>
+				<touch key="power+voldown"/>
+				<action function="screenshot"/>
+			</action>
+		</page>
+		<page name="c_createFolder">
+			<template name="c_page"/>
+			<template name="c_status_bar"/>
+			<text style="c_main_text_header">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
+				<text>Create</text>
+			</text>
+			<text style="c_text_dashboard">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
+				<text>Create folder</text>
+			</text>
+			<text style="c_sub">
+				<placement x="%c_hawk_base_column%" y="%c_text_sub_y_spec%"/>
+				<text>{@name=Name:}</text>
+			</text>
+			<input>
+				<placement x="185" y="%c_text_sub_y_spec%" w="710" h="64"/>
+				<text>Newfolder</text>
+				<data name="FolderName"/>
+				<restrict minlen="1" maxlen="64" allow=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-_.{}[]"/>
+				<actions>
+					<action function="cmd">
+cd %tw_file_location1%
+mkdir -p %FolderName%
+					</action>
+					<action function="page">c_file_epicx</action>
+				</actions>
+			</input>
+			<template name="keyboardtemplate"/>
+			<action>
+				<touch key="back"/>
+				<action function="page">c_file_epicx</action>
 			</action>
 			<action>
 				<touch key="power+voldown"/>
@@ -5669,6 +5701,11 @@ sh /twres/scripts/create_envAB.sh;
 					<action function="set">tw_include_text3=0</action>
 					<action function="page">c_file_epicx_action</action>
 				</actions>
+			</button>
+			<button>
+				<placement x="860" y="1270"/>
+				<image resource="c_createFolder"/>
+				<action function="page">c_createFolder</action>
 			</button>
 			<button>
 				<condition var1="c_menu" op="=" var2="0"/>
