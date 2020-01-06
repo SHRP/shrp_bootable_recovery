@@ -232,6 +232,7 @@ int main(int argc, char **argv) {
 	DataManager::SetDefaultValues();
 	printf("Starting the UI...\n");
 	gui_init();
+	disp_info();
 	printf("=> Linking mtab\n");
 	symlink("/proc/mounts", "/etc/mtab");
 	std::string fstab_filename = "/etc/twrp.fstab";
@@ -445,7 +446,6 @@ int main(int argc, char **argv) {
 	//SHRP_initial_funcs
 	shrp_lockscreen_date();
 	lockCheck();
-	disp_info();
 	// Launch the main GUI
 	gui_start();
 

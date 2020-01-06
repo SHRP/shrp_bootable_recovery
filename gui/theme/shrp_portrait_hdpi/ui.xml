@@ -115,6 +115,9 @@
 		<image name="c_file_exsdcard" filename="c_file_exsdcard" retainaspect="1"/>
 		<image name="c_file_root" filename="c_file_root" retainaspect="1"/>
 		<image name="c_file_otg" filename="c_file_otg" retainaspect="1"/>
+		<image name="c_archive" filename="c_archive" retainaspect="1"/>
+		<image name="c_unarchive" filename="c_unarchive" retainaspect="1"/>
+		<image name="c_createFolder" filename="c_createFolder" retainaspect="1"/>
 		<image name="bt" filename="bt"/>
 		<image name="c_file_delete2" filename="c_file_delete2" retainaspect="1"/>
 		<image name="c_power_menu_bg" filename="c_power_menu_bg"/>

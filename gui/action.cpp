@@ -255,14 +255,13 @@ GUIAction::GUIAction(xml_node<>* node)
 		ADD_ACTION(shrp_magisk_msc);
 		ADD_ACTION(shrp_magisk_mi);
 		ADD_ACTION(shrp_magisk_um);
+		ADD_ACTION(shrp_zip_init);
 		ADD_ACTION(sig);
 		ADD_ACTION(unlock);
 		ADD_ACTION(set_lock);
 		ADD_ACTION(reset_lock);
-		ADD_ACTION(c_unpack);
 		ADD_ACTION(c_repack);
 		ADD_ACTION(flashOP);
-		ADD_ACTION(sandy);
 		ADD_ACTION(clearInput);
 	}
 
@@ -2332,26 +2331,23 @@ exit:
 }
 //SHRP_GUI_Funcs()
 int GUIAction::shrp_init(std::string arg __unused){
+	LOGINFO("Running GUI function : shrp_init\n");
 	if(!TWFunc::Path_Exists("/data/adb/magisk")){
-		LOGINFO("Magisk Not Installed\n");
+		LOGINFO("shrp_init : Magisk Not Installed\n");
 		DataManager::SetValue("c_magisk_status",1);
 	}else{
-		LOGINFO("Magisk Found\n");
+		LOGINFO("shrp_init : Magisk Found\n");
 		DataManager::SetValue("c_magisk_status",0);
 	}
 	if(!TWFunc::Path_Exists("/sdcard/SHRP")){
-		LOGINFO("SHRP Resources Not Found at /sdcard/SHRP\n");
-		LOGINFO("Fix this issue by reflashing SHRP ZIP\n");
+		LOGINFO("shrp_init : SHRP Resources Not Found at /sdcard/SHRP\n");
+		LOGINFO("shrp_init : Fix this issue by reflashing SHRP ZIP\n");
 		DataManager::SetValue("c_shrp_resource_status",1);
 	}else{
-		if(!TWFunc::Path_Exists("/sdcard/SHRP/data/cookies")){
-			LOGINFO("AIK Not Found at /sdcard/SHRP/data/cookies\n");
-			DataManager::SetValue("c_shrp_resource_status",1);
-		}else{
-			LOGINFO("SHRP Resources Found\n");
-			DataManager::SetValue("c_shrp_resource_status",0);
-		}
+		LOGINFO("shrp_init : SHRP Resources Found\n");
+		DataManager::SetValue("c_shrp_resource_status",0);
 	}
+	LOGINFO("Closed : shrp_init\n");
 	return 0;
 }
 int GUIAction::shrp_magisk_info(std::string arg __unused){
@@ -2436,21 +2432,20 @@ int GUIAction::shrp_magisk_um(std::string arg __unused){//SHRP Magisk Module Uni
 	cmd="sh "+shrp_path;
 	if(TWFunc::Path_Exists(shrp_path)){
 		TWFunc::Exec_Cmd(cmd);
-	}else{
-		LOGINFO("uninstall.sh Not Found\n");
 	}
 	cmd="rm -rf "+magisk_path+module_name;
 	TWFunc::Exec_Cmd(cmd);
-	LOGINFO("Module Uninstalled\n");
 	return 0;
 }
 int GUIAction::flashlight(std::string arg __unused){
+	LOGINFO("Running GUI function : flashlight\n");
 	string cmd,max_b,trigger;
 	int temp,switch_tmp;
 	temp=switch_tmp=0;
-#ifdef SHRP_CUSTOM_FLASHLIGHT
-	string p1,p2,p3;
 	DataManager::GetValue("c_flashlight_status", trigger);
+#ifdef SHRP_CUSTOM_FLASHLIGHT
+	LOGINFO("flashlight : Using Custom flashlight path\n");
+	string p1,p2,p3;
 	DataManager::GetValue("c_flashlight_max_brightness", max_b);
 	DataManager::GetValue("c_flashlight_path_1", p1);
 	DataManager::GetValue("c_flashlight_path_2", p2);
@@ -2481,6 +2476,7 @@ int GUIAction::flashlight(std::string arg __unused){
 		}
 	}
 #else
+	LOGINFO("flashlight : Trying to find flashlight path\n");
 	if(TWFunc::Path_Exists("/sys/class/leds/")){
 		if(TWFunc::Path_Exists("/sys/class/leds/led:torch/")){
 			temp=1;
@@ -2498,14 +2494,14 @@ int GUIAction::flashlight(std::string arg __unused){
 			temp=5;
 			TWFunc::read_file("/sys/class/leds/led:torch-light/max_brightness",max_b);
 		}else{
-			LOGINFO("FlashLight-----------\nError\nFlashLight Does not support on your device\n");
+			LOGINFO("flashlight : FlashLight Does not support on your device\n");
+			return 0;
 		}
 		if(TWFunc::Path_Exists("/sys/class/leds/led:switch/")){
 			switch_tmp=1;
 		}else if(TWFunc::Path_Exists("/sys/class/leds/led:switch_0/")){
 			switch_tmp=2;
 		}
-		DataManager::GetValue("c_flashlight_status", trigger);
 		if(trigger=="0"){
 			DataManager::SetValue("c_flashlight_status","1");
 			if(temp==1){
@@ -2554,7 +2550,7 @@ int GUIAction::flashlight(std::string arg __unused){
 			}
 		}
 	}else{
-		LOGINFO("FlashLight-----------\nError\nFlashLight Does not support on your device\n");
+		LOGINFO("flashlight : FlashLight does not support on your device\n");
 	}
 #endif
 	return 0;
@@ -2576,7 +2572,6 @@ int GUIAction::sig(std::string arg __unused){
 			DataManager::SetValue("c_i_p","0");
 			DataManager::SetValue("c_i_status","Not Available");
 		}else{
-			//ptr->Update_Size(true);
 			size=ptr->Size / mb;
 			used=ptr->Used / mb;
 			free=ptr->Free / mb;
@@ -2594,7 +2589,6 @@ int GUIAction::sig(std::string arg __unused){
 			DataManager::SetValue("c_e_p","0");
 			DataManager::SetValue("c_e_status","Not Available");
 		}else{
-			//ptr->Update_Size(true);
 			size=ptr->Size / mb;
 			used=ptr->Used / mb;
 			free=ptr->Free / mb;
@@ -2612,7 +2606,6 @@ int GUIAction::sig(std::string arg __unused){
 			DataManager::SetValue("c_o_p","0");
 			DataManager::SetValue("c_o_status","Not Available");
 		}else{
-			//ptr->Update_Size(true);
 			size=ptr->Size / mb;
 			used=ptr->Used / mb;
 			free=ptr->Free / mb;
@@ -2675,63 +2668,34 @@ int GUIAction::reset_lock(std::string arg __unused){
 	fclose(f);
 	return 0;
 }
-int GUIAction::c_unpack(std::string arg){
-	TWFunc::Exec_Cmd("cp -a /sdcard/SHRP/data/cookies /data");
-	TWFunc::Exec_Cmd("cp /sdcard/SHRP/data/recovery.img /data/cookies/");
-	TWFunc::Exec_Cmd("sh /data/cookies/unpackimg.sh");
-	TWFunc::Exec_Cmd("rm -rf /data/cookies/ramdisk/twres/");
-	TWFunc::Exec_Cmd("cp -r /twres/ /data/cookies/ramdisk/");
-	TWFunc::Exec_Cmd("mkdir -p /data/local/tmp");
-	if(arg=="1"){
-		PageManager::ChangePage("c_new_shrp_theme_dashboard");
-	}
-	return 0;
-}
 int GUIAction::c_repack(std::string arg __unused){
-	if(TWFunc::Path_Exists("/twres/fonts/")&&TWFunc::Path_Exists("/twres/images/")&&TWFunc::Path_Exists("/twres/languages/")&&TWFunc::Path_Exists("/twres/magisk/")&&TWFunc::Path_Exists("/twres/scripts/")&&TWFunc::Path_Exists("/twres/bg_res.xml")&&TWFunc::Path_Exists("/twres/c_page.xml")&&TWFunc::Path_Exists("/twres/c_status_bar_h.xml")&&TWFunc::Path_Exists("/twres/notch_handled_var.xml")&&TWFunc::Path_Exists("/twres/portrait.xml")&&TWFunc::Path_Exists("/twres/splash.xml")&&TWFunc::Path_Exists("/twres/styles.xml")&&TWFunc::Path_Exists("/twres/txt_res.xml")&&TWFunc::Path_Exists("/twres/ui.xml")){
-		LOGINFO("Repack: ALL Required Files are found\n");
+	if(TWFunc::Path_Exists("/twres/fonts/")&&TWFunc::Path_Exists("/twres/images/")&&TWFunc::Path_Exists("/twres/languages/")&&TWFunc::Path_Exists("/twres/magisk/")&&TWFunc::Path_Exists("/twres/bg_res.xml")&&TWFunc::Path_Exists("/twres/c_page.xml")&&TWFunc::Path_Exists("/twres/c_status_bar_h.xml")&&TWFunc::Path_Exists("/twres/notch_handled_var.xml")&&TWFunc::Path_Exists("/twres/portrait.xml")&&TWFunc::Path_Exists("/twres/splash.xml")&&TWFunc::Path_Exists("/twres/styles.xml")&&TWFunc::Path_Exists("/twres/txt_res.xml")&&TWFunc::Path_Exists("/twres/ui.xml")){
+		LOGINFO("c_repack : ALL Required Files are found\n");
 		if(TWFunc::Exec_Cmd("sh /twres/scripts/sync.sh;")!=0){
-			LOGINFO("Repack: Syncing failed\n");
+			LOGINFO("c_repack : Syncing failed\n");
 		}else{
 			TWFunc::Exec_Cmd("sh /twres/scripts/repack.sh;");
-			LOGINFO("Repack: Repacking Successful\n");
-			//FILE* f;
-			//char chr[50];
-			//f=fopen("/shrp_vital","r");
-			//fgets(chr,50,f);
-			//string cmd=chr;
-			//cmd=value_process(cmd);
-			//TWFunc::Exec_Cmd("mv /data/cookies/image-new.img /data/cookies/image_new.img");
-			//cmd="dd if=/data/cookies/image-new.img of="+cmd;
-			//TWFunc::Exec_Cmd(cmd);
 #ifdef SHRP_AB
-			/*Repack_Options_struct Repack_Options;
-			Repack_Options.Disable_Verity = false;
-			Repack_Options.Disable_Force_Encrypt = false;
-			Repack_Options.Backup_First=true;//Doubt
-			Repack_Options.Type = REPLACE_RAMDISK;
-			string path = "/tmp/work/newRec.img";
-			PartitionManager.Repack_Images(path, Repack_Options);*/
+			LOGINFO("c_repack : Repacking Successful [boot_a]\n");
 			TWFunc::Exec_Cmd("dd if=newRec.img of=/dev/block/bootdevice/by-name/boot_a");
-			LOGINFO("A/B: boot_a pushing Successful\n");
+			LOGINFO("c_repack : boot_a pushed to the block\n");
 			TWFunc::Exec_Cmd("rm -r /tmp/work");
 			TWFunc::Exec_Cmd("sh /twres/scripts/nxtPatch.sh;");
-			LOGINFO("A/B: Created env for boot_b\n");
+			LOGINFO("c_repack : Environment created for boot_b\n");
 			TWFunc::Exec_Cmd("sh /twres/scripts/sync.sh;");
 			TWFunc::Exec_Cmd("sh /twres/scripts/repack.sh;");
 			TWFunc::Exec_Cmd("dd if=newRec.img of=/dev/block/bootdevice/by-name/boot_b");
-			LOGINFO("A/B: boot_b pushing Successful\n");
+			LOGINFO("c_repack : boot_b pushed to the block\n");
 #else
+			LOGINFO("c_repack : Repacking Successful\n");
 			DataManager::SetValue("tw_flash_partition","/recovery;");
 			DataManager::SetValue("tw_action","flashimage");
 			DataManager::SetValue("tw_has_action2","0");
 			DataManager::SetValue("tw_zip_location","/tmp/work");
 			DataManager::SetValue("tw_file","newRec.img");
 			GUIAction::flashimage("guun");
-			LOGINFO("A only: Flashing Successful\n");
+			LOGINFO("c_repack : Flashing modified Recovery done\n");
 #endif
-			//TWFunc::Exec_Cmd("rm -r /twres");
-			//TWFunc::Exec_Cmd("cp -a /data/cookies/ramdisk/twres /twres");
 			TWFunc::Exec_Cmd("rm -r /tmp/work");
 		}
 	}
@@ -2767,20 +2731,20 @@ int GUIAction::flashOP(std::string arg){
 	}
 	return 0;
 }
-int GUIAction::sandy(std::string arg __unused){
-	FILE *f;
-	char line[200];
-	string text;
-	f=fopen("/sdcard/pepe.txt","r");
-	int i=0;
-	do{
-		line[i]=(char)fgetc(f);
-		i++;
-	}while(line[i]!=EOF);
-	text=line;
-	fclose(f);
-	gui_msg(Msg(text.c_str()));
-	PageManager::ChangePage("install");
+int GUIAction::shrp_zip_init(std::string arg){
+	int z=arg.find_last_of("/");
+	{
+		char fileName[50];
+		int i=0;
+		while(arg[++z]!=0){
+			fileName[i++]=arg[z];
+		}
+		fileName[i]=0;
+		arg=fileName;
+		DataManager::SetValue("shrp_zipName",arg.c_str());
+		DataManager::SetValue("shrp_zipFolderName",arg.c_str());
+	}
+
 	return 0;
 }
 int GUIAction::clearInput(std::string arg){
