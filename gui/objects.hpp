@@ -380,11 +380,10 @@ protected:
 	int unlock(std::string arg);
 	int set_lock(std::string arg);
 	int reset_lock(std::string arg);
-	int c_unpack(std::string arg);
 	int c_repack(std::string arg);
 	int flashOP(std::string arg);
-	int sandy(std::string arg);
 	int clearInput(std::string arg);
+	int shrp_zip_init(std::string arg);
 
 	int simulate;
 };

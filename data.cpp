@@ -787,7 +787,6 @@ void DataManager::SetDefaultValues()
 	//SHRP constant variables
 	mConst.SetValue("shrp_ver", "2.2");
 	mConst.SetValue("shrp_ver_status", "Beta");
-	mConst.SetValue("internal_storage_location", "/sdcard");
 	mConst.SetValue("c_magisk_path", "/_magisk/");
 	mConst.SetValue("c_magisk_stock_var", "20.0");
 
@@ -816,6 +815,8 @@ void DataManager::SetDefaultValues()
 	mData.SetValue("c_queue_enabled", "0");
 	mData.SetValue("c_magisk_update", "0");
 	mData.SetValue("tw_ls_time", "0");
+	mData.SetValue("shrp_zipName", "");
+	mData.SetValue("shrp_zipFolderName", "");
 	//SHRP_PERSISTED_VARS
 	mPersist.SetValue("c_temp2", "pepe");
 	mPersist.SetValue("c_skip_tv", "0");
@@ -873,32 +874,22 @@ void DataManager::SetDefaultValues()
 
 #ifdef SHRP_FONP_1
 	mConst.SetValue("c_flashlight_path_1", EXPAND(SHRP_FONP_1));
-#else
-	mConst.SetValue("c_flashlight_path_1", "");
 #endif
 
 #ifdef SHRP_FONP_2
 	mConst.SetValue("c_flashlight_path_2", EXPAND(SHRP_FONP_2));
-#else
-	mConst.SetValue("c_flashlight_path_2", "");
 #endif
 
 #ifdef SHRP_FONP_3
 	mConst.SetValue("c_flashlight_path_3", EXPAND(SHRP_FONP_3));
-#else
-	mConst.SetValue("c_flashlight_path_3", "");
 #endif
 
 #ifdef SHRP_FLASH_MAX_BRIGHTNESS
 	mConst.SetValue("c_flashlight_max_brightness", EXPAND(SHRP_FLASH_MAX_BRIGHTNESS));
-#else
-	mConst.SetValue("c_flashlight_max_brightness", "");
 #endif
 
 #ifdef SHRP_REC
 	mConst.SetValue("shrp_rec", EXPAND(SHRP_REC));
-#else
-	mConst.SetValue("shrp_rec", "");
 #endif
 
 #ifdef SHRP_AB
