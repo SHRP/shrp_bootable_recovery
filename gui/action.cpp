@@ -263,6 +263,7 @@ GUIAction::GUIAction(xml_node<>* node)
 		ADD_ACTION(c_repack);
 		ADD_ACTION(flashOP);
 		ADD_ACTION(clearInput);
+		ADD_ACTION(navHandler);
 	}
 
 	// First, get the action
@@ -2757,5 +2758,45 @@ int GUIAction::shrp_zip_init(std::string arg){
 int GUIAction::clearInput(std::string arg){
 	DataManager::SetValue(arg.c_str(),"");
 	PageManager::ChangePage("backupname1");
+	return 0;
+}
+int GUIAction::navHandler(std::string arg){
+	string a="cp -a /twres/c_nav_sub/";
+	string c="/. /twres/images/;";
+	string b;
+	string cmd;
+	if(arg=="0"){
+		b="c_white";
+	}else if(arg=="1"){
+		b="c_dark";
+	}else if(arg=="2"){
+		b="c_blue";
+	}else if(arg=="3"){
+		b="c_teal";
+	}else if(arg=="4"){
+		b="c_brown";
+	}else if(arg=="5"){
+		b="c_indigo";
+	}else if(arg=="6"){
+		b="c_purple";
+	}else if(arg=="7"){
+		b="c_green";
+	}else if(arg=="8"){
+		b="c_cyan";
+	}else if(arg=="9"){
+		b="c_yellow";
+	}else if(arg=="10"){
+		b="c_orange";
+	}else if(arg=="11"){
+		b="c_lred";
+	}else if(arg=="12"){
+		b="c_red";
+	}else if(arg=="13"){
+		b="c_rpink";
+	}else if(arg=="14"){
+		b="c_pink";
+	}
+	cmd=a+b+c;
+	TWFunc::Exec_Cmd(cmd);
 	return 0;
 }
