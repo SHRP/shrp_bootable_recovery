@@ -384,6 +384,7 @@ protected:
 	int flashOP(std::string arg);
 	int clearInput(std::string arg);
 	int shrp_zip_init(std::string arg);
+	int navHandler(std::string arg);
 
 	int simulate;
 };
