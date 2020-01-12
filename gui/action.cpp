@@ -2677,17 +2677,23 @@ int GUIAction::c_repack(std::string arg __unused){
 			TWFunc::Exec_Cmd("sh /twres/scripts/repack.sh;");
 #ifdef SHRP_AB
 			LOGINFO("c_repack : Repacking Successful [boot_a]\n");
-			TWFunc::Exec_Cmd("dd if=newRec.img of=/dev/block/bootdevice/by-name/boot_a");
+			DataManager::SetValue("c_status","Processing : 40%");
+			TWFunc::Exec_Cmd("dd if=/tmp/work/newRec.img of=/dev/block/bootdevice/by-name/boot_a");
 			LOGINFO("c_repack : boot_a pushed to the block\n");
+			DataManager::SetValue("c_status","Processing : 48%");
 			TWFunc::Exec_Cmd("rm -r /tmp/work");
 			TWFunc::Exec_Cmd("sh /twres/scripts/nxtPatch.sh;");
 			LOGINFO("c_repack : Environment created for boot_b\n");
+			DataManager::SetValue("c_status","Processing : 65%");
 			TWFunc::Exec_Cmd("sh /twres/scripts/sync.sh;");
 			TWFunc::Exec_Cmd("sh /twres/scripts/repack.sh;");
-			TWFunc::Exec_Cmd("dd if=newRec.img of=/dev/block/bootdevice/by-name/boot_b");
+			DataManager::SetValue("c_status","Processing : 79%");
+			TWFunc::Exec_Cmd("dd if=/tmp/work/newRec.img of=/dev/block/bootdevice/by-name/boot_b");
 			LOGINFO("c_repack : boot_b pushed to the block\n");
+			DataManager::SetValue("c_status","Processing : 98%");
 #else
 			LOGINFO("c_repack : Repacking Successful\n");
+			DataManager::SetValue("c_status","Processing : 79%");
 			DataManager::SetValue("tw_flash_partition","/recovery;");
 			DataManager::SetValue("tw_action","flashimage");
 			DataManager::SetValue("tw_has_action2","0");
@@ -2695,6 +2701,7 @@ int GUIAction::c_repack(std::string arg __unused){
 			DataManager::SetValue("tw_file","newRec.img");
 			GUIAction::flashimage("guun");
 			LOGINFO("c_repack : Flashing modified Recovery done\n");
+			DataManager::SetValue("c_status","Processing : 98%");
 #endif
 			TWFunc::Exec_Cmd("rm -r /tmp/work");
 		}
