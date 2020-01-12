@@ -9535,7 +9535,7 @@ sh statusbar_trigger_scripts.sh
 rm /twres/c_status_bar_h.xml
 cp /twres/cache/c_status_bar_h.xml /twres/
 					</action>
-					<action function="set">c_status={@c_repacking=Repacking} {@recovery=Recovery}</action>
+					<action function="set">c_status={@c_file_busy_info=Processing} : 6%</action>
 					<action function="c_repack"/>
 					<action function="set">c_status={@c_flashing=Flashing} {@recovery=Recovery}</action>
 					<action function="set">c_status={@c_rm_o_files=Removing Old files}</action>
