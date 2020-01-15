@@ -73,7 +73,6 @@
 		<image name="c_line" filename="c_line" retainaspect="1"/>
 		<image name="c_line_t" filename="c_line_t" retainaspect="1"/>
 		<image name="c_reboot" filename="c_reboot" retainaspect="1"/>
-		<image name="c_advance_wipe" filename="c_advance_wipe" retainaspect="1"/>
 		<image name="c_factory_reset" filename="c_factory_reset" retainaspect="1"/>
 		<image name="c_repair" filename="c_repair" retainaspect="1"/>
 		<image name="c_ok" filename="c_ok" retainaspect="1"/>
@@ -83,7 +82,6 @@
 		<image name="c_delete" filename="c_delete" retainaspect="1"/>
 		<image name="c_rename" filename="c_rename" retainaspect="1"/>
 		<image name="c_refresh" filename="c_refresh" retainaspect="1"/>
-		<image name="c_circle3" filename="c_circle3" retainaspect="1"/>
 		<image name="c_circle4" filename="c_circle4" retainaspect="1"/>
 		<image name="c_mtp_enabled" filename="c_mtp_enabled" retainaspect="1"/>
 		<image name="c_mtp_disabled" filename="c_mtp_disabled" retainaspect="1"/>
@@ -124,8 +122,6 @@
 		<image name="c_flashlight_off" filename="c_flashlight_off" retainaspect="1"/>
 		<image name="c_flashlight_on" filename="c_flashlight_on" retainaspect="1"/>
 		<image name="c_epicxsort" filename="c_epicxsort" retainaspect="1"/>
-		<image name="c_mod_list" filename="c_mod_list" retainaspect="1"/>
-		<image name="c_settings_list" filename="c_settings_list" retainaspect="1"/>
 		<image name="c_modules" filename="c_modules" retainaspect="1"/>
 		<image name="white_mode_color" filename="white_mode_color" retainaspect="1"/>
 		<image name="dark_black_mode_color" filename="dark_black_mode_color" retainaspect="1"/>
@@ -164,30 +160,6 @@
 		<image name="c_on_button" filename="c_on_button" retainaspect="1"/>
 		<image name="c_off_button" filename="c_off_button" retainaspect="1"/>
 		<image name="c_clear_input" filename="c_clear_input" retainaspect="1"/>
-		<!--epicX_image_resources_end-->
-		<image name="file" filename="file" retainaspect="1"/>
-		<image name="folder" filename="folder" retainaspect="1"/>
-		<image name="home" filename="home" retainaspect="1"/>
-		<image name="back" filename="back" retainaspect="1"/>
-		<image name="console" filename="console" retainaspect="1"/>
-		<image name="kb_hide" filename="kb_hide" retainaspect="1"/>
-		<image name="kb_show" filename="kb_show" retainaspect="1"/>
-		<image name="checkbox_false" filename="checkbox_false" retainaspect="1"/>
-		<image name="checkbox_true" filename="checkbox_true" retainaspect="1"/>
-		<image name="radio_false" filename="radio_false" retainaspect="1"/>
-		<image name="radio_true" filename="radio_true" retainaspect="1"/>
-		<image name="handle" filename="handle"/>
-		<image name="cursor" filename="cursor" retainaspect="1"/>
-
-		<image name="backspace" filename="backspace" retainaspect="1"/>
-		<image name="enter" filename="enter" retainaspect="1"/>
-		<image name="shift" filename="shift" retainaspect="1"/>
-		<image name="shift_fill" filename="shift_fill" retainaspect="1"/>
-		<image name="space" filename="space" retainaspect="1"/>
-		<image name="kb_arrow_left" filename="kb_arrow_left" retainaspect="1"/>
-		<image name="kb_arrow_right" filename="kb_arrow_right" retainaspect="1"/>
-		<image name="kb_arrow_up" filename="kb_arrow_up" retainaspect="1"/>
-		<image name="kb_arrow_down" filename="kb_arrow_down" retainaspect="1"/>
 		<image name="c_dashboard_lock" filename="c_dashboard_lock" retainaspect="1"/>
 		<image name="c_mod" filename="c_mod" retainaspect="1"/>
 		<image name="c_reset_lock" filename="c_reset_lock" retainaspect="1"/>
@@ -218,16 +190,35 @@
 		<image name="c_advanced" filename="c_advanced" retainaspect="1"/>
 		<image name="c_download_mode" filename="c_download_mode" retainaspect="1"/>
 		<image name="c_edl_mode" filename="c_edl_mode" retainaspect="1"/>
-		<image name="c_storage_icon" filename="c_storage_icon" retainaspect="1"/>
     <image name="backup" filename="backup" retainaspect="1"/>
 		<image name="c_reload" filename="c_reload" retainaspect="1"/>
-
+		<image name="c_magisk_not_exist" filename="c_magisk_not_exist" retainaspect="1"/>
+		<!--epicX_image_resources_end-->
+		<image name="file" filename="file" retainaspect="1"/>
+		<image name="folder" filename="folder" retainaspect="1"/>
+		<image name="home" filename="home" retainaspect="1"/>
+		<image name="back" filename="back" retainaspect="1"/>
+		<image name="console" filename="console" retainaspect="1"/>
+		<image name="kb_show" filename="kb_show" retainaspect="1"/>
+		<image name="checkbox_false" filename="checkbox_false" retainaspect="1"/>
+		<image name="checkbox_true" filename="checkbox_true" retainaspect="1"/>
+		<image name="radio_false" filename="radio_false" retainaspect="1"/>
+		<image name="radio_true" filename="radio_true" retainaspect="1"/>
+		<image name="handle" filename="handle"/>
+		<image name="cursor" filename="cursor" retainaspect="1"/>
+		<image name="backspace" filename="backspace" retainaspect="1"/>
+		<image name="enter" filename="enter" retainaspect="1"/>
+		<image name="shift" filename="shift" retainaspect="1"/>
+		<image name="shift_fill" filename="shift_fill" retainaspect="1"/>
+		<image name="space" filename="space" retainaspect="1"/>
+		<image name="kb_arrow_left" filename="kb_arrow_left" retainaspect="1"/>
+		<image name="kb_arrow_right" filename="kb_arrow_right" retainaspect="1"/>
+		<image name="kb_arrow_up" filename="kb_arrow_up" retainaspect="1"/>
+		<image name="kb_arrow_down" filename="kb_arrow_down" retainaspect="1"/>
 	</resources>
 
 	<variables>
-		<!--epicX_theme_handler-->
 		<variable name="c_status" value=""/>
-		<!--epicX_theme_handler_end-->
 		<variable name="tw_samsung_navbar" value="0" persist="1"/>
 		<variable name="tw_hide_kb" value="0"/>
 		<variable name="screen_width" value="1080"/>
@@ -253,8 +244,6 @@
 		<variable name="keyboard_y" value="1149"/>
 		<variable name="keyboard_terminal_y" value="1053"/>
 		<variable name="background_color" value="#010101"/>
-		<!--variable name="accent_color" value="#010101"/>
-		<variable name="accent_color_semitransparent" value="#0093FF"/-->
 		<variable name="text_color" value="#EEEEEE"/>
 		<variable name="text_button_color" value="#EEEEEE"/>
 		<variable name="text_success_color" value="#76FF03"/>
@@ -299,19 +288,10 @@
 		<variable name="pattern_dot_dia" value="15"/>
 		<variable name="pattern_line_w" value="8"/>
 		<variable name="pattern_size" value="600"/>
-		<!--Color_for_main_ui>
-		<variable name="dark" value="0" persist="1"/>
-		<variable name="white" value="1" persist="1"/>
-		<variable name="pitch" value="0" persist="1"/>
-		<variable name="nav_white" value="0" persist="1"/>
-		<variable name="circle_handler" value="0"/>
-		<variable name="c_theme_busy" value="0"/-->
 		<variable name="c_file" value="0"/>
-		<!--variable name="c_fileto" value=""/>
-		<variable name="c_filefrom" value=""/-->
 		<variable name="c_mv" value="0"/>
 		<variable name="c_menu" value="0"/>
-		<variable name="c_new_theme_busy" value="0"/>
+		<variable name="c_busy" value="0"/>
 		<variable name="c_flashlight_status" value="0" persist="0"/>
 		<variable name="c_temp" value="pepe" persist="0"/>
 		<variable name="c_temp3" value="pepe" persist="0"/>
@@ -390,18 +370,19 @@
 				<action function="set">c_temp2=99</action>
 			</button>
 		</template>
-		<template name="c_theme_status">
-			<fill color="c_white">
-				<condition var1="c_new_theme_busy" op="=" var2="1"/>
+		<template name="c_busy_status">
+			<button>
+				<condition var1="c_busy" op="=" var2="1"/>
 				<placement x="0" y="0" w="1080" h="1920"/>
-			</fill>
+				<fill color="c_white"/>
+			</button>
 			<text style="c_main_text_header">
-				<condition var1="c_new_theme_busy" op="=" var2="1"/>
+				<condition var1="c_busy" op="=" var2="1"/>
 				<placement x="55" y="%c_hawk_base_first_header%"/>
 				<text>{@c_appling=Applying}</text>
 			</text>
 			<text style="c_sub">
-				<condition var1="c_new_theme_busy" op="=" var2="1"/>
+				<condition var1="c_busy" op="=" var2="1"/>
 				<placement x="55" y="%c_hawk_base_second_header%"/>
 				<text>%c_status%</text>
 			</text>
@@ -557,16 +538,32 @@
 				<placement x="744" y="495" w="315" h="60"/>
 				<fill color="%transparent%"/>
 				<text>{@rb_poweroff_btn=Power Off}</text>
+				<actions>
+					<action function="set">tw_action=reboot</action>
+					<action function="set">tw_action_param=poweroff</action>
+					<action function="set">tw_reboot_param=poweroff</action>
+					<action function="reboot">%tw_reboot_param%</action>
+				</actions>
 			</button>
 			<button style="c_reboot_text">
 				<placement x="744" y="739" w="315" h="60"/>
 				<fill color="%transparent%"/>
 				<text>{@reboot_hdr=Reboot}</text>
+				<actions>
+					<action function="set">tw_action=reboot</action>
+					<action function="set">tw_action_param=system</action>
+					<action function="set">tw_reboot_param=system</action>
+					<action function="reboot">%tw_reboot_param%</action>
+				</actions>
 			</button>
 			<button style="c_reboot_text">
 				<placement x="744" y="975" w="315" h="60"/>
 				<fill color="%transparent%"/>
 				<text>{@advanced_btn=Advanced}</text>
+				<actions>
+					<action function="overlay"/>
+					<action function="overlay">c_advanced_reboot</action>
+				</actions>
 			</button>
 			<button>
 				<placement x="748" y="360" />
@@ -604,7 +601,7 @@
 				<text>{@current_boot_slot=Current Slot: %tw_active_slot%}</text>
 			</text>
 
-			<button style="c_circle3">
+			<button style="c_circle4">
 				<condition var1="tw_has_boot_slots" var2="1"/>
 				<placement x="860" y="1450"/>
 				<text>{@boot_slot_a=Slot A}</text>
@@ -703,11 +700,23 @@
 				<placement x="744" y="495" w="315" h="60"/>
 				<fill color="%transparent%"/>
 				<text>{@rb_recovery_btn=Recovery}</text>
+				<actions>
+					<action function="set">tw_action=reboot</action>
+					<action function="set">tw_action_param=recovery</action>
+					<action function="set">tw_reboot_param=recovery</action>
+					<action function="reboot">%tw_reboot_param%</action>
+				</actions>
 			</button>
 			<button style="c_reboot_text">
 				<placement x="744" y="739" w="315" h="60"/>
 				<fill color="%transparent%"/>
 				<text>{@rb_bootloader_btn=Bootloader}</text>
+				<actions>
+					<action function="set">tw_action=reboot</action>
+					<action function="set">tw_action_param=bootloader</action>
+					<action function="set">tw_reboot_param=bootloader</action>
+					<action function="reboot">%tw_reboot_param%</action>
+				</actions>
 			</button>
 			<button style="c_reboot_text">
 				<conditions>
@@ -717,12 +726,25 @@
 				<placement x="744" y="975" w="315" h="60"/>
 				<fill color="%transparent%"/>
 				<text>{@c_edl_mode=Edl Mode}</text>
+				<actions>
+					<action function="set">tw_action=reboot</action>
+					<action function="set">tw_action_param=edl</action>
+					<action function="set">tw_reboot_param=edl</action>
+					<action function="reboot">%tw_reboot_param%</action>
+				</actions>
 			</button>
 			<button style="c_reboot_text">
 				<condition var1="tw_download_mode" op="=" var2="1"/>
 				<placement x="744" y="975" w="315" h="60"/>
 				<fill color="%transparent%"/>
 				<text>{@rb_download_btn=Download}</text>
+				<actions>
+					<action function="set">tw_back=c_refresh</action>
+					<action function="set">tw_action=reboot</action>
+					<action function="set">tw_action_param=download</action>
+					<action function="set">tw_reboot_param=download</action>
+					<action function="reboot">%tw_reboot_param%</action>
+				</actions>
 			</button>
 			<button>
 				<placement x="748" y="360" />
@@ -754,9 +776,10 @@
 				<placement x="748" y="840" />
 				<image resource="c_edl_mode"/>
 				<actions>
-					<action function="cmd">
-reboot edl
-</action>
+					<action function="set">tw_action=reboot</action>
+					<action function="set">tw_action_param=edl</action>
+					<action function="set">tw_reboot_param=edl</action>
+					<action function="reboot">%tw_reboot_param%</action>
 				</actions>
 			</button>
 			<button>
@@ -777,7 +800,7 @@ reboot edl
 				<text>{@current_boot_slot=Current Slot: %tw_active_slot%}</text>
 			</text>
 
-			<button style="c_circle3">
+			<button style="c_circle4">
 				<condition var1="tw_has_boot_slots" var2="1"/>
 				<placement x="860" y="1450"/>
 				<text>{@boot_slot_a=Slot A}</text>
@@ -874,9 +897,9 @@ reboot edl
 				<placement x="0" y="%keyboard_terminal_y%" w="%screen_width%" h="96"/>
 				<keymargin x="0" y="0"/>
 				<background color="%c_white%"/>
-				<key-alphanumeric color="%c_white%" font="keylabel" textcolor="%c_grey%"/>
-				<key-other color="%c_white%" font="keylabel-small" textcolor="%c_grey%"/>
-				<longpress font="keylabel-longpress" textcolor="%c_grey%" x="12" y="0"/>
+				<key-alphanumeric color="%c_white%" font="keylabel" textcolor="%c_black%"/>
+				<key-other color="%c_white%" font="keylabel-small" textcolor="%c_black%"/>
+				<longpress font="keylabel-longpress" textcolor="%c_black%" x="12" y="0"/>
 				<keylabel key="0:k:29" text="Ctrl"/>
 				<keylabel key="0:c:27" text="Esc"/>
 				<keylabel key="0:c:9" text="Tab"/>
@@ -899,9 +922,9 @@ reboot edl
 				<placement x="0" y="%keyboard_y%" w="1080" h="644"/>
 				<keymargin x="8" y="8"/>
 				<background color="%c_white%"/>
-				<key-alphanumeric color="%c_white%" font="keylabel" textcolor="%c_grey%"/>
-				<key-other color="%c_white%" font="keylabel-small" textcolor="%c_grey%"/>
-				<longpress font="keylabel-longpress" textcolor="%c_grey%" x="12" y="0"/>
+				<key-alphanumeric color="%c_white%" font="keylabel" textcolor="%c_black%"/>
+				<key-other color="%c_white%" font="keylabel-small" textcolor="%c_black%"/>
+				<longpress font="keylabel-longpress" textcolor="%c_black%" x="12" y="0"/>
 				<keylabel key="0:c:8" text="Bksp" resource="backspace"/>
 				<keylabel key="0:action" text="Enter" resource="enter"/>
 				<keylabel key=" " text="Space" resource="space"/>
@@ -962,7 +985,7 @@ reboot edl
 					<condition var1="has_flashlight" op="=" var2="1"/>
 					<condition var1="c_flashlight_status" op="=" var2="1"/>
 				</conditions>
-				<placement x="35" y="1814"/>
+				<placement x="975" y="1814"/>
 				<image resource="c_flashlight_off"/>
 				<actions>
 					<action function="flashlight"/>

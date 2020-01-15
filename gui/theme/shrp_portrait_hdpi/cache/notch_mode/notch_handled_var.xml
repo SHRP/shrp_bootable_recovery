@@ -110,19 +110,19 @@
 		<!--Patt_input_y-->
 		<variable name="row5_y" value="557"/>
 		<!--Pass_input_y-->
-		<!--variable name="pass_input_y" value="250"/-->	
+		<!--variable name="pass_input_y" value="250"/-->
 		<variable name="input_default_y" value="340"/>
 		<variable name="input_file_manager_y" value="375"/>
 		<!--Terminal-->
 		<!--variable name="default_terminal_y" value="300"/-->
 		<variable name="default_terminal_h" value="665"/>
-		<!--variable name="default_terminal_h2" value="1460"/-->	
+		<!--variable name="default_terminal_h2" value="1460"/-->
 		<!--Console-->
 		<variable name="slideout_console_y" value="200"/>
 		<variable name="slideout_console_h" value="1170"/>
 		<!--variable name="default_console_c_y" value="300"/-->
 		<variable name="default_console_c_h" value="1120"/>
-		<variable name="c_console_height" value="1270"/>	
+		<variable name="c_console_height" value="1270"/>
 		<!--variable name="lock_icon_y" value="810"/-->
 		<!--File Manager-->
 		<variable name="file_head" value="65"/>

@@ -167,7 +167,7 @@
 			</action>
 		</template>
 		<template name="c_status_bar">
-			<text color="%c_grey%">
+			<text color="%c_black%">
 				<conditions>
 					<condition var1="c_time_txt_triger" op="=" var2="1"/>
 					<condition var1="c_status_bar_triger" op="=" var2="1"/>
@@ -176,7 +176,7 @@
 				<placement x="20" y="8"/>
 				<text>%tw_time%</text>
 			</text>
-			<text color="%c_grey%">
+			<text color="%c_black%">
 				<conditions>
 					<condition var1="tw_no_battery_percent" var2="0"/>
 					<condition var1="tw_battery" op="&gt;" var2="99"/>
@@ -188,7 +188,7 @@
 				<placement x="913" y="8"/>
 				<text>%tw_battery%</text>
 			</text>
-			<text color="%c_grey%">
+			<text color="%c_black%">
 				<conditions>
 					<condition var1="tw_no_battery_percent" var2="0"/>
 					<condition var1="tw_battery" op="&gt;" var2="9"/>
@@ -200,7 +200,7 @@
 				<placement x="928" y="8"/>
 				<text>%tw_battery%</text>
 			</text>
-			<text color="%c_grey%">
+			<text color="%c_black%">
 				<conditions>
 					<condition var1="tw_no_battery_percent" var2="0"/>
 					<condition var1="tw_battery" op="&gt;" var2="0"/>
@@ -300,14 +300,7 @@
 				<placement x="1020" y="15"/>
 				<image resource="c_battery_full"/>
 			</image>
-			
-			
-			
-			
-			
-			
-			
-			
+
 			<!--Battery Bar Code Start-->
 			<image>
 				<placement x="0" y="0"/>
@@ -1320,7 +1313,7 @@
 				<image resource="c_battery_bar_100"/>
 			</image>
 			<!--Battery Bar Code End-->
-			
+
 			<!--Rounded_corner_res_start-->
 			<image>
 				<condition var1="c_rounded_corner_trigger" op="=" var2="1"/>

@@ -9,8 +9,6 @@
 		<themeversion>3</themeversion>
 	</details>
 	<variables>
-		<variable name="c_grey" value="#ffffffff"/>
 		<variable name="c_black" value="#ffffffff"/>
-		<variable name="c_circle_color_handler" value="#ffffffff"/>
 	</variables>
 </recovery>

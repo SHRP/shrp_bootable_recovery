@@ -793,8 +793,8 @@
 		<string name="c_color">color</string>
 		<string name="c_customize_rec">Customize your recovery</string>
 		<string name="c_dc_aex">Aex Style</string>
-		<string name="c_dc_white">White (Recommanded for black background)</string>
-		<string name="c_dc_black">Black (Recommanded for white background)</string>
+		<string name="c_dc_white">White (Recommended for black background)</string>
+		<string name="c_dc_black">Black (Recommended for white background)</string>
 		<string name="c_dc_default">Default</string>
 		<string name="c_dc_c">Dashboard icon customization</string>
 		<string name="c_icons">Icons</string>
@@ -878,5 +878,23 @@
 		<string name="remount_system_rw">[i] Remounted system as R/W!</string>
 		<string name="unpacking_image">Unpacking {1}...</string>
 		<string name="repacking_image">Repacking {1}...</string>
+		<!--2.2 Strings-->
+		<string name="c_moreInfo">More Info</string>
+		<string name="c_recType">Rec Type</string>
+		<string name="c_deviceType">Device Type</string>
+		<string name="c_section">Section</string>
+		<string name="c_translation">Translation</string>
+		<string name="c_zip">Zip</string>
+		<string name="c_create">Create</string>
+		<string name="c_version">Version</string>
+		<string name="c_author">Author</string>
+		<string name="c_magiskNull">Magisk Not Installed</string>
+		<string name="c_normal">Normal</string>
+		<string name="c_legacy">Legacy</string>
+		<string name="c_unavailable">Unavailable</string>
+		<string name="c_skip_treble">Skip treble verification</string>
+		<string name="c_show_lc">Show date on lockscreen</string>
+		<string name="c_dev_mode">Dev mode</string>
+		<string name="c_stock_dashboard_ico">Stock</string>
 	</resources>
 </language>

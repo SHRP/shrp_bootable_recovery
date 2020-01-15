@@ -194,35 +194,45 @@
 				<fill color="%transparent%"/>
 				<text>{@c_device=Device}</text>
 			</button>
+
+
 			<button>
-				<placement x="0" y="1310" w="1080" h="148"/>
-				<font resource="c_addon_epicx" color="%c_black%"/>
-				<fill color="%transparent%"/>
-				<text>{@c_credits=Credits}</text>
-			</button>
-			<fill color="%c_black%">
-				<placement x="365" y="1435" w="350" h="4"/>
-			</fill>
-			<button>
-				<placement x="0" y="1430" w="1080" h="148"/>
-				<font resource="c_dashboard_text_sort" color="%c_black%"/>
-				<fill color="%transparent%"/>
-				<text>epicX  Dni9  Giovix92  Teamwin  Topjohnwu  osmOsis</text>
-			</button>
-			<button>
-				<placement x="0" y="1550" w="1080" h="148"/>
+				<placement x="0" y="1328" w="1080" h="148"/>
 				<font resource="c_dashboard_header" color="%c_black%"/>
 				<fill color="%transparent%"/>
-				<text>{@c_spec_thanks=Special Thanks}</text>
+				<text>More Info</text>
 			</button>
-			<fill color="%c_black%">
-				<placement x="320" y="1675" w="440" h="4"/>
-			</fill>
-			<button>
-				<placement x="0" y="1645" w="1080" h="148"/>
-				<font resource="c_dashboard_text_sort" color="%c_black%"/>
+			<button style="c_text_dashboard">
+				<placement x="105" y="1440" w="221" h="170"/>
 				<fill color="%transparent%"/>
-				<text>VR25  Pritish  Kirill  Burak D.  ZJRDroid  LayeardDevMod</text>
+				<text>%shrp_rec_type%</text>
+			</button>
+			<button style="c_reboot_text">
+				<placement x="105" y="1570" w="221" h="50"/>
+				<fill color="%transparent%"/>
+				<text>Rec Type</text>
+			</button>
+			<button style="c_text_dashboard">
+				<placement x="430" y="1440" w="221" h="170"/>
+				<fill color="%transparent%"/>
+				<text>%shrp_device_type%</text>
+			</button>
+			<button style="c_reboot_text">
+				<placement x="430" y="1570" w="221" h="50"/>
+				<fill color="%transparent%"/>
+				<text>Device Type</text>
+			</button>
+			<button style="c_text_dashboard">
+				<placement x="755" y="1440" w="221" h="170"/>
+				<fill color="%transparent%"/>
+				<text>{@c_credits=Credits}</text>
+				<action function="page">c_credit</action>
+			</button>
+			<button style="c_reboot_text">
+				<placement x="755" y="1570" w="221" h="50"/>
+				<fill color="%transparent%"/>
+				<text>{@c_credits=Credits} {@c_section=Section}</text>
+				<action function="page">c_credit</action>
 			</button>
 
 			<action>
@@ -235,11 +245,164 @@
 				<action function="page">c_refresh</action>
 			</action>
 		</page>
+		<page name="c_credit">
+			<template name="c_page"/>
+			<template name="c_status_bar"/>
+			<text style="c_main_text_header">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
+				<text>{@c_credits=Credits}</text>
+			</text>
+			<text style="c_text_dashboard">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
+				<text>{@c_credits=Credits} {@c_section=Section}</text>
+			</text>
+			<image>
+				<placement x="135" y="75"/>
+				<image resource="c_logo"/>
+			</image>
+
+			<button style="c_text_dashboard">
+				<placement x="105" y="785" w="221" h="170"/>
+				<fill color="%transparent%"/>
+				<text>epicX</text>
+			</button>
+			<button style="c_reboot_text">
+				<placement x="105" y="915" w="221" h="50"/>
+				<fill color="%transparent%"/>
+				<text>Team SHRP</text>
+			</button>
+			<button style="c_text_dashboard">
+				<placement x="430" y="785" w="221" h="170"/>
+				<fill color="%transparent%"/>
+				<text>DNI9</text>
+			</button>
+			<button style="c_reboot_text">
+				<placement x="430" y="915" w="221" h="50"/>
+				<fill color="%transparent%"/>
+				<text>Team SHRP</text>
+			</button>
+			<button style="c_text_dashboard">
+				<placement x="755" y="785" w="221" h="170"/>
+				<fill color="%transparent%"/>
+				<text>Giovix92</text>
+			</button>
+			<button style="c_reboot_text">
+				<placement x="755" y="915" w="221" h="50"/>
+				<fill color="%transparent%"/>
+				<text>Team SHRP</text>
+			</button>
+
+			<button style="c_text_dashboard">
+				<placement x="105" y="1005" w="221" h="170"/>
+				<fill color="%transparent%"/>
+				<text>Teamwin</text>
+			</button>
+			<button style="c_reboot_text">
+				<placement x="105" y="1135" w="221" h="50"/>
+				<fill color="%transparent%"/>
+				<text>Base</text>
+			</button>
+			<button style="c_text_dashboard">
+				<placement x="430" y="1005" w="221" h="170"/>
+				<fill color="%transparent%"/>
+				<text>osmOsis</text>
+			</button>
+			<button style="c_reboot_text">
+				<placement x="430" y="1135" w="221" h="50"/>
+				<fill color="%transparent%"/>
+				<text>Scripts</text>
+			</button>
+			<button style="c_text_dashboard">
+				<placement x="755" y="1005" w="221" h="170"/>
+				<fill color="%transparent%"/>
+				<text>Topjohnwu</text>
+			</button>
+			<button style="c_reboot_text">
+				<placement x="755" y="1135" w="221" h="50"/>
+				<fill color="%transparent%"/>
+				<text>Magisk</text>
+			</button>
+
+			<button style="c_text_dashboard">
+				<placement x="105" y="1225" w="221" h="170"/>
+				<fill color="%transparent%"/>
+				<text>VR25</text>
+			</button>
+			<button style="c_reboot_text">
+				<placement x="85" y="1335" w="261" h="50"/>
+				<fill color="%transparent%"/>
+				<text>Magisk Manager</text>
+			</button>
+			<button style="c_text_dashboard">
+				<placement x="430" y="1225" w="221" h="170"/>
+				<fill color="%transparent%"/>
+				<text>Pritish</text>
+			</button>
+			<button style="c_reboot_text">
+				<placement x="430" y="1335" w="221" h="50"/>
+				<fill color="%transparent%"/>
+				<text>{@c_translation=Translation}</text>
+			</button>
+			<button style="c_text_dashboard">
+				<placement x="755" y="1225" w="221" h="170"/>
+				<fill color="%transparent%"/>
+				<text>Kirill</text>
+			</button>
+			<button style="c_reboot_text">
+				<placement x="755" y="1335" w="221" h="50"/>
+				<fill color="%transparent%"/>
+				<text>{@c_translation=Translation}</text>
+			</button>
+
+			<button style="c_text_dashboard">
+				<placement x="105" y="1445" w="221" h="170"/>
+				<fill color="%transparent%"/>
+				<text>Burak D.</text>
+			</button>
+			<button style="c_reboot_text">
+				<placement x="105" y="1575" w="221" h="50"/>
+				<fill color="%transparent%"/>
+				<text>{@c_translation=Translation}</text>
+			</button>
+			<button style="c_text_dashboard">
+				<placement x="430" y="1445" w="221" h="170"/>
+				<fill color="%transparent%"/>
+				<text>ZJRDroid</text>
+			</button>
+			<button style="c_reboot_text">
+				<placement x="430" y="1575" w="221" h="50"/>
+				<fill color="%transparent%"/>
+				<text>{@c_translation=Translation}</text>
+			</button>
+			<button style="c_text_dashboard">
+				<placement x="735" y="1445" w="261" h="170"/>
+				<fill color="%transparent%"/>
+				<text>LayeardDevMod</text>
+			</button>
+			<button style="c_reboot_text">
+				<placement x="755" y="1575" w="221" h="50"/>
+				<fill color="%transparent%"/>
+				<text>{@c_translation=Translation}</text>
+			</button>
+
+			<action>
+				<touch key="back"/>
+				<actions>
+					<action function="page">my_info</action>
+				</actions>
+			</action>
+			<action>
+				<touch key="home"/>
+				<actions>
+					<action function="page">c_refresh</action>
+				</actions>
+			</action>
+		</page>
 
 		<page name="main2">
 			<template name="c_page"/>
 			<template name="c_status_bar"/>
-			<text color="%c_grey%">
+			<text color="%c_black%">
 				<font resource="c_header_s"/>
 				<placement x="550" y="%main_head%"/>
 				<text>{@c_skyhawk=SKY HAWK}</text>
@@ -260,6 +423,11 @@
 			<button style="c_dash_text_grid">
 				<placement x="69" y="%dash_txt_1st_row%"/>
 				<text>{@c_flash=Flash}</text>
+				<actions>
+					<action function="queueclear"/>
+					<action function="set">tw_selectimage=0</action>
+					<action function="page">install</action>
+				</actions>
 			</button>
 			<button>
 				<placement x="343" y="%dash_ico_1st_row%"/>
@@ -269,6 +437,7 @@
 			<button style="c_dash_text_grid">
 				<placement x="313" y="%dash_txt_1st_row%"/>
 				<text>{@wipe_btn=Wipe}</text>
+				<action function="page">wipe</action>
 			</button>
 			<button>
 				<placement x="587" y="%dash_ico_1st_row%"/>
@@ -278,6 +447,7 @@
 			<button style="c_dash_text_grid">
 				<placement x="557" y="%dash_txt_1st_row%"/>
 				<text>{@backup_btn=Backup}</text>
+				<action function="page">backup</action>
 			</button>
 			<button>
 				<placement x="831" y="%dash_ico_1st_row%"/>
@@ -287,6 +457,7 @@
 			<button style="c_dash_text_grid">
 				<placement x="801" y="%dash_txt_1st_row%"/>
 				<text>{@restore_btn=Restore}</text>
+				<action function="page">restore</action>
 			</button>
 
 			<button>
@@ -297,6 +468,7 @@
 			<button style="c_dash_text_grid">
 				<placement x="69" y="%dash_txt_2nd_row%"/>
 				<text>{@mount_btn=Mount}</text>
+				<action function="page">mount</action>
 			</button>
 			<button>
 				<placement x="343" y="%dash_ico_2nd_row%"/>
@@ -306,6 +478,7 @@
 			<button style="c_dash_text_grid">
 				<placement x="313" y="%dash_txt_2nd_row%"/>
 				<text>{@files_btn=Files}</text>
+				<action function="page">c_file_epicx</action>
 			</button>
 			<button>
 				<placement x="587" y="%dash_ico_2nd_row%"/>
@@ -315,6 +488,7 @@
 			<button style="c_dash_text_grid">
 				<placement x="557" y="%dash_txt_2nd_row%"/>
 				<text>{@terminal_btn=Terminal}</text>
+				<action function="page">terminalcommand</action>
 			</button>
 			<button>
 				<placement x="831" y="%dash_ico_2nd_row%"/>
@@ -324,6 +498,7 @@
 			<button style="c_dash_text_grid">
 				<placement x="801" y="%dash_txt_2nd_row%"/>
 				<text>{@advanced_hdr=Advanced}</text>
+				<action function="page">advanced</action>
 			</button>
 			<text style="c_text_dashboard">
 				<placement x="%c_hawk_base_column%" y="%sub_head2%"/>
@@ -340,6 +515,10 @@
 			<button style="c_dash_text_grid">
 				<placement x="69" y="%dash_txt_3rd_row%"/>
 				<text>{@c_magisk=Magisk}</text>
+				<actions>
+					<action function="shrp_init"/>
+					<action function="page">c_splash_magisk</action>
+				</actions>
 			</button>
 			<button>
 				<placement x="343" y="%dash_ico_3rd_row%"/>
@@ -352,6 +531,10 @@
 			<button style="c_dash_text_grid">
 				<placement x="313" y="%dash_txt_3rd_row%"/>
 				<text>{@c_theme=Theme}</text>
+				<actions>
+					<action function="shrp_init"/>
+					<action function="page">c_splash_theme</action>
+				</actions>
 			</button>
 			<button>
 				<placement x="587" y="%dash_ico_3rd_row%"/>
@@ -361,6 +544,7 @@
 			<button style="c_dash_text_grid">
 				<placement x="557" y="%dash_txt_3rd_row%"/>
 				<text>{@c_tweaks=Tweaks}</text>
+				<action function="page">c_addons</action>
 			</button>
 			<button>
 				<placement x="831" y="%dash_ico_3rd_row%"/>
@@ -370,6 +554,7 @@
 			<button style="c_dash_text_grid">
 				<placement x="801" y="%dash_txt_3rd_row%"/>
 				<text>{@settings_btn=Settings}</text>
+				<action function="page">settings</action>
 			</button>
 			<button>
 				<placement x="99" y="%dash_ico_4th_row%"/>
@@ -379,6 +564,7 @@
 			<button style="c_dash_text_grid">
 				<placement x="69" y="%dash_txt_4th_row%"/>
 				<text>{@c_security=Security}</text>
+				<action function="page">c_lock_ui</action>
 			</button>
 			<button>
 				<placement x="343" y="%dash_ico_4th_row%"/>
@@ -388,6 +574,7 @@
 			<button style="c_dash_text_grid">
 				<placement x="313" y="%dash_txt_4th_row%"/>
 				<text>{@settings_language_btn=Language}</text>
+				<action function="page">settings_language</action>
 			</button>
 			<button>
 				<placement x="587" y="%dash_ico_4th_row%"/>
@@ -397,6 +584,7 @@
 			<button style="c_dash_text_grid">
 				<placement x="557" y="%dash_txt_4th_row%"/>
 				<text>{@reboot_btn=Reboot}</text>
+				<action function="overlay">reboot</action>
 			</button>
 			<button>
 				<placement x="831" y="%dash_ico_4th_row%"/>
@@ -406,6 +594,7 @@
 			<button style="c_dash_text_grid">
 				<placement x="801" y="%dash_txt_4th_row%"/>
 				<text>{@c_about=About}</text>
+				<action function="page">my_info</action>
 			</button>
 		</page>
 
@@ -415,15 +604,8 @@
 			<template name="c_simple_sort"/>
 
 			<text style="c_main_text_header">
-				<condition var1="tw_selectimage" var2="0"/>
 				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
-				<text>{@c_flash_zip=Flash Zip}</text>
-			</text>
-
-			<text style="c_main_text_header">
-				<condition var1="tw_selectimage" var2="1"/>
-				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
-				<text>{@c_flash_image=Flash Image}</text>
+				<text>{@c_flash=Flash}</text>
 			</text>
 
 			<text style="c_text_dashboard">
@@ -458,35 +640,13 @@
 				</actions>
 			</action>
 
-
-			<!--action>
-				<conditions>
-					<condition var1="tw_selectimage" var2="0"/>
-					<condition var1="tw_filename" op="modified"/>
-				</conditions>
-				<actions>
-					<action function="queuezip"/>
-					<action function="page">flash_confirm</action>
-				</actions>
-			</action>
-
-			<action>
-				<conditions>
-					<condition var1="tw_selectimage" var2="1"/>
-					<condition var1="tw_filename" op="modified"/>
-				</conditions>
-				<action function="page">flashimage_confirm</action>
-			</action-->
-
 			<action>
 				<touch key="back"/>
-				<!--action function="set">c_queue_enabled=0</action-->
 				<action function="page">c_refresh</action>
 			</action>
 
 			<action>
 				<touch key="home"/>
-				<!--action function="set">c_queue_enabled=0</action-->
 				<action function="page">c_refresh</action>
 			</action>
 		</page>
@@ -1059,9 +1219,9 @@
 				<text>{@c_action_cancel=Press back button to cancel.}</text>
 			</text>
 			<button>
-				<placement x="586" y="1628"/>
-				<image resource="c_advance_wipe"/>
-				<font resource="c_dashboard_text_sort" color="%c_white%"/>
+				<placement x="424" y="%dash_ico_2nd_row%"/>
+				<image resource="c_factory_reset"/>
+				<font resource="c_dashboard_text_sort" color="%c_black%"/>
 				<text>{@advanced_wipe_hdr=Advance Wipe}</text>
 				<actions>
 					<action function="set">partitionlisterror=0</action>
@@ -1074,9 +1234,9 @@
 					<condition var1="tw_is_encrypted" var2="1"/>
 					<condition var1="tw_has_data_media" var2="0"/>
 				</conditions>
-				<placement x="586" y="1270"/>
-				<image resource="c_format_data"/>
-				<font resource="c_dashboard_text_sort" color="%c_white%"/>
+				<placement x="55" y="%dash_ico_2nd_row%"/>
+				<image resource="c_factory_reset"/>
+				<font resource="c_dashboard_text_sort" color="%c_black%"/>
 				<text>{@c_format_data2=Remove Encryption}</text>
 				<actions>
 					<action function="set">tw_back=wipe</action>
@@ -1093,79 +1253,31 @@
 			</button>
 			<button>
 				<condition var1="tw_has_data_media" var2="1"/>
-				<placement x="586" y="1270"/>
-				<image resource="c_format_data"/>
-				<font resource="c_dashboard_text_sort" color="%c_white%"/>
+				<placement x="55" y="%dash_ico_2nd_row%"/>
+				<image resource="c_factory_reset"/>
+				<font resource="c_dashboard_text_sort" color="%c_black%"/>
 				<text>{@c_format_data=Format Data}</text>
 				<actions>
 					<action function="page">formatdata</action>
 				</actions>
 			</button>
+			<text style="c_sub">
+				<placement x="%c_hawk_base_column%" y="%t_2nd_radio_pos%"/>
+				<text>{@wipe_btn=Wipe} {@options_hdr=Options}</text>
+			</text>
 
 			<button>
-				<placement x="586" y="1450"/>
+				<placement x="636" y="1594"/>
 				<image resource="c_format_data"/>
-				<font resource="c_dashboard_text_sort" color="%c_white%"/>
-				<text>{@wipe_btn=Wipe}</text>
-				<action function="page">c_wipe_factory_confirmer</action>
-			</button>
-			<!--button>
-				<placement x="597" y="1450" h="144" w="276"/>
-				<fill color="%transparent%"/>
-				<font resource="c_dashboard_text_sort" color="#ffffff"/>
-				<text>{@wipe_btn=Wipe}</text>
 				<action function="page">c_wipe_factory_confirmer</action>
 			</button>
 			<button>
-				<placement x="597" y="1628" h="144" w="276"/>
+				<placement x="660" y="1590" w="220" h="133"/>
 				<fill color="%transparent%"/>
-				<font resource="c_dashboard_text_sort" color="#ffffff"/>
-				<text>{@advanced_wipe_hdr=Advance Wipe}</text>
-				<actions>
-					<action function="set">partitionlisterror=0</action>
-					<action function="page">advancedwipe</action>
-				</actions>
-			</button>
-			<button>
-				<conditions>
-					<condition var1="tw_is_encrypted" var2="1"/>
-					<condition var1="tw_has_data_media" var2="0"/>
-				</conditions>
-				<placement x="597" y="1270" h="144" w="276"/>
-				<fill color="%transparent%"/>
-				<font resource="c_dashboard_text_sort" color="#ffffff"/>
-				<text>{@c_format_data2=Remove Encryption}</text>
-				<actions>
-					<action function="set">tw_back=wipe</action>
-					<action function="set">tw_action=wipe</action>
-					<action function="set">tw_action_param=DATAMEDIA</action>
-					<action function="set">tw_has_action2=0</action>
-					<action function="set">tw_text1={@wipe_enc_confirm=Wipe Encryption from Data?}</action>
-					<action function="set">tw_text2=</action>
-					<action function="set">tw_action_text1={@formatting_data=Formatting Data...}</action>
-					<action function="set">tw_complete_text1={@format_data_complete=Data Format Complete}</action>
-					<action function="set">tw_slider_text={@swipe_format_data=Swipe to Format Data}</action>
-					<action function="page">confirm_action</action>
-				</actions>
-			</button>
-			<button>
-				<condition var1="tw_has_data_media" var2="1"/>
-				<placement x="597" y="1270" h="144" w="276"/>
-				<fill color="%transparent%"/>
-				<font resource="c_dashboard_text_sort" color="#ffffff"/>
-				<text>{@c_format_data=Format Data}</text>
-				<action function="page">formatdata</action>
-			</button-->
-			<!--text color="%c_grey%">
-				<font resource="c_dashboard_header"/>
-				<placement x="700" y="1487"/>
+				<font resource="font_m" color="%c_white%"/>
 				<text>{@wipe_btn=Wipe}</text>
-			</text>
-			<text color="%c_grey%">
-				<font resource="c_dashboard_header"/>
-				<placement x="460" y="1665"/>
-				<text>{@advanced_wipe_hdr=Advance Wipe}</text>
-			</text-->
+				<action function="page">c_wipe_factory_confirmer</action>
+			</button>
 
 			<action>
 				<touch key="back"/>
@@ -1397,7 +1509,7 @@
 				</actions>
 			</button>
 
-			<button style="c_circle3">
+			<button style="c_circle4">
 				<condition var1="tw_partition_can_repair" op="=" var2="1"/>
 				<placement x="860" y="1270"/>
 				<text>{@repair_btn_s=Repair}</text>
@@ -1503,7 +1615,7 @@
 				</actions>
 			</button>
 
-			<button style="c_circle3">
+			<button style="c_circle4">
 				<condition var1="tw_partition_ext" op="=" var2="1"/>
 				<placement x="860" y="1450"/>
 				<text>EXT3</text>
@@ -1597,7 +1709,6 @@
 					<action function="page">confirm_action</action>
 				</actions>
 			</button>
-
 
 			<action>
 				<touch key="home"/>
@@ -1709,14 +1820,13 @@
 				<data variable="tw_disable_free_space"/>
 			</checkbox>
 
-			<!--IF your device have boot slot , then add below code-->
 			<text style="c_sub">
 				<condition var1="tw_has_boot_slots" var2="1"/>
 				<placement x="%c_hawk_base_column%" y="1645"/>
 				<text>{@current_boot_slot=Current Slot: %tw_active_slot%}</text>
 			</text>
 
-			<button style="c_circle3">
+			<button style="c_circle4">
 				<condition var1="tw_has_boot_slots" var2="1"/>
 				<placement x="860" y="1450"/>
 				<text>{@boot_slot_a=Slot A}</text>
@@ -1747,7 +1857,6 @@
 					<action function="page">action_page</action>
 				</actions>
 			</button>
-
 
 			<action>
 				<touch key="home"/>
@@ -1804,7 +1913,7 @@
 				</actions>
 			</input>
 			<button>
-				<placement x="944" y="262"/>
+				<placement x="944" y="%c_custom_pos_4%"/>
 				<image resource="c_clear_input"/>
 				<action function="clearInput">tw_backup_name</action>
 			</button>
@@ -1814,9 +1923,7 @@
 				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
 				<text>{@backup_name_exists=A backup with that name already exists!}</text>
 			</text>
-
 			<template name="keyboardtemplate"/>
-
 
 			<action>
 				<touch key="home"/>
@@ -1825,7 +1932,6 @@
 					<action function="page">c_refresh</action>
 				</actions>
 			</action>
-
 			<action>
 				<touch key="back"/>
 				<actions>
@@ -1867,10 +1973,14 @@
 				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
 				<text>{@c_failed_same_info=Passwords did not match!}</text>
 			</text>
+			<template name="keyboardtemplate"/>
 
-			<button>
-				<placement x="860" y="915"/>
-				<image resource="c_cancel"/>
+			<action>
+				<touch key="home"/>
+				<action function="page">c_refresh</action>
+			</action>
+			<action>
+				<touch key="back"/>
 				<actions>
 					<action function="set">tw_encrypt_backup=0</action>
 					<action function="set">tw_backup_password=</action>
@@ -1879,19 +1989,6 @@
 					<action function="set">tw_backup_encrypt_display2=</action>
 					<action function="page">backup</action>
 				</actions>
-			</button>
-
-			<template name="keyboardtemplate"/>
-
-
-			<action>
-				<touch key="home"/>
-				<action function="page">c_refresh</action>
-			</action>
-
-			<action>
-				<touch key="back"/>
-				<action function="page">backup</action>
 			</action>
 		</page>
 
@@ -1911,8 +2008,6 @@
 				<placement x="%c_hawk_base_column%" y="%c_text_sub_y%"/>
 				<text>{@enter_pass_again=Enter Password again: }</text>
 			</text>
-
-
 			<template name="c_tab_encryption"/>
 
 			<input>
@@ -1922,10 +2017,14 @@
 				<restrict minlen="1" maxlen="32" allow="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_"/>
 				<action function="page">checkbackuppassword</action>
 			</input>
+			<template name="keyboardtemplate"/>
 
-			<button>
-				<placement x="860" y="915"/>
-				<image resource="c_cancel"/>
+			<action>
+				<touch key="home"/>
+				<action function="page">c_refresh</action>
+			</action>
+			<action>
+				<touch key="back"/>
 				<actions>
 					<action function="set">tw_encrypt_backup=0</action>
 					<action function="set">tw_backup_password=</action>
@@ -1934,19 +2033,6 @@
 					<action function="set">tw_backup_encrypt_display2=</action>
 					<action function="page">backup</action>
 				</actions>
-			</button>
-
-			<template name="keyboardtemplate"/>
-
-
-			<action>
-				<touch key="home"/>
-				<action function="page">c_refresh</action>
-			</action>
-
-			<action>
-				<touch key="back"/>
-				<action function="page">backup</action>
 			</action>
 		</page>
 
@@ -1958,7 +2044,6 @@
 					<action function="page">backup</action>
 				</actions>
 			</action>
-
 			<action>
 				<condition var1="tw_backup_password2" op="!=" var2="tw_backup_password"/>
 				<actions>
@@ -1984,7 +2069,6 @@
 				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
 				<text>%tw_partition% Partition</text>
 			</text>
-
 			<template name="c_console_custom"/>
 
 			<template name="progress_bar"/>
@@ -1992,18 +2076,15 @@
 				<placement x="%c_hawk_base_column%" y="1430"/>
 				<text>{@progress=Progress:} %tw_size_progress%</text>
 			</text>
-
 			<button>
 				<placement x="860" y="1628"/>
 				<image resource="c_cancel"/>
 				<action function="cancelbackup"/>
 			</button>
 
-
 			<action>
 				<action function="nandroid">backup</action>
 			</action>
-
 			<action>
 				<condition var1="tw_operation_state" var2="1"/>
 				<condition var1="tw_cancel_backup" var2="0"/>
@@ -2014,7 +2095,6 @@
 					<action function="page">action_complete</action>
 				</actions>
 			</action>
-
 			<action>
 				<condition var1="tw_operation_state" var2="1"/>
 				<condition var1="tw_cancel_backup" var2="1"/>
@@ -2047,7 +2127,6 @@
 				<sort name="tw_gui_sort_order"/>
 				<selection name="tw_restore_name"/>
 			</fileselector>
-
 			<button>
 				<placement x="860" y="1628"/>
 				<image resource="c_storage"/>
@@ -2057,7 +2136,6 @@
 				</actions>
 			</button>
 
-
 			<action>
 				<condition var1="tw_restore" op="modified"/>
 				<actions>
@@ -2065,7 +2143,6 @@
 					<action function="page">restore_read</action>
 				</actions>
 			</action>
-
 			<action>
 				<touch key="home"/>
 				<action function="page">c_refresh</action>
@@ -2125,15 +2202,6 @@
 			</text>
 
 			<button>
-				<placement x="860" y="1628"/>
-				<image resource="c_cancel"/>
-				<actions>
-					<action function="set">tw_page_done=1</action>
-					<action function="page">restore</action>
-				</actions>
-			</button>
-
-			<button>
 				<placement x="860" y="1450"/>
 				<image resource="c_delete"/>
 				<actions>
@@ -2160,7 +2228,10 @@
 
 			<action>
 				<touch key="back"/>
-				<action function="page">restore</action>
+				<actions>
+					<action function="set">tw_page_done=1</action>
+					<action function="page">restore</action>
+				</actions>
 			</action>
 		</page>
 
@@ -2323,15 +2394,7 @@
 				<placement x="%c_hawk_base_column%" y="%c_text_sub_y3%"/>
 				<text>{@backup_name_exists=A backup with that name already exists!}</text>
 			</text>
-
-			<button>
-				<placement x="860" y="915"/>
-				<image resource="c_cancel"/>
-				<action function="page">restore_select</action>
-			</button>
-
 			<template name="keyboardtemplate"/>
-
 
 			<action>
 				<touch key="home"/>
@@ -2562,7 +2625,7 @@
 			</text>
 			<text style="c_text_dashboard">
 				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
-				<text>[@sys_ro_keep=Keep System Read only?}</text>
+				<text>{@sys_ro_keep=Keep System Read only?}</text>
 			</text>
 			<text style="c_sub">
 				<placement x="%c_hawk_base_column%" y="%c_text_sub_y%"/>
@@ -2655,16 +2718,25 @@
 					<condition var1="tw_no_sha2" var2="0"/>
 					<data variable="tw_use_sha2"/>
 				</listitem>
-				<listitem name="Skip Treble Compatibility Varification">
+				<listitem name="{@c_skip_treble=Skip treble verification}">
 					<data variable="c_skip_tv"/>
 				</listitem>
-				<listitem name="Show Date on lockscreen">
+				<listitem name="{@c_show_lc=Show date on lockscreen}">
 					<data variable="c_dateview"/>
 				</listitem>
-				<listitem name="Dev Mode">
+				<listitem name="{@c_dev_mode=Dev mode}">
 					<data variable="c_devMode"/>
 				</listitem>
 			</listbox>
+			<button style="c_circle4">
+				<placement x="860" y="1628"/>
+				<text>{@restore_defaults_btn=Restore Defaults}</text>
+				<actions>
+					<action function="set">tw_samsung_navbar=0</action>
+					<action function="set">tw_tab_icons=0</action>
+					<action function="restoredefaultsettings"/>
+				</actions>
+			</button>
 			<action>
 				<touch key="home"/>
 				<action function="page">c_refresh</action>
@@ -2719,16 +2791,6 @@
 				<data variable="tw_time_zone_guidst"/>
 				<image checked="checkbox_true" unchecked="checkbox_false"/>
 			</checkbox>
-			<!--image>
-				<condition var1="off_triger" op="=" var2="1" />
-				<placement x="742" y="574" />
-				<image resource="c_power_menu_bg"/>
-			</image>
-			<text>
-				<font resource="font_m" color="%c_black%"/>
-				<placement x="%c_hawk_base_column%" y="1150"/>
-				<text>{@curr_tz=Current Time Zone: %tw_time_zone%}</text>
-			</text-->
 			<text>
 				<font resource="font_m" color="%c_black%"/>
 				<placement x="%c_hawk_base_column%" y="1220"/>
@@ -2770,7 +2832,7 @@
 			<template name="c_tab_settings"/>
 			<button>
 				<placement x="%c_hawk_base_column%" y="%c_text_sub_y_spec%" textplacement="6"/>
-				<font resource="font_m" color="%c_grey%"/>
+				<font resource="font_m" color="%c_black%"/>
 				<condition var1="tw_screen_timeout_secs" op="=" var2="0"/>
 				<condition var1="tw_no_screen_timeout" op="!=" var2="1"/>
 				<text>{@enable_timeout_chk=Enable screen timeout}</text>
@@ -2780,7 +2842,7 @@
 
 			<button>
 				<placement x="%c_hawk_base_column%" y="%c_text_sub_y_spec%" textplacement="6"/>
-				<font resource="font_m" color="%c_grey%"/>
+				<font resource="font_m" color="%c_black%"/>
 				<condition var1="tw_screen_timeout_secs" op="!=" var2="0"/>
 				<condition var1="tw_no_screen_timeout" op="!=" var2="1"/>
 				<text>{@enable_timeout_chk=Enable screen timeout}</text>
@@ -2956,7 +3018,7 @@
 		<page name="advanced">
 			<template name="c_page"/>
 			<template name="c_status_bar"/>
-			<text color="%c_grey%">
+			<text color="%c_black%">
 				<font resource="c_header"/>
 				<placement x="550" y="%main_head%"/>
 				<text>{@c_skyhawk=SKY HAWK}</text>
@@ -3001,11 +3063,7 @@
 				<action function="page">sideload</action>
 			</button>
 
-
-
-
 			<button>
-				<condition var1="tw_allow_partition_sdcard" var2="1"/>
 				<placement x="831" y="%dash_ico_1st_row%"/>
 				<image resource="c_sd_part"/>
 				<actions>
@@ -3014,7 +3072,6 @@
 				</actions>
 			</button>
 			<button style="c_dash_text_grid">
-				<condition var1="tw_allow_partition_sdcard" var2="1"/>
 				<placement x="801" y="%dash_txt_1st_row%"/>
 				<text>{@swipe_part_sd_s=Partition}</text>
 				<actions>
@@ -3022,31 +3079,6 @@
 					<action function="page">partsdcardsel</action>
 				</actions>
 			</button>
-
-
-
-			<!--button style="main_button">
-				<condition var1="tw_show_dumlock" var2="1"/>
-				<placement x="%center_x%" y="%row19_y%"/>
-				<text>{@dumlock_btn=HTC Dumlock}</text>
-				<action function="page">htcdumlock</action>
-			</button>
-
-			<button style="main_button">
-				<condition var1="tw_has_injecttwrp" var2="1"/>
-				<placement x="%center_x%" y="%row19_y%"/>
-				<text>{@inject_twrp_btn=Inject TWRP}</text>
-				<actions>
-					<action function="set">tw_back=advanced</action>
-					<action function="set">tw_action=reinjecttwrp</action>
-					<action function="set">tw_text1={@inject_twrp_confirm=Re-Inject TWRP?}</action>
-					<action function="set">tw_action_text1={@injecting_twrp=Re-Injecting TWRP...}</action>
-					<action function="set">tw_complete_text1={@inject_twrp_complete=TWRP Injection Complete}</action>
-					<action function="set">tw_slider_text={@swipe_to_confirm=Swipe to Confirm}</action>
-					<action function="page">confirm_action</action>
-				</actions>
-			</button-->
-
 
 			<action>
 				<touch key="home"/>
@@ -3259,13 +3291,6 @@
 					<action function="page">c_file_epicx_action</action>
 				</actions>
 			</input>
-			<button>
-				<placement x="860" y="915"/>
-				<image resource="c_cancel"/>
-				<action function="set">c_file=0</action>
-				<action function="page">c_file_epicx</action>
-			</button>
-
 			<template name="keyboardtemplate"/>
 
 
@@ -3305,6 +3330,7 @@
 				<data name="tw_filemanager_rename"/>
 				<restrict minlen="1" maxlen="128"/>
 				<actions>
+					<action function="set">tw_filename1=tw_file_location1</action>
 					<action function="set">tw_fm_text2=to</action>
 					<action function="set">tw_fm_text3=%tw_filemanager_rename%</action>
 					<action function="set">tw_include_text3=1</action>
@@ -3313,13 +3339,6 @@
 					<action function="page">c_file_epicx_action</action>
 				</actions>
 			</input>
-			<button>
-				<placement x="860" y="915"/>
-				<image resource="c_cancel"/>
-				<action function="set">c_file=0</action>
-				<action function="page">c_file_epicx</action>
-			</button>
-
 			<template name="keyboardtemplate"/>
 
 
@@ -3365,15 +3384,12 @@
 					<action function="page">c_file_epicx_action</action>
 				</actions>
 			</input>
-			<button>
-				<placement x="860" y="915"/>
-				<image resource="c_cancel"/>
-				<action function="set">c_file=0</action>
-				<action function="page">c_file_epicx</action>
-			</button>
 
 			<template name="keyboardtemplate"/>
-
+			<action>
+				<condition var1="chFolder" op="=" var2="1"/>
+				<action function="set">tw_filename1=tw_file_location1</action>
+			</action>
 
 			<action>
 				<touch key="home"/>
@@ -3406,6 +3422,7 @@
 			</action>
 			<text style="c_sub">
 				<placement x="%c_hawk_base_column%" y="%c_text_sub_y%"/>
+				<condition var1="tw_password_fail" op="!=" var2="1"/>
 				<text>{@enter_pass=Enter Password:}</text>
 			</text>
 			<input>
@@ -3416,8 +3433,8 @@
 				<action function="page">trydecrypt</action>
 			</input>
 			<text style="c_sub">
-				<placement x="%c_hawk_base_column%" y="%c_text_sub_y2%"/>
-				<condition var1="tw_password_fail" var2="1"/>
+				<placement x="%c_hawk_base_column%" y="%c_text_sub_y%"/>
+				<condition var1="tw_password_fail" op="=" var2="1"/>
 				<text>{@restore_dec_fail=Password failed, please try again!}</text>
 			</text>
 
@@ -3578,7 +3595,7 @@
 				<condition var1="tw_samsung_navbar" op="=" var2="1" />
 				<condition var1="tw_hide_kb" op="=" var2="0" />
 				<placement x="895" y="980"/>
-				<image resource="kb_hide" />
+				<image resource="kb_show" />
 				<condition var1="tw_busy" var2="0" />
 				<actions>
 					<action function="set">tw_hide_kb=1</action>
@@ -3612,7 +3629,7 @@
 				<condition var1="tw_samsung_navbar" op="!=" var2="1" />
 				<condition var1="tw_hide_kb" op="=" var2="0" />
 				<placement x="895" y="980"/>
-				<image resource="kb_hide" />
+				<image resource="kb_show" />
 				<condition var1="tw_busy" var2="0" />
 				<actions>
 					<action function="set">tw_hide_kb=1</action>
@@ -4000,7 +4017,6 @@
 				<conditions>
 					<condition var1="c_new" op="=" var2="1"/>
 					<condition var1="c_new_pattern" op="=" var2="1"/>
-					<!--condition var1="tw_is_encrypted" op="!=" var2="1"/-->
 				</conditions>
 				<placement x="860" y="1450"/>
 				<image resource="c_lock_patt"/>
@@ -4008,7 +4024,6 @@
 			</button>
 			<button>
 				<conditions>
-					<!--condition var1="tw_is_encrypted" op="!=" var2="1"/-->
 					<condition var1="lock_enabled" op="=" var2="1"/>
 					<condition var1="patt_lock_enabled" op="=" var2="1"/>
 				</conditions>
@@ -4018,7 +4033,6 @@
 			</button>
 			<button>
 				<conditions>
-					<!--condition var1="tw_is_encrypted" op="!=" var2="1"/-->
 					<condition var1="lock_enabled" op="=" var2="1"/>
 					<condition var1="patt_lock_enabled" op="=" var2="0"/>
 				</conditions>
@@ -4199,7 +4213,7 @@
 				<placement x="860" y="1628"/>
 				<image resource="c_ok"/>
 				<actions>
-					<action function="set">c_new_theme_busy=1</action>
+					<action function="set">c_busy=1</action>
 					<action function="set">main_pass=%password_before_2%</action>
 					<action function="set">lock_enabled=1</action>
 					<action function="set">patt_lock_enabled=1</action>
@@ -4216,7 +4230,7 @@ sh /twres/scripts/create_env.sh;
 					<action function="set">c_status={@c_flashing=Flashing} {@recovery=Recovery}</action>
 					<action function="c_repack"/>
 					<action function="set">c_status={@done=Done}</action>
-					<action function="set">c_new_theme_busy=0</action>
+					<action function="set">c_busy=0</action>
 					<action function="page">set_pass_successful</action>
 				</actions>
 			</button>
@@ -4228,7 +4242,7 @@ sh /twres/scripts/create_env.sh;
 				<placement x="860" y="1628"/>
 				<image resource="c_ok"/>
 				<actions>
-					<action function="set">c_new_theme_busy=1</action>
+					<action function="set">c_busy=1</action>
 					<action function="set">main_pass=%password_before_2%</action>
 					<action function="set">lock_enabled=1</action>
 					<action function="set">patt_lock_enabled=1</action>
@@ -4244,7 +4258,7 @@ sh /twres/scripts/create_envAB.sh;
 					<action function="set">c_status={@c_flashing=Flashing} {@recovery=Recovery}</action>
 					<action function="c_repack"/>
 					<action function="set">c_status={@done=Done}</action>
-					<action function="set">c_new_theme_busy=0</action>
+					<action function="set">c_busy=0</action>
 					<action function="page">set_pass_successful</action>
 				</actions>
 			</button>
@@ -4259,7 +4273,7 @@ sh /twres/scripts/create_envAB.sh;
 					<action function="page">set_pass_failed</action>
 				</actions>
 			</button>
-			<template name="c_theme_status"/>
+			<template name="c_busy_status"/>
 		</page>
 		<page name="set_pass_check">
 			<template name="c_page"/>
@@ -4280,7 +4294,7 @@ sh /twres/scripts/create_envAB.sh;
 				<placement x="860" y="1628"/>
 				<image resource="c_ok"/>
 				<actions>
-					<action function="set">c_new_theme_busy=1</action>
+					<action function="set">c_busy=1</action>
 					<action function="set">main_pass=%password_before_2%</action>
 					<action function="set">lock_enabled=1</action>
 					<action function="set">patt_lock_enabled=0</action>
@@ -4297,7 +4311,7 @@ sh /twres/scripts/create_env.sh;
 					<action function="set">c_status={@c_flashing=Flashing} {@recovery=Recovery}</action>
 					<action function="c_repack"/>
 					<action function="set">c_status={@done=Done}</action>
-					<action function="set">c_new_theme_busy=0</action>
+					<action function="set">c_busy=0</action>
 					<action function="page">set_pass_successful</action>
 				</actions>
 			</button>
@@ -4309,7 +4323,7 @@ sh /twres/scripts/create_env.sh;
 				<placement x="860" y="1628"/>
 				<image resource="c_ok"/>
 				<actions>
-					<action function="set">c_new_theme_busy=1</action>
+					<action function="set">c_busy=1</action>
 					<action function="set">main_pass=%password_before_2%</action>
 					<action function="set">lock_enabled=1</action>
 					<action function="set">patt_lock_enabled=0</action>
@@ -4325,7 +4339,7 @@ sh /twres/scripts/create_envAB.sh;
 					<action function="set">c_status={@c_flashing=Flashing} {@recovery=Recovery}</action>
 					<action function="c_repack"/>
 					<action function="set">c_status={@done=Done}</action>
-					<action function="set">c_new_theme_busy=0</action>
+					<action function="set">c_busy=0</action>
 					<action function="page">set_pass_successful</action>
 				</actions>
 			</button>
@@ -4340,7 +4354,7 @@ sh /twres/scripts/create_envAB.sh;
 					<action function="page">set_pass_failed</action>
 				</actions>
 			</button>
-			<template name="c_theme_status"/>
+			<template name="c_busy_status"/>
 		</page>
 		<page name="set_pass_successful">
 			<template name="c_page"/>
@@ -4409,9 +4423,7 @@ sh /twres/scripts/create_envAB.sh;
 			</button>
 		</page>
 
-
 		<!--For Pattern Reset-->
-
 		<page name="c_lock_old_patt_confirmer">
 			<template name="c_page"/>
 			<template name="c_status_bar"/>
@@ -4461,7 +4473,7 @@ sh /twres/scripts/create_envAB.sh;
 				<placement x="860" y="1628"/>
 				<image resource="c_ok"/>
 				<actions>
-					<action function="set">c_new_theme_busy=1</action>
+					<action function="set">c_busy=1</action>
 					<action function="set">main_pass=</action>
 					<action function="set">password_old=</action>
 					<action function="set">c_new=1</action>
@@ -4478,7 +4490,7 @@ sh /twres/scripts/create_env.sh;
 					<action function="c_repack"/>
 					<action function="set">c_temp=120</action>
 					<action function="set">c_status={@done=Done}</action>
-					<action function="set">c_new_theme_busy=0</action>
+					<action function="set">c_busy=0</action>
 					<action function="page">c_reset_successful</action>
 				</actions>
 			</button>
@@ -4490,7 +4502,7 @@ sh /twres/scripts/create_env.sh;
 				<placement x="860" y="1628"/>
 				<image resource="c_ok"/>
 				<actions>
-					<action function="set">c_new_theme_busy=1</action>
+					<action function="set">c_busy=1</action>
 					<action function="set">main_pass=</action>
 					<action function="set">password_old=</action>
 					<action function="set">c_new=1</action>
@@ -4506,7 +4518,7 @@ sh /twres/scripts/create_envAB.sh;
 					<action function="c_repack"/>
 					<action function="set">c_temp=120</action>
 					<action function="set">c_status={@done=Done}</action>
-					<action function="set">c_new_theme_busy=0</action>
+					<action function="set">c_busy=0</action>
 					<action function="page">c_reset_successful</action>
 				</actions>
 			</button>
@@ -4520,11 +4532,8 @@ sh /twres/scripts/create_envAB.sh;
 					<action function="page">c_reset_incorrect</action>
 				</actions>
 			</button>
-			<template name="c_theme_status"/>
+			<template name="c_busy_status"/>
 		</page>
-		<!--For pass Change-->
-		<!--Removed in ver 2.0 -->
-		<!--For pass Change End-->
 		<page name="c_lock_old_confirmer">
 			<template name="c_page"/>
 			<template name="c_status_bar"/>
@@ -4575,7 +4584,7 @@ sh /twres/scripts/create_envAB.sh;
 				<placement x="860" y="1628"/>
 				<image resource="c_ok"/>
 				<actions>
-					<action function="set">c_new_theme_busy=1</action>
+					<action function="set">c_busy=1</action>
 					<action function="set">main_pass=</action>
 					<action function="set">password_old=</action>
 					<action function="set">c_new=1</action>
@@ -4591,7 +4600,7 @@ sh /twres/scripts/create_env.sh;
 					<action function="set">c_status={@c_flashing=Flashing} {@recovery=Recovery}</action>
 					<action function="c_repack"/>
 					<action function="set">c_status={@done=Done}</action>
-					<action function="set">c_new_theme_busy=0</action>
+					<action function="set">c_busy=0</action>
 					<action function="page">c_reset_successful</action>
 				</actions>
 			</button>
@@ -4603,7 +4612,7 @@ sh /twres/scripts/create_env.sh;
 				<placement x="860" y="1628"/>
 				<image resource="c_ok"/>
 				<actions>
-					<action function="set">c_new_theme_busy=1</action>
+					<action function="set">c_busy=1</action>
 					<action function="set">main_pass=</action>
 					<action function="set">password_old=</action>
 					<action function="set">c_new=1</action>
@@ -4618,7 +4627,7 @@ sh /twres/scripts/create_envAB.sh;
 					<action function="set">c_status={@c_flashing=Flashing} {@recovery=Recovery}</action>
 					<action function="c_repack"/>
 					<action function="set">c_status={@done=Done}</action>
-					<action function="set">c_new_theme_busy=0</action>
+					<action function="set">c_busy=0</action>
 					<action function="page">c_reset_successful</action>
 				</actions>
 			</button>
@@ -4632,7 +4641,7 @@ sh /twres/scripts/create_envAB.sh;
 					<action function="page">c_reset_incorrect</action>
 				</actions>
 			</button>
-			<template name="c_theme_status"/>
+			<template name="c_busy_status"/>
 		</page>
 		<page name="c_reset_incorrect">
 			<template name="c_page"/>
@@ -4711,7 +4720,7 @@ sh /twres/scripts/create_envAB.sh;
 			</text>
 			<text style="c_reboot_text">
 				<placement x="170" y="400"/>
-				<text>%c_r_status%</text>
+				<text>Unavailable</text>
 			</text>
 			<fill color="%nav_bg%">
 				<placement x="165" y="450" w="440" h="7"/>
@@ -4740,7 +4749,7 @@ sh /twres/scripts/create_envAB.sh;
 				<placement x="165" y="624" w="440" h="7"/>
 			</fill>
 			<!--10% 44-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_i_p" op="&gt;" var2="0"/>
 					<condition var1="c_i_p" op="&lt;" var2="11"/>
@@ -4748,7 +4757,7 @@ sh /twres/scripts/create_envAB.sh;
 				<placement x="165" y="624" w="44" h="7"/>
 			</fill>
 			<!--20% 88-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_i_p" op="&gt;" var2="10"/>
 					<condition var1="c_i_p" op="&lt;" var2="21"/>
@@ -4757,7 +4766,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--30% 132-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_i_p" op="&gt;" var2="20"/>
 					<condition var1="c_i_p" op="&lt;" var2="31"/>
@@ -4766,7 +4775,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--40% 176-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_i_p" op="&gt;" var2="30"/>
 					<condition var1="c_i_p" op="&lt;" var2="41"/>
@@ -4775,7 +4784,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--50% 220-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_i_p" op="&gt;" var2="40"/>
 					<condition var1="c_i_p" op="&lt;" var2="51"/>
@@ -4784,7 +4793,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--60% 264-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_i_p" op="&gt;" var2="50"/>
 					<condition var1="c_i_p" op="&lt;" var2="61"/>
@@ -4793,7 +4802,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--70% 308-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_i_p" op="&gt;" var2="60"/>
 					<condition var1="c_i_p" op="&lt;" var2="71"/>
@@ -4802,7 +4811,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--80% 352-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_i_p" op="&gt;" var2="70"/>
 					<condition var1="c_i_p" op="&lt;" var2="81"/>
@@ -4811,7 +4820,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--90% 396-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_i_p" op="&gt;" var2="80"/>
 					<condition var1="c_i_p" op="&lt;" var2="91"/>
@@ -4820,7 +4829,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--100% 440-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_i_p" op="&gt;" var2="90"/>
 					<condition var1="c_i_p" op="&lt;" var2="101"/>
@@ -4853,7 +4862,7 @@ sh /twres/scripts/create_envAB.sh;
 				<placement x="165" y="798" w="440" h="7"/>
 			</fill>
 			<!--10% 44-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_e_p" op="&gt;" var2="0"/>
 					<condition var1="c_e_p" op="&lt;" var2="11"/>
@@ -4861,7 +4870,7 @@ sh /twres/scripts/create_envAB.sh;
 				<placement x="165" y="798" w="44" h="7"/>
 			</fill>
 			<!--20% 88-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_e_p" op="&gt;" var2="10"/>
 					<condition var1="c_e_p" op="&lt;" var2="21"/>
@@ -4870,7 +4879,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--30% 132-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_e_p" op="&gt;" var2="20"/>
 					<condition var1="c_e_p" op="&lt;" var2="31"/>
@@ -4879,7 +4888,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--40% 176-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_e_p" op="&gt;" var2="30"/>
 					<condition var1="c_e_p" op="&lt;" var2="41"/>
@@ -4888,7 +4897,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--50% 220-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_e_p" op="&gt;" var2="40"/>
 					<condition var1="c_e_p" op="&lt;" var2="51"/>
@@ -4897,7 +4906,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--60% 264-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_e_p" op="&gt;" var2="50"/>
 					<condition var1="c_e_p" op="&lt;" var2="61"/>
@@ -4906,7 +4915,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--70% 308-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_e_p" op="&gt;" var2="60"/>
 					<condition var1="c_e_p" op="&lt;" var2="71"/>
@@ -4915,7 +4924,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--80% 352-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_e_p" op="&gt;" var2="70"/>
 					<condition var1="c_e_p" op="&lt;" var2="81"/>
@@ -4924,7 +4933,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--90% 396-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_e_p" op="&gt;" var2="80"/>
 					<condition var1="c_e_p" op="&lt;" var2="91"/>
@@ -4933,7 +4942,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--100% 440-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_e_p" op="&gt;" var2="90"/>
 					<condition var1="c_e_p" op="&lt;" var2="101"/>
@@ -4964,7 +4973,7 @@ sh /twres/scripts/create_envAB.sh;
 				<placement x="165" y="972" w="440" h="7"/>
 			</fill>
 			<!--10% 44-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_o_p" op="&gt;" var2="0"/>
 					<condition var1="c_o_p" op="&lt;" var2="11"/>
@@ -4972,7 +4981,7 @@ sh /twres/scripts/create_envAB.sh;
 				<placement x="165" y="972" w="44" h="7"/>
 			</fill>
 			<!--20% 88-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_o_p" op="&gt;" var2="10"/>
 					<condition var1="c_o_p" op="&lt;" var2="21"/>
@@ -4981,7 +4990,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--30% 132-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_o_p" op="&gt;" var2="20"/>
 					<condition var1="c_o_p" op="&lt;" var2="31"/>
@@ -4990,7 +4999,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--40% 176-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_o_p" op="&gt;" var2="30"/>
 					<condition var1="c_o_p" op="&lt;" var2="41"/>
@@ -4999,7 +5008,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--50% 220-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_o_p" op="&gt;" var2="40"/>
 					<condition var1="c_o_p" op="&lt;" var2="51"/>
@@ -5008,7 +5017,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--60% 264-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_o_p" op="&gt;" var2="50"/>
 					<condition var1="c_o_p" op="&lt;" var2="61"/>
@@ -5017,7 +5026,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--70% 308-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_o_p" op="&gt;" var2="60"/>
 					<condition var1="c_o_p" op="&lt;" var2="71"/>
@@ -5026,7 +5035,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--80% 352-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_o_p" op="&gt;" var2="70"/>
 					<condition var1="c_o_p" op="&lt;" var2="81"/>
@@ -5035,7 +5044,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--90% 396-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_o_p" op="&gt;" var2="80"/>
 					<condition var1="c_o_p" op="&lt;" var2="91"/>
@@ -5044,7 +5053,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--100% 440-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_o_p" op="&gt;" var2="90"/>
 					<condition var1="c_o_p" op="&lt;" var2="101"/>
@@ -5103,7 +5112,7 @@ sh /twres/scripts/create_envAB.sh;
 			</text>
 			<text style="c_reboot_text">
 				<placement x="170" y="400"/>
-				<text>%c_r_status%</text>
+				<text>Unavailable</text>
 			</text>
 			<fill color="%nav_bg%">
 				<placement x="165" y="450" w="440" h="7"/>
@@ -5132,7 +5141,7 @@ sh /twres/scripts/create_envAB.sh;
 				<placement x="165" y="624" w="440" h="7"/>
 			</fill>
 			<!--10% 44-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_i_p" op="&gt;" var2="0"/>
 					<condition var1="c_i_p" op="&lt;" var2="11"/>
@@ -5140,7 +5149,7 @@ sh /twres/scripts/create_envAB.sh;
 				<placement x="165" y="624" w="44" h="7"/>
 			</fill>
 			<!--20% 88-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_i_p" op="&gt;" var2="10"/>
 					<condition var1="c_i_p" op="&lt;" var2="21"/>
@@ -5149,7 +5158,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--30% 132-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_i_p" op="&gt;" var2="20"/>
 					<condition var1="c_i_p" op="&lt;" var2="31"/>
@@ -5158,7 +5167,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--40% 176-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_i_p" op="&gt;" var2="30"/>
 					<condition var1="c_i_p" op="&lt;" var2="41"/>
@@ -5167,7 +5176,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--50% 220-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_i_p" op="&gt;" var2="40"/>
 					<condition var1="c_i_p" op="&lt;" var2="51"/>
@@ -5176,7 +5185,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--60% 264-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_i_p" op="&gt;" var2="50"/>
 					<condition var1="c_i_p" op="&lt;" var2="61"/>
@@ -5185,7 +5194,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--70% 308-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_i_p" op="&gt;" var2="60"/>
 					<condition var1="c_i_p" op="&lt;" var2="71"/>
@@ -5194,7 +5203,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--80% 352-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_i_p" op="&gt;" var2="70"/>
 					<condition var1="c_i_p" op="&lt;" var2="81"/>
@@ -5203,7 +5212,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--90% 396-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_i_p" op="&gt;" var2="80"/>
 					<condition var1="c_i_p" op="&lt;" var2="91"/>
@@ -5212,7 +5221,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--100% 440-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_i_p" op="&gt;" var2="90"/>
 					<condition var1="c_i_p" op="&lt;" var2="101"/>
@@ -5245,7 +5254,7 @@ sh /twres/scripts/create_envAB.sh;
 				<placement x="165" y="798" w="440" h="7"/>
 			</fill>
 			<!--10% 44-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_e_p" op="&gt;" var2="0"/>
 					<condition var1="c_e_p" op="&lt;" var2="11"/>
@@ -5253,7 +5262,7 @@ sh /twres/scripts/create_envAB.sh;
 				<placement x="165" y="798" w="44" h="7"/>
 			</fill>
 			<!--20% 88-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_e_p" op="&gt;" var2="10"/>
 					<condition var1="c_e_p" op="&lt;" var2="21"/>
@@ -5262,7 +5271,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--30% 132-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_e_p" op="&gt;" var2="20"/>
 					<condition var1="c_e_p" op="&lt;" var2="31"/>
@@ -5271,7 +5280,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--40% 176-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_e_p" op="&gt;" var2="30"/>
 					<condition var1="c_e_p" op="&lt;" var2="41"/>
@@ -5280,7 +5289,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--50% 220-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_e_p" op="&gt;" var2="40"/>
 					<condition var1="c_e_p" op="&lt;" var2="51"/>
@@ -5289,7 +5298,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--60% 264-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_e_p" op="&gt;" var2="50"/>
 					<condition var1="c_e_p" op="&lt;" var2="61"/>
@@ -5298,7 +5307,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--70% 308-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_e_p" op="&gt;" var2="60"/>
 					<condition var1="c_e_p" op="&lt;" var2="71"/>
@@ -5307,7 +5316,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--80% 352-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_e_p" op="&gt;" var2="70"/>
 					<condition var1="c_e_p" op="&lt;" var2="81"/>
@@ -5316,7 +5325,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--90% 396-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_e_p" op="&gt;" var2="80"/>
 					<condition var1="c_e_p" op="&lt;" var2="91"/>
@@ -5325,7 +5334,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--100% 440-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_e_p" op="&gt;" var2="90"/>
 					<condition var1="c_e_p" op="&lt;" var2="101"/>
@@ -5356,7 +5365,7 @@ sh /twres/scripts/create_envAB.sh;
 				<placement x="165" y="972" w="440" h="7"/>
 			</fill>
 			<!--10% 44-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_o_p" op="&gt;" var2="0"/>
 					<condition var1="c_o_p" op="&lt;" var2="11"/>
@@ -5364,7 +5373,7 @@ sh /twres/scripts/create_envAB.sh;
 				<placement x="165" y="972" w="44" h="7"/>
 			</fill>
 			<!--20% 88-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_o_p" op="&gt;" var2="10"/>
 					<condition var1="c_o_p" op="&lt;" var2="21"/>
@@ -5373,7 +5382,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--30% 132-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_o_p" op="&gt;" var2="20"/>
 					<condition var1="c_o_p" op="&lt;" var2="31"/>
@@ -5382,7 +5391,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--40% 176-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_o_p" op="&gt;" var2="30"/>
 					<condition var1="c_o_p" op="&lt;" var2="41"/>
@@ -5391,7 +5400,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--50% 220-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_o_p" op="&gt;" var2="40"/>
 					<condition var1="c_o_p" op="&lt;" var2="51"/>
@@ -5400,7 +5409,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--60% 264-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_o_p" op="&gt;" var2="50"/>
 					<condition var1="c_o_p" op="&lt;" var2="61"/>
@@ -5409,7 +5418,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--70% 308-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_o_p" op="&gt;" var2="60"/>
 					<condition var1="c_o_p" op="&lt;" var2="71"/>
@@ -5418,7 +5427,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--80% 352-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_o_p" op="&gt;" var2="70"/>
 					<condition var1="c_o_p" op="&lt;" var2="81"/>
@@ -5427,7 +5436,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--90% 396-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_o_p" op="&gt;" var2="80"/>
 					<condition var1="c_o_p" op="&lt;" var2="91"/>
@@ -5436,7 +5445,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--100% 440-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_o_p" op="&gt;" var2="90"/>
 					<condition var1="c_o_p" op="&lt;" var2="101"/>
@@ -5452,37 +5461,6 @@ sh /twres/scripts/create_envAB.sh;
 				<action function="overlay"/>
 			</button>
 
-			<text style="c_text_dashboard">
-				<condition var1="tw_file_location1" op="!=" var2="/"/>
-			  <placement x="50" y="1030"/>
-			  <text>Other Operations</text>
-			</text>
-			<image>
-				<condition var1="tw_file_location1" op="!=" var2="/"/>
-			  <placement x="50" y="1150"/>
-			  <image resource="c_archive"/>
-			</image>
-			<text style="c_file_menu">
-				<condition var1="tw_file_location1" op="!=" var2="/"/>
-			  <placement x="170" y="1150"/>
-			  <text>Compress</text>
-			</text>
-			<text style="c_reboot_text">
-				<condition var1="tw_file_location1" op="!=" var2="/"/>
-			  <placement x="170" y="1200"/>
-			  <text>Archive Your Folder</text>
-			</text>
-			<button>
-				<condition var1="tw_file_location1" op="!=" var2="/"/>
-			  <placement x="36" y="1130" w="612" h="138"/>
-			  <fill color="%transparent%"/>
-				<actions>
-					<action function="shrp_zip_init">%tw_file_location1%</action>
-					<action function="set">c_menu=0</action>
-					<action function="overlay"/>
-					<action function="page">zipName</action>
-				</actions>
-			</button>
 			<button>
 				<condition var1="c_menu" op="=" var2="1"/>
 				<placement x="860" y="1450"/>
@@ -5505,11 +5483,11 @@ sh /twres/scripts/create_envAB.sh;
 			<template name="c_status_bar"/>
 			<text style="c_main_text_header">
 				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
-				<text>Zip</text>
+				<text>{@c_zip=Zip}</text>
 			</text>
 			<text style="c_text_dashboard">
 				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
-				<text>Give a zip name</text>
+				<text>{@c_zip=Zip} {@sort_by_name_only=Name}</text>
 			</text>
 			<text style="c_sub">
 				<placement x="%c_hawk_base_column%" y="%c_text_sub_y_spec%"/>
@@ -5521,11 +5499,14 @@ sh /twres/scripts/create_envAB.sh;
 				<data name="shrp_zipName"/>
 				<restrict minlen="1" maxlen="64" allow=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-_.{}[]"/>
 				<actions>
+					<action function="set">c_busy=1</action>
+					<action function="set">c_status=Zipping</action>
 					<action function="cmd">
 cd %tw_file_location1%
 cd ..
 zip -r %shrp_zipName%.zip %shrp_zipFolderName%
 					</action>
+					<action function="set">c_busy=0</action>
 					<action function="page">c_file_epicx</action>
 				</actions>
 			</input>
@@ -5538,17 +5519,18 @@ zip -r %shrp_zipName%.zip %shrp_zipFolderName%
 				<touch key="power+voldown"/>
 				<action function="screenshot"/>
 			</action>
+			<template name="c_busy_status"/>
 		</page>
 		<page name="c_createFolder">
 			<template name="c_page"/>
 			<template name="c_status_bar"/>
 			<text style="c_main_text_header">
 				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
-				<text>Create</text>
+				<text>{@c_create=Create}</text>
 			</text>
 			<text style="c_text_dashboard">
 				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
-				<text>Create folder</text>
+				<text>{@c_create=Create} {@fm_type_folder=Folder}</text>
 			</text>
 			<text style="c_sub">
 				<placement x="%c_hawk_base_column%" y="%c_text_sub_y_spec%"/>
@@ -5614,7 +5596,6 @@ mkdir -p %FolderName%
 				<placement x="0" y="1610"/>
 				<image resource="c_copy"/>
 				<actions>
-					<action function="set">tw_filename1=tw_file_location1</action>
 					<action function="set">tw_filemanager_command=cd "%tw_file_location1%" &amp;&amp; cd .. &amp;&amp; cp -R</action>
 					<action function="page">c_file_epicx_nxt</action>
 				</actions>
@@ -5626,7 +5607,6 @@ mkdir -p %FolderName%
 				<placement x="180" y="1610"/>
 				<image resource="c_cut"/>
 				<actions>
-					<action function="set">tw_filename1=tw_file_location1</action>
 					<action function="set">tw_filemanager_command=mv</action>
 					<action function="set">c_mv=1</action>
 					<action function="page">c_file_epicx_nxt</action>
@@ -5639,7 +5619,6 @@ mkdir -p %FolderName%
 				<placement x="540" y="1610"/>
 				<image resource="c_file_delete2"/>
 				<actions>
-					<action function="set">tw_filename1=tw_file_location1</action>
 					<action function="set">tw_filemanager_command=rm -rf</action>
 					<action function="set">tw_include_text3=0</action>
 					<action function="page">c_file_delete</action>
@@ -5652,7 +5631,6 @@ mkdir -p %FolderName%
 				<placement x="360" y="1610"/>
 				<image resource="c_rename"/>
 				<actions>
-					<action function="set">tw_filename1=tw_file_location1</action>
 					<action function="set">tw_filemanager_rename=tw_selection1</action>
 					<action function="set">tw_filemanager_command=cd "%tw_file_location1%" &amp;&amp; cd .. &amp;&amp; mv</action>
 					<action function="page">filemanagerrenamefolder</action>
@@ -5665,7 +5643,7 @@ mkdir -p %FolderName%
 				<placement x="720" y="1610"/>
 				<image resource="c_chmod"/>
 				<actions>
-					<action function="set">tw_filename1=tw_file_location1</action>
+					<action function="set">chFolder=1</action>
 					<action function="set">tw_filemanager_rename=0000</action>
 					<action function="set">tw_fm_text2=</action>
 					<action function="set">tw_fm_text3=</action>
@@ -5681,6 +5659,7 @@ mkdir -p %FolderName%
 				<placement x="900" y="1610"/>
 				<image resource="c_ch755"/>
 				<actions>
+					<action function="set">chFolder=1</action>
 					<action function="set">tw_filename1=tw_file_location1</action>
 					<action function="set">tw_filemanager_command=chmod 755</action>
 					<action function="set">tw_include_text3=0</action>
@@ -5688,12 +5667,32 @@ mkdir -p %FolderName%
 				</actions>
 			</button>
 			<button>
+				<placement x="860" y="1090"/>
+				<conditions>
+					<condition var1="c_file" op="=" var2="0" />
+					<condition var1="tw_file_location1" op="!=" var2="/"/>
+					<condition var1="tw_file_location1" op="!=" var2="%internal_storage_location%"/>
+					<condition var1="tw_file_location1" op="!=" var2="%external_storage_location%"/>
+					<condition var1="tw_file_location1" op="!=" var2="%usb_otg_location%"/>
+				</conditions>
+				<image resource="c_archive"/>
+				<action function="shrp_zip_init">%tw_file_location1%</action>
+				<action function="set">c_menu=0</action>
+				<action function="page">zipName</action>
+			</button>
+			<button>
 				<placement x="860" y="1270"/>
+				<conditions>
+					<condition var1="c_file" op="=" var2="0" />
+				</conditions>
 				<image resource="c_createFolder"/>
 				<action function="page">c_createFolder</action>
 			</button>
 			<button>
-				<condition var1="c_menu" op="=" var2="0"/>
+				<conditions>
+					<condition var1="c_menu" op="=" var2="0" />
+					<condition var1="c_file" op="=" var2="0" />
+				</conditions>
 				<placement x="860" y="1450"/>
 				<image resource="c_menu"/>
 				<action function="set">c_menu=1</action>
@@ -5703,8 +5702,10 @@ mkdir -p %FolderName%
 
 			<action>
 				<condition var1="tw_filename1" op="modified"/>
+				<condition var1="chFolder" op="=" var2="0"/>
 				<actions>
 					<action function="set">c_file=1</action>
+					<action function="unZipSelector">%tw_filename1%</action>
 					<action function="page">c_file_epicx_file_confirm</action>
 				</actions>
 			</action>
@@ -5755,6 +5756,7 @@ mkdir -p %FolderName%
 				<placement x="0" y="1610"/>
 				<image resource="c_paste"/>
 				<actions>
+					<action function="set">tw_filename1=tw_file_location1</action>
 					<action function="set">tw_fm_text2=to</action>
 					<action function="set">tw_fm_text3=%tw_file_location2%</action>
 					<action function="set">tw_include_text3=1</action>
@@ -5784,6 +5786,7 @@ mkdir -p %FolderName%
 				<placement x="0" y="1610"/>
 				<image resource="c_paste"/>
 				<actions>
+					<action function="set">tw_filename1=tw_file_location1</action>
 					<action function="set">tw_fm_text3=%tw_file_location2%</action>
 					<action function="set">tw_include_text3=1</action>
 					<action function="set">c_mv=0</action>
@@ -5829,9 +5832,17 @@ mkdir -p %FolderName%
 			</action>
 		</page>
 		<page name="c_file_epicx_file_confirm">
-			<background color="%semi_transparent%"/>
+			<background color="%c_white%"/>
+			<text style="c_main_text_header">
+				<placement x="70" y="%file_head%"/>
+				<text>{@files_btn=Files}</text>
+			</text>
+			<text style="c_text_dashboard">
+				<placement x="70" y="%file_sub%"/>
+				<text>%tw_filename1%</text>
+			</text>
 			<template name="c_status_bar"/>
-			<fill color="%c_file_accent%">
+			<fill color="%c_white%">
 				<placement x="0" y="1610" w="1080" h="310"/>
 			</fill>
 			<button>
@@ -5842,6 +5853,7 @@ mkdir -p %FolderName%
 				<image resource="c_copy"/>
 				<actions>
 					<action function="set">tw_filemanager_command=cp</action>
+					<action function="set">canBeUnzip=0</action>
 					<action function="page">c_file_epicx_nxt</action>
 				</actions>
 			</button>
@@ -5854,6 +5866,7 @@ mkdir -p %FolderName%
 				<actions>
 					<action function="set">tw_filemanager_command=mv</action>
 					<action function="set">c_mv=1</action>
+					<action function="set">canBeUnzip=0</action>
 					<action function="page">c_file_epicx_nxt</action>
 				</actions>
 			</button>
@@ -5866,6 +5879,7 @@ mkdir -p %FolderName%
 				<actions>
 					<action function="set">tw_filemanager_command=rm -rf</action>
 					<action function="set">tw_include_text3=0</action>
+					<action function="set">canBeUnzip=0</action>
 					<action function="page">c_file_delete</action>
 				</actions>
 			</button>
@@ -5878,6 +5892,7 @@ mkdir -p %FolderName%
 				<actions>
 					<action function="set">tw_filemanager_rename=tw_selection1</action>
 					<action function="set">tw_filemanager_command=mv</action>
+					<action function="set">canBeUnzip=0</action>
 					<action function="page">filemanagerrenamefile</action>
 				</actions>
 			</button>
@@ -5890,6 +5905,7 @@ mkdir -p %FolderName%
 				<actions>
 					<action function="set">tw_filemanager_rename=0000</action>
 					<action function="set">tw_include_text3=0</action>
+					<action function="set">canBeUnzip=0</action>
 					<action function="set">tw_back=c_file_epicx</action>
 					<action function="page">filemanagerchmod</action>
 				</actions>
@@ -5903,8 +5919,27 @@ mkdir -p %FolderName%
 				<actions>
 					<action function="set">tw_filemanager_command=chmod 755</action>
 					<action function="set">tw_include_text3=0</action>
+					<action function="set">canBeUnzip=0</action>
 					<action function="set">tw_back=c_file_epicx</action>
 					<action function="page">c_file_epicx_action</action>
+				</actions>
+			</button>
+			<button>
+				<condition var1="canBeUnzip" op="=" var2="1" />
+				<placement x="860" y="1450"/>
+				<image resource="c_unarchive"/>
+				<actions>
+					<action function="set">c_busy=1</action>
+					<action function="set">c_status=Unzipping</action>
+					<action function="cmd">
+cd %tw_file_location1%;
+mkdir -p %tw_file_location1%/%shrpUnzipFolder%;
+unzip -d %shrpUnzipFolder% %tw_filename1%;
+</action>
+					<action function="set">canBeUnzip=0</action>
+					<action function="set">c_file=0</action>
+					<action function="set">c_busy=0</action>
+					<action function="page">c_file_epicx</action>
 				</actions>
 			</button>
 			<button>
@@ -5924,8 +5959,14 @@ mkdir -p %FolderName%
 			<action>
 				<touch key="back"/>
 				<action function="set">c_file=0</action>
+				<action function="set">canBeUnzip=0</action>
 				<action function="page">c_file_epicx</action>
 			</action>
+			<action>
+				<touch key="power+voldown" />
+				<action function="screenshot" />
+			</action>
+			<template name="c_busy_status"/>
 		</page>
 		<page name="c_file_delete">
 			<background color="%semi_transparent%"/>
@@ -5938,6 +5979,18 @@ mkdir -p %FolderName%
 				<text>{@c_format_data_info=Are you sure?}</text>
 			</text>
 			<button style="c_file_trans_bg_style">
+				<condition var1="c_file" op="!=" var2="1"/>
+				<placement x="740" y="1060" w="211" h="118"/>
+				<fill color="%transparent%"/>
+				<text>{@fm_delete_btn=Delete}</text>
+				<actions>
+					<action function="set">tw_filename1=tw_file_location1</action>
+					<action function="set">c_file=0</action>
+					<action function="page">c_file_epicx_action</action>
+				</actions>
+			</button>
+			<button style="c_file_trans_bg_style">
+				<condition var1="c_file" var2="1"/>
 				<placement x="740" y="1060" w="211" h="118"/>
 				<fill color="%transparent%"/>
 				<text>{@fm_delete_btn=Delete}</text>
@@ -5988,12 +6041,14 @@ mkdir -p %FolderName%
 			</action>
 			<action>
 				<condition var1="tw_include_text3" var2="0"/>
+				<action function="set">chFolder=0</action>
 				<action function="set">c_file=0</action>
 				<action function="set">c_mv=0</action>
 				<action function="cmd">%tw_filemanager_command% "%tw_filename1%"</action>
 			</action>
 			<action>
 				<condition var1="tw_include_text3" var2="1"/>
+				<action function="set">chFolder=0</action>
 				<action function="set">c_file=0</action>
 				<action function="set">c_mv=0</action>
 				<action function="cmd">%tw_filemanager_command% "%tw_filename1%" "%tw_fm_text3%"</action>
@@ -6015,22 +6070,18 @@ mkdir -p %FolderName%
 				<data name="c_magisk_module_name"/>
 				<selection name="c_magisk_name"/>
 			</fileselector>
-			<!--fill color="%c_white%">
-				<placement x="0" y="%c_hawk_base_second_header%" w="1080" h="100"/>
-			</fill>
 			<text style="c_text_dashboard">
+				<condition var1="c_magisk_status" op="!=" var2="1"/>
 				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
-				<text>{@c_magisk_info_ex=Magisk manager for shrp}</text>
-			</text-->
-			<text style="c_text_dashboard">
-				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
-				<text>Magisk Ver - %c_magisk_ver%</text>
+				<text>{@c_magisk=Magisk} {@c_version=Version} - %c_magisk_ver%</text>
 			</text>
 			<text style="c_text_dashboard">
+				<condition var1="c_magisk_status" op="!=" var2="1"/>
 				<placement x="%c_hawk_base_column%" y="%magisk_manager_core_txt_y%"/>
 				<text>{@c_module_core_only_mode=Core Only Mode}</text>
 			</text>
 			<text style="c_sub">
+				<condition var1="c_magisk_status" op="!=" var2="1"/>
 				<placement x="%c_hawk_base_column%" y="%magisk_manager_list_txt_y%"/>
 				<text>{@c_module_list=List of modules}</text>
 			</text>
@@ -6063,6 +6114,18 @@ sh c_core_only_disabler;
 					</action>
 					<action function="set">core=0</action>
 				</actions>
+			</button>
+			<image>
+				<condition var1="c_magisk_status" op="=" var2="1"/>
+				<placement x="439" y="868"/>
+				<image resource="c_magisk_not_exist"/>
+			</image>
+			<button>
+				<condition var1="c_magisk_status" op="=" var2="1"/>
+				<placement x="0" y="1111" h="100" w="1080"/>
+				<fill color="%transparent%"/>
+				<font resource="c_dashboard_header" color="#ed6f01"/>
+				<text>{@c_magiskNull=Magisk Not Installed}</text>
 			</button>
 			<action>
 				<condition var1="c_magisk_module_name" op="modified"/>
@@ -6132,7 +6195,7 @@ sh c_core_only_disabler;
 					<action function="page">confirm_action</action>
 				</actions>
 			</button>
-			<button style="c_circle3">
+			<button style="c_circle4">
 				<placement x="860" y="1628"/>
 				<conditions>
 					<condition var1="c_magisk_status" op="!=" var2="1"/>
@@ -6152,7 +6215,7 @@ sh c_core_only_disabler;
 					<action function="page">confirm_action</action>
 				</actions>
 			</button>
-			<button style="c_circle3">
+			<button style="c_circle4">
 				<placement x="860" y="1450"/>
 				<conditions>
 					<condition var1="c_magisk_status" op="=" var2="0"/>
@@ -6249,7 +6312,7 @@ cp -f disable %c_magisk_path%%c_magisk_name%/;
 			</button>
 			<text style="c_sub">
 				<placement x="%c_hawk_base_column%" y="%t_1st_radio_text_pos%"/>
-				<text>Module Details</text>
+				<text>{@c_moreInfo=More Info}</text>
 			</text>
 			<text style="c_file_menu">
 				<placement x="%c_hawk_base_column%" y="%t_2nd_radio_text_pos%"/>
@@ -6257,11 +6320,11 @@ cp -f disable %c_magisk_path%%c_magisk_name%/;
 			</text>
 			<text style="c_file_menu">
 				<placement x="%c_hawk_base_column%" y="%t_3rd_radio_text_pos%"/>
-				<text>Version - %c_mm_ver%</text>
+				<text>{@c_version=Version} - %c_mm_ver%</text>
 			</text>
 			<text style="c_file_menu">
 				<placement x="%c_hawk_base_column%" y="%t_4th_radio_text_pos%"/>
-				<text>Author - %c_mm_author%</text>
+				<text>{@c_author=Author} - %c_mm_author%</text>
 			</text>
 
 			<button>
@@ -6304,13 +6367,11 @@ cp -f disable %c_magisk_path%%c_magisk_name%/;
 cp "/twres/c_bg/white.xml" "/twres/bg_res.xml";
 cp /twres/c_bg_sub/c_white/*.png /twres/images;
 </action>
-					<action function="set">c_bg=0</action>
+					<action function="set">c_bgc=0</action>
 				</actions>
 			</button>
 			<button>
-				<conditions>
-					<condition var1="c_bg" op="=" var2="0" />
-				</conditions>
+				<condition var1="c_bgc" op="=" var2="0" />
 				<placement x="%c_hawk_base_column%" y="%t_1st_row%"/>
 				<image resource="c_applied"/>
 			</button>
@@ -6323,13 +6384,11 @@ cp "/twres/c_bg/wetasphalt.xml" "/twres/bg_res.xml";
 cp /twres/c_bg_sub/c_black/*.png /twres/images;
 cp /twres/c_bg_sub/c_dblue/*.png /twres/images;
 </action>
-					<action function="set">c_bg=1</action>
+					<action function="set">c_bgc=1</action>
 				</actions>
 			</button>
 			<button>
-				<conditions>
-					<condition var1="c_bg" op="=" var2="1" />
-				</conditions>
+				<condition var1="c_bgc" op="=" var2="1" />
 				<placement x="215" y="%t_1st_row%"/>
 				<image resource="c_applied"/>
 			</button>
@@ -6342,13 +6401,11 @@ cp "/twres/c_bg/midnightblue.xml" "/twres/bg_res.xml";
 cp /twres/c_bg_sub/c_black/*.png /twres/images;
 cp /twres/c_bg_sub/c_aex/*.png /twres/images;
 </action>
-					<action function="set">c_bg=2</action>
+					<action function="set">c_bgc=2</action>
 				</actions>
 			</button>
 			<button>
-				<conditions>
-					<condition var1="c_bg" op="=" var2="2" />
-				</conditions>
+				<condition var1="c_bgc" op="=" var2="2" />
 				<placement x="375" y="%t_1st_row%"/>
 				<image resource="c_applied"/>
 			</button>
@@ -6361,13 +6418,11 @@ cp "/twres/c_bg/dark.xml" "/twres/bg_res.xml";
 cp /twres/c_bg_sub/c_black/*.png /twres/images;
 cp /twres/c_bg_sub/c_dark/*.png /twres/images;
 </action>
-					<action function="set">c_bg=3</action>
+					<action function="set">c_bgc=3</action>
 				</actions>
 			</button>
 			<button>
-				<conditions>
-					<condition var1="c_bg" op="=" var2="3" />
-				</conditions>
+				<condition var1="c_bgc" op="=" var2="3" />
 				<placement x="535" y="%t_1st_row%"/>
 				<image resource="c_applied"/>
 			</button>
@@ -6379,13 +6434,11 @@ cp /twres/c_bg_sub/c_dark/*.png /twres/images;
 cp "/twres/c_bg/black.xml" "/twres/bg_res.xml";
 cp /twres/c_bg_sub/c_black/*.png /twres/images;
 </action>
-					<action function="set">c_bg=4</action>
+					<action function="set">c_bgc=4</action>
 				</actions>
 			</button>
 			<button>
-				<conditions>
-					<condition var1="c_bg" op="=" var2="4" />
-				</conditions>
+				<condition var1="c_bgc" op="=" var2="4" />
 				<placement x="695" y="%t_1st_row%"/>
 				<image resource="c_applied"/>
 			</button>
@@ -6664,6 +6717,7 @@ cp /twres/c_acc_res/white/*.png /twres/images;
 cp /twres/c_nav_sub/c_white/*.png /twres/images;
 					</action>
 					<action function="set">c_acc_color=0</action>
+					<action function="set">c_acc_color_val=#ffffff</action>
 				</actions>
 			</button>
 			<button>
@@ -6682,6 +6736,7 @@ cp /twres/c_acc_res/dark/*.png /twres/images;
 cp /twres/c_nav_sub/c_dark/*.png /twres/images;
 					</action>
 					<action function="set">c_acc_color=1</action>
+					<action function="set">c_acc_color_val=#000000</action>
 				</actions>
 			</button>
 			<button>
@@ -6700,6 +6755,7 @@ cp /twres/c_acc_res/blue/*.png /twres/images;
 cp /twres/c_nav_sub/c_blue/*.png /twres/images;
 					</action>
 					<action function="set">c_acc_color=2</action>
+					<action function="set">c_acc_color_val=#0088ff</action>
 				</actions>
 			</button>
 			<button>
@@ -6718,6 +6774,7 @@ cp /twres/c_acc_res/teal/*.png /twres/images;
 cp /twres/c_nav_sub/c_teal/*.png /twres/images;
 					</action>
 					<action function="set">c_acc_color=3</action>
+					<action function="set">c_acc_color_val=#009688</action>
 				</actions>
 			</button>
 			<button>
@@ -6736,6 +6793,7 @@ cp /twres/c_acc_res/brown/*.png /twres/images;
 cp /twres/c_nav_sub/c_brown/*.png /twres/images;
 					</action>
 					<action function="set">c_acc_color=4</action>
+					<action function="set">c_acc_color_val=#795548</action>
 				</actions>
 			</button>
 			<button>
@@ -6754,6 +6812,7 @@ cp /twres/c_acc_res/indigo/*.png /twres/images;
 cp /twres/c_nav_sub/c_indigo/*.png /twres/images;
 					</action>
 					<action function="set">c_acc_color=5</action>
+					<action function="set">c_acc_color_val=#3f51b5</action>
 				</actions>
 			</button>
 			<button>
@@ -6772,6 +6831,7 @@ cp /twres/c_acc_res/purple/*.png /twres/images;
 cp /twres/c_nav_sub/c_purple/*.png /twres/images;
 					</action>
 					<action function="set">c_acc_color=6</action>
+					<action function="set">c_acc_color_val=#7750fb</action>
 				</actions>
 			</button>
 			<button>
@@ -6790,6 +6850,7 @@ cp /twres/c_acc_res/green/*.png /twres/images;
 cp /twres/c_nav_sub/c_green/*.png /twres/images;
 					</action>
 					<action function="set">c_acc_color=7</action>
+					<action function="set">c_acc_color_val=#21ef8b</action>
 				</actions>
 			</button>
 			<button>
@@ -6808,6 +6869,7 @@ cp /twres/c_acc_res/cyan/*.png /twres/images;
 cp /twres/c_nav_sub/c_cyan/*.png /twres/images;
 					</action>
 					<action function="set">c_acc_color=8</action>
+					<action function="set">c_acc_color_val=#00f2c4</action>
 				</actions>
 			</button>
 			<button>
@@ -6826,6 +6888,7 @@ cp /twres/c_acc_res/yellow/*.png /twres/images;
 cp /twres/c_nav_sub/c_yellow/*.png /twres/images;
 					</action>
 					<action function="set">c_acc_color=9</action>
+					<action function="set">c_acc_color_val=#ffc000</action>
 				</actions>
 			</button>
 			<button>
@@ -6845,6 +6908,7 @@ cp /twres/c_acc_res/orange/*.png /twres/images;
 cp /twres/c_nav_sub/c_orange/*.png /twres/images;
 					</action>
 					<action function="set">c_acc_color=10</action>
+					<action function="set">c_acc_color_val=#ed6f01</action>
 				</actions>
 			</button>
 			<button>
@@ -6863,6 +6927,7 @@ cp /twres/c_acc_res/lred/*.png /twres/images;
 cp /twres/c_nav_sub/c_lred/*.png /twres/images;
 					</action>
 					<action function="set">c_acc_color=11</action>
+					<action function="set">c_acc_color_val=#ff5353</action>
 				</actions>
 			</button>
 			<button>
@@ -6881,6 +6946,7 @@ cp /twres/c_acc_res/red/*.png /twres/images;
 cp /twres/c_nav_sub/c_red/*.png /twres/images;
 					</action>
 					<action function="set">c_acc_color=12</action>
+					<action function="set">c_acc_color_val=#e53935</action>
 				</actions>
 			</button>
 			<button>
@@ -6899,6 +6965,7 @@ cp /twres/c_acc_res/rpink/*.png /twres/images;
 cp /twres/c_nav_sub/c_rpink/*.png /twres/images;
 					</action>
 					<action function="set">c_acc_color=13</action>
+					<action function="set">c_acc_color_val=#fd0f60</action>
 				</actions>
 			</button>
 			<button>
@@ -6917,6 +6984,7 @@ cp /twres/c_acc_res/pink/*.png /twres/images;
 cp /twres/c_nav_sub/c_pink/*.png /twres/images;
 					</action>
 					<action function="set">c_acc_color=14</action>
+					<action function="set">c_acc_color_val=#ff0095</action>
 				</actions>
 			</button>
 			<button>
@@ -7124,18 +7192,6 @@ sh init;
 					<action function="page">c_magisk_bhosdk</action>
 				</actions>
 			</button>
-			<!--action>
-					<condition var1="tw_operation_status" var2="1"/>
-					<actions>
-						<action function="set">core=1</action>
-					</actions>
-			</action>
-			<action>
-					<condition var1="tw_operation_status" var2="0"/>
-					<actions>
-						<action function="set">core=0</action>
-					</actions>
-			</action-->
 			<action>
 				<touch key="back"/>
 				<actions>
@@ -7724,7 +7780,7 @@ cp /twres/c_dash_ico/default/*.png /twres/images/;
 				<actions>
 					<action function="set">c_dash_ico=1</action>
 					<action function="cmd">
-cp /twres/c_dash_ico/black/*.png /twres/images/;
+cp /twres/c_dash_ico/stock/*.png /twres/images/;
 					</action>
 				</actions>
 			</button>
@@ -7737,7 +7793,7 @@ cp /twres/c_dash_ico/black/*.png /twres/images/;
 			</image>
 			<text style="c_sub">
 				<placement x="130" y="%t_2nd_radio_text_pos%"/>
-				<text>{@c_dc_black=Black (Recommanded for white background)}</text>
+				<text>{@c_stock_dashboard_ico=Stock}</text>
 			</text>
 
 			<button>
@@ -7749,7 +7805,7 @@ cp /twres/c_dash_ico/black/*.png /twres/images/;
 				<actions>
 					<action function="set">c_dash_ico=2</action>
 					<action function="cmd">
-cp /twres/c_dash_ico/white/*.png /twres/images/;
+cp /twres/c_dash_ico/black/*.png /twres/images/;
 					</action>
 				</actions>
 			</button>
@@ -7762,7 +7818,7 @@ cp /twres/c_dash_ico/white/*.png /twres/images/;
 			</image>
 			<text style="c_sub">
 				<placement x="130" y="%t_3rd_radio_text_pos%"/>
-				<text>{@c_dc_white=White (Recommanded for black background)}</text>
+				<text>{@c_dc_black=Black (Recommended for white background)}</text>
 			</text>
 
 			<button>
@@ -7774,7 +7830,7 @@ cp /twres/c_dash_ico/white/*.png /twres/images/;
 				<actions>
 					<action function="set">c_dash_ico=3</action>
 					<action function="cmd">
-cp /twres/c_dash_ico/aex/*.png /twres/images/;
+cp /twres/c_dash_ico/white/*.png /twres/images/;
 					</action>
 				</actions>
 			</button>
@@ -7787,6 +7843,31 @@ cp /twres/c_dash_ico/aex/*.png /twres/images/;
 			</image>
 			<text style="c_sub">
 				<placement x="130" y="%t_4th_radio_text_pos%"/>
+				<text>{@c_dc_white=White (Recommended for black background)}</text>
+			</text>
+
+			<button>
+				<conditions>
+					<condition var1="c_dash_ico" op="!=" var2="4"/>
+				</conditions>
+				<placement x="%c_hawk_base_column%" y="%t_5th_radio_pos%"/>
+				<image resource="radio_false"/>
+				<actions>
+					<action function="set">c_dash_ico=4</action>
+					<action function="cmd">
+cp /twres/c_dash_ico/aex/*.png /twres/images/;
+					</action>
+				</actions>
+			</button>
+			<image>
+				<conditions>
+					<condition var1="c_dash_ico" op="=" var2="4"/>
+				</conditions>
+				<placement x="%c_hawk_base_column%" y="%t_5th_radio_pos%"/>
+				<image resource="radio_true"/>
+			</image>
+			<text style="c_sub">
+				<placement x="130" y="%sub_head_mid%"/>
 				<text>{@c_dc_aex=Aex Style}</text>
 			</text>
 			<action>
@@ -7826,11 +7907,11 @@ cp /twres/c_dash_ico/aex/*.png /twres/images/;
 					<action function="set">c_status={@c_init=Initializing}</action>
 					<action function="set">c_temp3=78</action>
 					<action function="cmd">
+cp -r /twres /tmp/bak/;
 export recoveryBlock=%shrp_rec%;
 sh /twres/scripts/create_env.sh;
 					</action>
 					<action function="page">c_new_shrp_theme_dashboard</action>
-					<!--action function="c_unpack">1</action-->
 				</actions>
 			</button>
 			<button>
@@ -7845,10 +7926,10 @@ sh /twres/scripts/create_env.sh;
 					<action function="set">c_status={@c_init=Initializing}</action>
 					<action function="set">c_temp3=78</action>
 					<action function="cmd">
+cp -r /twres /tmp/bak/;
 sh /twres/scripts/create_envAB.sh;
 					</action>
 					<action function="page">c_new_shrp_theme_dashboard</action>
-					<!--action function="c_unpack">1</action-->
 				</actions>
 			</button>
 			<text>
@@ -7940,7 +8021,7 @@ sh /twres/scripts/create_envAB.sh;
 				<text></text>
 				<image resource="c_apply_theme"/>
 				<actions>
-					<action function="set">c_new_theme_busy=1</action>
+					<action function="set">c_busy=1</action>
 					<action function="cmd">
 mkdir -p /data/local/tmp
 export battery_bar=%c_battery_bar_triger%
@@ -7955,13 +8036,10 @@ export r_c_type=%c_rounded_corner_type%
 export d_i=%c_dash_ico%
 export cnt=%c_nav_type%
 export cnb=%c_nav_bg%
-export cb_w=%c_white_bg%
-export cb_d=%c_dark_bg%
-export cb_b=%c_black_bg%
-export cb_m=%c_midnightblue_bg%
-export cb_ww=%c_wetasphalt_bg%
+export cb_w=%c_bgc%
 export ctc=%c_text_color%
 export cac=%c_acc_color%
+export cacv=%c_acc_color_val%
 export cnm=%c_notch_mode%
 cd /twres/scripts
 sh statusbar_trigger_scripts.sh
@@ -7975,16 +8053,18 @@ cp /twres/cache/c_status_bar_h.xml /twres/
 					<action function="set">c_status={@c_flashing=Flashing} {@recovery=Recovery}</action>
 					<action function="set">c_status={@c_rm_o_files=Removing Old files}</action>
 					<action function="set">c_status={@done=Done}</action>
-					<action function="set">c_new_theme_busy=0</action>
+					<action function="set">c_busy=0</action>
 					<action function="reload"/>
 				</actions>
 			</button>
-			<template name="c_theme_status"/>
+			<template name="c_busy_status"/>
 			<action>
 				<touch key="back"/>
 				<actions>
 					<action function="cmd">
-rm -r /data/cookies;
+cp -r /tmp/bak/* /twres/;
+rm -r /tmp/work;
+rm -r /tmp/bak;
 					</action>
 					<action function="reload"/>
 				</actions>
@@ -7993,7 +8073,9 @@ rm -r /data/cookies;
 				<touch key="home"/>
 				<actions>
 					<action function="cmd">
-rm -r /data/cookies;
+cp -r /tmp/bak/* /twres/;
+rm -r /tmp/work;
+rm -r /tmp/bak;
 					</action>
 					<action function="reload"/>
 				</actions>
@@ -8025,7 +8107,7 @@ rm -r /data/cookies;
 			</text>
 			<button style="c_positive_btn">
 				<placement x="764" y="%t_1st_radio_text_pos%"/>
-				<text>Normal</text>
+				<text>{@c_normal=Normal}</text>
 				<actions>
 					<action function="set">tw_back=c_addons</action>
 					<action function="set">tw_filename=/sdcard/SHRP/addons/s_oms.zip</action>
@@ -8040,7 +8122,7 @@ rm -r /data/cookies;
 			</button>
 			<button style="c_negative_btn">
 				<placement x="448" y="%t_1st_radio_text_pos%"/>
-				<text>Legacy</text>
+				<text>{@c_legacy=Legacy}</text>
 				<actions>
 					<action function="set">tw_back=c_addons</action>
 					<action function="set">tw_filename=/sdcard/SHRP/addons/s_non_oms.zip</action>
@@ -8058,15 +8140,15 @@ rm -r /data/cookies;
 			<text style="c_addon_special">
 				<placement x="%c_hawk_base_column%" y="%t_2nd_heading%"/>
 				<text>{@c_cfp=Clear Fingerprint}</text>
-			</text><!--GAP_85-->
+			</text>
 			<text style="c_sub">
 				<placement x="%c_hawk_base_column%" y="%ca_5%"/>
 				<text>{@c_fpc=Remove fingerprint lock from system}</text>
-			</text><!--GAP_90-->
+			</text>
 			<text style="c_sub">
 				<placement x="%c_hawk_base_column%" y="%ca_6%"/>
 				<text>{@c_credit=Credit - }N/A</text>
-			</text><!--GAP_-10-->
+			</text>
 			<button style="c_negative_btn">
 				<placement x="764" y="%ca_7%"/>
 				<text>{@c_clear=Clear}</text>
@@ -8086,15 +8168,15 @@ rm -r /data/cookies;
 			<text style="c_addon_special">
 				<placement x="%c_hawk_base_column%" y="%ca_8%"/>
 				<text>{@c_fc=Force Encryption}</text>
-			</text><!--GAP_85-->
+			</text>
 			<text style="c_sub">
 				<placement x="%c_hawk_base_column%" y="%ca_9%"/>
 				<text>{@c_rfe=Remove force encryption from your device}</text>
-			</text><!--GAP_90-->
+			</text>
 			<text style="c_sub">
 				<placement x="%c_hawk_base_column%" y="%ca_10%"/>
 				<text>{@c_credit=Credit - }N/A</text>
-			</text><!--GAP_-10-->
+			</text>
 			<button style="c_negative_btn">
 				<placement x="764" y="%ca_11%"/>
 				<text>{@c_disable=Disable}</text>
@@ -8114,15 +8196,15 @@ rm -r /data/cookies;
 			<text style="c_addon_special">
 				<placement x="%c_hawk_base_column%" y="%ca_12%"/>
 				<text>{@c_c2api=Camera 2 Api}</text>
-			</text><!--GAP_85-->
+			</text>
 			<text style="c_sub">
 				<placement x="%c_hawk_base_column%" y="%ca_13%"/>
 				<text>{@c_c2a=Camera 2 Api enabler/disabler}</text>
-			</text><!--GAP_90-->
+			</text>
 			<text style="c_sub">
 				<placement x="%c_hawk_base_column%" y="%t_6th_row%"/>
 				<text>{@c_credit=Credit - }Dev</text>
-			</text><!--GAP_-10-->
+			</text>
 			<button style="c_positive_btn">
 				<placement x="764" y="%ca_14%"/>
 				<text>{@c_enable=Enable}</text>

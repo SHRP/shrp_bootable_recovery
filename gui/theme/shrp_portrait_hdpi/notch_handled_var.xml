@@ -105,24 +105,24 @@
 		<variable name="sub_head2" value="825"/>
 		<variable name="dash_ico_3rd_row" value="940"/>
 		<variable name="dash_txt_3rd_row" value="1085"/>
-		<variable name="dash_ico_4th_row" value="1184"/>
+		<variable name="dash_ico_4th_row" value="1185"/>
 		<variable name="dash_txt_4th_row" value="1329"/>
 		<!--Patt_input_y-->
 		<variable name="row5_y" value="512"/>
 		<!--Pass_input_y-->
-		<!--variable name="pass_input_y" value="250"/-->	
+		<!--variable name="pass_input_y" value="250"/-->
 		<variable name="input_default_y" value="295"/>
 		<variable name="input_file_manager_y" value="330"/>
 		<!--Terminal-->
 		<!--variable name="default_terminal_y" value="300"/-->
 		<variable name="default_terminal_h" value="710"/>
-		<!--variable name="default_terminal_h2" value="1460"/-->	
+		<!--variable name="default_terminal_h2" value="1460"/-->
 		<!--Console-->
 		<variable name="slideout_console_y" value="155"/>
 		<variable name="slideout_console_h" value="1175"/>
 		<!--variable name="default_console_c_y" value="300"/-->
 		<variable name="default_console_c_h" value="1165"/>
-		<variable name="c_console_height" value="1315"/>	
+		<variable name="c_console_height" value="1315"/>
 		<!--variable name="lock_icon_y" value="810"/-->
 		<!--File Manager-->
 		<variable name="file_head" value="20"/>
