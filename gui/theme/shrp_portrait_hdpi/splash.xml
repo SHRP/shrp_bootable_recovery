@@ -9,7 +9,7 @@
 	</details>
 	<resources>
 		<image name="c_logo" filename="c_logo" retainaspect="1"/>
-		<image name="c_splash_bg" filename="c_splash_bg"/>
+		<image name="c_splash_bg" filename="c_splash_bg" retainaspect="0"/>
 	</resources>
 	<pages>
 		<page name="splash">

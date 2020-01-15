@@ -788,7 +788,7 @@ void DataManager::SetDefaultValues()
 	mConst.SetValue("shrp_ver", "2.2");
 	mConst.SetValue("shrp_ver_status", "Beta");
 	mConst.SetValue("c_magisk_path", "/_magisk/");
-	mConst.SetValue("c_magisk_stock_var", "20.0");
+	mConst.SetValue("c_magisk_stock_var", "20.3");
 
 	//SHRP SemiConstant variables
 	mData.SetValue("c_magisk_status", "0");
@@ -817,6 +817,9 @@ void DataManager::SetDefaultValues()
 	mData.SetValue("tw_ls_time", "0");
 	mData.SetValue("shrp_zipName", "");
 	mData.SetValue("shrp_zipFolderName", "");
+	mData.SetValue("shrpUnzipFolder", "");
+	mData.SetValue("canBeUnzip", "0");
+	mData.SetValue("chFolder", "0");
 	//SHRP_PERSISTED_VARS
 	mPersist.SetValue("c_temp2", "pepe");
 	mPersist.SetValue("c_skip_tv", "0");
@@ -890,6 +893,18 @@ void DataManager::SetDefaultValues()
 
 #ifdef SHRP_REC
 	mConst.SetValue("shrp_rec", EXPAND(SHRP_REC));
+#endif
+
+#ifdef SHRP_REC_TYPE
+	mConst.SetValue("shrp_rec_type", EXPAND(SHRP_REC_TYPE));
+#else
+	mConst.SetValue("shrp_rec_type", "N/A");
+#endif
+
+#ifdef SHRP_DEVICE_TYPE
+	mConst.SetValue("shrp_device_type", EXPAND(SHRP_DEVICE_TYPE));
+#else
+	mConst.SetValue("shrp_device_type", "N/A");
 #endif
 
 #ifdef SHRP_AB

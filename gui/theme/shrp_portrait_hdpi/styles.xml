@@ -3,8 +3,8 @@
 	<styles>
 		<style name="input">
 			<background color="%c_white%"/>
-			<cursor color="%c_grey%" hasfocus="1" width="%input_line_width%"/>
-			<font resource="font_m" color="%c_grey%"/>
+			<cursor color="%c_black%" hasfocus="1" width="%input_line_width%"/>
+			<font resource="font_m" color="%c_black%"/>
 		</style>
 		<style name="checkbox">
 			<font resource="c_dashboard_text_sort" color="%c_black%"/>
@@ -39,19 +39,19 @@
 			<font resource="c_header" color="#0083E6"/>
 		</style>
 		<style name="c_sub">
-			<font resource="c_dashboard_text_sort" color="%c_grey%"/>
+			<font resource="c_dashboard_text_sort" color="%c_black%"/>
 		</style>
 		<style name="c_sub_slot">
-			<font resource="c_dashboard_text_sort" color="%c_circle_color_handler%"/>
+			<font resource="c_dashboard_text_sort" color="%c_black%"/>
 		</style>
 		<style name="c_sub_failed">
 			<font resource="c_dashboard_text_sort" color="#FF0000"/>
 		</style>
 		<style name="c_addon_special">
-			<font resource="c_addon_epicx" color="%c_grey%"/>
+			<font resource="c_addon_epicx" color="%c_black%"/>
 		</style>
 		<style name="c_dash_text_grid">
-			<font resource="c_menu" color="%c_grey%"/>
+			<font resource="c_menu" color="%c_black%"/>
 			<image resource="c_dash_text_box"/>
 		</style>
 		<style name="c_positive_btn">
@@ -64,18 +64,13 @@
 			<font resource="c_dashboard_text_sort" color="#ffffff"/>
 			<image resource="c_off_button"/>
 		</style>
-		<style name="c_circle3">
-			<highlight color="%highlight_color%"/>
-			<font resource="c_menu" color="%c_circle_color_handler%"/>
-			<image resource="c_circle3"/>
-		</style>
 		<style name="c_circle4">
 			<highlight color="%highlight_color%"/>
-			<font resource="c_menu" color="%c_circle_color_handler%"/>
+			<font resource="c_menu" color="%c_black%"/>
 			<image resource="c_circle4"/>
 		</style>
 		<style name="Goon">
-			<font resource="c_menu" color="%c_circle_color_handler%"/>
+			<font resource="c_menu" color="%c_black%"/>
 		</style>
 		<style name="c_file_trans_bg_style">
 			<highlight color="%highlight_color%"/>
@@ -88,7 +83,7 @@
 		</style>
 		<style name="c_tab">
 			<highlight color="%highlight_color%"/>
-			<font resource="c_dashboard_header" color="%c_grey%"/>
+			<font resource="c_dashboard_header" color="%c_black%"/>
 			<image resource="c_tab_backup_bg"/>
 		</style>
 		<style name="c_tab_set">
@@ -109,33 +104,33 @@
 
 		<style name="terminal">
 			<background color="%c_white%"/>
-			<fastscroll rectcolor="%c_black%" w="%fastscroll_w%" rectw="%fastscroll_rectw%" recth="%fastscroll_recth%"/>
-			<font resource="c_console_font" spacing="3" color="%c_grey%"/>
+			<fastscroll rectcolor="%c_acc_color_val%" w="%fastscroll_w%" rectw="%fastscroll_rectw%" recth="%fastscroll_recth%"/>
+			<font resource="c_console_font" spacing="3" color="%c_black%"/>
 		</style>
 		<style name="fileselector">
 			<background color="%c_white%"/>
-			<fastscroll rectcolor="%c_black%" w="%fastscroll_w%" rectw="%fastscroll_rectw%" recth="%fastscroll_recth%" />
+			<fastscroll rectcolor="%c_acc_color_val%" w="%fastscroll_w%" rectw="%fastscroll_rectw%" recth="%fastscroll_recth%" />
 			<icon folder="folder" file="file" />
 			<font resource="font_s" color="%c_black%" />
 		</style>
 		<style name="c_file_for_magisk">
 			<background color="%c_white%"/>
-			<fastscroll rectcolor="%c_black%" w="%fastscroll_w%" rectw="%fastscroll_rectw%" recth="%fastscroll_recth%" />
+			<fastscroll rectcolor="%c_acc_color_val%" w="%fastscroll_w%" rectw="%fastscroll_rectw%" recth="%fastscroll_recth%" />
 			<icon folder="c_modules" file="file" />
 			<font resource="font_s" color="%c_black%" />
 		</style>
-        <style name="c_restore">
+    <style name="c_restore">
 			<background color="%c_white%"/>
-			<fastscroll rectcolor="%c_black%" w="%fastscroll_w%" rectw="%fastscroll_rectw%" recth="%fastscroll_recth%" />
+			<fastscroll rectcolor="%c_acc_color_val%" w="%fastscroll_w%" rectw="%fastscroll_rectw%" recth="%fastscroll_recth%" />
 			<icon folder="backup" file="backup" />
 			<font resource="font_s" color="%c_black%" />
 		</style>
 
 		<style name="listbox">
 			<background color="%c_white%"/>
-			<fastscroll rectcolor="%c_black%" w="%fastscroll_w%" rectw="%fastscroll_rectw%" recth="%fastscroll_recth%" />
+			<fastscroll rectcolor="%c_acc_color_val%" w="%fastscroll_w%" rectw="%fastscroll_rectw%" recth="%fastscroll_recth%" />
 			<icon selected="radio_true" unselected="radio_false" />
-			<font resource="font_s" color="%c_grey%"/>
+			<font resource="font_s" color="%c_black%"/>
 		</style>
 		<style name="console">
 			<background color="%c_white%"/>
@@ -145,28 +140,28 @@
 		<style name="scrolllist">
 			<background color="%c_white%"/>
 			<font resource="font_s" color="%c_black%"/>
-			<fastscroll rectcolor="%c_black%" w="%fastscroll_w%" linew="%fastscroll_linew%" rectw="%fastscroll_rectw%" recth="%fastscroll_recth%"/>
+			<fastscroll rectcolor="%c_acc_color_val%" w="%fastscroll_w%" linew="%fastscroll_linew%" rectw="%fastscroll_rectw%" recth="%fastscroll_recth%"/>
 		</style>
 
 		<style name="partitionlist">
 			<background color="%c_white%"/>
-			<fastscroll rectcolor="%c_black%" w="%fastscroll_w%" linew="%fastscroll_linew%" rectw="%fastscroll_rectw%" recth="%fastscroll_recth%"/>
+			<fastscroll rectcolor="%c_acc_color_val%" w="%fastscroll_w%" linew="%fastscroll_linew%" rectw="%fastscroll_rectw%" recth="%fastscroll_recth%"/>
 			<icon selected="checkbox_true" unselected="checkbox_false"/>
-			<font resource="font_s" color="%c_grey%"/>
+			<font resource="font_s" color="%c_black%"/>
 		</style>
 
 		<style name="partitionlist_storage">
 			<background color="%c_white%"/>
 			<placement x="50" y="%c_hawk_base_second_header%" w="970" h="1500"/>
-			<fastscroll rectcolor="%c_black%" w="%fastscroll_w%" linew="%fastscroll_linew%" rectw="%fastscroll_rectw%" recth="%fastscroll_recth%"/>
+			<fastscroll rectcolor="%c_acc_color_val%" w="%fastscroll_w%" linew="%fastscroll_linew%" rectw="%fastscroll_rectw%" recth="%fastscroll_recth%"/>
 			<icon selected="radio_true" unselected="radio_false"/>
-			<font resource="font_s" color="%c_grey%"/>
+			<font resource="font_s" color="%c_black%"/>
 		</style>
 
 		<style name="slidervalue">
 			<resource handle="handle"/>
 			<font resource="c_hider" color="%c_white%"/>
-			<colors line="%c_black%"/>
+			<colors line="%c_acc_color_val%"/>
 			<dimensions lineh="%slidervalue_lineh%" linepadding="%slidervalue_padding%" sliderw="%slidervalue_sliderw%" sliderh="%slidervalue_sliderh%"/>
 		</style>
 

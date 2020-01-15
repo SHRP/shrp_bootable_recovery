@@ -264,6 +264,7 @@ GUIAction::GUIAction(xml_node<>* node)
 		ADD_ACTION(flashOP);
 		ADD_ACTION(clearInput);
 		ADD_ACTION(navHandler);
+		ADD_ACTION(unZipSelector);
 	}
 
 	// First, get the action
@@ -1104,8 +1105,8 @@ int GUIAction::reinject_after_flash()
     return 0;
 }
 
-int GUIAction::flash(std::string arg)
-{
+int GUIAction::flash(std::string arg){
+	TWPartition* Part;
 	int active_slot = 0;
 	int inject_shrp = 0;
 	int mkinject_zip = 0;
@@ -1115,18 +1116,15 @@ int GUIAction::flash(std::string arg)
 	string cmdsystwo = "mount -w /system";
     backup_before_flash();
     if (DataManager::GetIntValue(TW_HAS_DEVICEAB) == 1 && DataManager::GetIntValue(TW_ACTIVE_SLOT_INSTALL) == 1) {
-    	string cmd = "setprop tw_active_slot_install 1";
-		TWFunc::Exec_Cmd(cmd);
-		active_slot = 1;
+			TWFunc::Exec_Cmd("setprop tw_active_slot_install 1");
+			active_slot = 1;
     }
     if (DataManager::GetIntValue(TW_HAS_DEVICEAB) == 1 && DataManager::GetIntValue(TW_INJECT_AFTER_ZIP) == 1) {
-    	string cmd = "setprop tw_inject_after_zip 1";
-    	TWFunc::Exec_Cmd(cmd);
+    	TWFunc::Exec_Cmd("setprop tw_inject_after_zip 1");
     	inject_shrp = 1;
     }
     if (DataManager::GetIntValue(TW_HAS_DEVICEAB) == 1 && DataManager::GetIntValue(TW_MKINJECT_AFTER_ZIP) == 1) {
-    	string cmd = "setprop tw_mkinject_after_zip 1";
-    	TWFunc::Exec_Cmd(cmd);
+    	TWFunc::Exec_Cmd("setprop tw_mkinject_after_zip 1");
     	mkinject_zip = 1;
     }
 	int i, ret_val = 0, wipe_cache = 0;
@@ -1162,54 +1160,62 @@ int GUIAction::flash(std::string arg)
 	// Reset active slot counter to 0
 	if (active_slot == 1) {
 		active_slot = 0;
-    	string cmd = "setprop tw_active_slot_install 0";
-		TWFunc::Exec_Cmd(cmd);
-    }
-    if (inject_shrp == 1) {
+		TWFunc::Exec_Cmd("setprop tw_active_slot_install 0");
+  }
+  if (inject_shrp == 1) {
 		inject_shrp = 0;
-    	string cmd = "setprop tw_inject_after_zip 0";
-		TWFunc::Exec_Cmd(cmd);
-    }
-    // Remount system as R/W, just in case
-    if (TWFunc::Path_Exists("/system/system"))
-    {
-    	TWFunc::Exec_Cmd(cmdsysonesar);
-    	TWFunc::Exec_Cmd(cmdsystwosar);
-    	gui_msg("remount_system_rw=[i] Remounted system_root as R/W!");
-    }
-    else
-    {
-   		TWFunc::Exec_Cmd(cmdsysone);
-    	TWFunc::Exec_Cmd(cmdsystwo);
-    	gui_msg("remount_system_rw=[i] Remounted system as R/W!");
-    }
-    // Inject Magisk
-    if (mkinject_zip == 1) {
+		TWFunc::Exec_Cmd("setprop tw_inject_after_zip 0");
+  }
+  // Remount system as R/W, just in case
+	if(TWFunc::Path_Exists("/system_root")){
+		Part = PartitionManager.Find_Partition_By_Path("/system_root");
+		if(Part!=NULL){
+			if(Part->Is_Mounted()){
+				TWFunc::Exec_Cmd(cmdsysonesar);
+			}
+			TWFunc::Exec_Cmd(cmdsystwosar);
+		}
+	}else{
+		Part = PartitionManager.Find_Partition_By_Path("/system");
+		if(Part!=NULL){
+			if(Part->Is_Mounted()){
+				TWFunc::Exec_Cmd(cmdsysone);
+			}
+			TWFunc::Exec_Cmd(cmdsystwo);
+		}
+	}
+	gui_msg("remount_system_rw=[i] Remounted system as R/W!");
+  // Inject Magisk
+  if (mkinject_zip == 1) {
 		mkinject_zip = 0;
-    	string cmdmk = "setprop tw_mkinject_after_zip 0";
+    string cmdmk = "setprop tw_mkinject_after_zip 0";
 		TWFunc::Exec_Cmd(cmdmk);
 		TWFunc::SetPerformanceMode(true);
 		ret_val = flash_zip("/sdcard/SHRP/addons/c_magisk.zip", &wipe_cache);
 		TWFunc::SetPerformanceMode(false);
 		//Re-inject system again, just in case
-    	if (TWFunc::Path_Exists("/system/system"))
-   		{
-    		TWFunc::Exec_Cmd(cmdsysonesar);
-    		TWFunc::Exec_Cmd(cmdsystwosar);
-    		gui_msg("remount_system_rw=[i] Remounted system_root as R/W!");
-    	}
-    	else
-    	{
-   			TWFunc::Exec_Cmd(cmdsysone);
+		if(TWFunc::Path_Exists("/system_root")){
+			Part = PartitionManager.Find_Partition_By_Path("/system_root");
+			if(Part!=NULL){
+				if(Part->Is_Mounted()){
+					TWFunc::Exec_Cmd(cmdsysonesar);
+				}
+				TWFunc::Exec_Cmd(cmdsystwosar);
+			}
+		}else{
+			Part = PartitionManager.Find_Partition_By_Path("/system");
+			if(Part!=NULL){
+				if(Part->Is_Mounted()){
+					TWFunc::Exec_Cmd(cmdsysone);
+				}
     		TWFunc::Exec_Cmd(cmdsystwo);
-    		gui_msg("remount_system_rw=[i] Remounted system as R/W!");
-    	}
-    }
-
-    if (reinject_after_flash() == 0) {
-	    PartitionManager.Update_System_Details();
-    }
-
+			}
+		}
+		gui_msg("remount_system_rw=[i] Remounted system as R/W!");
+  }
+	if (reinject_after_flash() == 0) {
+	   PartitionManager.Update_System_Details();
+  }
 	operation_end(ret_val);
 	return 0;
 }
@@ -2566,12 +2572,12 @@ int GUIAction::sig(std::string arg __unused){
 	DataManager::GetValue("internal_storage_location", partition);
 	if(partition==""||partition==" "){
 		DataManager::SetValue("c_i_p","0");
-		DataManager::SetValue("c_i_status","Not Available");
+		DataManager::SetValue("c_i_status","Unavailable");
 	}else{
 		ptr=PartitionManager.Find_Partition_By_Path(partition);
 		if(ptr==NULL){
 			DataManager::SetValue("c_i_p","0");
-			DataManager::SetValue("c_i_status","Not Available");
+			DataManager::SetValue("c_i_status","Unavailable");
 		}else{
 			size=ptr->Size / mb;
 			used=ptr->Used / mb;
@@ -2583,12 +2589,12 @@ int GUIAction::sig(std::string arg __unused){
 	DataManager::GetValue("external_storage_location", partition);
 	if(partition==""||partition==" "){
 		DataManager::SetValue("c_e_p","0");
-		DataManager::SetValue("c_e_status","Not Available");
+		DataManager::SetValue("c_e_status","Unavailable");
 	}else{
 		ptr=PartitionManager.Find_Partition_By_Path(partition);
 		if(ptr==NULL){
 			DataManager::SetValue("c_e_p","0");
-			DataManager::SetValue("c_e_status","Not Available");
+			DataManager::SetValue("c_e_status","Unavailable");
 		}else{
 			size=ptr->Size / mb;
 			used=ptr->Used / mb;
@@ -2600,12 +2606,12 @@ int GUIAction::sig(std::string arg __unused){
 	DataManager::GetValue("usb_otg_location", partition);
 	if(partition==""||partition==" "){
 		DataManager::SetValue("c_o_p","0");
-		DataManager::SetValue("c_o_status","Not Available");
+		DataManager::SetValue("c_o_status","Unavailable");
 	}else{
 		ptr=PartitionManager.Find_Partition_By_Path(partition);
 		if(ptr==NULL){
 			DataManager::SetValue("c_o_p","0");
-			DataManager::SetValue("c_o_status","Not Available");
+			DataManager::SetValue("c_o_status","Unavailable");
 		}else{
 			size=ptr->Size / mb;
 			used=ptr->Used / mb;
@@ -2634,15 +2640,19 @@ int GUIAction::unlock(std::string arg){
 		stringstream f1;
 		f1<<pull;
 		f1>>lock_pass;
-		arg=lock_pass[0]+arg;
-		if(lock_pass==arg){
-			PartitionManager.Enable_MTP();
-			DataManager::SetValue("main_pass",b_arg.c_str());
+		if(lock_pass[0]!='1'&&lock_pass[0]!='2'){
 			PageManager::ChangePage("main2");
-			//PageManager Will Change The Page
 		}else{
-			//PageManager Will Loop The Page
-			PageManager::ChangePage("pass_failed");
+			arg=lock_pass[0]+arg;
+			if(lock_pass==arg){
+				PartitionManager.Enable_MTP();
+				DataManager::SetValue("main_pass",b_arg.c_str());
+				PageManager::ChangePage("main2");
+				//PageManager Will Change The Page
+			}else{
+				//PageManager Will Loop The Page
+				PageManager::ChangePage("pass_failed");
+			}
 		}
 	}
 	return 0;
@@ -2798,5 +2808,39 @@ int GUIAction::navHandler(std::string arg){
 	}
 	cmd=a+b+c;
 	TWFunc::Exec_Cmd(cmd);
+	return 0;
+}
+int GUIAction::unZipSelector(std::string arg){
+	int p,s=0;
+	char tmp[10];
+	string pele=arg;
+	p=arg.find_last_of(".");
+	if(p!=-1){
+		p++;
+		while(arg[p]!=0){
+			tmp[s++]=arg[p++];
+		}
+		tmp[s]=0;
+		arg=tmp;
+	}
+	if(arg=="zip"){
+		{
+			s=0;
+			char folderName[50];
+			int st;
+			st=pele.find_last_of("/");
+			p=pele.find_last_of(".");
+			st++;
+			while(st!=p){
+				folderName[s++]=pele[st++];
+			}
+			folderName[s]=0;
+			pele=folderName;
+			DataManager::SetValue("shrpUnzipFolder",pele.c_str());
+		}
+		DataManager::SetValue("canBeUnzip","1");
+	}else{
+		DataManager::SetValue("canBeUnzip","0");
+	}
 	return 0;
 }
