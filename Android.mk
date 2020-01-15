@@ -452,6 +452,12 @@ endif
 ifneq ($(SHRP_REC),)
 	LOCAL_CFLAGS += -DSHRP_REC=$(SHRP_REC)
 endif
+ifneq ($(SHRP_REC_TYPE),)
+	LOCAL_CFLAGS += -DSHRP_REC_TYPE=$(SHRP_REC_TYPE)
+endif
+ifneq ($(SHRP_DEVICE_TYPE),)
+	LOCAL_CFLAGS += -DSHRP_DEVICE_TYPE=$(SHRP_DEVICE_TYPE)
+endif
 
 TWRP_REQUIRED_MODULES += \
     dump_image \

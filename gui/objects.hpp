@@ -385,6 +385,7 @@ protected:
 	int clearInput(std::string arg);
 	int shrp_zip_init(std::string arg);
 	int navHandler(std::string arg);
+	int unZipSelector(std::string arg);
 
 	int simulate;
 };

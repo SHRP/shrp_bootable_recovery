@@ -194,7 +194,47 @@
 				<fill color="%transparent%"/>
 				<text>{@c_device=Device}</text>
 			</button>
+
+
 			<button>
+				<placement x="0" y="1328" w="1080" h="148"/>
+				<font resource="c_dashboard_header" color="%c_black%"/>
+				<fill color="%transparent%"/>
+				<text>More Info</text>
+			</button>
+			<button style="c_text_dashboard">
+				<placement x="105" y="1440" w="221" h="170"/>
+				<fill color="%transparent%"/>
+				<text>%shrp_rec_type%</text>
+			</button>
+			<button style="c_reboot_text">
+				<placement x="105" y="1570" w="221" h="50"/>
+				<fill color="%transparent%"/>
+				<text>Rec Type</text>
+			</button>
+			<button style="c_text_dashboard">
+				<placement x="430" y="1440" w="221" h="170"/>
+				<fill color="%transparent%"/>
+				<text>%shrp_device_type%</text>
+			</button>
+			<button style="c_reboot_text">
+				<placement x="430" y="1570" w="221" h="50"/>
+				<fill color="%transparent%"/>
+				<text>Device Type</text>
+			</button>
+			<button style="c_text_dashboard">
+				<placement x="755" y="1440" w="221" h="170"/>
+				<fill color="%transparent%"/>
+				<text>{@c_credits=Credits}</text>
+				<action function="page">c_credit</action>
+			</button>
+			<button style="c_reboot_text">
+				<placement x="755" y="1570" w="221" h="50"/>
+				<fill color="%transparent%"/>
+				<text>Credits Section</text>
+				<action function="page">c_credit</action>
+			</button>
+			<!--button>
 				<placement x="0" y="1310" w="1080" h="148"/>
 				<font resource="c_addon_epicx" color="%c_black%"/>
 				<fill color="%transparent%"/>
@@ -223,7 +263,7 @@
 				<font resource="c_dashboard_text_sort" color="%c_black%"/>
 				<fill color="%transparent%"/>
 				<text>VR25  Pritish  Kirill  Burak D.  ZJRDroid  LayeardDevMod</text>
-			</button>
+			</button-->
 
 			<action>
 				<touch key="back"/>
@@ -233,6 +273,159 @@
 			<action>
 				<touch key="home"/>
 				<action function="page">c_refresh</action>
+			</action>
+		</page>
+		<page name="c_credit">
+			<template name="c_page"/>
+			<template name="c_status_bar"/>
+			<text style="c_main_text_header">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
+				<text>{@c_credits=Credits}</text>
+			</text>
+			<text style="c_text_dashboard">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
+				<text>Credits Section</text>
+			</text>
+			<image>
+				<placement x="135" y="75"/>
+				<image resource="c_logo"/>
+			</image>
+
+			<button style="c_text_dashboard">
+				<placement x="105" y="785" w="221" h="170"/>
+				<fill color="%transparent%"/>
+				<text>epicX</text>
+			</button>
+			<button style="c_reboot_text">
+				<placement x="105" y="915" w="221" h="50"/>
+				<fill color="%transparent%"/>
+				<text>Team SHRP</text>
+			</button>
+			<button style="c_text_dashboard">
+				<placement x="430" y="785" w="221" h="170"/>
+				<fill color="%transparent%"/>
+				<text>DNI9</text>
+			</button>
+			<button style="c_reboot_text">
+				<placement x="430" y="915" w="221" h="50"/>
+				<fill color="%transparent%"/>
+				<text>Team SHRP</text>
+			</button>
+			<button style="c_text_dashboard">
+				<placement x="755" y="785" w="221" h="170"/>
+				<fill color="%transparent%"/>
+				<text>Giovix92</text>
+			</button>
+			<button style="c_reboot_text">
+				<placement x="755" y="915" w="221" h="50"/>
+				<fill color="%transparent%"/>
+				<text>Team SHRP</text>
+			</button>
+
+			<button style="c_text_dashboard">
+				<placement x="105" y="1005" w="221" h="170"/>
+				<fill color="%transparent%"/>
+				<text>Teamwin</text>
+			</button>
+			<button style="c_reboot_text">
+				<placement x="105" y="1135" w="221" h="50"/>
+				<fill color="%transparent%"/>
+				<text>Base</text>
+			</button>
+			<button style="c_text_dashboard">
+				<placement x="430" y="1005" w="221" h="170"/>
+				<fill color="%transparent%"/>
+				<text>osmOsis</text>
+			</button>
+			<button style="c_reboot_text">
+				<placement x="430" y="1135" w="221" h="50"/>
+				<fill color="%transparent%"/>
+				<text>Scripts</text>
+			</button>
+			<button style="c_text_dashboard">
+				<placement x="755" y="1005" w="221" h="170"/>
+				<fill color="%transparent%"/>
+				<text>Topjohnwu</text>
+			</button>
+			<button style="c_reboot_text">
+				<placement x="755" y="1135" w="221" h="50"/>
+				<fill color="%transparent%"/>
+				<text>Magisk</text>
+			</button>
+
+			<button style="c_text_dashboard">
+				<placement x="105" y="1225" w="221" h="170"/>
+				<fill color="%transparent%"/>
+				<text>VR25</text>
+			</button>
+			<button style="c_reboot_text">
+				<placement x="85" y="1335" w="261" h="50"/>
+				<fill color="%transparent%"/>
+				<text>Magisk Manager</text>
+			</button>
+			<button style="c_text_dashboard">
+				<placement x="430" y="1225" w="221" h="170"/>
+				<fill color="%transparent%"/>
+				<text>Pritish</text>
+			</button>
+			<button style="c_reboot_text">
+				<placement x="430" y="1335" w="221" h="50"/>
+				<fill color="%transparent%"/>
+				<text>Translation</text>
+			</button>
+			<button style="c_text_dashboard">
+				<placement x="755" y="1225" w="221" h="170"/>
+				<fill color="%transparent%"/>
+				<text>Kirill</text>
+			</button>
+			<button style="c_reboot_text">
+				<placement x="755" y="1335" w="221" h="50"/>
+				<fill color="%transparent%"/>
+				<text>Translation</text>
+			</button>
+
+			<button style="c_text_dashboard">
+				<placement x="105" y="1445" w="221" h="170"/>
+				<fill color="%transparent%"/>
+				<text>Burak D.</text>
+			</button>
+			<button style="c_reboot_text">
+				<placement x="105" y="1575" w="221" h="50"/>
+				<fill color="%transparent%"/>
+				<text>Translation</text>
+			</button>
+			<button style="c_text_dashboard">
+				<placement x="430" y="1445" w="221" h="170"/>
+				<fill color="%transparent%"/>
+				<text>ZJRDroid</text>
+			</button>
+			<button style="c_reboot_text">
+				<placement x="430" y="1575" w="221" h="50"/>
+				<fill color="%transparent%"/>
+				<text>Translation</text>
+			</button>
+			<button style="c_text_dashboard">
+				<placement x="735" y="1445" w="261" h="170"/>
+				<fill color="%transparent%"/>
+				<text>LayeardDevMod</text>
+			</button>
+			<button style="c_reboot_text">
+				<placement x="755" y="1575" w="221" h="50"/>
+				<fill color="%transparent%"/>
+				<text>Translation</text>
+			</button>
+
+			<action>
+				<touch key="back"/>
+				<actions>
+					<action function="page">my_info</action>
+				</actions>
+			</action>
+			<action>
+				<touch key="home"/>
+				<actions>
+					<action function="page">c_refresh</action>
+				</actions>
 			</action>
 		</page>
 
@@ -415,15 +608,8 @@
 			<template name="c_simple_sort"/>
 
 			<text style="c_main_text_header">
-				<condition var1="tw_selectimage" var2="0"/>
 				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
-				<text>{@c_flash_zip=Flash Zip}</text>
-			</text>
-
-			<text style="c_main_text_header">
-				<condition var1="tw_selectimage" var2="1"/>
-				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
-				<text>{@c_flash_image=Flash Image}</text>
+				<text>{@c_flash=Flash}</text>
 			</text>
 
 			<text style="c_text_dashboard">
@@ -458,35 +644,13 @@
 				</actions>
 			</action>
 
-
-			<!--action>
-				<conditions>
-					<condition var1="tw_selectimage" var2="0"/>
-					<condition var1="tw_filename" op="modified"/>
-				</conditions>
-				<actions>
-					<action function="queuezip"/>
-					<action function="page">flash_confirm</action>
-				</actions>
-			</action>
-
-			<action>
-				<conditions>
-					<condition var1="tw_selectimage" var2="1"/>
-					<condition var1="tw_filename" op="modified"/>
-				</conditions>
-				<action function="page">flashimage_confirm</action>
-			</action-->
-
 			<action>
 				<touch key="back"/>
-				<!--action function="set">c_queue_enabled=0</action-->
 				<action function="page">c_refresh</action>
 			</action>
 
 			<action>
 				<touch key="home"/>
-				<!--action function="set">c_queue_enabled=0</action-->
 				<action function="page">c_refresh</action>
 			</action>
 		</page>
@@ -3305,6 +3469,7 @@
 				<data name="tw_filemanager_rename"/>
 				<restrict minlen="1" maxlen="128"/>
 				<actions>
+					<action function="set">tw_filename1=tw_file_location1</action>
 					<action function="set">tw_fm_text2=to</action>
 					<action function="set">tw_fm_text3=%tw_filemanager_rename%</action>
 					<action function="set">tw_include_text3=1</action>
@@ -3365,15 +3530,12 @@
 					<action function="page">c_file_epicx_action</action>
 				</actions>
 			</input>
-			<button>
-				<placement x="860" y="915"/>
-				<image resource="c_cancel"/>
-				<action function="set">c_file=0</action>
-				<action function="page">c_file_epicx</action>
-			</button>
 
 			<template name="keyboardtemplate"/>
-
+			<action>
+				<condition var1="chFolder" op="=" var2="1"/>
+				<action function="set">tw_filename1=tw_file_location1</action>
+			</action>
 
 			<action>
 				<touch key="home"/>
@@ -4199,7 +4361,7 @@
 				<placement x="860" y="1628"/>
 				<image resource="c_ok"/>
 				<actions>
-					<action function="set">c_new_theme_busy=1</action>
+					<action function="set">c_busy=1</action>
 					<action function="set">main_pass=%password_before_2%</action>
 					<action function="set">lock_enabled=1</action>
 					<action function="set">patt_lock_enabled=1</action>
@@ -4216,7 +4378,7 @@ sh /twres/scripts/create_env.sh;
 					<action function="set">c_status={@c_flashing=Flashing} {@recovery=Recovery}</action>
 					<action function="c_repack"/>
 					<action function="set">c_status={@done=Done}</action>
-					<action function="set">c_new_theme_busy=0</action>
+					<action function="set">c_busy=0</action>
 					<action function="page">set_pass_successful</action>
 				</actions>
 			</button>
@@ -4228,7 +4390,7 @@ sh /twres/scripts/create_env.sh;
 				<placement x="860" y="1628"/>
 				<image resource="c_ok"/>
 				<actions>
-					<action function="set">c_new_theme_busy=1</action>
+					<action function="set">c_busy=1</action>
 					<action function="set">main_pass=%password_before_2%</action>
 					<action function="set">lock_enabled=1</action>
 					<action function="set">patt_lock_enabled=1</action>
@@ -4244,7 +4406,7 @@ sh /twres/scripts/create_envAB.sh;
 					<action function="set">c_status={@c_flashing=Flashing} {@recovery=Recovery}</action>
 					<action function="c_repack"/>
 					<action function="set">c_status={@done=Done}</action>
-					<action function="set">c_new_theme_busy=0</action>
+					<action function="set">c_busy=0</action>
 					<action function="page">set_pass_successful</action>
 				</actions>
 			</button>
@@ -4259,7 +4421,7 @@ sh /twres/scripts/create_envAB.sh;
 					<action function="page">set_pass_failed</action>
 				</actions>
 			</button>
-			<template name="c_theme_status"/>
+			<template name="c_busy_status"/>
 		</page>
 		<page name="set_pass_check">
 			<template name="c_page"/>
@@ -4280,7 +4442,7 @@ sh /twres/scripts/create_envAB.sh;
 				<placement x="860" y="1628"/>
 				<image resource="c_ok"/>
 				<actions>
-					<action function="set">c_new_theme_busy=1</action>
+					<action function="set">c_busy=1</action>
 					<action function="set">main_pass=%password_before_2%</action>
 					<action function="set">lock_enabled=1</action>
 					<action function="set">patt_lock_enabled=0</action>
@@ -4297,7 +4459,7 @@ sh /twres/scripts/create_env.sh;
 					<action function="set">c_status={@c_flashing=Flashing} {@recovery=Recovery}</action>
 					<action function="c_repack"/>
 					<action function="set">c_status={@done=Done}</action>
-					<action function="set">c_new_theme_busy=0</action>
+					<action function="set">c_busy=0</action>
 					<action function="page">set_pass_successful</action>
 				</actions>
 			</button>
@@ -4309,7 +4471,7 @@ sh /twres/scripts/create_env.sh;
 				<placement x="860" y="1628"/>
 				<image resource="c_ok"/>
 				<actions>
-					<action function="set">c_new_theme_busy=1</action>
+					<action function="set">c_busy=1</action>
 					<action function="set">main_pass=%password_before_2%</action>
 					<action function="set">lock_enabled=1</action>
 					<action function="set">patt_lock_enabled=0</action>
@@ -4325,7 +4487,7 @@ sh /twres/scripts/create_envAB.sh;
 					<action function="set">c_status={@c_flashing=Flashing} {@recovery=Recovery}</action>
 					<action function="c_repack"/>
 					<action function="set">c_status={@done=Done}</action>
-					<action function="set">c_new_theme_busy=0</action>
+					<action function="set">c_busy=0</action>
 					<action function="page">set_pass_successful</action>
 				</actions>
 			</button>
@@ -4340,7 +4502,7 @@ sh /twres/scripts/create_envAB.sh;
 					<action function="page">set_pass_failed</action>
 				</actions>
 			</button>
-			<template name="c_theme_status"/>
+			<template name="c_busy_status"/>
 		</page>
 		<page name="set_pass_successful">
 			<template name="c_page"/>
@@ -4461,7 +4623,7 @@ sh /twres/scripts/create_envAB.sh;
 				<placement x="860" y="1628"/>
 				<image resource="c_ok"/>
 				<actions>
-					<action function="set">c_new_theme_busy=1</action>
+					<action function="set">c_busy=1</action>
 					<action function="set">main_pass=</action>
 					<action function="set">password_old=</action>
 					<action function="set">c_new=1</action>
@@ -4478,7 +4640,7 @@ sh /twres/scripts/create_env.sh;
 					<action function="c_repack"/>
 					<action function="set">c_temp=120</action>
 					<action function="set">c_status={@done=Done}</action>
-					<action function="set">c_new_theme_busy=0</action>
+					<action function="set">c_busy=0</action>
 					<action function="page">c_reset_successful</action>
 				</actions>
 			</button>
@@ -4490,7 +4652,7 @@ sh /twres/scripts/create_env.sh;
 				<placement x="860" y="1628"/>
 				<image resource="c_ok"/>
 				<actions>
-					<action function="set">c_new_theme_busy=1</action>
+					<action function="set">c_busy=1</action>
 					<action function="set">main_pass=</action>
 					<action function="set">password_old=</action>
 					<action function="set">c_new=1</action>
@@ -4506,7 +4668,7 @@ sh /twres/scripts/create_envAB.sh;
 					<action function="c_repack"/>
 					<action function="set">c_temp=120</action>
 					<action function="set">c_status={@done=Done}</action>
-					<action function="set">c_new_theme_busy=0</action>
+					<action function="set">c_busy=0</action>
 					<action function="page">c_reset_successful</action>
 				</actions>
 			</button>
@@ -4520,7 +4682,7 @@ sh /twres/scripts/create_envAB.sh;
 					<action function="page">c_reset_incorrect</action>
 				</actions>
 			</button>
-			<template name="c_theme_status"/>
+			<template name="c_busy_status"/>
 		</page>
 		<!--For pass Change-->
 		<!--Removed in ver 2.0 -->
@@ -4575,7 +4737,7 @@ sh /twres/scripts/create_envAB.sh;
 				<placement x="860" y="1628"/>
 				<image resource="c_ok"/>
 				<actions>
-					<action function="set">c_new_theme_busy=1</action>
+					<action function="set">c_busy=1</action>
 					<action function="set">main_pass=</action>
 					<action function="set">password_old=</action>
 					<action function="set">c_new=1</action>
@@ -4591,7 +4753,7 @@ sh /twres/scripts/create_env.sh;
 					<action function="set">c_status={@c_flashing=Flashing} {@recovery=Recovery}</action>
 					<action function="c_repack"/>
 					<action function="set">c_status={@done=Done}</action>
-					<action function="set">c_new_theme_busy=0</action>
+					<action function="set">c_busy=0</action>
 					<action function="page">c_reset_successful</action>
 				</actions>
 			</button>
@@ -4603,7 +4765,7 @@ sh /twres/scripts/create_env.sh;
 				<placement x="860" y="1628"/>
 				<image resource="c_ok"/>
 				<actions>
-					<action function="set">c_new_theme_busy=1</action>
+					<action function="set">c_busy=1</action>
 					<action function="set">main_pass=</action>
 					<action function="set">password_old=</action>
 					<action function="set">c_new=1</action>
@@ -4618,7 +4780,7 @@ sh /twres/scripts/create_envAB.sh;
 					<action function="set">c_status={@c_flashing=Flashing} {@recovery=Recovery}</action>
 					<action function="c_repack"/>
 					<action function="set">c_status={@done=Done}</action>
-					<action function="set">c_new_theme_busy=0</action>
+					<action function="set">c_busy=0</action>
 					<action function="page">c_reset_successful</action>
 				</actions>
 			</button>
@@ -4632,7 +4794,7 @@ sh /twres/scripts/create_envAB.sh;
 					<action function="page">c_reset_incorrect</action>
 				</actions>
 			</button>
-			<template name="c_theme_status"/>
+			<template name="c_busy_status"/>
 		</page>
 		<page name="c_reset_incorrect">
 			<template name="c_page"/>
@@ -5452,37 +5614,6 @@ sh /twres/scripts/create_envAB.sh;
 				<action function="overlay"/>
 			</button>
 
-			<text style="c_text_dashboard">
-				<condition var1="tw_file_location1" op="!=" var2="/"/>
-			  <placement x="50" y="1030"/>
-			  <text>Other Operations</text>
-			</text>
-			<image>
-				<condition var1="tw_file_location1" op="!=" var2="/"/>
-			  <placement x="50" y="1150"/>
-			  <image resource="c_archive"/>
-			</image>
-			<text style="c_file_menu">
-				<condition var1="tw_file_location1" op="!=" var2="/"/>
-			  <placement x="170" y="1150"/>
-			  <text>Compress</text>
-			</text>
-			<text style="c_reboot_text">
-				<condition var1="tw_file_location1" op="!=" var2="/"/>
-			  <placement x="170" y="1200"/>
-			  <text>Archive Your Folder</text>
-			</text>
-			<button>
-				<condition var1="tw_file_location1" op="!=" var2="/"/>
-			  <placement x="36" y="1130" w="612" h="138"/>
-			  <fill color="%transparent%"/>
-				<actions>
-					<action function="shrp_zip_init">%tw_file_location1%</action>
-					<action function="set">c_menu=0</action>
-					<action function="overlay"/>
-					<action function="page">zipName</action>
-				</actions>
-			</button>
 			<button>
 				<condition var1="c_menu" op="=" var2="1"/>
 				<placement x="860" y="1450"/>
@@ -5521,11 +5652,14 @@ sh /twres/scripts/create_envAB.sh;
 				<data name="shrp_zipName"/>
 				<restrict minlen="1" maxlen="64" allow=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-_.{}[]"/>
 				<actions>
+					<action function="set">c_busy=1</action>
+					<action function="set">c_status=Zipping</action>
 					<action function="cmd">
 cd %tw_file_location1%
 cd ..
 zip -r %shrp_zipName%.zip %shrp_zipFolderName%
 					</action>
+					<action function="set">c_busy=0</action>
 					<action function="page">c_file_epicx</action>
 				</actions>
 			</input>
@@ -5538,6 +5672,7 @@ zip -r %shrp_zipName%.zip %shrp_zipFolderName%
 				<touch key="power+voldown"/>
 				<action function="screenshot"/>
 			</action>
+			<template name="c_busy_status"/>
 		</page>
 		<page name="c_createFolder">
 			<template name="c_page"/>
@@ -5614,7 +5749,6 @@ mkdir -p %FolderName%
 				<placement x="0" y="1610"/>
 				<image resource="c_copy"/>
 				<actions>
-					<action function="set">tw_filename1=tw_file_location1</action>
 					<action function="set">tw_filemanager_command=cd "%tw_file_location1%" &amp;&amp; cd .. &amp;&amp; cp -R</action>
 					<action function="page">c_file_epicx_nxt</action>
 				</actions>
@@ -5626,7 +5760,6 @@ mkdir -p %FolderName%
 				<placement x="180" y="1610"/>
 				<image resource="c_cut"/>
 				<actions>
-					<action function="set">tw_filename1=tw_file_location1</action>
 					<action function="set">tw_filemanager_command=mv</action>
 					<action function="set">c_mv=1</action>
 					<action function="page">c_file_epicx_nxt</action>
@@ -5639,7 +5772,6 @@ mkdir -p %FolderName%
 				<placement x="540" y="1610"/>
 				<image resource="c_file_delete2"/>
 				<actions>
-					<action function="set">tw_filename1=tw_file_location1</action>
 					<action function="set">tw_filemanager_command=rm -rf</action>
 					<action function="set">tw_include_text3=0</action>
 					<action function="page">c_file_delete</action>
@@ -5652,7 +5784,6 @@ mkdir -p %FolderName%
 				<placement x="360" y="1610"/>
 				<image resource="c_rename"/>
 				<actions>
-					<action function="set">tw_filename1=tw_file_location1</action>
 					<action function="set">tw_filemanager_rename=tw_selection1</action>
 					<action function="set">tw_filemanager_command=cd "%tw_file_location1%" &amp;&amp; cd .. &amp;&amp; mv</action>
 					<action function="page">filemanagerrenamefolder</action>
@@ -5665,7 +5796,7 @@ mkdir -p %FolderName%
 				<placement x="720" y="1610"/>
 				<image resource="c_chmod"/>
 				<actions>
-					<action function="set">tw_filename1=tw_file_location1</action>
+					<action function="set">chFolder=1</action>
 					<action function="set">tw_filemanager_rename=0000</action>
 					<action function="set">tw_fm_text2=</action>
 					<action function="set">tw_fm_text3=</action>
@@ -5681,6 +5812,7 @@ mkdir -p %FolderName%
 				<placement x="900" y="1610"/>
 				<image resource="c_ch755"/>
 				<actions>
+					<action function="set">chFolder=1</action>
 					<action function="set">tw_filename1=tw_file_location1</action>
 					<action function="set">tw_filemanager_command=chmod 755</action>
 					<action function="set">tw_include_text3=0</action>
@@ -5688,12 +5820,30 @@ mkdir -p %FolderName%
 				</actions>
 			</button>
 			<button>
+				<placement x="860" y="1090"/>
+				<conditions>
+					<condition var1="c_file" op="=" var2="0" />
+					<condition var1="tw_file_location1" op="!=" var2="/"/>
+					<condition var1="tw_file_location1" op="!=" var2="%internal_storage_location%"/>
+					<condition var1="tw_file_location1" op="!=" var2="%external_storage_location%"/>
+					<condition var1="tw_file_location1" op="!=" var2="%usb_otg_location%"/>
+				</conditions>
+				<image resource="c_archive"/>
+				<action function="shrp_zip_init">%tw_file_location1%</action>
+				<action function="set">c_menu=0</action>
+				<action function="page">zipName</action>
+			</button>
+			<button>
 				<placement x="860" y="1270"/>
+				<condition var1="c_file" op="=" var2="0"/>
 				<image resource="c_createFolder"/>
 				<action function="page">c_createFolder</action>
 			</button>
 			<button>
-				<condition var1="c_menu" op="=" var2="0"/>
+				<conditions>
+					<condition var1="c_menu" op="=" var2="0"/>
+					<condition var1="c_file" op="=" var2="0"/>
+				</conditions>
 				<placement x="860" y="1450"/>
 				<image resource="c_menu"/>
 				<action function="set">c_menu=1</action>
@@ -5703,8 +5853,10 @@ mkdir -p %FolderName%
 
 			<action>
 				<condition var1="tw_filename1" op="modified"/>
+				<condition var1="chFolder" op="=" var2="0"/>
 				<actions>
 					<action function="set">c_file=1</action>
+					<action function="unZipSelector">%tw_filename1%</action>
 					<action function="page">c_file_epicx_file_confirm</action>
 				</actions>
 			</action>
@@ -5755,6 +5907,7 @@ mkdir -p %FolderName%
 				<placement x="0" y="1610"/>
 				<image resource="c_paste"/>
 				<actions>
+					<action function="set">tw_filename1=tw_file_location1</action>
 					<action function="set">tw_fm_text2=to</action>
 					<action function="set">tw_fm_text3=%tw_file_location2%</action>
 					<action function="set">tw_include_text3=1</action>
@@ -5784,6 +5937,7 @@ mkdir -p %FolderName%
 				<placement x="0" y="1610"/>
 				<image resource="c_paste"/>
 				<actions>
+					<action function="set">tw_filename1=tw_file_location1</action>
 					<action function="set">tw_fm_text3=%tw_file_location2%</action>
 					<action function="set">tw_include_text3=1</action>
 					<action function="set">c_mv=0</action>
@@ -5842,6 +5996,7 @@ mkdir -p %FolderName%
 				<image resource="c_copy"/>
 				<actions>
 					<action function="set">tw_filemanager_command=cp</action>
+					<action function="set">canBeUnzip=0</action>
 					<action function="page">c_file_epicx_nxt</action>
 				</actions>
 			</button>
@@ -5854,6 +6009,7 @@ mkdir -p %FolderName%
 				<actions>
 					<action function="set">tw_filemanager_command=mv</action>
 					<action function="set">c_mv=1</action>
+					<action function="set">canBeUnzip=0</action>
 					<action function="page">c_file_epicx_nxt</action>
 				</actions>
 			</button>
@@ -5866,6 +6022,7 @@ mkdir -p %FolderName%
 				<actions>
 					<action function="set">tw_filemanager_command=rm -rf</action>
 					<action function="set">tw_include_text3=0</action>
+					<action function="set">canBeUnzip=0</action>
 					<action function="page">c_file_delete</action>
 				</actions>
 			</button>
@@ -5878,6 +6035,7 @@ mkdir -p %FolderName%
 				<actions>
 					<action function="set">tw_filemanager_rename=tw_selection1</action>
 					<action function="set">tw_filemanager_command=mv</action>
+					<action function="set">canBeUnzip=0</action>
 					<action function="page">filemanagerrenamefile</action>
 				</actions>
 			</button>
@@ -5890,6 +6048,7 @@ mkdir -p %FolderName%
 				<actions>
 					<action function="set">tw_filemanager_rename=0000</action>
 					<action function="set">tw_include_text3=0</action>
+					<action function="set">canBeUnzip=0</action>
 					<action function="set">tw_back=c_file_epicx</action>
 					<action function="page">filemanagerchmod</action>
 				</actions>
@@ -5903,8 +6062,27 @@ mkdir -p %FolderName%
 				<actions>
 					<action function="set">tw_filemanager_command=chmod 755</action>
 					<action function="set">tw_include_text3=0</action>
+					<action function="set">canBeUnzip=0</action>
 					<action function="set">tw_back=c_file_epicx</action>
 					<action function="page">c_file_epicx_action</action>
+				</actions>
+			</button>
+			<button>
+				<condition var1="canBeUnzip" var2="1"/>
+				<placement x="860" y="1450"/>
+				<image resource="c_unarchive"/>
+				<actions>
+					<action function="set">c_busy=1</action>
+					<action function="set">c_status=Unzipping</action>
+					<action function="cmd">
+cd %tw_file_location1%;
+mkdir -p %tw_file_location1%/%shrpUnzipFolder%;
+unzip -d %shrpUnzipFolder% %tw_filename1%;
+</action>
+					<action function="set">canBeUnzip=0</action>
+					<action function="set">c_file=0</action>
+					<action function="set">c_busy=0</action>
+					<action function="page">c_file_epicx</action>
 				</actions>
 			</button>
 			<button>
@@ -5924,8 +6102,14 @@ mkdir -p %FolderName%
 			<action>
 				<touch key="back"/>
 				<action function="set">c_file=0</action>
+				<action function="set">canBeUnzip=0</action>
 				<action function="page">c_file_epicx</action>
 			</action>
+			<action>
+				<touch key="power+voldown" />
+				<action function="screenshot" />
+			</action>
+			<template name="c_busy_status"/>
 		</page>
 		<page name="c_file_delete">
 			<background color="%semi_transparent%"/>
@@ -5938,6 +6122,18 @@ mkdir -p %FolderName%
 				<text>{@c_format_data_info=Are you sure?}</text>
 			</text>
 			<button style="c_file_trans_bg_style">
+				<condition var1="c_file" op="!=" var2="1"/>
+				<placement x="740" y="1060" w="211" h="118"/>
+				<fill color="%transparent%"/>
+				<text>{@fm_delete_btn=Delete}</text>
+				<actions>
+					<action function="set">tw_filename1=tw_file_location1</action>
+					<action function="set">c_file=0</action>
+					<action function="page">c_file_epicx_action</action>
+				</actions>
+			</button>
+			<button style="c_file_trans_bg_style">
+				<condition var1="c_file" var2="1"/>
 				<placement x="740" y="1060" w="211" h="118"/>
 				<fill color="%transparent%"/>
 				<text>{@fm_delete_btn=Delete}</text>
@@ -5988,12 +6184,14 @@ mkdir -p %FolderName%
 			</action>
 			<action>
 				<condition var1="tw_include_text3" var2="0"/>
+				<action function="set">chFolder=0</action>
 				<action function="set">c_file=0</action>
 				<action function="set">c_mv=0</action>
 				<action function="cmd">%tw_filemanager_command% "%tw_filename1%"</action>
 			</action>
 			<action>
 				<condition var1="tw_include_text3" var2="1"/>
+				<action function="set">chFolder=0</action>
 				<action function="set">c_file=0</action>
 				<action function="set">c_mv=0</action>
 				<action function="cmd">%tw_filemanager_command% "%tw_filename1%" "%tw_fm_text3%"</action>
@@ -6304,13 +6502,11 @@ cp -f disable %c_magisk_path%%c_magisk_name%/;
 cp "/twres/c_bg/white.xml" "/twres/bg_res.xml";
 cp /twres/c_bg_sub/c_white/*.png /twres/images;
 </action>
-					<action function="set">c_bg=0</action>
+					<action function="set">c_bgc=0</action>
 				</actions>
 			</button>
 			<button>
-				<conditions>
-					<condition var1="c_bg" op="=" var2="0" />
-				</conditions>
+				<condition var1="c_bgc" var2="0"/>
 				<placement x="%c_hawk_base_column%" y="%t_1st_row%"/>
 				<image resource="c_applied"/>
 			</button>
@@ -6323,13 +6519,11 @@ cp "/twres/c_bg/wetasphalt.xml" "/twres/bg_res.xml";
 cp /twres/c_bg_sub/c_black/*.png /twres/images;
 cp /twres/c_bg_sub/c_dblue/*.png /twres/images;
 </action>
-					<action function="set">c_bg=1</action>
+					<action function="set">c_bgc=1</action>
 				</actions>
 			</button>
 			<button>
-				<conditions>
-					<condition var1="c_bg" op="=" var2="1" />
-				</conditions>
+				<condition var1="c_bgc" var2="1"/>
 				<placement x="215" y="%t_1st_row%"/>
 				<image resource="c_applied"/>
 			</button>
@@ -6342,13 +6536,11 @@ cp "/twres/c_bg/midnightblue.xml" "/twres/bg_res.xml";
 cp /twres/c_bg_sub/c_black/*.png /twres/images;
 cp /twres/c_bg_sub/c_aex/*.png /twres/images;
 </action>
-					<action function="set">c_bg=2</action>
+					<action function="set">c_bgc=2</action>
 				</actions>
 			</button>
 			<button>
-				<conditions>
-					<condition var1="c_bg" op="=" var2="2" />
-				</conditions>
+				<condition var1="c_bgc" var2="2"/>
 				<placement x="375" y="%t_1st_row%"/>
 				<image resource="c_applied"/>
 			</button>
@@ -6361,13 +6553,11 @@ cp "/twres/c_bg/dark.xml" "/twres/bg_res.xml";
 cp /twres/c_bg_sub/c_black/*.png /twres/images;
 cp /twres/c_bg_sub/c_dark/*.png /twres/images;
 </action>
-					<action function="set">c_bg=3</action>
+					<action function="set">c_bgc=3</action>
 				</actions>
 			</button>
 			<button>
-				<conditions>
-					<condition var1="c_bg" op="=" var2="3" />
-				</conditions>
+				<condition var1="c_bgc" var2="3"/>
 				<placement x="535" y="%t_1st_row%"/>
 				<image resource="c_applied"/>
 			</button>
@@ -6379,13 +6569,11 @@ cp /twres/c_bg_sub/c_dark/*.png /twres/images;
 cp "/twres/c_bg/black.xml" "/twres/bg_res.xml";
 cp /twres/c_bg_sub/c_black/*.png /twres/images;
 </action>
-					<action function="set">c_bg=4</action>
+					<action function="set">c_bgc=4</action>
 				</actions>
 			</button>
 			<button>
-				<conditions>
-					<condition var1="c_bg" op="=" var2="4" />
-				</conditions>
+				<condition var1="c_bgc" var2="4"/>
 				<placement x="695" y="%t_1st_row%"/>
 				<image resource="c_applied"/>
 			</button>
@@ -7940,7 +8128,7 @@ sh /twres/scripts/create_envAB.sh;
 				<text></text>
 				<image resource="c_apply_theme"/>
 				<actions>
-					<action function="set">c_new_theme_busy=1</action>
+					<action function="set">c_busy=1</action>
 					<action function="cmd">
 mkdir -p /data/local/tmp
 export battery_bar=%c_battery_bar_triger%
@@ -7955,11 +8143,7 @@ export r_c_type=%c_rounded_corner_type%
 export d_i=%c_dash_ico%
 export cnt=%c_nav_type%
 export cnb=%c_nav_bg%
-export cb_w=%c_white_bg%
-export cb_d=%c_dark_bg%
-export cb_b=%c_black_bg%
-export cb_m=%c_midnightblue_bg%
-export cb_ww=%c_wetasphalt_bg%
+export cb_w=%c_bgc%
 export ctc=%c_text_color%
 export cac=%c_acc_color%
 export cnm=%c_notch_mode%
@@ -7975,16 +8159,16 @@ cp /twres/cache/c_status_bar_h.xml /twres/
 					<action function="set">c_status={@c_flashing=Flashing} {@recovery=Recovery}</action>
 					<action function="set">c_status={@c_rm_o_files=Removing Old files}</action>
 					<action function="set">c_status={@done=Done}</action>
-					<action function="set">c_new_theme_busy=0</action>
+					<action function="set">c_busy=0</action>
 					<action function="reload"/>
 				</actions>
 			</button>
-			<template name="c_theme_status"/>
+			<template name="c_busy_status"/>
 			<action>
 				<touch key="back"/>
 				<actions>
 					<action function="cmd">
-rm -r /data/cookies;
+rm -r /tmp/work;
 					</action>
 					<action function="reload"/>
 				</actions>
@@ -7993,7 +8177,7 @@ rm -r /data/cookies;
 				<touch key="home"/>
 				<actions>
 					<action function="cmd">
-rm -r /data/cookies;
+rm -r /tmp/work;
 					</action>
 					<action function="reload"/>
 				</actions>

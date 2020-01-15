@@ -264,6 +264,7 @@ GUIAction::GUIAction(xml_node<>* node)
 		ADD_ACTION(flashOP);
 		ADD_ACTION(clearInput);
 		ADD_ACTION(navHandler);
+		ADD_ACTION(unZipSelector);
 	}
 
 	// First, get the action
@@ -2798,5 +2799,39 @@ int GUIAction::navHandler(std::string arg){
 	}
 	cmd=a+b+c;
 	TWFunc::Exec_Cmd(cmd);
+	return 0;
+}
+int GUIAction::unZipSelector(std::string arg){
+	int p,s=0;
+	char tmp[10];
+	string pele=arg;
+	p=arg.find_last_of(".");
+	if(p!=-1){
+		p++;
+		while(arg[p]!=0){
+			tmp[s++]=arg[p++];
+		}
+		tmp[s]=0;
+		arg=tmp;
+	}
+	if(arg=="zip"){
+		{
+			s=0;
+			char folderName[50];
+			int st;
+			st=pele.find_last_of("/");
+			p=pele.find_last_of(".");
+			st++;
+			while(st!=p){
+				folderName[s++]=pele[st++];
+			}
+			folderName[s]=0;
+			pele=folderName;
+			DataManager::SetValue("shrpUnzipFolder",pele.c_str());
+		}
+		DataManager::SetValue("canBeUnzip","1");
+	}else{
+		DataManager::SetValue("canBeUnzip","0");
+	}
 	return 0;
 }

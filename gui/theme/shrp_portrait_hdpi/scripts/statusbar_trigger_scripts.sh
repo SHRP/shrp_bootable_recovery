@@ -23,7 +23,7 @@ cat > /twres/cache/c_status_bar_h.xml <<EOF
 		<variable name="c_dash_ico" value="$d_i" persist="0"/>
 		<variable name="c_nav_type" value="$cnt" persist="0"/>
 		<variable name="c_nav_bg" value="$cnb" persist="0"/>
-		<variable name="c_bg" value="$cb" persist="0"/>
+		<variable name="c_bgc" value="$cb" persist="0"/>
 		<variable name="c_text_color" value="$ctc" persist="0"/>
 		<variable name="c_acc_color" value="$cac" persist="0"/>
 		<variable name="c_notch_mode" value="$cnm" persist="0"/>

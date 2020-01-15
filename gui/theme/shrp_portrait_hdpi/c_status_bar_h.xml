@@ -21,7 +21,7 @@
 		<variable name="c_dash_ico" value="0" persist="0"/>
 		<variable name="c_nav_type" value="0" persist="0"/>
 		<variable name="c_nav_bg" value="0" persist="0"/>
-		<variable name="c_bg" value="0" persist="0"/>
+		<variable name="c_bgc" value="0" persist="0"/>
 		<variable name="c_text_color" value="1" persist="0"/>
 		<variable name="c_acc_color" value="1" persist="0"/>
 		<variable name="c_notch_mode" value="0" persist="0"/>

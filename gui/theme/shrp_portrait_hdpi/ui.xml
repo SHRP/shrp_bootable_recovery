@@ -311,7 +311,7 @@
 		<variable name="c_filefrom" value=""/-->
 		<variable name="c_mv" value="0"/>
 		<variable name="c_menu" value="0"/>
-		<variable name="c_new_theme_busy" value="0"/>
+		<variable name="c_busy" value="0"/>
 		<variable name="c_flashlight_status" value="0" persist="0"/>
 		<variable name="c_temp" value="pepe" persist="0"/>
 		<variable name="c_temp3" value="pepe" persist="0"/>
@@ -390,18 +390,19 @@
 				<action function="set">c_temp2=99</action>
 			</button>
 		</template>
-		<template name="c_theme_status">
-			<fill color="c_white">
-				<condition var1="c_new_theme_busy" op="=" var2="1"/>
+		<template name="c_busy_status">
+			<button>
+				<condition var1="c_busy" op="=" var2="1"/>
 				<placement x="0" y="0" w="1080" h="1920"/>
-			</fill>
+				<fill color="c_white"/>
+			</button>
 			<text style="c_main_text_header">
-				<condition var1="c_new_theme_busy" op="=" var2="1"/>
+				<condition var1="c_busy" op="=" var2="1"/>
 				<placement x="55" y="%c_hawk_base_first_header%"/>
 				<text>{@c_appling=Applying}</text>
 			</text>
 			<text style="c_sub">
-				<condition var1="c_new_theme_busy" op="=" var2="1"/>
+				<condition var1="c_busy" op="=" var2="1"/>
 				<placement x="55" y="%c_hawk_base_second_header%"/>
 				<text>%c_status%</text>
 			</text>
