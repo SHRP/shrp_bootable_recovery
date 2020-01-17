@@ -1223,6 +1223,66 @@
 				<text>{@c_action_cancel=Press back button to cancel.}</text>
 			</text>
 			<button>
+				<placement x="424" y="%dash_ico_2nd_row%"/>
+				<image resource="c_factory_reset"/>
+				<font resource="c_dashboard_text_sort" color="%c_black%"/>
+				<text>{@advanced_wipe_hdr=Advance Wipe}</text>
+				<actions>
+					<action function="set">partitionlisterror=0</action>
+					<action function="page">advancedwipe</action>
+				</actions>
+			</button>
+
+			<button>
+				<conditions>
+					<condition var1="tw_is_encrypted" var2="1"/>
+					<condition var1="tw_has_data_media" var2="0"/>
+				</conditions>
+				<placement x="55" y="%dash_ico_2nd_row%"/>
+				<image resource="c_factory_reset"/>
+				<font resource="c_dashboard_text_sort" color="%c_black%"/>
+				<text>{@c_format_data2=Remove Encryption}</text>
+				<actions>
+					<action function="set">tw_back=wipe</action>
+					<action function="set">tw_action=wipe</action>
+					<action function="set">tw_action_param=DATAMEDIA</action>
+					<action function="set">tw_has_action2=0</action>
+					<action function="set">tw_text1={@wipe_enc_confirm=Wipe Encryption from Data?}</action>
+					<action function="set">tw_text2=</action>
+					<action function="set">tw_action_text1={@formatting_data=Formatting Data...}</action>
+					<action function="set">tw_complete_text1={@format_data_complete=Data Format Complete}</action>
+					<action function="set">tw_slider_text={@swipe_format_data=Swipe to Format Data}</action>
+					<action function="page">confirm_action</action>
+				</actions>
+			</button>
+			<button>
+				<condition var1="tw_has_data_media" var2="1"/>
+				<placement x="55" y="%dash_ico_2nd_row%"/>
+				<image resource="c_factory_reset"/>
+				<font resource="c_dashboard_text_sort" color="%c_black%"/>
+				<text>{@c_format_data=Format Data}</text>
+				<actions>
+					<action function="page">formatdata</action>
+				</actions>
+			</button>
+			<text style="c_sub">
+				<placement x="%c_hawk_base_column%" y="%t_2nd_radio_pos%"/>
+				<text>Other options</text>
+			</text>
+
+			<button>
+				<placement x="584" y="1628"/>
+				<image resource="c_format_data"/>
+				<action function="page">c_wipe_factory_confirmer</action>
+			</button>
+			<button>
+				<placement x="608" y="1620" w="240" h="144"/>
+				<fill color="%transparent%"/>
+				<font resource="c_dashboard_header" color="%c_white%"/>
+				<text>{@wipe_btn=Wipe}</text>
+				<action function="page">c_wipe_factory_confirmer</action>
+			</button>
+			<!--button>
 				<placement x="586" y="1628"/>
 				<image resource="c_advance_wipe"/>
 				<font resource="c_dashboard_text_sort" color="%c_white%"/>
@@ -1272,64 +1332,7 @@
 				<font resource="c_dashboard_text_sort" color="%c_white%"/>
 				<text>{@wipe_btn=Wipe}</text>
 				<action function="page">c_wipe_factory_confirmer</action>
-			</button>
-			<!--button>
-				<placement x="597" y="1450" h="144" w="276"/>
-				<fill color="%transparent%"/>
-				<font resource="c_dashboard_text_sort" color="#ffffff"/>
-				<text>{@wipe_btn=Wipe}</text>
-				<action function="page">c_wipe_factory_confirmer</action>
-			</button>
-			<button>
-				<placement x="597" y="1628" h="144" w="276"/>
-				<fill color="%transparent%"/>
-				<font resource="c_dashboard_text_sort" color="#ffffff"/>
-				<text>{@advanced_wipe_hdr=Advance Wipe}</text>
-				<actions>
-					<action function="set">partitionlisterror=0</action>
-					<action function="page">advancedwipe</action>
-				</actions>
-			</button>
-			<button>
-				<conditions>
-					<condition var1="tw_is_encrypted" var2="1"/>
-					<condition var1="tw_has_data_media" var2="0"/>
-				</conditions>
-				<placement x="597" y="1270" h="144" w="276"/>
-				<fill color="%transparent%"/>
-				<font resource="c_dashboard_text_sort" color="#ffffff"/>
-				<text>{@c_format_data2=Remove Encryption}</text>
-				<actions>
-					<action function="set">tw_back=wipe</action>
-					<action function="set">tw_action=wipe</action>
-					<action function="set">tw_action_param=DATAMEDIA</action>
-					<action function="set">tw_has_action2=0</action>
-					<action function="set">tw_text1={@wipe_enc_confirm=Wipe Encryption from Data?}</action>
-					<action function="set">tw_text2=</action>
-					<action function="set">tw_action_text1={@formatting_data=Formatting Data...}</action>
-					<action function="set">tw_complete_text1={@format_data_complete=Data Format Complete}</action>
-					<action function="set">tw_slider_text={@swipe_format_data=Swipe to Format Data}</action>
-					<action function="page">confirm_action</action>
-				</actions>
-			</button>
-			<button>
-				<condition var1="tw_has_data_media" var2="1"/>
-				<placement x="597" y="1270" h="144" w="276"/>
-				<fill color="%transparent%"/>
-				<font resource="c_dashboard_text_sort" color="#ffffff"/>
-				<text>{@c_format_data=Format Data}</text>
-				<action function="page">formatdata</action>
 			</button-->
-			<!--text color="%c_grey%">
-				<font resource="c_dashboard_header"/>
-				<placement x="700" y="1487"/>
-				<text>{@wipe_btn=Wipe}</text>
-			</text>
-			<text color="%c_grey%">
-				<font resource="c_dashboard_header"/>
-				<placement x="460" y="1665"/>
-				<text>{@advanced_wipe_hdr=Advance Wipe}</text>
-			</text-->
 
 			<action>
 				<touch key="back"/>
