@@ -878,5 +878,18 @@
 		<string name="remount_system_rw">[i] Remounted system as R/W!</string>
 		<string name="unpacking_image">Unpacking {1}...</string>
 		<string name="repacking_image">Repacking {1}...</string>
+		<!--2.2 Strings-->
+		<string name="c_moreInfo">More Info</string>
+		<string name="c_recType">Rec Type</string>
+		<string name="c_deviceType">Device Type</string>
+		<string name="c_section">Section</string>
+		<string name="c_translation">Translation</string>
+		<string name="c_zip">Zip</string>
+		<string name="c_create">Create</string>
+		<string name="c_version">Version</string>
+		<string name="c_author">Author</string>
+		<string name="c_magiskNull">Magisk Not Installed</string>
+		<string name="c_normal">Normal</string>
+		<string name="c_legacy">Legacy</string>
 	</resources>
 </language>

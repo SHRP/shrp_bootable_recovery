@@ -231,39 +231,9 @@
 			<button style="c_reboot_text">
 				<placement x="755" y="1570" w="221" h="50"/>
 				<fill color="%transparent%"/>
-				<text>Credits Section</text>
+				<text>{@c_credits=Credits} {@c_section=Section}</text>
 				<action function="page">c_credit</action>
 			</button>
-			<!--button>
-				<placement x="0" y="1310" w="1080" h="148"/>
-				<font resource="c_addon_epicx" color="%c_black%"/>
-				<fill color="%transparent%"/>
-				<text>{@c_credits=Credits}</text>
-			</button>
-			<fill color="%c_black%">
-				<placement x="365" y="1435" w="350" h="4"/>
-			</fill>
-			<button>
-				<placement x="0" y="1430" w="1080" h="148"/>
-				<font resource="c_dashboard_text_sort" color="%c_black%"/>
-				<fill color="%transparent%"/>
-				<text>epicX  Dni9  Giovix92  Teamwin  Topjohnwu  osmOsis</text>
-			</button>
-			<button>
-				<placement x="0" y="1550" w="1080" h="148"/>
-				<font resource="c_dashboard_header" color="%c_black%"/>
-				<fill color="%transparent%"/>
-				<text>{@c_spec_thanks=Special Thanks}</text>
-			</button>
-			<fill color="%c_black%">
-				<placement x="320" y="1675" w="440" h="4"/>
-			</fill>
-			<button>
-				<placement x="0" y="1645" w="1080" h="148"/>
-				<font resource="c_dashboard_text_sort" color="%c_black%"/>
-				<fill color="%transparent%"/>
-				<text>VR25  Pritish  Kirill  Burak D.  ZJRDroid  LayeardDevMod</text>
-			</button-->
 
 			<action>
 				<touch key="back"/>
@@ -284,7 +254,7 @@
 			</text>
 			<text style="c_text_dashboard">
 				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
-				<text>Credits Section</text>
+				<text>{@c_credits=Credits} {@c_section=Section}</text>
 			</text>
 			<image>
 				<placement x="135" y="75"/>
@@ -371,7 +341,7 @@
 			<button style="c_reboot_text">
 				<placement x="430" y="1335" w="221" h="50"/>
 				<fill color="%transparent%"/>
-				<text>Translation</text>
+				<text>{@c_translation=Translation}</text>
 			</button>
 			<button style="c_text_dashboard">
 				<placement x="755" y="1225" w="221" h="170"/>
@@ -381,7 +351,7 @@
 			<button style="c_reboot_text">
 				<placement x="755" y="1335" w="221" h="50"/>
 				<fill color="%transparent%"/>
-				<text>Translation</text>
+				<text>{@c_translation=Translation}</text>
 			</button>
 
 			<button style="c_text_dashboard">
@@ -392,7 +362,7 @@
 			<button style="c_reboot_text">
 				<placement x="105" y="1575" w="221" h="50"/>
 				<fill color="%transparent%"/>
-				<text>Translation</text>
+				<text>{@c_translation=Translation}</text>
 			</button>
 			<button style="c_text_dashboard">
 				<placement x="430" y="1445" w="221" h="170"/>
@@ -402,7 +372,7 @@
 			<button style="c_reboot_text">
 				<placement x="430" y="1575" w="221" h="50"/>
 				<fill color="%transparent%"/>
-				<text>Translation</text>
+				<text>{@c_translation=Translation}</text>
 			</button>
 			<button style="c_text_dashboard">
 				<placement x="735" y="1445" w="261" h="170"/>
@@ -412,7 +382,7 @@
 			<button style="c_reboot_text">
 				<placement x="755" y="1575" w="221" h="50"/>
 				<fill color="%transparent%"/>
-				<text>Translation</text>
+				<text>{@c_translation=Translation}</text>
 			</button>
 
 			<action>
@@ -1267,72 +1237,21 @@
 			</button>
 			<text style="c_sub">
 				<placement x="%c_hawk_base_column%" y="%t_2nd_radio_pos%"/>
-				<text>Other options</text>
+				<text>{@wipe_btn=Wipe} {@options_hdr=Options}</text>
 			</text>
 
 			<button>
-				<placement x="584" y="1628"/>
+				<placement x="636" y="1594"/>
 				<image resource="c_format_data"/>
 				<action function="page">c_wipe_factory_confirmer</action>
 			</button>
 			<button>
-				<placement x="608" y="1620" w="240" h="144"/>
+				<placement x="660" y="1590" w="220" h="133"/>
 				<fill color="%transparent%"/>
-				<font resource="c_dashboard_header" color="%c_white%"/>
+				<font resource="font_m" color="%c_white%"/>
 				<text>{@wipe_btn=Wipe}</text>
 				<action function="page">c_wipe_factory_confirmer</action>
 			</button>
-			<!--button>
-				<placement x="586" y="1628"/>
-				<image resource="c_advance_wipe"/>
-				<font resource="c_dashboard_text_sort" color="%c_white%"/>
-				<text>{@advanced_wipe_hdr=Advance Wipe}</text>
-				<actions>
-					<action function="set">partitionlisterror=0</action>
-					<action function="page">advancedwipe</action>
-				</actions>
-			</button>
-
-			<button>
-				<conditions>
-					<condition var1="tw_is_encrypted" var2="1"/>
-					<condition var1="tw_has_data_media" var2="0"/>
-				</conditions>
-				<placement x="586" y="1270"/>
-				<image resource="c_format_data"/>
-				<font resource="c_dashboard_text_sort" color="%c_white%"/>
-				<text>{@c_format_data2=Remove Encryption}</text>
-				<actions>
-					<action function="set">tw_back=wipe</action>
-					<action function="set">tw_action=wipe</action>
-					<action function="set">tw_action_param=DATAMEDIA</action>
-					<action function="set">tw_has_action2=0</action>
-					<action function="set">tw_text1={@wipe_enc_confirm=Wipe Encryption from Data?}</action>
-					<action function="set">tw_text2=</action>
-					<action function="set">tw_action_text1={@formatting_data=Formatting Data...}</action>
-					<action function="set">tw_complete_text1={@format_data_complete=Data Format Complete}</action>
-					<action function="set">tw_slider_text={@swipe_format_data=Swipe to Format Data}</action>
-					<action function="page">confirm_action</action>
-				</actions>
-			</button>
-			<button>
-				<condition var1="tw_has_data_media" var2="1"/>
-				<placement x="586" y="1270"/>
-				<image resource="c_format_data"/>
-				<font resource="c_dashboard_text_sort" color="%c_white%"/>
-				<text>{@c_format_data=Format Data}</text>
-				<actions>
-					<action function="page">formatdata</action>
-				</actions>
-			</button>
-
-			<button>
-				<placement x="586" y="1450"/>
-				<image resource="c_format_data"/>
-				<font resource="c_dashboard_text_sort" color="%c_white%"/>
-				<text>{@wipe_btn=Wipe}</text>
-				<action function="page">c_wipe_factory_confirmer</action>
-			</button-->
 
 			<action>
 				<touch key="back"/>
@@ -1765,7 +1684,6 @@
 				</actions>
 			</button>
 
-
 			<action>
 				<touch key="home"/>
 				<action function="page">c_refresh</action>
@@ -1876,7 +1794,6 @@
 				<data variable="tw_disable_free_space"/>
 			</checkbox>
 
-			<!--IF your device have boot slot , then add below code-->
 			<text style="c_sub">
 				<condition var1="tw_has_boot_slots" var2="1"/>
 				<placement x="%c_hawk_base_column%" y="1645"/>
@@ -1914,7 +1831,6 @@
 					<action function="page">action_page</action>
 				</actions>
 			</button>
-
 
 			<action>
 				<touch key="home"/>
@@ -1971,7 +1887,7 @@
 				</actions>
 			</input>
 			<button>
-				<placement x="944" y="262"/>
+				<placement x="944" y="%c_custom_pos_4%"/>
 				<image resource="c_clear_input"/>
 				<action function="clearInput">tw_backup_name</action>
 			</button>
@@ -1981,9 +1897,7 @@
 				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
 				<text>{@backup_name_exists=A backup with that name already exists!}</text>
 			</text>
-
 			<template name="keyboardtemplate"/>
-
 
 			<action>
 				<touch key="home"/>
@@ -1992,7 +1906,6 @@
 					<action function="page">c_refresh</action>
 				</actions>
 			</action>
-
 			<action>
 				<touch key="back"/>
 				<actions>
@@ -2047,15 +1960,12 @@
 					<action function="page">backup</action>
 				</actions>
 			</button>
-
 			<template name="keyboardtemplate"/>
-
 
 			<action>
 				<touch key="home"/>
 				<action function="page">c_refresh</action>
 			</action>
-
 			<action>
 				<touch key="back"/>
 				<action function="page">backup</action>
@@ -2078,8 +1988,6 @@
 				<placement x="%c_hawk_base_column%" y="%c_text_sub_y%"/>
 				<text>{@enter_pass_again=Enter Password again: }</text>
 			</text>
-
-
 			<template name="c_tab_encryption"/>
 
 			<input>
@@ -2089,7 +1997,6 @@
 				<restrict minlen="1" maxlen="32" allow="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_"/>
 				<action function="page">checkbackuppassword</action>
 			</input>
-
 			<button>
 				<placement x="860" y="915"/>
 				<image resource="c_cancel"/>
@@ -2102,15 +2009,12 @@
 					<action function="page">backup</action>
 				</actions>
 			</button>
-
 			<template name="keyboardtemplate"/>
-
 
 			<action>
 				<touch key="home"/>
 				<action function="page">c_refresh</action>
 			</action>
-
 			<action>
 				<touch key="back"/>
 				<action function="page">backup</action>
@@ -2125,7 +2029,6 @@
 					<action function="page">backup</action>
 				</actions>
 			</action>
-
 			<action>
 				<condition var1="tw_backup_password2" op="!=" var2="tw_backup_password"/>
 				<actions>
@@ -2151,7 +2054,6 @@
 				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
 				<text>%tw_partition% Partition</text>
 			</text>
-
 			<template name="c_console_custom"/>
 
 			<template name="progress_bar"/>
@@ -2159,18 +2061,15 @@
 				<placement x="%c_hawk_base_column%" y="1430"/>
 				<text>{@progress=Progress:} %tw_size_progress%</text>
 			</text>
-
 			<button>
 				<placement x="860" y="1628"/>
 				<image resource="c_cancel"/>
 				<action function="cancelbackup"/>
 			</button>
 
-
 			<action>
 				<action function="nandroid">backup</action>
 			</action>
-
 			<action>
 				<condition var1="tw_operation_state" var2="1"/>
 				<condition var1="tw_cancel_backup" var2="0"/>
@@ -2181,7 +2080,6 @@
 					<action function="page">action_complete</action>
 				</actions>
 			</action>
-
 			<action>
 				<condition var1="tw_operation_state" var2="1"/>
 				<condition var1="tw_cancel_backup" var2="1"/>
@@ -2214,7 +2112,6 @@
 				<sort name="tw_gui_sort_order"/>
 				<selection name="tw_restore_name"/>
 			</fileselector>
-
 			<button>
 				<placement x="860" y="1628"/>
 				<image resource="c_storage"/>
@@ -2224,7 +2121,6 @@
 				</actions>
 			</button>
 
-
 			<action>
 				<condition var1="tw_restore" op="modified"/>
 				<actions>
@@ -2232,7 +2128,6 @@
 					<action function="page">restore_read</action>
 				</actions>
 			</action>
-
 			<action>
 				<touch key="home"/>
 				<action function="page">c_refresh</action>
@@ -2729,7 +2624,7 @@
 			</text>
 			<text style="c_text_dashboard">
 				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
-				<text>[@sys_ro_keep=Keep System Read only?}</text>
+				<text>{@sys_ro_keep=Keep System Read only?}</text>
 			</text>
 			<text style="c_sub">
 				<placement x="%c_hawk_base_column%" y="%c_text_sub_y%"/>
@@ -3168,9 +3063,6 @@
 				<action function="page">sideload</action>
 			</button>
 
-
-
-
 			<button>
 				<condition var1="tw_allow_partition_sdcard" var2="1"/>
 				<placement x="831" y="%dash_ico_1st_row%"/>
@@ -3189,31 +3081,6 @@
 					<action function="page">partsdcardsel</action>
 				</actions>
 			</button>
-
-
-
-			<!--button style="main_button">
-				<condition var1="tw_show_dumlock" var2="1"/>
-				<placement x="%center_x%" y="%row19_y%"/>
-				<text>{@dumlock_btn=HTC Dumlock}</text>
-				<action function="page">htcdumlock</action>
-			</button>
-
-			<button style="main_button">
-				<condition var1="tw_has_injecttwrp" var2="1"/>
-				<placement x="%center_x%" y="%row19_y%"/>
-				<text>{@inject_twrp_btn=Inject TWRP}</text>
-				<actions>
-					<action function="set">tw_back=advanced</action>
-					<action function="set">tw_action=reinjecttwrp</action>
-					<action function="set">tw_text1={@inject_twrp_confirm=Re-Inject TWRP?}</action>
-					<action function="set">tw_action_text1={@injecting_twrp=Re-Injecting TWRP...}</action>
-					<action function="set">tw_complete_text1={@inject_twrp_complete=TWRP Injection Complete}</action>
-					<action function="set">tw_slider_text={@swipe_to_confirm=Swipe to Confirm}</action>
-					<action function="page">confirm_action</action>
-				</actions>
-			</button-->
-
 
 			<action>
 				<touch key="home"/>
@@ -4165,7 +4032,6 @@
 				<conditions>
 					<condition var1="c_new" op="=" var2="1"/>
 					<condition var1="c_new_pattern" op="=" var2="1"/>
-					<!--condition var1="tw_is_encrypted" op="!=" var2="1"/-->
 				</conditions>
 				<placement x="860" y="1450"/>
 				<image resource="c_lock_patt"/>
@@ -4173,7 +4039,6 @@
 			</button>
 			<button>
 				<conditions>
-					<!--condition var1="tw_is_encrypted" op="!=" var2="1"/-->
 					<condition var1="lock_enabled" op="=" var2="1"/>
 					<condition var1="patt_lock_enabled" op="=" var2="1"/>
 				</conditions>
@@ -4183,7 +4048,6 @@
 			</button>
 			<button>
 				<conditions>
-					<!--condition var1="tw_is_encrypted" op="!=" var2="1"/-->
 					<condition var1="lock_enabled" op="=" var2="1"/>
 					<condition var1="patt_lock_enabled" op="=" var2="0"/>
 				</conditions>
@@ -4573,10 +4437,8 @@ sh /twres/scripts/create_envAB.sh;
 				</actions>
 			</button>
 		</page>
-
-
+		
 		<!--For Pattern Reset-->
-
 		<page name="c_lock_old_patt_confirmer">
 			<template name="c_page"/>
 			<template name="c_status_bar"/>
@@ -4687,9 +4549,6 @@ sh /twres/scripts/create_envAB.sh;
 			</button>
 			<template name="c_busy_status"/>
 		</page>
-		<!--For pass Change-->
-		<!--Removed in ver 2.0 -->
-		<!--For pass Change End-->
 		<page name="c_lock_old_confirmer">
 			<template name="c_page"/>
 			<template name="c_status_bar"/>
@@ -5639,11 +5498,11 @@ sh /twres/scripts/create_envAB.sh;
 			<template name="c_status_bar"/>
 			<text style="c_main_text_header">
 				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
-				<text>Zip</text>
+				<text>{@c_zip=Zip}</text>
 			</text>
 			<text style="c_text_dashboard">
 				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
-				<text>Give a zip name</text>
+				<text>{@c_zip=Zip} {@sort_by_name_only=Name}</text>
 			</text>
 			<text style="c_sub">
 				<placement x="%c_hawk_base_column%" y="%c_text_sub_y_spec%"/>
@@ -5682,11 +5541,11 @@ zip -r %shrp_zipName%.zip %shrp_zipFolderName%
 			<template name="c_status_bar"/>
 			<text style="c_main_text_header">
 				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
-				<text>Create</text>
+				<text>{@c_create=Create}</text>
 			</text>
 			<text style="c_text_dashboard">
 				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
-				<text>Create folder</text>
+				<text>{@c_create=Create} {@fm_type_folder=Folder}</text>
 			</text>
 			<text style="c_sub">
 				<placement x="%c_hawk_base_column%" y="%c_text_sub_y_spec%"/>
@@ -6216,22 +6075,18 @@ unzip -d %shrpUnzipFolder% %tw_filename1%;
 				<data name="c_magisk_module_name"/>
 				<selection name="c_magisk_name"/>
 			</fileselector>
-			<!--fill color="%c_white%">
-				<placement x="0" y="%c_hawk_base_second_header%" w="1080" h="100"/>
-			</fill>
 			<text style="c_text_dashboard">
+				<condition var1="c_magisk_status" op="!=" var2="1"/>
 				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
-				<text>{@c_magisk_info_ex=Magisk manager for shrp}</text>
-			</text-->
-			<text style="c_text_dashboard">
-				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
-				<text>Magisk Ver - %c_magisk_ver%</text>
+				<text>{@c_magisk=Magisk} {@c_version=Version} - %c_magisk_ver%</text>
 			</text>
 			<text style="c_text_dashboard">
+				<condition var1="c_magisk_status" op="!=" var2="1"/>
 				<placement x="%c_hawk_base_column%" y="%magisk_manager_core_txt_y%"/>
 				<text>{@c_module_core_only_mode=Core Only Mode}</text>
 			</text>
 			<text style="c_sub">
+				<condition var1="c_magisk_status" op="!=" var2="1"/>
 				<placement x="%c_hawk_base_column%" y="%magisk_manager_list_txt_y%"/>
 				<text>{@c_module_list=List of modules}</text>
 			</text>
@@ -6264,6 +6119,18 @@ sh c_core_only_disabler;
 					</action>
 					<action function="set">core=0</action>
 				</actions>
+			</button>
+			<image>
+				<condition var1="c_magisk_status" op="=" var2="1"/>
+				<placement x="439" y="868"/>
+				<image resource="c_magisk_not_exist"/>
+			</image>
+			<button>
+				<condition var1="c_magisk_status" op="=" var2="1"/>
+				<placement x="0" y="1111" h="100" w="1080"/>
+				<fill color="%transparent%"/>
+				<font resource="c_dashboard_header" color="#ed6f01"/>
+				<text>{@c_magiskNull=Magisk Not Installed}</text>
 			</button>
 			<action>
 				<condition var1="c_magisk_module_name" op="modified"/>
@@ -6450,7 +6317,7 @@ cp -f disable %c_magisk_path%%c_magisk_name%/;
 			</button>
 			<text style="c_sub">
 				<placement x="%c_hawk_base_column%" y="%t_1st_radio_text_pos%"/>
-				<text>Module Details</text>
+				<text>{@c_moreInfo=More Info}</text>
 			</text>
 			<text style="c_file_menu">
 				<placement x="%c_hawk_base_column%" y="%t_2nd_radio_text_pos%"/>
@@ -6458,11 +6325,11 @@ cp -f disable %c_magisk_path%%c_magisk_name%/;
 			</text>
 			<text style="c_file_menu">
 				<placement x="%c_hawk_base_column%" y="%t_3rd_radio_text_pos%"/>
-				<text>Version - %c_mm_ver%</text>
+				<text>{@c_version=Version} - %c_mm_ver%</text>
 			</text>
 			<text style="c_file_menu">
 				<placement x="%c_hawk_base_column%" y="%t_4th_radio_text_pos%"/>
-				<text>Author - %c_mm_author%</text>
+				<text>{@c_author=Author} - %c_mm_author%</text>
 			</text>
 
 			<button>
@@ -7315,18 +7182,6 @@ sh init;
 					<action function="page">c_magisk_bhosdk</action>
 				</actions>
 			</button>
-			<!--action>
-					<condition var1="tw_operation_status" var2="1"/>
-					<actions>
-						<action function="set">core=1</action>
-					</actions>
-			</action>
-			<action>
-					<condition var1="tw_operation_status" var2="0"/>
-					<actions>
-						<action function="set">core=0</action>
-					</actions>
-			</action-->
 			<action>
 				<touch key="back"/>
 				<actions>
@@ -8021,7 +7876,6 @@ export recoveryBlock=%shrp_rec%;
 sh /twres/scripts/create_env.sh;
 					</action>
 					<action function="page">c_new_shrp_theme_dashboard</action>
-					<!--action function="c_unpack">1</action-->
 				</actions>
 			</button>
 			<button>
@@ -8039,7 +7893,6 @@ sh /twres/scripts/create_env.sh;
 sh /twres/scripts/create_envAB.sh;
 					</action>
 					<action function="page">c_new_shrp_theme_dashboard</action>
-					<!--action function="c_unpack">1</action-->
 				</actions>
 			</button>
 			<text>
@@ -8212,7 +8065,7 @@ rm -r /tmp/work;
 			</text>
 			<button style="c_positive_btn">
 				<placement x="764" y="%t_1st_radio_text_pos%"/>
-				<text>Normal</text>
+				<text>{@c_normal=Normal}</text>
 				<actions>
 					<action function="set">tw_back=c_addons</action>
 					<action function="set">tw_filename=/sdcard/SHRP/addons/s_oms.zip</action>
@@ -8227,7 +8080,7 @@ rm -r /tmp/work;
 			</button>
 			<button style="c_negative_btn">
 				<placement x="448" y="%t_1st_radio_text_pos%"/>
-				<text>Legacy</text>
+				<text>{@c_legacy=Legacy}</text>
 				<actions>
 					<action function="set">tw_back=c_addons</action>
 					<action function="set">tw_filename=/sdcard/SHRP/addons/s_non_oms.zip</action>
@@ -8245,15 +8098,15 @@ rm -r /tmp/work;
 			<text style="c_addon_special">
 				<placement x="%c_hawk_base_column%" y="%t_2nd_heading%"/>
 				<text>{@c_cfp=Clear Fingerprint}</text>
-			</text><!--GAP_85-->
+			</text>
 			<text style="c_sub">
 				<placement x="%c_hawk_base_column%" y="%ca_5%"/>
 				<text>{@c_fpc=Remove fingerprint lock from system}</text>
-			</text><!--GAP_90-->
+			</text>
 			<text style="c_sub">
 				<placement x="%c_hawk_base_column%" y="%ca_6%"/>
 				<text>{@c_credit=Credit - }N/A</text>
-			</text><!--GAP_-10-->
+			</text>
 			<button style="c_negative_btn">
 				<placement x="764" y="%ca_7%"/>
 				<text>{@c_clear=Clear}</text>
@@ -8273,15 +8126,15 @@ rm -r /tmp/work;
 			<text style="c_addon_special">
 				<placement x="%c_hawk_base_column%" y="%ca_8%"/>
 				<text>{@c_fc=Force Encryption}</text>
-			</text><!--GAP_85-->
+			</text>
 			<text style="c_sub">
 				<placement x="%c_hawk_base_column%" y="%ca_9%"/>
 				<text>{@c_rfe=Remove force encryption from your device}</text>
-			</text><!--GAP_90-->
+			</text>
 			<text style="c_sub">
 				<placement x="%c_hawk_base_column%" y="%ca_10%"/>
 				<text>{@c_credit=Credit - }N/A</text>
-			</text><!--GAP_-10-->
+			</text>
 			<button style="c_negative_btn">
 				<placement x="764" y="%ca_11%"/>
 				<text>{@c_disable=Disable}</text>
@@ -8301,15 +8154,15 @@ rm -r /tmp/work;
 			<text style="c_addon_special">
 				<placement x="%c_hawk_base_column%" y="%ca_12%"/>
 				<text>{@c_c2api=Camera 2 Api}</text>
-			</text><!--GAP_85-->
+			</text>
 			<text style="c_sub">
 				<placement x="%c_hawk_base_column%" y="%ca_13%"/>
 				<text>{@c_c2a=Camera 2 Api enabler/disabler}</text>
-			</text><!--GAP_90-->
+			</text>
 			<text style="c_sub">
 				<placement x="%c_hawk_base_column%" y="%t_6th_row%"/>
 				<text>{@c_credit=Credit - }Dev</text>
-			</text><!--GAP_-10-->
+			</text>
 			<button style="c_positive_btn">
 				<placement x="764" y="%ca_14%"/>
 				<text>{@c_enable=Enable}</text>
