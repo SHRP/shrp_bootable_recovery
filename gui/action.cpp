@@ -1167,23 +1167,23 @@ int GUIAction::flash(std::string arg){
 		TWFunc::Exec_Cmd("setprop tw_inject_after_zip 0");
   }
   // Remount system as R/W, just in case
-#ifdef BOARD_BUILD_SYSTEM_ROOT_IMAGE
-	Part = PartitionManager.Find_Partition_By_Path("/system_root");
-	if(Part!=NULL){
-		if(Part->Is_Mounted()){
-			TWFunc::Exec_Cmd(cmdsysonesar);
+	if(TWFunc::Path_Exists("/system_root")){
+		Part = PartitionManager.Find_Partition_By_Path("/system_root");
+		if(Part!=NULL){
+			if(Part->Is_Mounted()){
+				TWFunc::Exec_Cmd(cmdsysonesar);
+			}
+			TWFunc::Exec_Cmd(cmdsystwosar);
 		}
-		TWFunc::Exec_Cmd(cmdsystwosar);
-	}
-#else
-	Part = PartitionManager.Find_Partition_By_Path("/system");
-	if(Part!=NULL){
-		if(Part->Is_Mounted()){
-			TWFunc::Exec_Cmd(cmdsysone);
+	}else{
+		Part = PartitionManager.Find_Partition_By_Path("/system");
+		if(Part!=NULL){
+			if(Part->Is_Mounted()){
+				TWFunc::Exec_Cmd(cmdsysone);
+			}
+			TWFunc::Exec_Cmd(cmdsystwo);
 		}
-	  TWFunc::Exec_Cmd(cmdsystwo);
 	}
-#endif
 	gui_msg("remount_system_rw=[i] Remounted system as R/W!");
   // Inject Magisk
   if (mkinject_zip == 1) {
@@ -1194,23 +1194,23 @@ int GUIAction::flash(std::string arg){
 		ret_val = flash_zip("/sdcard/SHRP/addons/c_magisk.zip", &wipe_cache);
 		TWFunc::SetPerformanceMode(false);
 		//Re-inject system again, just in case
-#ifdef BOARD_BUILD_SYSTEM_ROOT_IMAGE
-		Part = PartitionManager.Find_Partition_By_Path("/system_root");
-		if(Part!=NULL){
-			if(Part->Is_Mounted()){
-				TWFunc::Exec_Cmd(cmdsysonesar);
+		if(TWFunc::Path_Exists("/system_root")){
+			Part = PartitionManager.Find_Partition_By_Path("/system_root");
+			if(Part!=NULL){
+				if(Part->Is_Mounted()){
+					TWFunc::Exec_Cmd(cmdsysonesar);
+				}
+				TWFunc::Exec_Cmd(cmdsystwosar);
 			}
-			TWFunc::Exec_Cmd(cmdsystwosar);
-		}
-#else
-		Part = PartitionManager.Find_Partition_By_Path("/system");
-		if(Part!=NULL){
-			if(Part->Is_Mounted()){
-				TWFunc::Exec_Cmd(cmdsysone);
+		}else{
+			Part = PartitionManager.Find_Partition_By_Path("/system");
+			if(Part!=NULL){
+				if(Part->Is_Mounted()){
+					TWFunc::Exec_Cmd(cmdsysone);
+				}
+    		TWFunc::Exec_Cmd(cmdsystwo);
 			}
-    	TWFunc::Exec_Cmd(cmdsystwo);
 		}
-#endif
 		gui_msg("remount_system_rw=[i] Remounted system as R/W!");
   }
 	if (reinject_after_flash() == 0) {
