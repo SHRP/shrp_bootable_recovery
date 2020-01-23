@@ -793,8 +793,8 @@
 		<string name="c_color">color</string>
 		<string name="c_customize_rec">Customize your recovery</string>
 		<string name="c_dc_aex">Aex Style</string>
-		<string name="c_dc_white">White (Recommanded for black background)</string>
-		<string name="c_dc_black">Black (Recommanded for white background)</string>
+		<string name="c_dc_white">White (Recommended for black background)</string>
+		<string name="c_dc_black">Black (Recommended for white background)</string>
 		<string name="c_dc_default">Default</string>
 		<string name="c_dc_c">Dashboard icon customization</string>
 		<string name="c_icons">Icons</string>

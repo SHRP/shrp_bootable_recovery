@@ -7787,7 +7787,7 @@ cp /twres/c_dash_ico/black/*.png /twres/images/;
 			</image>
 			<text style="c_sub">
 				<placement x="130" y="%t_2nd_radio_text_pos%"/>
-				<text>{@c_dc_black=Black (Recommanded for white background)}</text>
+				<text>{@c_dc_black=Black (Recommended for white background)}</text>
 			</text>
 
 			<button>
@@ -7812,7 +7812,7 @@ cp /twres/c_dash_ico/white/*.png /twres/images/;
 			</image>
 			<text style="c_sub">
 				<placement x="130" y="%t_3rd_radio_text_pos%"/>
-				<text>{@c_dc_white=White (Recommanded for black background)}</text>
+				<text>{@c_dc_white=White (Recommended for black background)}</text>
 			</text>
 
 			<button>
