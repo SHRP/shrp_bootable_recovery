@@ -1105,8 +1105,8 @@ int GUIAction::reinject_after_flash()
     return 0;
 }
 
-int GUIAction::flash(std::string arg)
-{
+int GUIAction::flash(std::string arg){
+	TWPartition* Part;
 	int active_slot = 0;
 	int inject_shrp = 0;
 	int mkinject_zip = 0;
@@ -1116,18 +1116,15 @@ int GUIAction::flash(std::string arg)
 	string cmdsystwo = "mount -w /system";
     backup_before_flash();
     if (DataManager::GetIntValue(TW_HAS_DEVICEAB) == 1 && DataManager::GetIntValue(TW_ACTIVE_SLOT_INSTALL) == 1) {
-    	string cmd = "setprop tw_active_slot_install 1";
-		TWFunc::Exec_Cmd(cmd);
-		active_slot = 1;
+			TWFunc::Exec_Cmd("setprop tw_active_slot_install 1");
+			active_slot = 1;
     }
     if (DataManager::GetIntValue(TW_HAS_DEVICEAB) == 1 && DataManager::GetIntValue(TW_INJECT_AFTER_ZIP) == 1) {
-    	string cmd = "setprop tw_inject_after_zip 1";
-    	TWFunc::Exec_Cmd(cmd);
+    	TWFunc::Exec_Cmd("setprop tw_inject_after_zip 1");
     	inject_shrp = 1;
     }
     if (DataManager::GetIntValue(TW_HAS_DEVICEAB) == 1 && DataManager::GetIntValue(TW_MKINJECT_AFTER_ZIP) == 1) {
-    	string cmd = "setprop tw_mkinject_after_zip 1";
-    	TWFunc::Exec_Cmd(cmd);
+    	TWFunc::Exec_Cmd("setprop tw_mkinject_after_zip 1");
     	mkinject_zip = 1;
     }
 	int i, ret_val = 0, wipe_cache = 0;
@@ -1163,54 +1160,62 @@ int GUIAction::flash(std::string arg)
 	// Reset active slot counter to 0
 	if (active_slot == 1) {
 		active_slot = 0;
-    	string cmd = "setprop tw_active_slot_install 0";
-		TWFunc::Exec_Cmd(cmd);
-    }
-    if (inject_shrp == 1) {
+		TWFunc::Exec_Cmd("setprop tw_active_slot_install 0");
+  }
+  if (inject_shrp == 1) {
 		inject_shrp = 0;
-    	string cmd = "setprop tw_inject_after_zip 0";
-		TWFunc::Exec_Cmd(cmd);
-    }
-    // Remount system as R/W, just in case
-    if (TWFunc::Path_Exists("/system/system"))
-    {
-    	TWFunc::Exec_Cmd(cmdsysonesar);
-    	TWFunc::Exec_Cmd(cmdsystwosar);
-    	gui_msg("remount_system_rw=[i] Remounted system_root as R/W!");
-    }
-    else
-    {
-   		TWFunc::Exec_Cmd(cmdsysone);
-    	TWFunc::Exec_Cmd(cmdsystwo);
-    	gui_msg("remount_system_rw=[i] Remounted system as R/W!");
-    }
-    // Inject Magisk
-    if (mkinject_zip == 1) {
+		TWFunc::Exec_Cmd("setprop tw_inject_after_zip 0");
+  }
+  // Remount system as R/W, just in case
+#ifdef BOARD_BUILD_SYSTEM_ROOT_IMAGE
+	Part = PartitionManager.Find_Partition_By_Path("/system_root");
+	if(Part!=NULL){
+		if(Part->Is_Mounted()){
+			TWFunc::Exec_Cmd(cmdsysonesar);
+		}
+		TWFunc::Exec_Cmd(cmdsystwosar);
+	}
+#else
+	Part = PartitionManager.Find_Partition_By_Path("/system");
+	if(Part!=NULL){
+		if(Part->Is_Mounted()){
+			TWFunc::Exec_Cmd(cmdsysone);
+		}
+	  TWFunc::Exec_Cmd(cmdsystwo);
+	}
+#endif
+	gui_msg("remount_system_rw=[i] Remounted system as R/W!");
+  // Inject Magisk
+  if (mkinject_zip == 1) {
 		mkinject_zip = 0;
-    	string cmdmk = "setprop tw_mkinject_after_zip 0";
+    string cmdmk = "setprop tw_mkinject_after_zip 0";
 		TWFunc::Exec_Cmd(cmdmk);
 		TWFunc::SetPerformanceMode(true);
 		ret_val = flash_zip("/sdcard/SHRP/addons/c_magisk.zip", &wipe_cache);
 		TWFunc::SetPerformanceMode(false);
 		//Re-inject system again, just in case
-    	if (TWFunc::Path_Exists("/system/system"))
-   		{
-    		TWFunc::Exec_Cmd(cmdsysonesar);
-    		TWFunc::Exec_Cmd(cmdsystwosar);
-    		gui_msg("remount_system_rw=[i] Remounted system_root as R/W!");
-    	}
-    	else
-    	{
-   			TWFunc::Exec_Cmd(cmdsysone);
-    		TWFunc::Exec_Cmd(cmdsystwo);
-    		gui_msg("remount_system_rw=[i] Remounted system as R/W!");
-    	}
-    }
-
-    if (reinject_after_flash() == 0) {
-	    PartitionManager.Update_System_Details();
-    }
-
+#ifdef BOARD_BUILD_SYSTEM_ROOT_IMAGE
+		Part = PartitionManager.Find_Partition_By_Path("/system_root");
+		if(Part!=NULL){
+			if(Part->Is_Mounted()){
+				TWFunc::Exec_Cmd(cmdsysonesar);
+			}
+			TWFunc::Exec_Cmd(cmdsystwosar);
+		}
+#else
+		Part = PartitionManager.Find_Partition_By_Path("/system");
+		if(Part!=NULL){
+			if(Part->Is_Mounted()){
+				TWFunc::Exec_Cmd(cmdsysone);
+			}
+    	TWFunc::Exec_Cmd(cmdsystwo);
+		}
+#endif
+		gui_msg("remount_system_rw=[i] Remounted system as R/W!");
+  }
+	if (reinject_after_flash() == 0) {
+	   PartitionManager.Update_System_Details();
+  }
 	operation_end(ret_val);
 	return 0;
 }

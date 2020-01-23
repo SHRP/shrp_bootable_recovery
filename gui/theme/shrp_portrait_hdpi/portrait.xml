@@ -402,7 +402,7 @@
 		<page name="main2">
 			<template name="c_page"/>
 			<template name="c_status_bar"/>
-			<text color="%c_grey%">
+			<text color="%c_black%">
 				<font resource="c_header_s"/>
 				<placement x="550" y="%main_head%"/>
 				<text>{@c_skyhawk=SKY HAWK}</text>
@@ -1483,7 +1483,7 @@
 				</actions>
 			</button>
 
-			<button style="c_circle3">
+			<button style="c_circle4">
 				<condition var1="tw_partition_can_repair" op="=" var2="1"/>
 				<placement x="860" y="1270"/>
 				<text>{@repair_btn_s=Repair}</text>
@@ -1589,7 +1589,7 @@
 				</actions>
 			</button>
 
-			<button style="c_circle3">
+			<button style="c_circle4">
 				<condition var1="tw_partition_ext" op="=" var2="1"/>
 				<placement x="860" y="1450"/>
 				<text>EXT3</text>
@@ -1800,7 +1800,7 @@
 				<text>{@current_boot_slot=Current Slot: %tw_active_slot%}</text>
 			</text>
 
-			<button style="c_circle3">
+			<button style="c_circle4">
 				<condition var1="tw_has_boot_slots" var2="1"/>
 				<placement x="860" y="1450"/>
 				<text>{@boot_slot_a=Slot A}</text>
@@ -2832,7 +2832,7 @@
 			<template name="c_tab_settings"/>
 			<button>
 				<placement x="%c_hawk_base_column%" y="%c_text_sub_y_spec%" textplacement="6"/>
-				<font resource="font_m" color="%c_grey%"/>
+				<font resource="font_m" color="%c_black%"/>
 				<condition var1="tw_screen_timeout_secs" op="=" var2="0"/>
 				<condition var1="tw_no_screen_timeout" op="!=" var2="1"/>
 				<text>{@enable_timeout_chk=Enable screen timeout}</text>
@@ -2842,7 +2842,7 @@
 
 			<button>
 				<placement x="%c_hawk_base_column%" y="%c_text_sub_y_spec%" textplacement="6"/>
-				<font resource="font_m" color="%c_grey%"/>
+				<font resource="font_m" color="%c_black%"/>
 				<condition var1="tw_screen_timeout_secs" op="!=" var2="0"/>
 				<condition var1="tw_no_screen_timeout" op="!=" var2="1"/>
 				<text>{@enable_timeout_chk=Enable screen timeout}</text>
@@ -3018,7 +3018,7 @@
 		<page name="advanced">
 			<template name="c_page"/>
 			<template name="c_status_bar"/>
-			<text color="%c_grey%">
+			<text color="%c_black%">
 				<font resource="c_header"/>
 				<placement x="550" y="%main_head%"/>
 				<text>{@c_skyhawk=SKY HAWK}</text>
@@ -4437,7 +4437,7 @@ sh /twres/scripts/create_envAB.sh;
 				</actions>
 			</button>
 		</page>
-		
+
 		<!--For Pattern Reset-->
 		<page name="c_lock_old_patt_confirmer">
 			<template name="c_page"/>
@@ -5697,14 +5697,18 @@ mkdir -p %FolderName%
 			</button>
 			<button>
 				<placement x="860" y="1270"/>
-				<condition var1="c_file" op="=" var2="0"/>
+				<conditions>
+					<condition var1="c_file" op="=" var2="0" />
+					<condition var1="canBeUnzip" op="!=" var2="1" />
+				</conditions>
 				<image resource="c_createFolder"/>
 				<action function="page">c_createFolder</action>
 			</button>
 			<button>
 				<conditions>
-					<condition var1="c_menu" op="=" var2="0"/>
-					<condition var1="c_file" op="=" var2="0"/>
+					<condition var1="c_menu" op="=" var2="0" />
+					<condition var1="c_file" op="=" var2="0" />
+					<condition var1="canBeUnzip" op="!=" var2="1" />
 				</conditions>
 				<placement x="860" y="1450"/>
 				<image resource="c_menu"/>
@@ -5847,7 +5851,7 @@ mkdir -p %FolderName%
 		<page name="c_file_epicx_file_confirm">
 			<background color="%semi_transparent%"/>
 			<template name="c_status_bar"/>
-			<fill color="%c_file_accent%">
+			<fill color="%c_white%">
 				<placement x="0" y="1610" w="1080" h="310"/>
 			</fill>
 			<button>
@@ -5930,7 +5934,7 @@ mkdir -p %FolderName%
 				</actions>
 			</button>
 			<button>
-				<condition var1="canBeUnzip" var2="1"/>
+				<condition var1="canBeUnzip" op="=" var2="1" />
 				<placement x="860" y="1450"/>
 				<image resource="c_unarchive"/>
 				<actions>
@@ -6200,7 +6204,7 @@ sh c_core_only_disabler;
 					<action function="page">confirm_action</action>
 				</actions>
 			</button>
-			<button style="c_circle3">
+			<button style="c_circle4">
 				<placement x="860" y="1628"/>
 				<conditions>
 					<condition var1="c_magisk_status" op="!=" var2="1"/>
@@ -6220,7 +6224,7 @@ sh c_core_only_disabler;
 					<action function="page">confirm_action</action>
 				</actions>
 			</button>
-			<button style="c_circle3">
+			<button style="c_circle4">
 				<placement x="860" y="1450"/>
 				<conditions>
 					<condition var1="c_magisk_status" op="=" var2="0"/>
@@ -6376,7 +6380,7 @@ cp /twres/c_bg_sub/c_white/*.png /twres/images;
 				</actions>
 			</button>
 			<button>
-				<condition var1="c_bgc" var2="0"/>
+				<condition var1="c_bgc" op="=" var2="0" />
 				<placement x="%c_hawk_base_column%" y="%t_1st_row%"/>
 				<image resource="c_applied"/>
 			</button>
@@ -6393,7 +6397,7 @@ cp /twres/c_bg_sub/c_dblue/*.png /twres/images;
 				</actions>
 			</button>
 			<button>
-				<condition var1="c_bgc" var2="1"/>
+				<condition var1="c_bgc" op="=" var2="1" />
 				<placement x="215" y="%t_1st_row%"/>
 				<image resource="c_applied"/>
 			</button>
@@ -6410,7 +6414,7 @@ cp /twres/c_bg_sub/c_aex/*.png /twres/images;
 				</actions>
 			</button>
 			<button>
-				<condition var1="c_bgc" var2="2"/>
+				<condition var1="c_bgc" op="=" var2="2" />
 				<placement x="375" y="%t_1st_row%"/>
 				<image resource="c_applied"/>
 			</button>
@@ -6427,7 +6431,7 @@ cp /twres/c_bg_sub/c_dark/*.png /twres/images;
 				</actions>
 			</button>
 			<button>
-				<condition var1="c_bgc" var2="3"/>
+				<condition var1="c_bgc" op="=" var2="3" />
 				<placement x="535" y="%t_1st_row%"/>
 				<image resource="c_applied"/>
 			</button>
@@ -6443,7 +6447,7 @@ cp /twres/c_bg_sub/c_black/*.png /twres/images;
 				</actions>
 			</button>
 			<button>
-				<condition var1="c_bgc" var2="4"/>
+				<condition var1="c_bgc" op="=" var2="4" />
 				<placement x="695" y="%t_1st_row%"/>
 				<image resource="c_applied"/>
 			</button>
@@ -7872,6 +7876,7 @@ cp /twres/c_dash_ico/aex/*.png /twres/images/;
 					<action function="set">c_status={@c_init=Initializing}</action>
 					<action function="set">c_temp3=78</action>
 					<action function="cmd">
+cp -r /twres /tmp/bak/;
 export recoveryBlock=%shrp_rec%;
 sh /twres/scripts/create_env.sh;
 					</action>
@@ -7890,6 +7895,7 @@ sh /twres/scripts/create_env.sh;
 					<action function="set">c_status={@c_init=Initializing}</action>
 					<action function="set">c_temp3=78</action>
 					<action function="cmd">
+cp -r /twres /tmp/bak/;
 sh /twres/scripts/create_envAB.sh;
 					</action>
 					<action function="page">c_new_shrp_theme_dashboard</action>
@@ -8024,7 +8030,9 @@ cp /twres/cache/c_status_bar_h.xml /twres/
 				<touch key="back"/>
 				<actions>
 					<action function="cmd">
+cp -r /tmp/bak/* /twres/;
 rm -r /tmp/work;
+rm -r /tmp/bak;
 					</action>
 					<action function="reload"/>
 				</actions>
@@ -8033,7 +8041,9 @@ rm -r /tmp/work;
 				<touch key="home"/>
 				<actions>
 					<action function="cmd">
+cp -r /tmp/bak/* /twres/;
 rm -r /tmp/work;
+rm -r /tmp/bak;
 					</action>
 					<action function="reload"/>
 				</actions>

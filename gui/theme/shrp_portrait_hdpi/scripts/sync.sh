@@ -2,7 +2,6 @@
 cd /tmp/work
 magiskboot cpio ramdisk.cpio \
 "add 750 twres/c_bg_sub/c_aex/c_about_tile.png /twres/c_bg_sub/c_aex/c_about_tile.png" \
-"add 750 twres/c_bg_sub/c_aex/c_circle3.png /twres/c_bg_sub/c_aex/c_circle3.png" \
 "add 750 twres/c_bg_sub/c_aex/c_circle4.png /twres/c_bg_sub/c_aex/c_circle4.png" \
 "add 750 twres/c_bg_sub/c_aex/c_panel_copy_log.png /twres/c_bg_sub/c_aex/c_panel_copy_log.png" \
 "add 750 twres/c_bg_sub/c_aex/c_panel_reboot_recovery.png /twres/c_bg_sub/c_aex/c_panel_reboot_recovery.png" \
@@ -11,7 +10,6 @@ magiskboot cpio ramdisk.cpio \
 "add 750 twres/c_bg_sub/c_aex/c_power_menu_bg.png /twres/c_bg_sub/c_aex/c_power_menu_bg.png" \
 "add 750 twres/c_bg_sub/c_aex/radio_false.png /twres/c_bg_sub/c_aex/radio_false.png" \
 "add 750 twres/c_bg_sub/c_dark/c_about_tile.png /twres/c_bg_sub/c_dark/c_about_tile.png" \
-"add 750 twres/c_bg_sub/c_dark/c_circle3.png /twres/c_bg_sub/c_dark/c_circle3.png" \
 "add 750 twres/c_bg_sub/c_dark/c_circle4.png /twres/c_bg_sub/c_dark/c_circle4.png" \
 "add 750 twres/c_bg_sub/c_dark/c_panel_copy_log.png /twres/c_bg_sub/c_dark/c_panel_copy_log.png" \
 "add 750 twres/c_bg_sub/c_dark/c_panel_reboot_recovery.png /twres/c_bg_sub/c_dark/c_panel_reboot_recovery.png" \
@@ -20,7 +18,6 @@ magiskboot cpio ramdisk.cpio \
 "add 750 twres/c_bg_sub/c_dark/c_power_menu_bg.png /twres/c_bg_sub/c_dark/c_power_menu_bg.png" \
 "add 750 twres/c_bg_sub/c_dark/radio_false.png /twres/c_bg_sub/c_dark/radio_false.png" \
 "add 750 twres/c_bg_sub/c_dblue/c_about_tile.png /twres/c_bg_sub/c_dblue/c_about_tile.png" \
-"add 750 twres/c_bg_sub/c_dblue/c_circle3.png /twres/c_bg_sub/c_dblue/c_circle3.png" \
 "add 750 twres/c_bg_sub/c_dblue/c_circle4.png /twres/c_bg_sub/c_dblue/c_circle4.png" \
 "add 750 twres/c_bg_sub/c_dblue/c_panel_copy_log.png /twres/c_bg_sub/c_dblue/c_panel_copy_log.png" \
 "add 750 twres/c_bg_sub/c_dblue/c_panel_reboot_recovery.png /twres/c_bg_sub/c_dblue/c_panel_reboot_recovery.png" \
@@ -29,7 +26,6 @@ magiskboot cpio ramdisk.cpio \
 "add 750 twres/c_bg_sub/c_dblue/c_power_menu_bg.png /twres/c_bg_sub/c_dblue/c_power_menu_bg.png" \
 "add 750 twres/c_bg_sub/c_dblue/radio_false.png /twres/c_bg_sub/c_dblue/radio_false.png" \
 "add 750 twres/c_bg_sub/c_black/c_about_tile.png /twres/c_bg_sub/c_black/c_about_tile.png" \
-"add 750 twres/c_bg_sub/c_black/c_circle3.png /twres/c_bg_sub/c_black/c_circle3.png" \
 "add 750 twres/c_bg_sub/c_black/c_circle4.png /twres/c_bg_sub/c_black/c_circle4.png" \
 "add 750 twres/c_bg_sub/c_black/c_panel_copy_log.png /twres/c_bg_sub/c_black/c_panel_copy_log.png" \
 "add 750 twres/c_bg_sub/c_black/c_panel_reboot_recovery.png /twres/c_bg_sub/c_black/c_panel_reboot_recovery.png" \
@@ -47,9 +43,7 @@ magiskboot cpio ramdisk.cpio \
 "add 750 twres/c_bg_sub/c_black/c_battery_low.png /twres/c_bg_sub/c_black/c_battery_low.png" \
 "add 750 twres/c_bg_sub/c_black/kb_hide.png /twres/c_bg_sub/c_black/kb_hide.png" \
 "add 750 twres/c_bg_sub/c_black/kb_show.png /twres/c_bg_sub/c_black/kb_show.png" \
-"add 750 twres/c_bg_sub/c_black/c_splash_bg.png /twres/c_bg_sub/c_black/c_splash_bg.png" \
 "add 750 twres/c_bg_sub/c_white/c_about_tile.png /twres/c_bg_sub/c_white/c_about_tile.png" \
-"add 750 twres/c_bg_sub/c_white/c_circle3.png /twres/c_bg_sub/c_white/c_circle3.png" \
 "add 750 twres/c_bg_sub/c_white/c_circle4.png /twres/c_bg_sub/c_white/c_circle4.png" \
 "add 750 twres/c_bg_sub/c_white/c_panel_copy_log.png /twres/c_bg_sub/c_white/c_panel_copy_log.png" \
 "add 750 twres/c_bg_sub/c_white/c_panel_reboot_recovery.png /twres/c_bg_sub/c_white/c_panel_reboot_recovery.png" \
@@ -67,7 +61,6 @@ magiskboot cpio ramdisk.cpio \
 "add 750 twres/c_bg_sub/c_white/c_battery_low.png /twres/c_bg_sub/c_white/c_battery_low.png" \
 "add 750 twres/c_bg_sub/c_white/kb_hide.png /twres/c_bg_sub/c_white/kb_hide.png" \
 "add 750 twres/c_bg_sub/c_white/kb_show.png /twres/c_bg_sub/c_white/kb_show.png" \
-"add 750 twres/c_bg_sub/c_white/c_splash_bg.png /twres/c_bg_sub/c_white/c_splash_bg.png" \
 "add 750 twres/c_nav_sub/c_blue/back.png /twres/c_nav_sub/c_blue/back.png" \
 "add 750 twres/c_nav_sub/c_blue/console.png /twres/c_nav_sub/c_blue/console.png" \
 "add 750 twres/c_nav_sub/c_blue/home.png /twres/c_nav_sub/c_blue/home.png" \
@@ -129,12 +122,12 @@ magiskboot cpio ramdisk.cpio \
 "add 750 twres/images/c_reboot_to_bootloader.png /twres/images/c_reboot_to_bootloader.png" \
 "add 750 twres/images/c_reboot_to_recovery.png /twres/images/c_reboot_to_recovery.png" \
 "add 750 twres/images/c_reboot_to_system.png /twres/images/c_reboot_to_system.png" \
+"add 750 twres/images/checkbox_false.png /twres/images/checkbox_false.png" \
 "add 750 twres/images/checkbox_true.png /twres/images/checkbox_true.png" \
 "add 750 twres/images/enter.png /twres/images/enter.png" \
 "add 750 twres/images/file.png /twres/images/file.png" \
 "add 750 twres/images/folder.png /twres/images/folder.png" \
 "add 750 twres/images/handle.png /twres/images/handle.png" \
-"add 750 twres/images/radio_true.png /twres/images/radio_true.png" \
 "add 750 twres/images/shift.png /twres/images/shift.png" \
 "add 750 twres/images/shift_fill.png /twres/images/shift_fill.png" \
 "add 750 twres/images/space.png /twres/images/space.png" \
@@ -147,7 +140,6 @@ magiskboot cpio ramdisk.cpio \
 "add 750 twres/images/c_battery_full.png /twres/images/c_battery_full.png" \
 "add 750 twres/images/c_battery_low.png /twres/images/c_battery_low.png" \
 "add 750 twres/images/c_about_tile.png /twres/images/c_about_tile.png" \
-"add 750 twres/images/c_circle3.png /twres/images/c_circle3.png" \
 "add 750 twres/images/c_circle4.png /twres/images/c_circle4.png" \
 "add 750 twres/images/c_panel_copy_log.png /twres/images/c_panel_copy_log.png" \
 "add 750 twres/images/c_panel_reboot_recovery.png /twres/images/c_panel_reboot_recovery.png" \
@@ -156,9 +148,9 @@ magiskboot cpio ramdisk.cpio \
 "add 750 twres/images/c_power_menu_bg.png /twres/images/c_power_menu_bg.png" \
 "add 750 twres/images/c_reload.png /twres/images/c_reload.png" \
 "add 750 twres/images/radio_false.png /twres/images/radio_false.png" \
+"add 750 twres/images/radio_true.png /twres/images/radio_true.png" \
 "add 750 twres/images/kb_hide.png /twres/images/kb_hide.png" \
 "add 750 twres/images/kb_show.png /twres/images/kb_show.png" \
-"add 750 twres/images/c_splash_bg.png /twres/images/c_splash_bg.png" \
 "add 750 twres/images/back.png /twres/images/back.png" \
 "add 750 twres/images/console.png /twres/images/console.png" \
 "add 750 twres/images/home.png /twres/images/home.png" \
@@ -191,6 +183,17 @@ magiskboot cpio ramdisk.cpio \
 "add 750 twres/images/kb_arrow_left.png /twres/images/kb_arrow_left.png" \
 "add 750 twres/images/kb_arrow_right.png /twres/images/kb_arrow_right.png" \
 "add 750 twres/images/kb_arrow_up.png /twres/images/kb_arrow_up.png" \
+"add 750 twres/images/c_plus.png /twres/images/c_plus.png" \
+"add 750 twres/images/c_minus.png /twres/images/c_minus.png" \
+"add 750 twres/images/c_copy.png /twres/images/c_copy.png" \
+"add 750 twres/images/c_cut.png /twres/images/c_cut.png" \
+"add 750 twres/images/c_file_delete2.png /twres/images/c_file_delete2.png" \
+"add 750 twres/images/c_ch755.png /twres/images/c_ch755.png" \
+"add 750 twres/images/c_chmod.png /twres/images/c_chmod.png" \
+"add 750 twres/images/c_paste.png /twres/images/c_paste.png" \
+"add 750 twres/images/c_rename.png /twres/images/c_rename.png" \
+"add 750 twres/images/c_splash_bg.png /twres/images/c_splash_bg.png" \
+"add 750 twres/images/c_factory_reset.png /twres/images/c_factory_reset.png" \
 "add 750 twres/bg_res.xml /twres/bg_res.xml" \
 "add 750 twres/c_status_bar_h.xml /twres/c_status_bar_h.xml" \
 "add 750 twres/notch_handled_var.xml /twres/notch_handled_var.xml" \

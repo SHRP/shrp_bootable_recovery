@@ -83,7 +83,6 @@
 		<image name="c_delete" filename="c_delete" retainaspect="1"/>
 		<image name="c_rename" filename="c_rename" retainaspect="1"/>
 		<image name="c_refresh" filename="c_refresh" retainaspect="1"/>
-		<image name="c_circle3" filename="c_circle3" retainaspect="1"/>
 		<image name="c_circle4" filename="c_circle4" retainaspect="1"/>
 		<image name="c_mtp_enabled" filename="c_mtp_enabled" retainaspect="1"/>
 		<image name="c_mtp_disabled" filename="c_mtp_disabled" retainaspect="1"/>
@@ -606,7 +605,7 @@
 				<text>{@current_boot_slot=Current Slot: %tw_active_slot%}</text>
 			</text>
 
-			<button style="c_circle3">
+			<button style="c_circle4">
 				<condition var1="tw_has_boot_slots" var2="1"/>
 				<placement x="860" y="1450"/>
 				<text>{@boot_slot_a=Slot A}</text>
@@ -779,7 +778,7 @@ reboot edl
 				<text>{@current_boot_slot=Current Slot: %tw_active_slot%}</text>
 			</text>
 
-			<button style="c_circle3">
+			<button style="c_circle4">
 				<condition var1="tw_has_boot_slots" var2="1"/>
 				<placement x="860" y="1450"/>
 				<text>{@boot_slot_a=Slot A}</text>
@@ -876,9 +875,9 @@ reboot edl
 				<placement x="0" y="%keyboard_terminal_y%" w="%screen_width%" h="96"/>
 				<keymargin x="0" y="0"/>
 				<background color="%c_white%"/>
-				<key-alphanumeric color="%c_white%" font="keylabel" textcolor="%c_grey%"/>
-				<key-other color="%c_white%" font="keylabel-small" textcolor="%c_grey%"/>
-				<longpress font="keylabel-longpress" textcolor="%c_grey%" x="12" y="0"/>
+				<key-alphanumeric color="%c_white%" font="keylabel" textcolor="%c_black%"/>
+				<key-other color="%c_white%" font="keylabel-small" textcolor="%c_black%"/>
+				<longpress font="keylabel-longpress" textcolor="%c_black%" x="12" y="0"/>
 				<keylabel key="0:k:29" text="Ctrl"/>
 				<keylabel key="0:c:27" text="Esc"/>
 				<keylabel key="0:c:9" text="Tab"/>
@@ -901,9 +900,9 @@ reboot edl
 				<placement x="0" y="%keyboard_y%" w="1080" h="644"/>
 				<keymargin x="8" y="8"/>
 				<background color="%c_white%"/>
-				<key-alphanumeric color="%c_white%" font="keylabel" textcolor="%c_grey%"/>
-				<key-other color="%c_white%" font="keylabel-small" textcolor="%c_grey%"/>
-				<longpress font="keylabel-longpress" textcolor="%c_grey%" x="12" y="0"/>
+				<key-alphanumeric color="%c_white%" font="keylabel" textcolor="%c_black%"/>
+				<key-other color="%c_white%" font="keylabel-small" textcolor="%c_black%"/>
+				<longpress font="keylabel-longpress" textcolor="%c_black%" x="12" y="0"/>
 				<keylabel key="0:c:8" text="Bksp" resource="backspace"/>
 				<keylabel key="0:action" text="Enter" resource="enter"/>
 				<keylabel key=" " text="Space" resource="space"/>
