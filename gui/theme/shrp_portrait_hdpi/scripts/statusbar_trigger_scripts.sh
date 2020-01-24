@@ -26,6 +26,7 @@ cat > /twres/cache/c_status_bar_h.xml <<EOF
 		<variable name="c_bgc" value="$cb_w" persist="0"/>
 		<variable name="c_text_color" value="$ctc" persist="0"/>
 		<variable name="c_acc_color" value="$cac" persist="0"/>
+		<variable name="c_acc_color_val" value="$cacv" persist="0"/>
 		<variable name="c_notch_mode" value="$cnm" persist="0"/>
 	</variables>
 </recovery>

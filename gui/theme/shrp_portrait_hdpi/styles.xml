@@ -104,31 +104,31 @@
 
 		<style name="terminal">
 			<background color="%c_white%"/>
-			<fastscroll rectcolor="%c_black%" w="%fastscroll_w%" rectw="%fastscroll_rectw%" recth="%fastscroll_recth%"/>
+			<fastscroll rectcolor="%c_acc_color_val%" w="%fastscroll_w%" rectw="%fastscroll_rectw%" recth="%fastscroll_recth%"/>
 			<font resource="c_console_font" spacing="3" color="%c_black%"/>
 		</style>
 		<style name="fileselector">
 			<background color="%c_white%"/>
-			<fastscroll rectcolor="%c_black%" w="%fastscroll_w%" rectw="%fastscroll_rectw%" recth="%fastscroll_recth%" />
+			<fastscroll rectcolor="%c_acc_color_val%" w="%fastscroll_w%" rectw="%fastscroll_rectw%" recth="%fastscroll_recth%" />
 			<icon folder="folder" file="file" />
 			<font resource="font_s" color="%c_black%" />
 		</style>
 		<style name="c_file_for_magisk">
 			<background color="%c_white%"/>
-			<fastscroll rectcolor="%c_black%" w="%fastscroll_w%" rectw="%fastscroll_rectw%" recth="%fastscroll_recth%" />
+			<fastscroll rectcolor="%c_acc_color_val%" w="%fastscroll_w%" rectw="%fastscroll_rectw%" recth="%fastscroll_recth%" />
 			<icon folder="c_modules" file="file" />
 			<font resource="font_s" color="%c_black%" />
 		</style>
-        <style name="c_restore">
+    <style name="c_restore">
 			<background color="%c_white%"/>
-			<fastscroll rectcolor="%c_black%" w="%fastscroll_w%" rectw="%fastscroll_rectw%" recth="%fastscroll_recth%" />
+			<fastscroll rectcolor="%c_acc_color_val%" w="%fastscroll_w%" rectw="%fastscroll_rectw%" recth="%fastscroll_recth%" />
 			<icon folder="backup" file="backup" />
 			<font resource="font_s" color="%c_black%" />
 		</style>
 
 		<style name="listbox">
 			<background color="%c_white%"/>
-			<fastscroll rectcolor="%c_black%" w="%fastscroll_w%" rectw="%fastscroll_rectw%" recth="%fastscroll_recth%" />
+			<fastscroll rectcolor="%c_acc_color_val%" w="%fastscroll_w%" rectw="%fastscroll_rectw%" recth="%fastscroll_recth%" />
 			<icon selected="radio_true" unselected="radio_false" />
 			<font resource="font_s" color="%c_black%"/>
 		</style>
@@ -140,12 +140,12 @@
 		<style name="scrolllist">
 			<background color="%c_white%"/>
 			<font resource="font_s" color="%c_black%"/>
-			<fastscroll rectcolor="%c_black%" w="%fastscroll_w%" linew="%fastscroll_linew%" rectw="%fastscroll_rectw%" recth="%fastscroll_recth%"/>
+			<fastscroll rectcolor="%c_acc_color_val%" w="%fastscroll_w%" linew="%fastscroll_linew%" rectw="%fastscroll_rectw%" recth="%fastscroll_recth%"/>
 		</style>
 
 		<style name="partitionlist">
 			<background color="%c_white%"/>
-			<fastscroll rectcolor="%c_black%" w="%fastscroll_w%" linew="%fastscroll_linew%" rectw="%fastscroll_rectw%" recth="%fastscroll_recth%"/>
+			<fastscroll rectcolor="%c_acc_color_val%" w="%fastscroll_w%" linew="%fastscroll_linew%" rectw="%fastscroll_rectw%" recth="%fastscroll_recth%"/>
 			<icon selected="checkbox_true" unselected="checkbox_false"/>
 			<font resource="font_s" color="%c_black%"/>
 		</style>
@@ -153,7 +153,7 @@
 		<style name="partitionlist_storage">
 			<background color="%c_white%"/>
 			<placement x="50" y="%c_hawk_base_second_header%" w="970" h="1500"/>
-			<fastscroll rectcolor="%c_black%" w="%fastscroll_w%" linew="%fastscroll_linew%" rectw="%fastscroll_rectw%" recth="%fastscroll_recth%"/>
+			<fastscroll rectcolor="%c_acc_color_val%" w="%fastscroll_w%" linew="%fastscroll_linew%" rectw="%fastscroll_rectw%" recth="%fastscroll_recth%"/>
 			<icon selected="radio_true" unselected="radio_false"/>
 			<font resource="font_s" color="%c_black%"/>
 		</style>
@@ -161,7 +161,7 @@
 		<style name="slidervalue">
 			<resource handle="handle"/>
 			<font resource="c_hider" color="%c_white%"/>
-			<colors line="%c_black%"/>
+			<colors line="%c_acc_color_val%"/>
 			<dimensions lineh="%slidervalue_lineh%" linepadding="%slidervalue_padding%" sliderw="%slidervalue_sliderw%" sliderh="%slidervalue_sliderh%"/>
 		</style>
 

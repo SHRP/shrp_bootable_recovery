@@ -2717,13 +2717,13 @@
 					<condition var1="tw_no_sha2" var2="0"/>
 					<data variable="tw_use_sha2"/>
 				</listitem>
-				<listitem name="Skip Treble Compatibility Varification">
+				<listitem name="{@c_skip_treble=Skip treble varification}">
 					<data variable="c_skip_tv"/>
 				</listitem>
-				<listitem name="Show Date on lockscreen">
+				<listitem name="{@c_show_lc=Show date on lockscreen}">
 					<data variable="c_dateview"/>
 				</listitem>
-				<listitem name="Dev Mode">
+				<listitem name="{@c_dev_mode=Dev mode}">
 					<data variable="c_devMode"/>
 				</listitem>
 			</listbox>
@@ -4735,7 +4735,7 @@ sh /twres/scripts/create_envAB.sh;
 			</text>
 			<text style="c_reboot_text">
 				<placement x="170" y="400"/>
-				<text>%c_r_status%</text>
+				<text>{@c_unavailable=Unavailable}</text>
 			</text>
 			<fill color="%nav_bg%">
 				<placement x="165" y="450" w="440" h="7"/>
@@ -4757,14 +4757,20 @@ sh /twres/scripts/create_envAB.sh;
 				<text>{@c_side_bar_internal=Internal Storage}</text>
 			</text>
 			<text style="c_reboot_text">
+				<condition var1="c_i_status" op="!=" var2="error" />
 				<placement x="170" y="574"/>
 				<text>%c_i_status%</text>
+			</text>
+			<text style="c_reboot_text">
+				<condition var1="c_i_status" op="=" var2="error" />
+				<placement x="170" y="574"/>
+				<text>{@c_unavailable=Unavailable}</text>
 			</text>
 			<fill color="%nav_bg%">
 				<placement x="165" y="624" w="440" h="7"/>
 			</fill>
 			<!--10% 44-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_i_p" op="&gt;" var2="0"/>
 					<condition var1="c_i_p" op="&lt;" var2="11"/>
@@ -4772,7 +4778,7 @@ sh /twres/scripts/create_envAB.sh;
 				<placement x="165" y="624" w="44" h="7"/>
 			</fill>
 			<!--20% 88-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_i_p" op="&gt;" var2="10"/>
 					<condition var1="c_i_p" op="&lt;" var2="21"/>
@@ -4781,7 +4787,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--30% 132-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_i_p" op="&gt;" var2="20"/>
 					<condition var1="c_i_p" op="&lt;" var2="31"/>
@@ -4790,7 +4796,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--40% 176-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_i_p" op="&gt;" var2="30"/>
 					<condition var1="c_i_p" op="&lt;" var2="41"/>
@@ -4799,7 +4805,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--50% 220-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_i_p" op="&gt;" var2="40"/>
 					<condition var1="c_i_p" op="&lt;" var2="51"/>
@@ -4808,7 +4814,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--60% 264-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_i_p" op="&gt;" var2="50"/>
 					<condition var1="c_i_p" op="&lt;" var2="61"/>
@@ -4817,7 +4823,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--70% 308-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_i_p" op="&gt;" var2="60"/>
 					<condition var1="c_i_p" op="&lt;" var2="71"/>
@@ -4826,7 +4832,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--80% 352-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_i_p" op="&gt;" var2="70"/>
 					<condition var1="c_i_p" op="&lt;" var2="81"/>
@@ -4835,7 +4841,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--90% 396-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_i_p" op="&gt;" var2="80"/>
 					<condition var1="c_i_p" op="&lt;" var2="91"/>
@@ -4844,7 +4850,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--100% 440-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_i_p" op="&gt;" var2="90"/>
 					<condition var1="c_i_p" op="&lt;" var2="101"/>
@@ -4870,14 +4876,20 @@ sh /twres/scripts/create_envAB.sh;
 				<text>{@c_side_bar_external=External Storage}</text>
 			</text>
 			<text style="c_reboot_text">
+				<condition var1="c_e_status" op="!=" var2="error" />
 				<placement x="170" y="748"/>
 				<text>%c_e_status%</text>
+			</text>
+			<text style="c_reboot_text">
+				<condition var1="c_e_status" op="=" var2="error" />
+				<placement x="170" y="748"/>
+				<text>{@c_unavailable=Unavailable}</text>
 			</text>
 			<fill color="%nav_bg%">
 				<placement x="165" y="798" w="440" h="7"/>
 			</fill>
 			<!--10% 44-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_e_p" op="&gt;" var2="0"/>
 					<condition var1="c_e_p" op="&lt;" var2="11"/>
@@ -4885,7 +4897,7 @@ sh /twres/scripts/create_envAB.sh;
 				<placement x="165" y="798" w="44" h="7"/>
 			</fill>
 			<!--20% 88-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_e_p" op="&gt;" var2="10"/>
 					<condition var1="c_e_p" op="&lt;" var2="21"/>
@@ -4894,7 +4906,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--30% 132-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_e_p" op="&gt;" var2="20"/>
 					<condition var1="c_e_p" op="&lt;" var2="31"/>
@@ -4903,7 +4915,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--40% 176-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_e_p" op="&gt;" var2="30"/>
 					<condition var1="c_e_p" op="&lt;" var2="41"/>
@@ -4912,7 +4924,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--50% 220-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_e_p" op="&gt;" var2="40"/>
 					<condition var1="c_e_p" op="&lt;" var2="51"/>
@@ -4921,7 +4933,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--60% 264-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_e_p" op="&gt;" var2="50"/>
 					<condition var1="c_e_p" op="&lt;" var2="61"/>
@@ -4930,7 +4942,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--70% 308-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_e_p" op="&gt;" var2="60"/>
 					<condition var1="c_e_p" op="&lt;" var2="71"/>
@@ -4939,7 +4951,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--80% 352-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_e_p" op="&gt;" var2="70"/>
 					<condition var1="c_e_p" op="&lt;" var2="81"/>
@@ -4948,7 +4960,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--90% 396-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_e_p" op="&gt;" var2="80"/>
 					<condition var1="c_e_p" op="&lt;" var2="91"/>
@@ -4957,7 +4969,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--100% 440-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_e_p" op="&gt;" var2="90"/>
 					<condition var1="c_e_p" op="&lt;" var2="101"/>
@@ -4981,14 +4993,20 @@ sh /twres/scripts/create_envAB.sh;
 				<text>{@c_side_bar_otg=OTG}</text>
 			</text>
 			<text style="c_reboot_text">
+				<condition var1="c_o_status" op="!=" var2="error" />
 				<placement x="170" y="922"/>
 				<text>%c_o_status%</text>
+			</text>
+			<text style="c_reboot_text">
+				<condition var1="c_o_status" op="=" var2="error" />
+				<placement x="170" y="922"/>
+				<text>{@c_unavailable=Unavailable}</text>
 			</text>
 			<fill color="%nav_bg%">
 				<placement x="165" y="972" w="440" h="7"/>
 			</fill>
 			<!--10% 44-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_o_p" op="&gt;" var2="0"/>
 					<condition var1="c_o_p" op="&lt;" var2="11"/>
@@ -4996,7 +5014,7 @@ sh /twres/scripts/create_envAB.sh;
 				<placement x="165" y="972" w="44" h="7"/>
 			</fill>
 			<!--20% 88-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_o_p" op="&gt;" var2="10"/>
 					<condition var1="c_o_p" op="&lt;" var2="21"/>
@@ -5005,7 +5023,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--30% 132-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_o_p" op="&gt;" var2="20"/>
 					<condition var1="c_o_p" op="&lt;" var2="31"/>
@@ -5014,7 +5032,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--40% 176-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_o_p" op="&gt;" var2="30"/>
 					<condition var1="c_o_p" op="&lt;" var2="41"/>
@@ -5023,7 +5041,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--50% 220-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_o_p" op="&gt;" var2="40"/>
 					<condition var1="c_o_p" op="&lt;" var2="51"/>
@@ -5032,7 +5050,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--60% 264-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_o_p" op="&gt;" var2="50"/>
 					<condition var1="c_o_p" op="&lt;" var2="61"/>
@@ -5041,7 +5059,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--70% 308-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_o_p" op="&gt;" var2="60"/>
 					<condition var1="c_o_p" op="&lt;" var2="71"/>
@@ -5050,7 +5068,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--80% 352-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_o_p" op="&gt;" var2="70"/>
 					<condition var1="c_o_p" op="&lt;" var2="81"/>
@@ -5059,7 +5077,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--90% 396-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_o_p" op="&gt;" var2="80"/>
 					<condition var1="c_o_p" op="&lt;" var2="91"/>
@@ -5068,7 +5086,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--100% 440-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_o_p" op="&gt;" var2="90"/>
 					<condition var1="c_o_p" op="&lt;" var2="101"/>
@@ -5127,7 +5145,7 @@ sh /twres/scripts/create_envAB.sh;
 			</text>
 			<text style="c_reboot_text">
 				<placement x="170" y="400"/>
-				<text>%c_r_status%</text>
+				<text>{@c_unavailable=Unavailable}</text>
 			</text>
 			<fill color="%nav_bg%">
 				<placement x="165" y="450" w="440" h="7"/>
@@ -5149,14 +5167,20 @@ sh /twres/scripts/create_envAB.sh;
 				<text>{@c_side_bar_internal=Internal Storage}</text>
 			</text>
 			<text style="c_reboot_text">
+				<condition var1="c_i_status" op="!=" var2="error" />
 				<placement x="170" y="574"/>
 				<text>%c_i_status%</text>
+			</text>
+			<text style="c_reboot_text">
+				<condition var1="c_i_status" op="=" var2="error" />
+				<placement x="170" y="574"/>
+				<text>{@c_unavailable=Unavailable}</text>
 			</text>
 			<fill color="%nav_bg%">
 				<placement x="165" y="624" w="440" h="7"/>
 			</fill>
 			<!--10% 44-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_i_p" op="&gt;" var2="0"/>
 					<condition var1="c_i_p" op="&lt;" var2="11"/>
@@ -5164,7 +5188,7 @@ sh /twres/scripts/create_envAB.sh;
 				<placement x="165" y="624" w="44" h="7"/>
 			</fill>
 			<!--20% 88-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_i_p" op="&gt;" var2="10"/>
 					<condition var1="c_i_p" op="&lt;" var2="21"/>
@@ -5173,7 +5197,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--30% 132-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_i_p" op="&gt;" var2="20"/>
 					<condition var1="c_i_p" op="&lt;" var2="31"/>
@@ -5182,7 +5206,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--40% 176-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_i_p" op="&gt;" var2="30"/>
 					<condition var1="c_i_p" op="&lt;" var2="41"/>
@@ -5191,7 +5215,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--50% 220-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_i_p" op="&gt;" var2="40"/>
 					<condition var1="c_i_p" op="&lt;" var2="51"/>
@@ -5200,7 +5224,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--60% 264-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_i_p" op="&gt;" var2="50"/>
 					<condition var1="c_i_p" op="&lt;" var2="61"/>
@@ -5209,7 +5233,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--70% 308-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_i_p" op="&gt;" var2="60"/>
 					<condition var1="c_i_p" op="&lt;" var2="71"/>
@@ -5218,7 +5242,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--80% 352-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_i_p" op="&gt;" var2="70"/>
 					<condition var1="c_i_p" op="&lt;" var2="81"/>
@@ -5227,7 +5251,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--90% 396-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_i_p" op="&gt;" var2="80"/>
 					<condition var1="c_i_p" op="&lt;" var2="91"/>
@@ -5236,7 +5260,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--100% 440-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_i_p" op="&gt;" var2="90"/>
 					<condition var1="c_i_p" op="&lt;" var2="101"/>
@@ -5262,14 +5286,20 @@ sh /twres/scripts/create_envAB.sh;
 				<text>{@c_side_bar_external=External Storage}</text>
 			</text>
 			<text style="c_reboot_text">
+				<condition var1="c_e_status" op="!=" var2="error" />
 				<placement x="170" y="748"/>
 				<text>%c_e_status%</text>
+			</text>
+			<text style="c_reboot_text">
+				<condition var1="c_e_status" op="=" var2="error" />
+				<placement x="170" y="748"/>
+				<text>{@c_unavailable=Unavailable}</text>
 			</text>
 			<fill color="%nav_bg%">
 				<placement x="165" y="798" w="440" h="7"/>
 			</fill>
 			<!--10% 44-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_e_p" op="&gt;" var2="0"/>
 					<condition var1="c_e_p" op="&lt;" var2="11"/>
@@ -5277,7 +5307,7 @@ sh /twres/scripts/create_envAB.sh;
 				<placement x="165" y="798" w="44" h="7"/>
 			</fill>
 			<!--20% 88-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_e_p" op="&gt;" var2="10"/>
 					<condition var1="c_e_p" op="&lt;" var2="21"/>
@@ -5286,7 +5316,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--30% 132-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_e_p" op="&gt;" var2="20"/>
 					<condition var1="c_e_p" op="&lt;" var2="31"/>
@@ -5295,7 +5325,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--40% 176-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_e_p" op="&gt;" var2="30"/>
 					<condition var1="c_e_p" op="&lt;" var2="41"/>
@@ -5304,7 +5334,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--50% 220-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_e_p" op="&gt;" var2="40"/>
 					<condition var1="c_e_p" op="&lt;" var2="51"/>
@@ -5313,7 +5343,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--60% 264-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_e_p" op="&gt;" var2="50"/>
 					<condition var1="c_e_p" op="&lt;" var2="61"/>
@@ -5322,7 +5352,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--70% 308-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_e_p" op="&gt;" var2="60"/>
 					<condition var1="c_e_p" op="&lt;" var2="71"/>
@@ -5331,7 +5361,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--80% 352-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_e_p" op="&gt;" var2="70"/>
 					<condition var1="c_e_p" op="&lt;" var2="81"/>
@@ -5340,7 +5370,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--90% 396-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_e_p" op="&gt;" var2="80"/>
 					<condition var1="c_e_p" op="&lt;" var2="91"/>
@@ -5349,7 +5379,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--100% 440-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_e_p" op="&gt;" var2="90"/>
 					<condition var1="c_e_p" op="&lt;" var2="101"/>
@@ -5373,14 +5403,20 @@ sh /twres/scripts/create_envAB.sh;
 				<text>{@c_side_bar_otg=OTG}</text>
 			</text>
 			<text style="c_reboot_text">
+				<condition var1="c_o_status" op="!=" var2="error" />
 				<placement x="170" y="922"/>
 				<text>%c_o_status%</text>
+			</text>
+			<text style="c_reboot_text">
+				<condition var1="c_o_status" op="=" var2="error" />
+				<placement x="170" y="922"/>
+				<text>{@c_unavailable=Unavailable}</text>
 			</text>
 			<fill color="%nav_bg%">
 				<placement x="165" y="972" w="440" h="7"/>
 			</fill>
 			<!--10% 44-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_o_p" op="&gt;" var2="0"/>
 					<condition var1="c_o_p" op="&lt;" var2="11"/>
@@ -5388,7 +5424,7 @@ sh /twres/scripts/create_envAB.sh;
 				<placement x="165" y="972" w="44" h="7"/>
 			</fill>
 			<!--20% 88-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_o_p" op="&gt;" var2="10"/>
 					<condition var1="c_o_p" op="&lt;" var2="21"/>
@@ -5397,7 +5433,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--30% 132-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_o_p" op="&gt;" var2="20"/>
 					<condition var1="c_o_p" op="&lt;" var2="31"/>
@@ -5406,7 +5442,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--40% 176-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_o_p" op="&gt;" var2="30"/>
 					<condition var1="c_o_p" op="&lt;" var2="41"/>
@@ -5415,7 +5451,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--50% 220-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_o_p" op="&gt;" var2="40"/>
 					<condition var1="c_o_p" op="&lt;" var2="51"/>
@@ -5424,7 +5460,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--60% 264-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_o_p" op="&gt;" var2="50"/>
 					<condition var1="c_o_p" op="&lt;" var2="61"/>
@@ -5433,7 +5469,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--70% 308-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_o_p" op="&gt;" var2="60"/>
 					<condition var1="c_o_p" op="&lt;" var2="71"/>
@@ -5442,7 +5478,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--80% 352-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_o_p" op="&gt;" var2="70"/>
 					<condition var1="c_o_p" op="&lt;" var2="81"/>
@@ -5451,7 +5487,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--90% 396-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_o_p" op="&gt;" var2="80"/>
 					<condition var1="c_o_p" op="&lt;" var2="91"/>
@@ -5460,7 +5496,7 @@ sh /twres/scripts/create_envAB.sh;
 			</fill>
 
 			<!--100% 440-->
-			<fill color="%c_black%">
+			<fill color="%c_acc_color_val%">
 				<conditions>
 					<condition var1="c_o_p" op="&gt;" var2="90"/>
 					<condition var1="c_o_p" op="&lt;" var2="101"/>
@@ -6726,6 +6762,7 @@ cp /twres/c_acc_res/white/*.png /twres/images;
 cp /twres/c_nav_sub/c_white/*.png /twres/images;
 					</action>
 					<action function="set">c_acc_color=0</action>
+					<action function="set">c_acc_color_val=#ffffff</action>
 				</actions>
 			</button>
 			<button>
@@ -6744,6 +6781,7 @@ cp /twres/c_acc_res/dark/*.png /twres/images;
 cp /twres/c_nav_sub/c_dark/*.png /twres/images;
 					</action>
 					<action function="set">c_acc_color=1</action>
+					<action function="set">c_acc_color_val=#000000</action>
 				</actions>
 			</button>
 			<button>
@@ -6762,6 +6800,7 @@ cp /twres/c_acc_res/blue/*.png /twres/images;
 cp /twres/c_nav_sub/c_blue/*.png /twres/images;
 					</action>
 					<action function="set">c_acc_color=2</action>
+					<action function="set">c_acc_color_val=#0088ff</action>
 				</actions>
 			</button>
 			<button>
@@ -6780,6 +6819,7 @@ cp /twres/c_acc_res/teal/*.png /twres/images;
 cp /twres/c_nav_sub/c_teal/*.png /twres/images;
 					</action>
 					<action function="set">c_acc_color=3</action>
+					<action function="set">c_acc_color_val=#009688</action>
 				</actions>
 			</button>
 			<button>
@@ -6798,6 +6838,7 @@ cp /twres/c_acc_res/brown/*.png /twres/images;
 cp /twres/c_nav_sub/c_brown/*.png /twres/images;
 					</action>
 					<action function="set">c_acc_color=4</action>
+					<action function="set">c_acc_color_val=#795548</action>
 				</actions>
 			</button>
 			<button>
@@ -6816,6 +6857,7 @@ cp /twres/c_acc_res/indigo/*.png /twres/images;
 cp /twres/c_nav_sub/c_indigo/*.png /twres/images;
 					</action>
 					<action function="set">c_acc_color=5</action>
+					<action function="set">c_acc_color_val=#3f51b5</action>
 				</actions>
 			</button>
 			<button>
@@ -6834,6 +6876,7 @@ cp /twres/c_acc_res/purple/*.png /twres/images;
 cp /twres/c_nav_sub/c_purple/*.png /twres/images;
 					</action>
 					<action function="set">c_acc_color=6</action>
+					<action function="set">c_acc_color_val=#7750fb</action>
 				</actions>
 			</button>
 			<button>
@@ -6852,6 +6895,7 @@ cp /twres/c_acc_res/green/*.png /twres/images;
 cp /twres/c_nav_sub/c_green/*.png /twres/images;
 					</action>
 					<action function="set">c_acc_color=7</action>
+					<action function="set">c_acc_color_val=#21ef8b</action>
 				</actions>
 			</button>
 			<button>
@@ -6870,6 +6914,7 @@ cp /twres/c_acc_res/cyan/*.png /twres/images;
 cp /twres/c_nav_sub/c_cyan/*.png /twres/images;
 					</action>
 					<action function="set">c_acc_color=8</action>
+					<action function="set">c_acc_color_val=#00f2c4</action>
 				</actions>
 			</button>
 			<button>
@@ -6888,6 +6933,7 @@ cp /twres/c_acc_res/yellow/*.png /twres/images;
 cp /twres/c_nav_sub/c_yellow/*.png /twres/images;
 					</action>
 					<action function="set">c_acc_color=9</action>
+					<action function="set">c_acc_color_val=#ffc000</action>
 				</actions>
 			</button>
 			<button>
@@ -6907,6 +6953,7 @@ cp /twres/c_acc_res/orange/*.png /twres/images;
 cp /twres/c_nav_sub/c_orange/*.png /twres/images;
 					</action>
 					<action function="set">c_acc_color=10</action>
+					<action function="set">c_acc_color_val=#ed6f01</action>
 				</actions>
 			</button>
 			<button>
@@ -6925,6 +6972,7 @@ cp /twres/c_acc_res/lred/*.png /twres/images;
 cp /twres/c_nav_sub/c_lred/*.png /twres/images;
 					</action>
 					<action function="set">c_acc_color=11</action>
+					<action function="set">c_acc_color_val=#ff5353</action>
 				</actions>
 			</button>
 			<button>
@@ -6943,6 +6991,7 @@ cp /twres/c_acc_res/red/*.png /twres/images;
 cp /twres/c_nav_sub/c_red/*.png /twres/images;
 					</action>
 					<action function="set">c_acc_color=12</action>
+					<action function="set">c_acc_color_val=#e53935</action>
 				</actions>
 			</button>
 			<button>
@@ -6961,6 +7010,7 @@ cp /twres/c_acc_res/rpink/*.png /twres/images;
 cp /twres/c_nav_sub/c_rpink/*.png /twres/images;
 					</action>
 					<action function="set">c_acc_color=13</action>
+					<action function="set">c_acc_color_val=#fd0f60</action>
 				</actions>
 			</button>
 			<button>
@@ -6979,6 +7029,7 @@ cp /twres/c_acc_res/pink/*.png /twres/images;
 cp /twres/c_nav_sub/c_pink/*.png /twres/images;
 					</action>
 					<action function="set">c_acc_color=14</action>
+					<action function="set">c_acc_color_val=#ff0095</action>
 				</actions>
 			</button>
 			<button>
@@ -8008,6 +8059,7 @@ export cnb=%c_nav_bg%
 export cb_w=%c_bgc%
 export ctc=%c_text_color%
 export cac=%c_acc_color%
+export cacv=%c_acc_color_val%
 export cnm=%c_notch_mode%
 cd /twres/scripts
 sh statusbar_trigger_scripts.sh

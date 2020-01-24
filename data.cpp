@@ -788,7 +788,7 @@ void DataManager::SetDefaultValues()
 	mConst.SetValue("shrp_ver", "2.2");
 	mConst.SetValue("shrp_ver_status", "Beta");
 	mConst.SetValue("c_magisk_path", "/_magisk/");
-	mConst.SetValue("c_magisk_stock_var", "20.0");
+	mConst.SetValue("c_magisk_stock_var", "20.3");
 
 	//SHRP SemiConstant variables
 	mData.SetValue("c_magisk_status", "0");
