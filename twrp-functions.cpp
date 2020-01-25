@@ -398,7 +398,7 @@ void TWFunc::process_space(int size,int free,int used,int signal){
 	int p_val_usage=0;
 	float size_g,free_g;
 	if(size<=0){
-		tmp="error";
+		tmp="Unavailable";
 		p_val_usage=0;
 	}else{
 		if(free>=1024){

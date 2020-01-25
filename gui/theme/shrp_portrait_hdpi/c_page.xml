@@ -301,13 +301,6 @@
 				<image resource="c_battery_full"/>
 			</image>
 
-
-
-
-
-
-
-
 			<!--Battery Bar Code Start-->
 			<image>
 				<placement x="0" y="0"/>

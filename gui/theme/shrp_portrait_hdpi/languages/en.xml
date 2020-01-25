@@ -892,7 +892,7 @@
 		<string name="c_normal">Normal</string>
 		<string name="c_legacy">Legacy</string>
 		<string name="c_unavailable">Unavailable</string>
-		<string name="c_skip_treble">Skip treble varification</string>
+		<string name="c_skip_treble">Skip treble verification</string>
 		<string name="c_show_lc">Show date on lockscreen</string>
 		<string name="c_dev_mode">Dev mode</string>
 	</resources>

@@ -41,8 +41,6 @@ magiskboot cpio ramdisk.cpio \
 "add 750 twres/c_bg_sub/c_black/c_battery_90.png /twres/c_bg_sub/c_black/c_battery_90.png" \
 "add 750 twres/c_bg_sub/c_black/c_battery_full.png /twres/c_bg_sub/c_black/c_battery_full.png" \
 "add 750 twres/c_bg_sub/c_black/c_battery_low.png /twres/c_bg_sub/c_black/c_battery_low.png" \
-"add 750 twres/c_bg_sub/c_black/kb_hide.png /twres/c_bg_sub/c_black/kb_hide.png" \
-"add 750 twres/c_bg_sub/c_black/kb_show.png /twres/c_bg_sub/c_black/kb_show.png" \
 "add 750 twres/c_bg_sub/c_white/c_about_tile.png /twres/c_bg_sub/c_white/c_about_tile.png" \
 "add 750 twres/c_bg_sub/c_white/c_circle4.png /twres/c_bg_sub/c_white/c_circle4.png" \
 "add 750 twres/c_bg_sub/c_white/c_panel_copy_log.png /twres/c_bg_sub/c_white/c_panel_copy_log.png" \
@@ -59,8 +57,6 @@ magiskboot cpio ramdisk.cpio \
 "add 750 twres/c_bg_sub/c_white/c_battery_90.png /twres/c_bg_sub/c_white/c_battery_90.png" \
 "add 750 twres/c_bg_sub/c_white/c_battery_full.png /twres/c_bg_sub/c_white/c_battery_full.png" \
 "add 750 twres/c_bg_sub/c_white/c_battery_low.png /twres/c_bg_sub/c_white/c_battery_low.png" \
-"add 750 twres/c_bg_sub/c_white/kb_hide.png /twres/c_bg_sub/c_white/kb_hide.png" \
-"add 750 twres/c_bg_sub/c_white/kb_show.png /twres/c_bg_sub/c_white/kb_show.png" \
 "add 750 twres/c_nav_sub/c_blue/back.png /twres/c_nav_sub/c_blue/back.png" \
 "add 750 twres/c_nav_sub/c_blue/console.png /twres/c_nav_sub/c_blue/console.png" \
 "add 750 twres/c_nav_sub/c_blue/home.png /twres/c_nav_sub/c_blue/home.png" \
@@ -149,7 +145,6 @@ magiskboot cpio ramdisk.cpio \
 "add 750 twres/images/c_reload.png /twres/images/c_reload.png" \
 "add 750 twres/images/radio_false.png /twres/images/radio_false.png" \
 "add 750 twres/images/radio_true.png /twres/images/radio_true.png" \
-"add 750 twres/images/kb_hide.png /twres/images/kb_hide.png" \
 "add 750 twres/images/kb_show.png /twres/images/kb_show.png" \
 "add 750 twres/images/back.png /twres/images/back.png" \
 "add 750 twres/images/console.png /twres/images/console.png" \

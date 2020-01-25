@@ -2572,12 +2572,12 @@ int GUIAction::sig(std::string arg __unused){
 	DataManager::GetValue("internal_storage_location", partition);
 	if(partition==""||partition==" "){
 		DataManager::SetValue("c_i_p","0");
-		DataManager::SetValue("c_i_status","error");
+		DataManager::SetValue("c_i_status","Unavailable");
 	}else{
 		ptr=PartitionManager.Find_Partition_By_Path(partition);
 		if(ptr==NULL){
 			DataManager::SetValue("c_i_p","0");
-			DataManager::SetValue("c_i_status","error");
+			DataManager::SetValue("c_i_status","Unavailable");
 		}else{
 			size=ptr->Size / mb;
 			used=ptr->Used / mb;
@@ -2589,12 +2589,12 @@ int GUIAction::sig(std::string arg __unused){
 	DataManager::GetValue("external_storage_location", partition);
 	if(partition==""||partition==" "){
 		DataManager::SetValue("c_e_p","0");
-		DataManager::SetValue("c_e_status","error");
+		DataManager::SetValue("c_e_status","Unavailable");
 	}else{
 		ptr=PartitionManager.Find_Partition_By_Path(partition);
 		if(ptr==NULL){
 			DataManager::SetValue("c_e_p","0");
-			DataManager::SetValue("c_e_status","error");
+			DataManager::SetValue("c_e_status","Unavailable");
 		}else{
 			size=ptr->Size / mb;
 			used=ptr->Used / mb;
@@ -2606,12 +2606,12 @@ int GUIAction::sig(std::string arg __unused){
 	DataManager::GetValue("usb_otg_location", partition);
 	if(partition==""||partition==" "){
 		DataManager::SetValue("c_o_p","0");
-		DataManager::SetValue("c_o_status","error");
+		DataManager::SetValue("c_o_status","Unavailable");
 	}else{
 		ptr=PartitionManager.Find_Partition_By_Path(partition);
 		if(ptr==NULL){
 			DataManager::SetValue("c_o_p","0");
-			DataManager::SetValue("c_o_status","error");
+			DataManager::SetValue("c_o_status","Unavailable");
 		}else{
 			size=ptr->Size / mb;
 			used=ptr->Used / mb;

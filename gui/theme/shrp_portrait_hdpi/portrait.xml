@@ -1947,19 +1947,6 @@
 				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
 				<text>{@c_failed_same_info=Passwords did not match!}</text>
 			</text>
-
-			<button>
-				<placement x="860" y="915"/>
-				<image resource="c_cancel"/>
-				<actions>
-					<action function="set">tw_encrypt_backup=0</action>
-					<action function="set">tw_backup_password=</action>
-					<action function="set">tw_backup_password2=</action>
-					<action function="set">tw_backup_encrypt_display=</action>
-					<action function="set">tw_backup_encrypt_display2=</action>
-					<action function="page">backup</action>
-				</actions>
-			</button>
 			<template name="keyboardtemplate"/>
 
 			<action>
@@ -1968,7 +1955,14 @@
 			</action>
 			<action>
 				<touch key="back"/>
-				<action function="page">backup</action>
+				<actions>
+					<action function="set">tw_encrypt_backup=0</action>
+					<action function="set">tw_backup_password=</action>
+					<action function="set">tw_backup_password2=</action>
+					<action function="set">tw_backup_encrypt_display=</action>
+					<action function="set">tw_backup_encrypt_display2=</action>
+					<action function="page">backup</action>
+				</actions>
 			</action>
 		</page>
 
@@ -1997,18 +1991,6 @@
 				<restrict minlen="1" maxlen="32" allow="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_"/>
 				<action function="page">checkbackuppassword</action>
 			</input>
-			<button>
-				<placement x="860" y="915"/>
-				<image resource="c_cancel"/>
-				<actions>
-					<action function="set">tw_encrypt_backup=0</action>
-					<action function="set">tw_backup_password=</action>
-					<action function="set">tw_backup_password2=</action>
-					<action function="set">tw_backup_encrypt_display=</action>
-					<action function="set">tw_backup_encrypt_display2=</action>
-					<action function="page">backup</action>
-				</actions>
-			</button>
 			<template name="keyboardtemplate"/>
 
 			<action>
@@ -2017,7 +1999,14 @@
 			</action>
 			<action>
 				<touch key="back"/>
-				<action function="page">backup</action>
+				<actions>
+					<action function="set">tw_encrypt_backup=0</action>
+					<action function="set">tw_backup_password=</action>
+					<action function="set">tw_backup_password2=</action>
+					<action function="set">tw_backup_encrypt_display=</action>
+					<action function="set">tw_backup_encrypt_display2=</action>
+					<action function="page">backup</action>
+				</actions>
 			</action>
 		</page>
 
@@ -2187,15 +2176,6 @@
 			</text>
 
 			<button>
-				<placement x="860" y="1628"/>
-				<image resource="c_cancel"/>
-				<actions>
-					<action function="set">tw_page_done=1</action>
-					<action function="page">restore</action>
-				</actions>
-			</button>
-
-			<button>
 				<placement x="860" y="1450"/>
 				<image resource="c_delete"/>
 				<actions>
@@ -2222,7 +2202,10 @@
 
 			<action>
 				<touch key="back"/>
-				<action function="page">restore</action>
+				<actions>
+					<action function="set">tw_page_done=1</action>
+					<action function="page">restore</action>
+				</actions>
 			</action>
 		</page>
 
@@ -2385,15 +2368,7 @@
 				<placement x="%c_hawk_base_column%" y="%c_text_sub_y3%"/>
 				<text>{@backup_name_exists=A backup with that name already exists!}</text>
 			</text>
-
-			<button>
-				<placement x="860" y="915"/>
-				<image resource="c_cancel"/>
-				<action function="page">restore_select</action>
-			</button>
-
 			<template name="keyboardtemplate"/>
-
 
 			<action>
 				<touch key="home"/>
@@ -2717,7 +2692,7 @@
 					<condition var1="tw_no_sha2" var2="0"/>
 					<data variable="tw_use_sha2"/>
 				</listitem>
-				<listitem name="{@c_skip_treble=Skip treble varification}">
+				<listitem name="{@c_skip_treble=Skip treble verification}">
 					<data variable="c_skip_tv"/>
 				</listitem>
 				<listitem name="{@c_show_lc=Show date on lockscreen}">
@@ -2727,6 +2702,15 @@
 					<data variable="c_devMode"/>
 				</listitem>
 			</listbox>
+			<button style="c_circle4">
+				<placement x="860" y="1628"/>
+				<text>{@restore_defaults_btn=Restore Defaults}</text>
+				<actions>
+					<action function="set">tw_samsung_navbar=0</action>
+					<action function="set">tw_tab_icons=0</action>
+					<action function="restoredefaultsettings"/>
+				</actions>
+			</button>
 			<action>
 				<touch key="home"/>
 				<action function="page">c_refresh</action>
@@ -2781,16 +2765,6 @@
 				<data variable="tw_time_zone_guidst"/>
 				<image checked="checkbox_true" unchecked="checkbox_false"/>
 			</checkbox>
-			<!--image>
-				<condition var1="off_triger" op="=" var2="1" />
-				<placement x="742" y="574" />
-				<image resource="c_power_menu_bg"/>
-			</image>
-			<text>
-				<font resource="font_m" color="%c_black%"/>
-				<placement x="%c_hawk_base_column%" y="1150"/>
-				<text>{@curr_tz=Current Time Zone: %tw_time_zone%}</text>
-			</text-->
 			<text>
 				<font resource="font_m" color="%c_black%"/>
 				<placement x="%c_hawk_base_column%" y="1220"/>
@@ -3293,13 +3267,6 @@
 					<action function="page">c_file_epicx_action</action>
 				</actions>
 			</input>
-			<button>
-				<placement x="860" y="915"/>
-				<image resource="c_cancel"/>
-				<action function="set">c_file=0</action>
-				<action function="page">c_file_epicx</action>
-			</button>
-
 			<template name="keyboardtemplate"/>
 
 
@@ -3348,13 +3315,6 @@
 					<action function="page">c_file_epicx_action</action>
 				</actions>
 			</input>
-			<button>
-				<placement x="860" y="915"/>
-				<image resource="c_cancel"/>
-				<action function="set">c_file=0</action>
-				<action function="page">c_file_epicx</action>
-			</button>
-
 			<template name="keyboardtemplate"/>
 
 
@@ -3438,6 +3398,7 @@
 			</action>
 			<text style="c_sub">
 				<placement x="%c_hawk_base_column%" y="%c_text_sub_y%"/>
+				<condition var1="tw_password_fail" op="!=" var2="1"/>
 				<text>{@enter_pass=Enter Password:}</text>
 			</text>
 			<input>
@@ -3448,8 +3409,8 @@
 				<action function="page">trydecrypt</action>
 			</input>
 			<text style="c_sub">
-				<placement x="%c_hawk_base_column%" y="%c_text_sub_y2%"/>
-				<condition var1="tw_password_fail" var2="1"/>
+				<placement x="%c_hawk_base_column%" y="%c_text_sub_y%"/>
+				<condition var1="tw_password_fail" op="=" var2="1"/>
 				<text>{@restore_dec_fail=Password failed, please try again!}</text>
 			</text>
 
@@ -3610,7 +3571,7 @@
 				<condition var1="tw_samsung_navbar" op="=" var2="1" />
 				<condition var1="tw_hide_kb" op="=" var2="0" />
 				<placement x="895" y="980"/>
-				<image resource="kb_hide" />
+				<image resource="kb_show" />
 				<condition var1="tw_busy" var2="0" />
 				<actions>
 					<action function="set">tw_hide_kb=1</action>
@@ -3644,7 +3605,7 @@
 				<condition var1="tw_samsung_navbar" op="!=" var2="1" />
 				<condition var1="tw_hide_kb" op="=" var2="0" />
 				<placement x="895" y="980"/>
-				<image resource="kb_hide" />
+				<image resource="kb_show" />
 				<condition var1="tw_busy" var2="0" />
 				<actions>
 					<action function="set">tw_hide_kb=1</action>
@@ -4735,7 +4696,7 @@ sh /twres/scripts/create_envAB.sh;
 			</text>
 			<text style="c_reboot_text">
 				<placement x="170" y="400"/>
-				<text>{@c_unavailable=Unavailable}</text>
+				<text>Unavailable</text>
 			</text>
 			<fill color="%nav_bg%">
 				<placement x="165" y="450" w="440" h="7"/>
@@ -4757,14 +4718,8 @@ sh /twres/scripts/create_envAB.sh;
 				<text>{@c_side_bar_internal=Internal Storage}</text>
 			</text>
 			<text style="c_reboot_text">
-				<condition var1="c_i_status" op="!=" var2="error" />
 				<placement x="170" y="574"/>
 				<text>%c_i_status%</text>
-			</text>
-			<text style="c_reboot_text">
-				<condition var1="c_i_status" op="=" var2="error" />
-				<placement x="170" y="574"/>
-				<text>{@c_unavailable=Unavailable}</text>
 			</text>
 			<fill color="%nav_bg%">
 				<placement x="165" y="624" w="440" h="7"/>
@@ -4876,14 +4831,8 @@ sh /twres/scripts/create_envAB.sh;
 				<text>{@c_side_bar_external=External Storage}</text>
 			</text>
 			<text style="c_reboot_text">
-				<condition var1="c_e_status" op="!=" var2="error" />
 				<placement x="170" y="748"/>
 				<text>%c_e_status%</text>
-			</text>
-			<text style="c_reboot_text">
-				<condition var1="c_e_status" op="=" var2="error" />
-				<placement x="170" y="748"/>
-				<text>{@c_unavailable=Unavailable}</text>
 			</text>
 			<fill color="%nav_bg%">
 				<placement x="165" y="798" w="440" h="7"/>
@@ -4993,14 +4942,8 @@ sh /twres/scripts/create_envAB.sh;
 				<text>{@c_side_bar_otg=OTG}</text>
 			</text>
 			<text style="c_reboot_text">
-				<condition var1="c_o_status" op="!=" var2="error" />
 				<placement x="170" y="922"/>
 				<text>%c_o_status%</text>
-			</text>
-			<text style="c_reboot_text">
-				<condition var1="c_o_status" op="=" var2="error" />
-				<placement x="170" y="922"/>
-				<text>{@c_unavailable=Unavailable}</text>
 			</text>
 			<fill color="%nav_bg%">
 				<placement x="165" y="972" w="440" h="7"/>
@@ -5145,7 +5088,7 @@ sh /twres/scripts/create_envAB.sh;
 			</text>
 			<text style="c_reboot_text">
 				<placement x="170" y="400"/>
-				<text>{@c_unavailable=Unavailable}</text>
+				<text>Unavailable</text>
 			</text>
 			<fill color="%nav_bg%">
 				<placement x="165" y="450" w="440" h="7"/>
@@ -5167,14 +5110,8 @@ sh /twres/scripts/create_envAB.sh;
 				<text>{@c_side_bar_internal=Internal Storage}</text>
 			</text>
 			<text style="c_reboot_text">
-				<condition var1="c_i_status" op="!=" var2="error" />
 				<placement x="170" y="574"/>
 				<text>%c_i_status%</text>
-			</text>
-			<text style="c_reboot_text">
-				<condition var1="c_i_status" op="=" var2="error" />
-				<placement x="170" y="574"/>
-				<text>{@c_unavailable=Unavailable}</text>
 			</text>
 			<fill color="%nav_bg%">
 				<placement x="165" y="624" w="440" h="7"/>
@@ -5286,14 +5223,8 @@ sh /twres/scripts/create_envAB.sh;
 				<text>{@c_side_bar_external=External Storage}</text>
 			</text>
 			<text style="c_reboot_text">
-				<condition var1="c_e_status" op="!=" var2="error" />
 				<placement x="170" y="748"/>
 				<text>%c_e_status%</text>
-			</text>
-			<text style="c_reboot_text">
-				<condition var1="c_e_status" op="=" var2="error" />
-				<placement x="170" y="748"/>
-				<text>{@c_unavailable=Unavailable}</text>
 			</text>
 			<fill color="%nav_bg%">
 				<placement x="165" y="798" w="440" h="7"/>
@@ -5403,14 +5334,8 @@ sh /twres/scripts/create_envAB.sh;
 				<text>{@c_side_bar_otg=OTG}</text>
 			</text>
 			<text style="c_reboot_text">
-				<condition var1="c_o_status" op="!=" var2="error" />
 				<placement x="170" y="922"/>
 				<text>%c_o_status%</text>
-			</text>
-			<text style="c_reboot_text">
-				<condition var1="c_o_status" op="=" var2="error" />
-				<placement x="170" y="922"/>
-				<text>{@c_unavailable=Unavailable}</text>
 			</text>
 			<fill color="%nav_bg%">
 				<placement x="165" y="972" w="440" h="7"/>
@@ -5735,7 +5660,6 @@ mkdir -p %FolderName%
 				<placement x="860" y="1270"/>
 				<conditions>
 					<condition var1="c_file" op="=" var2="0" />
-					<condition var1="canBeUnzip" op="!=" var2="1" />
 				</conditions>
 				<image resource="c_createFolder"/>
 				<action function="page">c_createFolder</action>
@@ -5744,7 +5668,6 @@ mkdir -p %FolderName%
 				<conditions>
 					<condition var1="c_menu" op="=" var2="0" />
 					<condition var1="c_file" op="=" var2="0" />
-					<condition var1="canBeUnzip" op="!=" var2="1" />
 				</conditions>
 				<placement x="860" y="1450"/>
 				<image resource="c_menu"/>
@@ -5885,7 +5808,15 @@ mkdir -p %FolderName%
 			</action>
 		</page>
 		<page name="c_file_epicx_file_confirm">
-			<background color="%semi_transparent%"/>
+			<background color="%c_white%"/>
+			<text style="c_main_text_header">
+				<placement x="70" y="%file_head%"/>
+				<text>{@files_btn=Files}</text>
+			</text>
+			<text style="c_text_dashboard">
+				<placement x="70" y="%file_sub%"/>
+				<text>%tw_filename1%</text>
+			</text>
 			<template name="c_status_bar"/>
 			<fill color="%c_white%">
 				<placement x="0" y="1610" w="1080" h="310"/>
