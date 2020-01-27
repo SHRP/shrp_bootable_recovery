@@ -423,6 +423,11 @@
 			<button style="c_dash_text_grid">
 				<placement x="69" y="%dash_txt_1st_row%"/>
 				<text>{@c_flash=Flash}</text>
+				<actions>
+					<action function="queueclear"/>
+					<action function="set">tw_selectimage=0</action>
+					<action function="page">install</action>
+				</actions>
 			</button>
 			<button>
 				<placement x="343" y="%dash_ico_1st_row%"/>
@@ -432,6 +437,7 @@
 			<button style="c_dash_text_grid">
 				<placement x="313" y="%dash_txt_1st_row%"/>
 				<text>{@wipe_btn=Wipe}</text>
+				<action function="page">wipe</action>
 			</button>
 			<button>
 				<placement x="587" y="%dash_ico_1st_row%"/>
@@ -441,6 +447,7 @@
 			<button style="c_dash_text_grid">
 				<placement x="557" y="%dash_txt_1st_row%"/>
 				<text>{@backup_btn=Backup}</text>
+				<action function="page">backup</action>
 			</button>
 			<button>
 				<placement x="831" y="%dash_ico_1st_row%"/>
@@ -450,6 +457,7 @@
 			<button style="c_dash_text_grid">
 				<placement x="801" y="%dash_txt_1st_row%"/>
 				<text>{@restore_btn=Restore}</text>
+				<action function="page">restore</action>
 			</button>
 
 			<button>
@@ -460,6 +468,7 @@
 			<button style="c_dash_text_grid">
 				<placement x="69" y="%dash_txt_2nd_row%"/>
 				<text>{@mount_btn=Mount}</text>
+				<action function="page">mount</action>
 			</button>
 			<button>
 				<placement x="343" y="%dash_ico_2nd_row%"/>
@@ -469,6 +478,7 @@
 			<button style="c_dash_text_grid">
 				<placement x="313" y="%dash_txt_2nd_row%"/>
 				<text>{@files_btn=Files}</text>
+				<action function="page">c_file_epicx</action>
 			</button>
 			<button>
 				<placement x="587" y="%dash_ico_2nd_row%"/>
@@ -478,6 +488,7 @@
 			<button style="c_dash_text_grid">
 				<placement x="557" y="%dash_txt_2nd_row%"/>
 				<text>{@terminal_btn=Terminal}</text>
+				<action function="page">terminalcommand</action>
 			</button>
 			<button>
 				<placement x="831" y="%dash_ico_2nd_row%"/>
@@ -487,6 +498,7 @@
 			<button style="c_dash_text_grid">
 				<placement x="801" y="%dash_txt_2nd_row%"/>
 				<text>{@advanced_hdr=Advanced}</text>
+				<action function="page">advanced</action>
 			</button>
 			<text style="c_text_dashboard">
 				<placement x="%c_hawk_base_column%" y="%sub_head2%"/>
@@ -503,6 +515,10 @@
 			<button style="c_dash_text_grid">
 				<placement x="69" y="%dash_txt_3rd_row%"/>
 				<text>{@c_magisk=Magisk}</text>
+				<actions>
+					<action function="shrp_init"/>
+					<action function="page">c_splash_magisk</action>
+				</actions>
 			</button>
 			<button>
 				<placement x="343" y="%dash_ico_3rd_row%"/>
@@ -515,6 +531,10 @@
 			<button style="c_dash_text_grid">
 				<placement x="313" y="%dash_txt_3rd_row%"/>
 				<text>{@c_theme=Theme}</text>
+				<actions>
+					<action function="shrp_init"/>
+					<action function="page">c_splash_theme</action>
+				</actions>
 			</button>
 			<button>
 				<placement x="587" y="%dash_ico_3rd_row%"/>
@@ -524,6 +544,7 @@
 			<button style="c_dash_text_grid">
 				<placement x="557" y="%dash_txt_3rd_row%"/>
 				<text>{@c_tweaks=Tweaks}</text>
+				<action function="page">c_addons</action>
 			</button>
 			<button>
 				<placement x="831" y="%dash_ico_3rd_row%"/>
@@ -533,6 +554,7 @@
 			<button style="c_dash_text_grid">
 				<placement x="801" y="%dash_txt_3rd_row%"/>
 				<text>{@settings_btn=Settings}</text>
+				<action function="page">settings</action>
 			</button>
 			<button>
 				<placement x="99" y="%dash_ico_4th_row%"/>
@@ -542,6 +564,7 @@
 			<button style="c_dash_text_grid">
 				<placement x="69" y="%dash_txt_4th_row%"/>
 				<text>{@c_security=Security}</text>
+				<action function="page">c_lock_ui</action>
 			</button>
 			<button>
 				<placement x="343" y="%dash_ico_4th_row%"/>
@@ -551,6 +574,7 @@
 			<button style="c_dash_text_grid">
 				<placement x="313" y="%dash_txt_4th_row%"/>
 				<text>{@settings_language_btn=Language}</text>
+				<action function="page">settings_language</action>
 			</button>
 			<button>
 				<placement x="587" y="%dash_ico_4th_row%"/>
@@ -560,6 +584,7 @@
 			<button style="c_dash_text_grid">
 				<placement x="557" y="%dash_txt_4th_row%"/>
 				<text>{@reboot_btn=Reboot}</text>
+				<action function="overlay">reboot</action>
 			</button>
 			<button>
 				<placement x="831" y="%dash_ico_4th_row%"/>
@@ -569,6 +594,7 @@
 			<button style="c_dash_text_grid">
 				<placement x="801" y="%dash_txt_4th_row%"/>
 				<text>{@c_about=About}</text>
+				<action function="page">my_info</action>
 			</button>
 		</page>
 
@@ -3038,7 +3064,6 @@
 			</button>
 
 			<button>
-				<condition var1="tw_allow_partition_sdcard" var2="1"/>
 				<placement x="831" y="%dash_ico_1st_row%"/>
 				<image resource="c_sd_part"/>
 				<actions>
@@ -3047,7 +3072,6 @@
 				</actions>
 			</button>
 			<button style="c_dash_text_grid">
-				<condition var1="tw_allow_partition_sdcard" var2="1"/>
 				<placement x="801" y="%dash_txt_1st_row%"/>
 				<text>{@swipe_part_sd_s=Partition}</text>
 				<actions>
@@ -7756,7 +7780,7 @@ cp /twres/c_dash_ico/default/*.png /twres/images/;
 				<actions>
 					<action function="set">c_dash_ico=1</action>
 					<action function="cmd">
-cp /twres/c_dash_ico/black/*.png /twres/images/;
+cp /twres/c_dash_ico/stock/*.png /twres/images/;
 					</action>
 				</actions>
 			</button>
@@ -7769,7 +7793,7 @@ cp /twres/c_dash_ico/black/*.png /twres/images/;
 			</image>
 			<text style="c_sub">
 				<placement x="130" y="%t_2nd_radio_text_pos%"/>
-				<text>{@c_dc_black=Black (Recommended for white background)}</text>
+				<text>{@c_stock_dashboard_ico=Stock}</text>
 			</text>
 
 			<button>
@@ -7781,7 +7805,7 @@ cp /twres/c_dash_ico/black/*.png /twres/images/;
 				<actions>
 					<action function="set">c_dash_ico=2</action>
 					<action function="cmd">
-cp /twres/c_dash_ico/white/*.png /twres/images/;
+cp /twres/c_dash_ico/black/*.png /twres/images/;
 					</action>
 				</actions>
 			</button>
@@ -7794,7 +7818,7 @@ cp /twres/c_dash_ico/white/*.png /twres/images/;
 			</image>
 			<text style="c_sub">
 				<placement x="130" y="%t_3rd_radio_text_pos%"/>
-				<text>{@c_dc_white=White (Recommended for black background)}</text>
+				<text>{@c_dc_black=Black (Recommended for white background)}</text>
 			</text>
 
 			<button>
@@ -7806,7 +7830,7 @@ cp /twres/c_dash_ico/white/*.png /twres/images/;
 				<actions>
 					<action function="set">c_dash_ico=3</action>
 					<action function="cmd">
-cp /twres/c_dash_ico/aex/*.png /twres/images/;
+cp /twres/c_dash_ico/white/*.png /twres/images/;
 					</action>
 				</actions>
 			</button>
@@ -7819,6 +7843,31 @@ cp /twres/c_dash_ico/aex/*.png /twres/images/;
 			</image>
 			<text style="c_sub">
 				<placement x="130" y="%t_4th_radio_text_pos%"/>
+				<text>{@c_dc_white=White (Recommended for black background)}</text>
+			</text>
+
+			<button>
+				<conditions>
+					<condition var1="c_dash_ico" op="!=" var2="4"/>
+				</conditions>
+				<placement x="%c_hawk_base_column%" y="%t_5th_radio_pos%"/>
+				<image resource="radio_false"/>
+				<actions>
+					<action function="set">c_dash_ico=4</action>
+					<action function="cmd">
+cp /twres/c_dash_ico/aex/*.png /twres/images/;
+					</action>
+				</actions>
+			</button>
+			<image>
+				<conditions>
+					<condition var1="c_dash_ico" op="=" var2="4"/>
+				</conditions>
+				<placement x="%c_hawk_base_column%" y="%t_5th_radio_pos%"/>
+				<image resource="radio_true"/>
+			</image>
+			<text style="c_sub">
+				<placement x="130" y="%sub_head_mid%"/>
 				<text>{@c_dc_aex=Aex Style}</text>
 			</text>
 			<action>

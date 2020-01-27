@@ -105,7 +105,7 @@
 		<variable name="sub_head2" value="825"/>
 		<variable name="dash_ico_3rd_row" value="940"/>
 		<variable name="dash_txt_3rd_row" value="1085"/>
-		<variable name="dash_ico_4th_row" value="1184"/>
+		<variable name="dash_ico_4th_row" value="1185"/>
 		<variable name="dash_txt_4th_row" value="1329"/>
 		<!--Patt_input_y-->
 		<variable name="row5_y" value="512"/>

@@ -2640,15 +2640,19 @@ int GUIAction::unlock(std::string arg){
 		stringstream f1;
 		f1<<pull;
 		f1>>lock_pass;
-		arg=lock_pass[0]+arg;
-		if(lock_pass==arg){
-			PartitionManager.Enable_MTP();
-			DataManager::SetValue("main_pass",b_arg.c_str());
+		if(lock_pass[0]!='1'&&lock_pass[0]!='2'){
 			PageManager::ChangePage("main2");
-			//PageManager Will Change The Page
 		}else{
-			//PageManager Will Loop The Page
-			PageManager::ChangePage("pass_failed");
+			arg=lock_pass[0]+arg;
+			if(lock_pass==arg){
+				PartitionManager.Enable_MTP();
+				DataManager::SetValue("main_pass",b_arg.c_str());
+				PageManager::ChangePage("main2");
+				//PageManager Will Change The Page
+			}else{
+				//PageManager Will Loop The Page
+				PageManager::ChangePage("pass_failed");
+			}
 		}
 	}
 	return 0;

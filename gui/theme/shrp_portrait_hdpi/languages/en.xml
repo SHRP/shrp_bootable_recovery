@@ -895,5 +895,6 @@
 		<string name="c_skip_treble">Skip treble verification</string>
 		<string name="c_show_lc">Show date on lockscreen</string>
 		<string name="c_dev_mode">Dev mode</string>
+		<string name="c_stock_dashboard_ico">Stock</string>
 	</resources>
 </language>
