@@ -431,7 +431,6 @@ int TWinstall_zip(const char* path, int* wipe_cache) {
 			if (ret_val == INSTALL_SUCCESS)
 				ret_val = Run_Update_Binary(path, &Zip, wipe_cache, UPDATE_BINARY_ZIP_TYPE);
 			}
-		}
 	} else {
 		if (Zip.EntryExists(AB_OTA)) {
 			LOGINFO("AB zip\n");
