@@ -120,6 +120,7 @@ static int check_newer_ab_build(ZipWrap* zip)
             metadata[line.substr(0, eq)] = line.substr(eq + 1);
         }
     }
+    char value[PROPERTY_VALUE_MAX];
     char propdevice[PROPERTY_VALUE_MAX];
     char propmodel[PROPERTY_VALUE_MAX];
     char propname[PROPERTY_VALUE_MAX];
