@@ -2763,7 +2763,11 @@ int GUIAction::flashOP(std::string arg){
 		arg=tmp;
 	}
 	DataManager::GetValue("c_queue_enabled",s);
+#ifdef TW_OZIP_DECRYPT_KEY
 	if(arg=="zip"||arg=="ozip"){
+#else
+	if(arg=="zip"{
+#endif
 		GUIAction::queuezip("bappa");
 		DataManager::SetValue("c_queue_enabled","1");
 		PageManager::ChangePage("flash_confirm");
