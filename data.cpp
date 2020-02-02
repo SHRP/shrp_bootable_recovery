@@ -919,6 +919,31 @@ void DataManager::SetDefaultValues()
 	mConst.SetValue("shrp_ab", "0");
 #endif
 
+#ifdef SHRP_STATUSBAR_RIGHT_PADDING
+	int val=0;
+	stringstream guun(EXPAND(SHRP_STATUSBAR_RIGHT_PADDING));
+	guun>>val;
+	val=val+20;
+	mConst.SetValue("c_time_x", val);
+#else
+	mConst.SetValue("c_time_x", 20);
+#endif
+
+#ifdef SHRP_STATUSBAR_LEFT_PADDING
+	int valL=0;
+	stringstream bappa(EXPAND(SHRP_STATUSBAR_LEFT_PADDING));
+	bappa>>valL;
+	mConst.SetValue("c_batteryText1", 913-val);
+	mConst.SetValue("c_batteryText2", 928-val);
+	mConst.SetValue("c_batteryText3", 950-val);
+	mConst.SetValue("c_batteryIco", 1020-val);
+#else
+	mConst.SetValue("c_batteryText1", 913);
+	mConst.SetValue("c_batteryText2", 928);
+	mConst.SetValue("c_batteryText3", 950);
+	mConst.SetValue("c_batteryIco", 1020);
+#endif
+
 #ifdef TW_INCLUDE_CRYPTO
 	mPersist.SetValue(TW_USE_SHA2, "1");
 	mPersist.SetValue(TW_NO_SHA2, "0");
