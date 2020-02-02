@@ -7420,7 +7420,7 @@ cp /twres/cache/default/notch_handled_var.xml /twres/
 					<condition var1="c_battery_icon_triger" op="=" var2="1"/>
 					<condition var1="c_status_bar_triger" op="=" var2="1"/>
 					<condition var1="c_battery_portrait_icon_triger" op="=" var2="0"/>
-					<condition var1="c_white_bg" op="=" var2="1"/>
+					<condition var1="c_bgc" op="=" var2="0"/>
 				</conditions>
 				<placement x="%c_hawk_base_column%" y="%t_6th_radio_pos%"/>
 				<image resource="radio_false"/>
@@ -7439,7 +7439,7 @@ cp /twres/c_battery/default/c_white/*.png /twres/images/;
 					<condition var1="c_battery_icon_triger" op="=" var2="1"/>
 					<condition var1="c_status_bar_triger" op="=" var2="1"/>
 					<condition var1="c_battery_portrait_icon_triger" op="=" var2="0"/>
-					<condition var1="c_white_bg" op="!=" var2="1"/>
+					<condition var1="c_bgc" op="!=" var2="0"/>
 				</conditions>
 				<placement x="%c_hawk_base_column%" y="%t_6th_radio_pos%"/>
 				<image resource="radio_false"/>
@@ -7475,7 +7475,7 @@ cp /twres/c_battery/default/c_black/*.png /twres/images/;
 					<condition var1="c_battery_icon_triger" op="=" var2="1"/>
 					<condition var1="c_status_bar_triger" op="=" var2="1"/>
 					<condition var1="c_battery_circle_icon_triger" op="=" var2="0"/>
-					<condition var1="c_white_bg" op="=" var2="1"/>
+					<condition var1="c_bgc" op="=" var2="0"/>
 				</conditions>
 				<placement x="%c_hawk_base_column%" y="%t_7th_radio_pos%"/>
 				<image resource="radio_false"/>
@@ -7494,7 +7494,7 @@ cp /twres/c_battery/circle/c_white/*.png /twres/images/;
 					<condition var1="c_battery_icon_triger" op="=" var2="1"/>
 					<condition var1="c_status_bar_triger" op="=" var2="1"/>
 					<condition var1="c_battery_circle_icon_triger" op="=" var2="0"/>
-					<condition var1="c_white_bg" op="!=" var2="1"/>
+					<condition var1="c_bgc" op="!=" var2="0"/>
 				</conditions>
 				<placement x="%c_hawk_base_column%" y="%t_7th_radio_pos%"/>
 				<image resource="radio_false"/>
