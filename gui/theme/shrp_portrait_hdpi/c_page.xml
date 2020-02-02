@@ -173,7 +173,7 @@
 					<condition var1="c_status_bar_triger" op="=" var2="1"/>
 				</conditions>
 				<font resource="c_menu"/>
-				<placement x="20" y="8"/>
+				<placement x="%c_time_x%" y="8"/>
 				<text>%tw_time%</text>
 			</text>
 			<text color="%c_black%">
@@ -185,7 +185,7 @@
 					<condition var1="c_status_bar_triger" op="=" var2="1"/>
 				</conditions>
 				<font resource="c_menu"/>
-				<placement x="913" y="8"/>
+				<placement x="%c_batteryText1%" y="8"/>
 				<text>%tw_battery%</text>
 			</text>
 			<text color="%c_black%">
@@ -197,7 +197,7 @@
 					<condition var1="c_status_bar_triger" op="=" var2="1"/>
 				</conditions>
 				<font resource="c_menu"/>
-				<placement x="928" y="8"/>
+				<placement x="%c_batteryText2%" y="8"/>
 				<text>%tw_battery%</text>
 			</text>
 			<text color="%c_black%">
@@ -209,7 +209,7 @@
 					<condition var1="c_status_bar_triger" op="=" var2="1"/>
 				</conditions>
 				<font resource="c_menu"/>
-				<placement x="950" y="8"/>
+				<placement x="%c_batteryText3%" y="8"/>
 				<text>%tw_battery%</text>
 			</text>
 			<image>
@@ -220,7 +220,7 @@
 					<condition var1="c_battery_icon_triger" op="=" var2="1"/>
 					<condition var1="c_status_bar_triger" op="=" var2="1"/>
 				</conditions>
-				<placement x="1020" y="15"/>
+				<placement x="%c_batteryIco%" y="15"/>
 				<image resource="c_battery_low"/>
 			</image>
 			<image>
@@ -231,7 +231,7 @@
 					<condition var1="c_battery_icon_triger" op="=" var2="1"/>
 					<condition var1="c_status_bar_triger" op="=" var2="1"/>
 				</conditions>
-				<placement x="1020" y="15"/>
+				<placement x="%c_batteryIco%" y="15"/>
 				<image resource="c_battery_20"/>
 			</image>
 			<image>
@@ -242,7 +242,7 @@
 					<condition var1="c_battery_icon_triger" op="=" var2="1"/>
 					<condition var1="c_status_bar_triger" op="=" var2="1"/>
 				</conditions>
-				<placement x="1020" y="15"/>
+				<placement x="%c_batteryIco%" y="15"/>
 				<image resource="c_battery_30"/>
 			</image>
 			<image>
@@ -253,7 +253,7 @@
 					<condition var1="c_battery_icon_triger" op="=" var2="1"/>
 					<condition var1="c_status_bar_triger" op="=" var2="1"/>
 				</conditions>
-				<placement x="1020" y="15"/>
+				<placement x="%c_batteryIco%" y="15"/>
 				<image resource="c_battery_50"/>
 			</image>
 			<image>
@@ -264,7 +264,7 @@
 					<condition var1="c_battery_icon_triger" op="=" var2="1"/>
 					<condition var1="c_status_bar_triger" op="=" var2="1"/>
 				</conditions>
-				<placement x="1020" y="15"/>
+				<placement x="%c_batteryIco%" y="15"/>
 				<image resource="c_battery_60"/>
 			</image>
 			<image>
@@ -275,7 +275,7 @@
 					<condition var1="c_battery_icon_triger" op="=" var2="1"/>
 					<condition var1="c_status_bar_triger" op="=" var2="1"/>
 				</conditions>
-				<placement x="1020" y="15"/>
+				<placement x="%c_batteryIco%" y="15"/>
 				<image resource="c_battery_80"/>
 			</image>
 			<image>
@@ -286,7 +286,7 @@
 					<condition var1="c_battery_icon_triger" op="=" var2="1"/>
 					<condition var1="c_status_bar_triger" op="=" var2="1"/>
 				</conditions>
-				<placement x="1020" y="15"/>
+				<placement x="%c_batteryIco%" y="15"/>
 				<image resource="c_battery_90"/>
 			</image>
 			<image>
@@ -297,7 +297,7 @@
 					<condition var1="c_battery_icon_triger" op="=" var2="1"/>
 					<condition var1="c_status_bar_triger" op="=" var2="1"/>
 				</conditions>
-				<placement x="1020" y="15"/>
+				<placement x="%c_batteryIco%" y="15"/>
 				<image resource="c_battery_full"/>
 			</image>
 
