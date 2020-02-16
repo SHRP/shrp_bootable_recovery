@@ -414,10 +414,6 @@ int TWinstall_zip(const char* path, int* wipe_cache) {
 	time(&start);
 	if (Zip.EntryExists(ASSUMED_UPDATE_BINARY_NAME)) {
 		LOGINFO("Update binary zip\n");
-		//Skip Treble compatibility
-		//DataManager::GetValue(TW_SIGNED_ZIP_VERIFY_VAR, zip_verify);
-		int skip_tv;
-		DataManager::GetValue("c_skip_tv", skip_tv);
 		// Additionally verify the compatibility of the package.
 		if (DataManager::GetIntValue(TW_SKIP_COMPATIBILITY_CHECK) == 0 && !verify_package_compatibility(&Zip)) {
 			gui_err("zip_compatible_err=Zip Treble compatibility error!");
