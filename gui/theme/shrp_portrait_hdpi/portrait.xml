@@ -2607,9 +2607,6 @@
 					<condition var1="tw_no_sha2" var2="0"/>
 					<data variable="tw_use_sha2"/>
 				</listitem>
-				<listitem name="{@c_skip_treble=Skip treble verification}">
-					<data variable="c_skip_tv"/>
-				</listitem>
 				<listitem name="{@c_show_lc=Show date on lockscreen}">
 					<data variable="c_dateview"/>
 				</listitem>

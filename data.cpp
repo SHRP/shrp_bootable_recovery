@@ -828,7 +828,6 @@ void DataManager::SetDefaultValues()
 	mData.SetValue("chFolder", "0");
 	//SHRP_PERSISTED_VARS
 	mPersist.SetValue("c_temp2", "pepe");
-	mPersist.SetValue("c_skip_tv", "0");
 	mPersist.SetValue("c_dateview", "0");
 	mPersist.SetValue("c_devMode", "0");
 	//SHRP_LOCK_VARS
