@@ -246,157 +246,46 @@
 			</action>
 		</page>
 		<page name="c_credit">
-			<template name="c_page"/>
-			<template name="c_status_bar"/>
-			<text style="c_main_text_header">
-				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
-				<text>{@c_credits=Credits}</text>
-			</text>
-			<text style="c_text_dashboard">
-				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
-				<text>{@c_credits=Credits} {@c_section=Section}</text>
-			</text>
-			<image>
-				<placement x="135" y="75"/>
-				<image resource="c_logo"/>
-			</image>
+		  <template name="c_page"/>
+		  <template name="c_status_bar"/>
+		  <text style="c_main_text_header">
+		    <placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
+		    <text>{@c_credits=Credits}</text>
+		  </text>
+		  <text style="c_text_dashboard">
+		    <placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
+		    <text>{@c_credits=Credits} {@c_section=Section}</text>
+		  </text>
+		  <listbox style="scrolllist">
+		    <placement x="%c_hawk_base_column%" y="%c_text_sub_y2%" w="%file_selector_default_w%" h="%settings_main_list_h%"/>
+		    <listitem name=" epicX"/>
+		    <listitem name=" Dni9"/>
+		    <listitem name=" Giovix92"/>
+		    <listitem name=" Teamwin"/>
+		    <listitem name=" osmOsis"/>
+		    <listitem name=" Topjohnwu"/>
+		    <listitem name=" VR25"/>
+		    <listitem name=" Mauronofrio"/>
+		    <listitem name=" DarthJabba9"/>
+		    <listitem name=" Pritish"/>
+		    <listitem name=" Kirill"/>
+		    <listitem name=" Burak D."/>
+		    <listitem name=" ZJRDroid"/>
+		    <listitem name=" LayeardDevMod"/>
+		  </listbox>
 
-			<button style="c_text_dashboard">
-				<placement x="105" y="785" w="221" h="170"/>
-				<fill color="%transparent%"/>
-				<text>epicX</text>
-			</button>
-			<button style="c_reboot_text">
-				<placement x="105" y="915" w="221" h="50"/>
-				<fill color="%transparent%"/>
-				<text>Team SHRP</text>
-			</button>
-			<button style="c_text_dashboard">
-				<placement x="430" y="785" w="221" h="170"/>
-				<fill color="%transparent%"/>
-				<text>DNI9</text>
-			</button>
-			<button style="c_reboot_text">
-				<placement x="430" y="915" w="221" h="50"/>
-				<fill color="%transparent%"/>
-				<text>Team SHRP</text>
-			</button>
-			<button style="c_text_dashboard">
-				<placement x="755" y="785" w="221" h="170"/>
-				<fill color="%transparent%"/>
-				<text>Giovix92</text>
-			</button>
-			<button style="c_reboot_text">
-				<placement x="755" y="915" w="221" h="50"/>
-				<fill color="%transparent%"/>
-				<text>Team SHRP</text>
-			</button>
-
-			<button style="c_text_dashboard">
-				<placement x="105" y="1005" w="221" h="170"/>
-				<fill color="%transparent%"/>
-				<text>Teamwin</text>
-			</button>
-			<button style="c_reboot_text">
-				<placement x="105" y="1135" w="221" h="50"/>
-				<fill color="%transparent%"/>
-				<text>Base</text>
-			</button>
-			<button style="c_text_dashboard">
-				<placement x="430" y="1005" w="221" h="170"/>
-				<fill color="%transparent%"/>
-				<text>osmOsis</text>
-			</button>
-			<button style="c_reboot_text">
-				<placement x="430" y="1135" w="221" h="50"/>
-				<fill color="%transparent%"/>
-				<text>Scripts</text>
-			</button>
-			<button style="c_text_dashboard">
-				<placement x="755" y="1005" w="221" h="170"/>
-				<fill color="%transparent%"/>
-				<text>Topjohnwu</text>
-			</button>
-			<button style="c_reboot_text">
-				<placement x="755" y="1135" w="221" h="50"/>
-				<fill color="%transparent%"/>
-				<text>Magisk</text>
-			</button>
-
-			<button style="c_text_dashboard">
-				<placement x="105" y="1225" w="221" h="170"/>
-				<fill color="%transparent%"/>
-				<text>VR25</text>
-			</button>
-			<button style="c_reboot_text">
-				<placement x="85" y="1335" w="261" h="50"/>
-				<fill color="%transparent%"/>
-				<text>Magisk Manager</text>
-			</button>
-			<button style="c_text_dashboard">
-				<placement x="430" y="1225" w="221" h="170"/>
-				<fill color="%transparent%"/>
-				<text>Pritish</text>
-			</button>
-			<button style="c_reboot_text">
-				<placement x="430" y="1335" w="221" h="50"/>
-				<fill color="%transparent%"/>
-				<text>{@c_translation=Translation}</text>
-			</button>
-			<button style="c_text_dashboard">
-				<placement x="755" y="1225" w="221" h="170"/>
-				<fill color="%transparent%"/>
-				<text>Kirill</text>
-			</button>
-			<button style="c_reboot_text">
-				<placement x="755" y="1335" w="221" h="50"/>
-				<fill color="%transparent%"/>
-				<text>{@c_translation=Translation}</text>
-			</button>
-
-			<button style="c_text_dashboard">
-				<placement x="105" y="1445" w="221" h="170"/>
-				<fill color="%transparent%"/>
-				<text>Burak D.</text>
-			</button>
-			<button style="c_reboot_text">
-				<placement x="105" y="1575" w="221" h="50"/>
-				<fill color="%transparent%"/>
-				<text>{@c_translation=Translation}</text>
-			</button>
-			<button style="c_text_dashboard">
-				<placement x="430" y="1445" w="221" h="170"/>
-				<fill color="%transparent%"/>
-				<text>ZJRDroid</text>
-			</button>
-			<button style="c_reboot_text">
-				<placement x="430" y="1575" w="221" h="50"/>
-				<fill color="%transparent%"/>
-				<text>{@c_translation=Translation}</text>
-			</button>
-			<button style="c_text_dashboard">
-				<placement x="735" y="1445" w="261" h="170"/>
-				<fill color="%transparent%"/>
-				<text>LayeardDevMod</text>
-			</button>
-			<button style="c_reboot_text">
-				<placement x="755" y="1575" w="221" h="50"/>
-				<fill color="%transparent%"/>
-				<text>{@c_translation=Translation}</text>
-			</button>
-
-			<action>
-				<touch key="back"/>
-				<actions>
-					<action function="page">my_info</action>
-				</actions>
-			</action>
-			<action>
-				<touch key="home"/>
-				<actions>
-					<action function="page">c_refresh</action>
-				</actions>
-			</action>
+		  <action>
+		    <touch key="back"/>
+		    <actions>
+		      <action function="page">my_info</action>
+		    </actions>
+		  </action>
+		  <action>
+		    <touch key="home"/>
+		    <actions>
+		      <action function="page">c_refresh</action>
+		    </actions>
+		  </action>
 		</page>
 
 		<page name="main2">
