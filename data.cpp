@@ -725,9 +725,9 @@ void DataManager::SetDefaultValues()
 #endif
 #ifdef TW_SKIP_COMPATIBILITY_CHECK
 	printf("TW_SKIP_COMPATIBILITY_CHECK := true\n");
-	mPersist.SetValue(TW_SKIP_COMPATIBILITY_CHECK, "1");
+	mConst.SetValue("TW_SKIP_COMPATIBILITY_CHECK", "1");
 #else
-	mPersist.SetValue(TW_SKIP_COMPATIBILITY_CHECK, "0");
+	mConst.SetValue("TW_SKIP_COMPATIBILITY_CHECK", "0");
 #endif
 #ifdef TW_HAS_DOWNLOAD_MODE
 	printf("TW_HAS_DOWNLOAD_MODE := true\n");
