@@ -258,22 +258,23 @@
 		  </text>
 		  <listbox style="scrolllist">
 		    <placement x="%c_hawk_base_column%" y="%c_text_sub_y2%" w="%file_selector_default_w%" h="%settings_main_list_h%"/>
-		    <listitem name=" epicX"/>
-		    <listitem name=" Dni9"/>
-		    <listitem name=" Giovix92"/>
-		    <listitem name=" Teamwin"/>
-		    <listitem name=" osmOsis"/>
-		    <listitem name=" Topjohnwu"/>
-		    <listitem name=" VR25"/>
-		    <listitem name=" Mauronofrio"/>
-		    <listitem name=" DarthJabba9"/>
-		    <listitem name=" Pritish"/>
-		    <listitem name=" Kirill"/>
-		    <listitem name=" Burak D."/>
-		    <listitem name=" ZJRDroid"/>
-		    <listitem name=" LayeardDevMod"/>
+		    <listitem name=" SHRP Team:"/>
+		    <listitem name=" - epicX"/>
+		    <listitem name=" - Dni9"/>
+		    <listitem name=" - Giovix92"/>
+		    <listitem name=" Other credits:"/>
+		    <listitem name=" - Teamwin"/>
+		    <listitem name=" - osmOsis"/>
+		    <listitem name=" - Topjohnwu"/>
+		    <listitem name=" - VR25"/>
+		    <listitem name=" - Mauronofrio"/>
+		    <listitem name=" - DarthJabba9"/>
+		    <listitem name=" - Pritish"/>
+		    <listitem name=" - Kirill"/>
+		    <listitem name=" - Burak D."/>
+		    <listitem name=" - ZJRDroid"/>
+		    <listitem name=" - LayeardDevMod"/>
 		  </listbox>
-
 		  <action>
 		    <touch key="back"/>
 		    <actions>
