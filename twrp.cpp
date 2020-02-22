@@ -53,6 +53,8 @@ extern "C" {
 #include "minadbd21/adb.h"
 }
 #endif
+#include <list>
+#include "sov.h"
 
 //extern int adb_server_main(int is_daemon, int server_port, int /* reply_fd */);
 
@@ -170,14 +172,25 @@ void shrp_lockscreen_date(){//SHRP Buutiful Lockscreen Date View
 	main_result=week+day_s+month;
 	DataManager::SetValue("c_lock_screen_date",main_result);
 }
+bool checkOffical(string target){
+    for(auto it=devices.begin();it!=devices.end();it++){
+		if(target==*it){
+		    return true;
+		}
+	}
+	return false;
+}
 void disp_info(){
 	string tmp;
 	gui_msg(Msg("|SKYHAWK RECOVERY PROJECT",0));
 	DataManager::GetValue("shrp_ver",tmp);
 	tmp="|Version - "+tmp;
 	gui_msg(Msg(tmp.c_str(),0));
-	DataManager::GetValue("shrp_ver_status",tmp);
-	tmp="|Status - "+tmp;
+	if(checkOffical(DataManager::GetStrValue("device_code_name"))){
+		tmp="|Status - Official";
+	}else{
+		tmp="|Status - Unofficial";
+	}
 	gui_msg(Msg(tmp.c_str(),0));
 	DataManager::GetValue("device_code_name",tmp);
 	tmp="|Device - "+tmp;
