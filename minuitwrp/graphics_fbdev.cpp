@@ -59,7 +59,7 @@ minui_backend* open_fbdev() {
     return &my_backend;
 }
 
-static void fbdev_blank(minui_backend* backend __unused, bool blank)
+static void fbdev_blank(minui_backend* backend __unused, bool blank __unused)
 {
 #if defined(TW_NO_SCREEN_BLANK) && defined(TW_BRIGHTNESS_PATH) && defined(TW_MAX_BRIGHTNESS)
     int fd;

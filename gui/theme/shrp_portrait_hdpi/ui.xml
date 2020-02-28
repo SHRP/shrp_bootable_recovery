@@ -10,11 +10,9 @@
 	</details>
 
 	<include>
-		<xmlfile name="c_ex_variables.xml"/>
 		<xmlfile name="txt_res.xml"/>
 		<xmlfile name="notch_handled_var.xml"/>
 		<xmlfile name="c_status_bar_h.xml"/>
-		<xmlfile name="shrp_lock_data_base.xml"/>
 		<xmlfile name="bg_res.xml"/>
 		<xmlfile name="styles.xml"/>
 		<xmlfile name="c_page.xml"/>
@@ -30,8 +28,8 @@
 		<font name="keylabel" filename="Product_sans.ttf" size="64"/>
 		<font name="keylabel-small" filename="Product_sans.ttf" size="46"/>
 		<font name="keylabel-longpress" filename="Product_sans.ttf" size="32"/>
-		
-		
+
+
 		<!-- epicX_font_styles_start-->
 		<font name="c_list" filename="Product_sans.ttf" size="75"/>
 		<font name="c_header" filename="Raleway-Light.ttf" size="90"/>
@@ -47,9 +45,9 @@
 		<font name="c_hider" filename="Product_sans.ttf" size="0"/>
 		<font name="c_language" filename="RobotoCondensed-Regular.ttf" size="36"/>
 		<!-- epicX_font_styles_end-->
-		
+
 		<!-- epicX_image_resources_start-->
-		
+
 		<!-- For_dashboard_icon_start-->
 		<image name="c_dashboard_about" filename="c_dashboard_about" retainaspect="1"/>
 		<image name="c_dashboard_advanced" filename="c_dashboard_advanced" retainaspect="1"/>
@@ -65,7 +63,7 @@
 		<image name="c_dashboard_wipe" filename="c_dashboard_wipe" retainaspect="1"/>
 		<image name="c_dashboard_addon" filename="c_dashboard_addon" retainaspect="1"/>
 		<image name="c_dashboard_more" filename="c_dashboard_more" retainaspect="1"/>
-		<!-- For_dashboard_icon_end-->	
+		<!-- For_dashboard_icon_end-->
 		<image name="c_dash_text_box" filename="c_dash_text_box" retainaspect="0"/>
 		<image name="c_storage" filename="c_storage" retainaspect="1"/>
 		<image name="c_zip" filename="c_zip" retainaspect="1"/>
@@ -75,7 +73,6 @@
 		<image name="c_line" filename="c_line" retainaspect="1"/>
 		<image name="c_line_t" filename="c_line_t" retainaspect="1"/>
 		<image name="c_reboot" filename="c_reboot" retainaspect="1"/>
-		<image name="c_advance_wipe" filename="c_advance_wipe" retainaspect="1"/>
 		<image name="c_factory_reset" filename="c_factory_reset" retainaspect="1"/>
 		<image name="c_repair" filename="c_repair" retainaspect="1"/>
 		<image name="c_ok" filename="c_ok" retainaspect="1"/>
@@ -85,7 +82,6 @@
 		<image name="c_delete" filename="c_delete" retainaspect="1"/>
 		<image name="c_rename" filename="c_rename" retainaspect="1"/>
 		<image name="c_refresh" filename="c_refresh" retainaspect="1"/>
-		<image name="c_circle3" filename="c_circle3" retainaspect="1"/>
 		<image name="c_circle4" filename="c_circle4" retainaspect="1"/>
 		<image name="c_mtp_enabled" filename="c_mtp_enabled" retainaspect="1"/>
 		<image name="c_mtp_disabled" filename="c_mtp_disabled" retainaspect="1"/>
@@ -117,14 +113,15 @@
 		<image name="c_file_exsdcard" filename="c_file_exsdcard" retainaspect="1"/>
 		<image name="c_file_root" filename="c_file_root" retainaspect="1"/>
 		<image name="c_file_otg" filename="c_file_otg" retainaspect="1"/>
+		<image name="c_archive" filename="c_archive" retainaspect="1"/>
+		<image name="c_unarchive" filename="c_unarchive" retainaspect="1"/>
+		<image name="c_createFolder" filename="c_createFolder" retainaspect="1"/>
 		<image name="bt" filename="bt"/>
 		<image name="c_file_delete2" filename="c_file_delete2" retainaspect="1"/>
 		<image name="c_power_menu_bg" filename="c_power_menu_bg"/>
 		<image name="c_flashlight_off" filename="c_flashlight_off" retainaspect="1"/>
 		<image name="c_flashlight_on" filename="c_flashlight_on" retainaspect="1"/>
 		<image name="c_epicxsort" filename="c_epicxsort" retainaspect="1"/>
-		<image name="c_mod_list" filename="c_mod_list" retainaspect="1"/>
-		<image name="c_settings_list" filename="c_settings_list" retainaspect="1"/>
 		<image name="c_modules" filename="c_modules" retainaspect="1"/>
 		<image name="white_mode_color" filename="white_mode_color" retainaspect="1"/>
 		<image name="dark_black_mode_color" filename="dark_black_mode_color" retainaspect="1"/>
@@ -162,30 +159,7 @@
 		<image name="c_switch_off" filename="c_switch_off" retainaspect="1"/>
 		<image name="c_on_button" filename="c_on_button" retainaspect="1"/>
 		<image name="c_off_button" filename="c_off_button" retainaspect="1"/>
-		<!--epicX_image_resources_end-->
-		<image name="file" filename="file" retainaspect="1"/>
-		<image name="folder" filename="folder" retainaspect="1"/>
-		<image name="home" filename="home" retainaspect="1"/>
-		<image name="back" filename="back" retainaspect="1"/>
-		<image name="console" filename="console" retainaspect="1"/>
-		<image name="kb_hide" filename="kb_hide" retainaspect="1"/>
-		<image name="kb_show" filename="kb_show" retainaspect="1"/>
-		<image name="checkbox_false" filename="checkbox_false" retainaspect="1"/>
-		<image name="checkbox_true" filename="checkbox_true" retainaspect="1"/>
-		<image name="radio_false" filename="radio_false" retainaspect="1"/>
-		<image name="radio_true" filename="radio_true" retainaspect="1"/>
-		<image name="handle" filename="handle"/>
-		<image name="cursor" filename="cursor" retainaspect="1"/>
-
-		<image name="backspace" filename="backspace" retainaspect="1"/>
-		<image name="enter" filename="enter" retainaspect="1"/>
-		<image name="shift" filename="shift" retainaspect="1"/>
-		<image name="shift_fill" filename="shift_fill" retainaspect="1"/>
-		<image name="space" filename="space" retainaspect="1"/>
-		<image name="kb_arrow_left" filename="kb_arrow_left" retainaspect="1"/>
-		<image name="kb_arrow_right" filename="kb_arrow_right" retainaspect="1"/>
-		<image name="kb_arrow_up" filename="kb_arrow_up" retainaspect="1"/>
-		<image name="kb_arrow_down" filename="kb_arrow_down" retainaspect="1"/>
+		<image name="c_clear_input" filename="c_clear_input" retainaspect="1"/>
 		<image name="c_dashboard_lock" filename="c_dashboard_lock" retainaspect="1"/>
 		<image name="c_mod" filename="c_mod" retainaspect="1"/>
 		<image name="c_reset_lock" filename="c_reset_lock" retainaspect="1"/>
@@ -216,14 +190,35 @@
 		<image name="c_advanced" filename="c_advanced" retainaspect="1"/>
 		<image name="c_download_mode" filename="c_download_mode" retainaspect="1"/>
 		<image name="c_edl_mode" filename="c_edl_mode" retainaspect="1"/>
-		
+    <image name="backup" filename="backup" retainaspect="1"/>
+		<image name="c_reload" filename="c_reload" retainaspect="1"/>
+		<image name="c_magisk_not_exist" filename="c_magisk_not_exist" retainaspect="1"/>
+		<!--epicX_image_resources_end-->
+		<image name="file" filename="file" retainaspect="1"/>
+		<image name="folder" filename="folder" retainaspect="1"/>
+		<image name="home" filename="home" retainaspect="1"/>
+		<image name="back" filename="back" retainaspect="1"/>
+		<image name="console" filename="console" retainaspect="1"/>
+		<image name="kb_show" filename="kb_show" retainaspect="1"/>
+		<image name="checkbox_false" filename="checkbox_false" retainaspect="1"/>
+		<image name="checkbox_true" filename="checkbox_true" retainaspect="1"/>
+		<image name="radio_false" filename="radio_false" retainaspect="1"/>
+		<image name="radio_true" filename="radio_true" retainaspect="1"/>
+		<image name="handle" filename="handle"/>
+		<image name="cursor" filename="cursor" retainaspect="1"/>
+		<image name="backspace" filename="backspace" retainaspect="1"/>
+		<image name="enter" filename="enter" retainaspect="1"/>
+		<image name="shift" filename="shift" retainaspect="1"/>
+		<image name="shift_fill" filename="shift_fill" retainaspect="1"/>
+		<image name="space" filename="space" retainaspect="1"/>
+		<image name="kb_arrow_left" filename="kb_arrow_left" retainaspect="1"/>
+		<image name="kb_arrow_right" filename="kb_arrow_right" retainaspect="1"/>
+		<image name="kb_arrow_up" filename="kb_arrow_up" retainaspect="1"/>
+		<image name="kb_arrow_down" filename="kb_arrow_down" retainaspect="1"/>
 	</resources>
 
 	<variables>
-		<!--epicX_theme_handler-->
-		<variable name="c_list_view" value="0" persist="1"/>
 		<variable name="c_status" value=""/>
-		<!--epicX_theme_handler_end-->
 		<variable name="tw_samsung_navbar" value="0" persist="1"/>
 		<variable name="tw_hide_kb" value="0"/>
 		<variable name="screen_width" value="1080"/>
@@ -249,8 +244,6 @@
 		<variable name="keyboard_y" value="1149"/>
 		<variable name="keyboard_terminal_y" value="1053"/>
 		<variable name="background_color" value="#010101"/>
-		<variable name="accent_color" value="#010101"/>
-		<variable name="accent_color_semitransparent" value="#0093FF"/>
 		<variable name="text_color" value="#EEEEEE"/>
 		<variable name="text_button_color" value="#EEEEEE"/>
 		<variable name="text_success_color" value="#76FF03"/>
@@ -295,30 +288,13 @@
 		<variable name="pattern_dot_dia" value="15"/>
 		<variable name="pattern_line_w" value="8"/>
 		<variable name="pattern_size" value="600"/>
-		<!--Color_for_main_ui-->
-		<variable name="dark" value="0" persist="1"/>
-		<variable name="white" value="1" persist="1"/>
-		<variable name="pitch" value="0" persist="1"/>
-		<variable name="nav_white" value="0" persist="1"/>
-		<variable name="circle_handler" value="0"/>
-		<variable name="c_theme_busy" value="0"/>
 		<variable name="c_file" value="0"/>
-		<variable name="c_fileto" value=""/>
-		<variable name="c_filefrom" value=""/>
 		<variable name="c_mv" value="0"/>
 		<variable name="c_menu" value="0"/>
-		<!--variable name="c_flashlight_triger" value="0"/-->
-		<variable name="c_new_theme_busy" value="0"/>
-		<variable name="c_magisk_path" value="/_magisk/"/>
-		<variable name="c_magisk_module_name" value=""/>
-		<variable name="c_magisk_name" value=""/>
-		<variable name="core" value="N/A"/>
-		<variable name="c_m_exist" value="1"/>
-		<variable name="c_module_disable" value=""/>
+		<variable name="c_busy" value="0"/>
+		<variable name="c_flashlight_status" value="0" persist="0"/>
 		<variable name="c_temp" value="pepe" persist="0"/>
-		<variable name="c_temp2" value="pepe" persist="1"/>
 		<variable name="c_temp3" value="pepe" persist="0"/>
-		<variable name="c_temp4" value="pepe" persist="0"/>
 	</variables>
 
 	<mousecursor>
@@ -328,6 +304,7 @@
 	</mousecursor>
 
 	<templates>
+		<!--Custom_templates_epicX-->
 		<template name="c_misc_panel">
 			<image>
 				<condition var1="c_temp2" op="=" var2="99"/>
@@ -362,15 +339,17 @@
 				<condition var1="c_temp2" op="=" var2="99"/>
 				<placement x="510" y="1462"/>
 				<image resource="c_panel_copy_log"/>
-				<action function="page">copylog</action> 
+				<action function="page">copylog</action>
 			</button>
 			<button>
 				<condition var1="c_temp2" op="=" var2="99"/>
 				<placement x="630" y="1462"/>
 				<image resource="c_panel_reboot_system"/>
 				<actions>
-					<action function="set">tw_back=main2</action>
-					<action function="page">reboot_system_routine</action>
+					<action function="set">tw_action=reboot</action>
+					<action function="set">tw_action_param=system</action>
+					<action function="set">tw_reboot_param=system</action>
+					<action function="reboot">%tw_reboot_param%</action>
 				</actions>
 			</button>
 			<button>
@@ -378,17 +357,10 @@
 				<placement x="750" y="1462"/>
 				<image resource="c_panel_reboot_recovery"/>
 				<actions>
-					<action function="set">tw_back=reboot</action>
 					<action function="set">tw_action=reboot</action>
 					<action function="set">tw_action_param=recovery</action>
 					<action function="set">tw_reboot_param=recovery</action>
-					<action function="set">tw_has_action2=0</action>
-					<action function="set">tw_text1={@no_os1=No OS Installed! Are you}</action>
-					<action function="set">tw_text2={@no_osrb=sure you wish to reboot?}</action>
-					<action function="set">tw_action_text1={@rebooting=Rebooting...}</action>
-					<action function="set">tw_complete_text1={@rebooting=Rebooting...}</action>
-					<action function="set">tw_slider_text={@swipe_reboot=Swipe to Reboot}</action>
-					<action function="page">rebootcheck</action>
+					<action function="reboot">%tw_reboot_param%</action>
 				</actions>
 			</button>
 			<button>
@@ -398,253 +370,24 @@
 				<action function="set">c_temp2=99</action>
 			</button>
 		</template>
-		<template name="c_theme_status">
-			<fill color="c_white">
-				<condition var1="c_new_theme_busy" op="=" var2="1"/>
+		<template name="c_busy_status">
+			<button>
+				<condition var1="c_busy" op="=" var2="1"/>
 				<placement x="0" y="0" w="1080" h="1920"/>
-			</fill>
+				<fill color="c_white"/>
+			</button>
 			<text style="c_main_text_header">
-				<condition var1="c_new_theme_busy" op="=" var2="1"/>
+				<condition var1="c_busy" op="=" var2="1"/>
 				<placement x="55" y="%c_hawk_base_first_header%"/>
 				<text>{@c_appling=Applying}</text>
 			</text>
 			<text style="c_sub">
-				<condition var1="c_new_theme_busy" op="=" var2="1"/>
+				<condition var1="c_busy" op="=" var2="1"/>
 				<placement x="55" y="%c_hawk_base_second_header%"/>
 				<text>%c_status%</text>
 			</text>
 		</template>
-		<template name="c_action_bar_for_list">
-			<!--fill color="%c_white%">
-				<condition var1="c_list_view" op="=" var2="1"/>
-				<placement x="0" y="0" h="60" w="1080"/>
-			</fill-->
-			<button>
-				<condition var1="c_list_view" op="=" var2="1"/>
-				<placement x="936" y="60"/>
-				<image resource="c_settings_list"/>
-				<action function="page">settings</action>
-			</button>
-			<button>
-				<condition var1="c_list_view" op="=" var2="1"/>
-				<placement x="792" y="60"/>
-				<image resource="c_mod_list"/>
-				<actions>
-					<action function="page">c_splash_theme</action>
-				</actions>
-			</button>
-			<image>
-				<condition var1="c_list_view" op="=" var2="1"/>
-				<placement x="0" y="220"/>
-				<image resource="c_shadow"/>
-			</image>
-		</template>
-		<template name="c_list_view_dashboard">
-			<!--fill color="%c_white%">
-				<condition var1="c_list_view" op="=" var2="1"/>
-				<placement x="0" y="0" h="60" w="1080"/>
-			</fill-->
-			<button>
-				<condition var1="c_list_view" op="=" var2="1"/>
-				<placement x="936" y="60"/>
-				<image resource="c_settings_list"/>
-				<action function="page">settings</action>
-			</button>
-			<button>
-				<condition var1="c_list_view" op="=" var2="1"/>
-				<placement x="792" y="60"/>
-				<image resource="c_mod_list"/>
-				<actions>
-					<action function="page">c_splash_theme</action>
-				</actions>
-			</button>
-			<image>
-				<condition var1="c_list_view" op="=" var2="1"/>
-				<placement x="0" y="220"/>
-				<image resource="c_shadow"/>
-			</image>
-			<text>
-				<condition var1="c_list_view" op="=" var2="1"/>
-				<placement x="55" y="85"/>
-				<text>{@c_skyhawk_two=Skyhawk}</text>
-				<font resource="c_list" color="%c_black%"/>
-			</text>
-			
-			<button>
-				<condition var1="c_list_view" op="=" var2="1"/>
-				<placement x="47" y="250"/>
-				<image resource="c_dashboard_flash"/>
-				<actions>
-					<action function="queueclear"/>
-					<action function="set">tw_selectimage=0</action>
-					<action function="page">install</action>
-				</actions>
-			</button>
-			<text>
-				<condition var1="c_list_view" op="=" var2="1"/>
-				<placement x="230" y="260"/>
-				<text>{@c_flash=Flash}</text>
-				<font resource="c_dashboard_header" color="%c_black%"/>
-			</text>
-			<text>
-				<condition var1="c_list_view" op="=" var2="1"/>
-				<placement x="230" y="325"/>
-				<text>{@c_flash_info_ex=Flash zips, img etc}</text><!--Text_change-->
-				<font resource="font_s" color="%c_black%"/>
-			</text>
-			
-			<button>
-				<condition var1="c_list_view" op="=" var2="1"/>
-				<placement x="47" y="420"/>
-				<image resource="c_dashboard_wipe"/>
-				<action function="page">wipe</action>
-			</button>
-			<text>
-				<condition var1="c_list_view" op="=" var2="1"/>
-				<placement x="230" y="430"/>
-				<text>{@wipe_btn=Wipe}</text>
-				<font resource="c_dashboard_header" color="%c_black%"/>
-			</text>
-			<text>
-				<condition var1="c_list_view" op="=" var2="1"/>
-				<placement x="230" y="495"/>
-				<text>{@c_wipe_info_ex=Wipe data, system, cache and other partitions}</text><!--Text_change-->
-				<font resource="font_s" color="%c_black%"/>
-			</text>
-			
-			<button>
-				<condition var1="c_list_view" op="=" var2="1"/>
-				<placement x="47" y="590"/>
-				<image resource="c_dashboard_backup"/>
-				<action function="page">backup</action>
-			</button>
-			<text>
-				<condition var1="c_list_view" op="=" var2="1"/>
-				<placement x="230" y="600"/>
-				<text>{@backup_btn=Backup}</text>
-				<font resource="c_dashboard_header" color="%c_black%"/>
-			</text>
-			<text>
-				<condition var1="c_list_view" op="=" var2="1"/>
-				<placement x="230" y="665"/>
-				<text>{@c_backup_info_ex=Backup current system, data, boot and other partitions}</text><!--Text_change-->
-				<font resource="font_s" color="%c_black%"/>
-			</text>
-			
-			<button>
-				<condition var1="c_list_view" op="=" var2="1"/>
-				<placement x="47" y="760"/>
-				<image resource="c_dashboard_restore"/>
-				<action function="page">restore</action>
-			</button>
-			<text>
-				<condition var1="c_list_view" op="=" var2="1"/>
-				<placement x="230" y="770"/>
-				<text>{@restore_btn=Restore}</text>
-				<font resource="c_dashboard_header" color="%c_black%"/>
-			</text>
-			<text>
-				<condition var1="c_list_view" op="=" var2="1"/>
-				<placement x="230" y="835"/>
-				<text>{@c_restore_info_ex=Restore previously backed up partitions}</text><!--Text_change-->
-				<font resource="font_s" color="%c_black%"/>
-			</text>
-			
-			<button>
-				<condition var1="c_list_view" op="=" var2="1"/>
-				<placement x="47" y="930"/>
-				<image resource="c_dashboard_filemanager"/>
-				<action function="page">c_file_epicx</action>
-			</button>
-			<text>
-				<condition var1="c_list_view" op="=" var2="1"/>
-				<placement x="230" y="940"/>
-				<text>{@files_btn=Files}</text>
-				<font resource="c_dashboard_header" color="%c_black%"/>
-			</text>
-			<text>
-				<condition var1="c_list_view" op="=" var2="1"/>
-				<placement x="230" y="1005"/>
-				<text>{@c_file_info_ex=Manage files using new file manager}</text><!--Text_change-->
-				<font resource="font_s" color="%c_black%"/>
-			</text>
-			
-			<button>
-				<condition var1="c_list_view" op="=" var2="1"/>
-				<placement x="47" y="1100"/>
-				<image resource="c_dashboard_lock"/>
-				<action function="page">c_lock_ui</action>
-			</button>
-			<text>
-				<condition var1="c_list_view" op="=" var2="1"/>
-				<placement x="230" y="1110"/>
-				<text>{@c_security=Security}</text>
-				<font resource="c_dashboard_header" color="%c_black%"/>
-			</text>
-			<text>
-				<condition var1="c_list_view" op="=" var2="1"/>
-				<placement x="230" y="1175"/>
-				<text>{@c_security_info_ex=Security settings for SHRP}</text><!--Text_change-->
-				<font resource="font_s" color="%c_black%"/>
-			</text>
-			
-			<button>
-				<condition var1="c_list_view" op="=" var2="1"/>
-				<placement x="47" y="1270"/>
-				<image resource="c_dashboard_more"/>
-				<action function="page">c_list_more</action>
-			</button>
-			<text>
-				<condition var1="c_list_view" op="=" var2="1"/>
-				<placement x="230" y="1280"/>
-				<text>{@c_more=More}</text>
-				<font resource="c_dashboard_header" color="%c_black%"/>
-			</text>
-			<text>
-				<condition var1="c_list_view" op="=" var2="1"/>
-				<placement x="230" y="1345"/>
-				<text>{@c_more_info_ex=Extra Options}</text><!--Text_change-->
-				<font resource="font_s" color="%c_black%"/>
-			</text>
-			<button>
-				<condition var1="c_list_view" op="=" var2="1"/>
-				<placement x="47" y="1440"/>
-				<image resource="c_dashboard_reboot"/>
-				<action function="overlay">reboot</action>
-			</button>
-			<text>
-				<condition var1="c_list_view" op="=" var2="1"/>
-				<placement x="230" y="1450"/>
-				<text>{@reboot_btn=Reboot}</text>
-				<font resource="c_dashboard_header" color="%c_black%"/>
-			</text>
-			<text>
-				<condition var1="c_list_view" op="=" var2="1"/>
-				<placement x="230" y="1515"/>
-				<text>{@c_reboot_info_ex=Reboot to system,recovery,bootloader etc}</text><!--Text_change-->
-				<font resource="font_s" color="%c_black%"/>
-			</text>
-			<button>
-				<condition var1="c_list_view" op="=" var2="1"/>
-				<placement x="47" y="1610"/>
-				<image resource="c_dashboard_about"/>
-				<action function="page">my_info</action>
-			</button>
-			<text>
-				<condition var1="c_list_view" op="=" var2="1"/>
-				<placement x="230" y="1620"/>
-				<text>{@c_about=About}</text>
-				<font resource="c_dashboard_header" color="%c_black%"/>
-			</text>
-			<text>
-				<condition var1="c_list_view" op="=" var2="1"/>
-				<placement x="230" y="1685"/>
-				<text>{@c_about_info_ex=About SkyHawk Recovery}</text><!--Text_change-->
-				<font resource="font_s" color="%c_black%"/>
-			</text>
-		</template>
 		<template name="c_tab_settings">
-
 			<button style="c_tab_set">
 				<placement x="25" y="%c_tab_row%"/>
 				<text>{@settings_gen_hdr=General}</text>
@@ -728,9 +471,17 @@
 				<placement x="0" y="400" w="1080" h="378"/>
 				<fill color="%transparent%"/>
 				<font resource="c_lock_clock" color="#ffffffff"/>
-				<text>%tw_time%</text>
+				<text>%tw_ls_time%</text>
 			</button>
 			<button>
+				<condition var1="c_dateview" var2="1"/>
+				<placement x="0" y="700" w="1080" h="100"/>
+				<fill color="%transparent%"/>
+				<font resource="c_dashboard_text_sort" color="#ffffffff"/>
+				<text>%c_lock_screen_date%</text>
+			</button>
+			<button>
+				<condition var1="c_dateview" var2="0"/>
 				<placement x="0" y="700" w="1080" h="100"/>
 				<fill color="%transparent%"/>
 				<font resource="c_dashboard_text_sort" color="#ffffffff"/>
@@ -773,7 +524,6 @@
 				<action function="set">tw_gui_sort_order=1</action>
 			</button>
 		</template>
-	<!--Custom_template_epicX-->
 		<template name="c_reboot_page">
 			<button>
 				<placement x="0" y="0" w="1080" h="1920"/>
@@ -788,33 +538,42 @@
 				<placement x="744" y="495" w="315" h="60"/>
 				<fill color="%transparent%"/>
 				<text>{@rb_poweroff_btn=Power Off}</text>
+				<actions>
+					<action function="set">tw_action=reboot</action>
+					<action function="set">tw_action_param=poweroff</action>
+					<action function="set">tw_reboot_param=poweroff</action>
+					<action function="reboot">%tw_reboot_param%</action>
+				</actions>
 			</button>
 			<button style="c_reboot_text">
 				<placement x="744" y="739" w="315" h="60"/>
 				<fill color="%transparent%"/>
 				<text>{@reboot_hdr=Reboot}</text>
+				<actions>
+					<action function="set">tw_action=reboot</action>
+					<action function="set">tw_action_param=system</action>
+					<action function="set">tw_reboot_param=system</action>
+					<action function="reboot">%tw_reboot_param%</action>
+				</actions>
 			</button>
 			<button style="c_reboot_text">
 				<placement x="744" y="975" w="315" h="60"/>
 				<fill color="%transparent%"/>
 				<text>{@advanced_btn=Advanced}</text>
+				<actions>
+					<action function="overlay"/>
+					<action function="overlay">c_advanced_reboot</action>
+				</actions>
 			</button>
 			<button>
 				<placement x="748" y="360" />
 				<condition var1="tw_reboot_poweroff" var2="1"/>
 				<image resource="c_power_off"/>
 				<actions>
-					<action function="set">tw_back=c_refresh</action>
 					<action function="set">tw_action=reboot</action>
 					<action function="set">tw_action_param=poweroff</action>
 					<action function="set">tw_reboot_param=poweroff</action>
-					<action function="set">tw_has_action2=0</action>
-					<action function="set">tw_text1={@no_os1=No OS Installed! Are you}</action>
-					<action function="set">tw_text2={@no_ospo=sure you wish to power off?}</action>
-					<action function="set">tw_action_text1={@turning_off=Turning Off...}</action>
-					<action function="set">tw_complete_text1={@turning_off=Turning Off...}</action>
-					<action function="set">tw_slider_text={@swipe_power_off=Swipe to Power Off}</action>
-					<action function="page">rebootcheck</action>
+					<action function="reboot">%tw_reboot_param%</action>
 				</actions>
 			</button>
 			<button>
@@ -822,8 +581,10 @@
 				<condition var1="tw_reboot_system" var2="1"/>
 				<image resource="c_reboot_to_system"/>
 				<actions>
-					<action function="set">tw_back=c_refresh</action>
-					<action function="page">reboot_system_routine</action>
+					<action function="set">tw_action=reboot</action>
+					<action function="set">tw_action_param=system</action>
+					<action function="set">tw_reboot_param=system</action>
+					<action function="reboot">%tw_reboot_param%</action>
 				</actions>
 			</button>
 			<button>
@@ -834,17 +595,18 @@
 					<action function="overlay">c_advanced_reboot</action>
 				</actions>
 			</button>
-			<text style="c_sub">
+			<text style="c_sub_slot">
 				<condition var1="tw_has_boot_slots" var2="1"/>
 				<placement x="%c_hawk_base_column%" y="1645"/>
 				<text>{@current_boot_slot=Current Slot: %tw_active_slot%}</text>
 			</text>
 
-			<button style="c_circle3">
+			<button style="c_circle4">
 				<condition var1="tw_has_boot_slots" var2="1"/>
 				<placement x="860" y="1450"/>
 				<text>{@boot_slot_a=Slot A}</text>
 				<actions>
+					<action function="overlay"/>
 					<action function="set">tw_back=c_refresh</action>
 					<action function="set">tw_action=setbootslot</action>
 					<action function="set">tw_action_param=A</action>
@@ -861,6 +623,7 @@
 				<placement x="860" y="1628"/>
 				<text>{@boot_slot_b=Slot B}</text>
 				<actions>
+					<action function="overlay"/>
 					<action function="set">tw_back=c_refresh</action>
 					<action function="set">tw_action=setbootslot</action>
 					<action function="set">tw_action_param=B</action>
@@ -871,8 +634,8 @@
 					<action function="page">action_page</action>
 				</actions>
 			</button>
-			
-			
+
+
 			<button>
 				<condition var1="tw_samsung_navbar" op="!=" var2="1"/>
 				<placement x="%back_button_x%" y="%navbar_btn_y%" placement="4"/>
@@ -937,11 +700,23 @@
 				<placement x="744" y="495" w="315" h="60"/>
 				<fill color="%transparent%"/>
 				<text>{@rb_recovery_btn=Recovery}</text>
+				<actions>
+					<action function="set">tw_action=reboot</action>
+					<action function="set">tw_action_param=recovery</action>
+					<action function="set">tw_reboot_param=recovery</action>
+					<action function="reboot">%tw_reboot_param%</action>
+				</actions>
 			</button>
 			<button style="c_reboot_text">
 				<placement x="744" y="739" w="315" h="60"/>
 				<fill color="%transparent%"/>
 				<text>{@rb_bootloader_btn=Bootloader}</text>
+				<actions>
+					<action function="set">tw_action=reboot</action>
+					<action function="set">tw_action_param=bootloader</action>
+					<action function="set">tw_reboot_param=bootloader</action>
+					<action function="reboot">%tw_reboot_param%</action>
+				</actions>
 			</button>
 			<button style="c_reboot_text">
 				<conditions>
@@ -951,29 +726,35 @@
 				<placement x="744" y="975" w="315" h="60"/>
 				<fill color="%transparent%"/>
 				<text>{@c_edl_mode=Edl Mode}</text>
+				<actions>
+					<action function="set">tw_action=reboot</action>
+					<action function="set">tw_action_param=edl</action>
+					<action function="set">tw_reboot_param=edl</action>
+					<action function="reboot">%tw_reboot_param%</action>
+				</actions>
 			</button>
 			<button style="c_reboot_text">
 				<condition var1="tw_download_mode" op="=" var2="1"/>
 				<placement x="744" y="975" w="315" h="60"/>
 				<fill color="%transparent%"/>
 				<text>{@rb_download_btn=Download}</text>
+				<actions>
+					<action function="set">tw_back=c_refresh</action>
+					<action function="set">tw_action=reboot</action>
+					<action function="set">tw_action_param=download</action>
+					<action function="set">tw_reboot_param=download</action>
+					<action function="reboot">%tw_reboot_param%</action>
+				</actions>
 			</button>
 			<button>
 				<placement x="748" y="360" />
 				<condition var1="tw_reboot_recovery" var2="1"/>
 				<image resource="c_reboot_to_recovery"/>
 				<actions>
-					<action function="set">tw_back=c_refresh</action>
 					<action function="set">tw_action=reboot</action>
 					<action function="set">tw_action_param=recovery</action>
 					<action function="set">tw_reboot_param=recovery</action>
-					<action function="set">tw_has_action2=0</action>
-					<action function="set">tw_text1={@no_os1=No OS Installed! Are you}</action>
-					<action function="set">tw_text2={@no_osrb=sure you wish to reboot?}</action>
-					<action function="set">tw_action_text1={@rebooting=Rebooting...}</action>
-					<action function="set">tw_complete_text1={@rebooting=Rebooting...}</action>
-					<action function="set">tw_slider_text={@swipe_reboot=Swipe to Reboot}</action>
-					<action function="page">rebootcheck</action>
+					<action function="reboot">%tw_reboot_param%</action>
 				</actions>
 			</button>
 			<button>
@@ -981,17 +762,10 @@
 				<condition var1="tw_reboot_bootloader" var2="1"/>
 				<image resource="c_reboot_to_bootloader"/>
 				<actions>
-					<action function="set">tw_back=c_refresh</action>
 					<action function="set">tw_action=reboot</action>
 					<action function="set">tw_action_param=bootloader</action>
 					<action function="set">tw_reboot_param=bootloader</action>
-					<action function="set">tw_has_action2=0</action>
-					<action function="set">tw_text1={@no_os1=No OS Installed! Are you}</action>
-					<action function="set">tw_text2={@no_osrb=sure you wish to reboot?}</action>
-					<action function="set">tw_action_text1={@rebooting=Rebooting...}</action>
-					<action function="set">tw_complete_text1={@rebooting=Rebooting...}</action>
-					<action function="set">tw_slider_text={@swipe_reboot=Swipe to Reboot}</action>
-					<action function="page">rebootcheck</action>
+					<action function="reboot">%tw_reboot_param%</action>
 				</actions>
 			</button>
 			<button>
@@ -1002,9 +776,10 @@
 				<placement x="748" y="840" />
 				<image resource="c_edl_mode"/>
 				<actions>
-					<action function="cmd">
-reboot edl
-</action>
+					<action function="set">tw_action=reboot</action>
+					<action function="set">tw_action_param=edl</action>
+					<action function="set">tw_reboot_param=edl</action>
+					<action function="reboot">%tw_reboot_param%</action>
 				</actions>
 			</button>
 			<button>
@@ -1016,26 +791,21 @@ reboot edl
 					<action function="set">tw_action=reboot</action>
 					<action function="set">tw_action_param=download</action>
 					<action function="set">tw_reboot_param=download</action>
-					<action function="set">tw_has_action2=0</action>
-					<action function="set">tw_text1={@no_os1=No OS Installed! Are you}</action>
-					<action function="set">tw_text2={@no_osrb=sure you wish to reboot?}</action>
-					<action function="set">tw_action_text1={@rebooting=Rebooting...}</action>
-					<action function="set">tw_complete_text1={@rebooting=Rebooting...}</action>
-					<action function="set">tw_slider_text={@swipe_reboot=Swipe to Reboot}</action>
-					<action function="page">rebootcheck</action>
+					<action function="reboot">%tw_reboot_param%</action>
 				</actions>
 			</button>
-			<text style="c_sub">
+			<text style="c_sub_slot">
 				<condition var1="tw_has_boot_slots" var2="1"/>
 				<placement x="%c_hawk_base_column%" y="1645"/>
 				<text>{@current_boot_slot=Current Slot: %tw_active_slot%}</text>
 			</text>
 
-			<button style="c_circle3">
+			<button style="c_circle4">
 				<condition var1="tw_has_boot_slots" var2="1"/>
 				<placement x="860" y="1450"/>
 				<text>{@boot_slot_a=Slot A}</text>
 				<actions>
+					<action function="overlay"/>
 					<action function="set">tw_back=c_refresh</action>
 					<action function="set">tw_action=setbootslot</action>
 					<action function="set">tw_action_param=A</action>
@@ -1052,6 +822,7 @@ reboot edl
 				<placement x="860" y="1628"/>
 				<text>{@boot_slot_b=Slot B}</text>
 				<actions>
+					<action function="overlay"/>
 					<action function="set">tw_back=c_refresh</action>
 					<action function="set">tw_action=setbootslot</action>
 					<action function="set">tw_action_param=B</action>
@@ -1062,8 +833,8 @@ reboot edl
 					<action function="page">action_page</action>
 				</actions>
 			</button>
-			
-			
+
+
 			<button>
 				<condition var1="tw_samsung_navbar" op="!=" var2="1"/>
 				<placement x="%back_button_x%" y="%navbar_btn_y%" placement="4"/>
@@ -1126,9 +897,9 @@ reboot edl
 				<placement x="0" y="%keyboard_terminal_y%" w="%screen_width%" h="96"/>
 				<keymargin x="0" y="0"/>
 				<background color="%c_white%"/>
-				<key-alphanumeric color="%c_white%" font="keylabel" textcolor="%c_grey%"/>
-				<key-other color="%c_white%" font="keylabel-small" textcolor="%c_grey%"/>
-				<longpress font="keylabel-longpress" textcolor="%c_grey%" x="12" y="0"/>
+				<key-alphanumeric color="%c_white%" font="keylabel" textcolor="%c_black%"/>
+				<key-other color="%c_white%" font="keylabel-small" textcolor="%c_black%"/>
+				<longpress font="keylabel-longpress" textcolor="%c_black%" x="12" y="0"/>
 				<keylabel key="0:k:29" text="Ctrl"/>
 				<keylabel key="0:c:27" text="Esc"/>
 				<keylabel key="0:c:9" text="Tab"/>
@@ -1151,9 +922,9 @@ reboot edl
 				<placement x="0" y="%keyboard_y%" w="1080" h="644"/>
 				<keymargin x="8" y="8"/>
 				<background color="%c_white%"/>
-				<key-alphanumeric color="%c_white%" font="keylabel" textcolor="%c_grey%"/>
-				<key-other color="%c_white%" font="keylabel-small" textcolor="%c_grey%"/>
-				<longpress font="keylabel-longpress" textcolor="%c_grey%" x="12" y="0"/>
+				<key-alphanumeric color="%c_white%" font="keylabel" textcolor="%c_black%"/>
+				<key-other color="%c_white%" font="keylabel-small" textcolor="%c_black%"/>
+				<longpress font="keylabel-longpress" textcolor="%c_black%" x="12" y="0"/>
 				<keylabel key="0:c:8" text="Bksp" resource="backspace"/>
 				<keylabel key="0:action" text="Enter" resource="enter"/>
 				<keylabel key=" " text="Space" resource="space"/>
@@ -1196,6 +967,30 @@ reboot edl
 					<keylabel key="0:layout3" text="?123"/>
 				</layout4>
 			</keyboard>
+		</template>
+		<template name="flashlight">
+			<button>
+				<conditions>
+					<condition var1="has_flashlight" op="=" var2="1"/>
+					<condition var1="c_flashlight_status" op="=" var2="0"/>
+				</conditions>
+				<placement x="975" y="1814"/>
+				<image resource="c_flashlight_on"/>
+				<actions>
+					<action function="flashlight"/>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="has_flashlight" op="=" var2="1"/>
+					<condition var1="c_flashlight_status" op="=" var2="1"/>
+				</conditions>
+				<placement x="975" y="1814"/>
+				<image resource="c_flashlight_off"/>
+				<actions>
+					<action function="flashlight"/>
+				</actions>
+			</button>
 		</template>
 	</templates>
 </recovery>

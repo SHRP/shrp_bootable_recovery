@@ -406,6 +406,67 @@ endif
 ifeq ($(TW_EXCLUDE_TWRPAPP),true)
     LOCAL_CFLAGS += -DTW_EXCLUDE_TWRPAPP
 endif
+ifeq ($(TW_SKIP_COMPATIBILITY_CHECK), true)
+    LOCAL_CFLAGS += -DTW_SKIP_COMPATIBILITY_CHECK
+endif
+#SHRP Build Flags
+ifeq ($(SHRP_CUSTOM_FLASHLIGHT),true)
+    LOCAL_CFLAGS += -DSHRP_CUSTOM_FLASHLIGHT
+endif
+ifeq ($(SHRP_LITE),true)
+    LOCAL_CFLAGS += -DSHRP_LITE
+endif
+ifeq ($(SHRP_AB),true)
+    LOCAL_CFLAGS += -DSHRP_AB
+endif
+ifneq ($(SHRP_MAINTAINER),)
+	LOCAL_CFLAGS += -DSHRP_MAINTAINER=$(SHRP_MAINTAINER)
+endif
+ifneq ($(SHRP_DEVICE_CODE),)
+	LOCAL_CFLAGS += -DSHRP_DEVICE_CODE=$(SHRP_DEVICE_CODE)
+endif
+ifneq ($(SHRP_EDL_MODE),)
+	LOCAL_CFLAGS += -DSHRP_EDL_MODE=$(SHRP_EDL_MODE)
+endif
+ifneq ($(SHRP_EXTERNAL),)
+	LOCAL_CFLAGS += -DSHRP_EXTERNAL=$(SHRP_EXTERNAL)
+endif
+ifneq ($(SHRP_INTERNAL),)
+	LOCAL_CFLAGS += -DSHRP_INTERNAL=$(SHRP_INTERNAL)
+endif
+ifneq ($(SHRP_OTG),)
+	LOCAL_CFLAGS += -DSHRP_OTG=$(SHRP_OTG)
+endif
+ifneq ($(SHRP_FLASH),)
+	LOCAL_CFLAGS += -DSHRP_FLASH=$(SHRP_FLASH)
+endif
+ifneq ($(SHRP_FONP_1),)
+	LOCAL_CFLAGS += -DSHRP_FONP_1=$(SHRP_FONP_1)
+endif
+ifneq ($(SHRP_FONP_2),)
+	LOCAL_CFLAGS += -DSHRP_FONP_2=$(SHRP_FONP_2)
+endif
+ifneq ($(SHRP_FONP_3),)
+	LOCAL_CFLAGS += -DSHRP_FONP_3=$(SHRP_FONP_3)
+endif
+ifneq ($(SHRP_FLASH_MAX_BRIGHTNESS),)
+	LOCAL_CFLAGS += -DSHRP_FLASH_MAX_BRIGHTNESS=$(SHRP_FLASH_MAX_BRIGHTNESS)
+endif
+ifneq ($(SHRP_REC),)
+	LOCAL_CFLAGS += -DSHRP_REC=$(SHRP_REC)
+endif
+ifneq ($(SHRP_REC_TYPE),)
+	LOCAL_CFLAGS += -DSHRP_REC_TYPE=$(SHRP_REC_TYPE)
+endif
+ifneq ($(SHRP_DEVICE_TYPE),)
+	LOCAL_CFLAGS += -DSHRP_DEVICE_TYPE=$(SHRP_DEVICE_TYPE)
+endif
+ifneq ($(SHRP_STATUSBAR_RIGHT_PADDING),)
+	LOCAL_CFLAGS += -DSHRP_STATUSBAR_RIGHT_PADDING=$(SHRP_STATUSBAR_RIGHT_PADDING)
+endif
+ifneq ($(SHRP_STATUSBAR_LEFT_PADDING),)
+	LOCAL_CFLAGS += -DSHRP_STATUSBAR_LEFT_PADDING=$(SHRP_STATUSBAR_LEFT_PADDING)
+endif
 
 TWRP_REQUIRED_MODULES += \
     dump_image \
@@ -881,6 +942,11 @@ include $(commands_TWRP_local_path)/htcdumlock/Android.mk \
 
 ifeq ($(shell test $(PLATFORM_SDK_VERSION) -lt 24; echo $$?),0)
     include $(commands_TWRP_local_path)/libmincrypt/Android.mk
+endif
+
+ifneq ($(TW_OZIP_DECRYPT_KEY),)
+    TWRP_REQUIRED_MODULES += ozip_decrypt
+    include $(commands_TWRP_local_path)/ozip_decrypt/Android.mk
 endif
 
 ifeq ($(TW_INCLUDE_CRYPTO), true)

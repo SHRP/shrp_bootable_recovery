@@ -22,6 +22,13 @@
 
 #include "twmsg.h"
 #include <cctype>
+extern "C" {
+#include "../twcommon.h"
+#include "../variables.h"
+#include "cutils/properties.h"
+#include "../adb_install.h"
+};
+int cx;
 
 std::string Message::GetFormatString(const std::string& name) const
 {
@@ -49,23 +56,26 @@ public:
 // conversion to final string
 Message::operator std::string() const
 {
+	cx=z;
 	// do resource lookup
 	std::string str = GetFormatString(name);
+	if(z){
 
-	LocalLookup lookup(variables, varLookup);
+		LocalLookup lookup(variables, varLookup);
 
-	// now insert stuff into curly braces
+		// now insert stuff into curly braces
 
-	size_t pos = 0;
-	while ((pos = str.find('{', pos)) < std::string::npos) {
-		size_t end = str.find('}', pos);
-		if (end == std::string::npos)
-			break;
+		size_t pos = 0;
+		while ((pos = str.find('{', pos)) < std::string::npos) {
+			size_t end = str.find('}', pos);
+			if (end == std::string::npos)
+				break;
 
-		std::string varname = str.substr(pos + 1, end - pos - 1);
-		std::string vartext = lookup(varname);
+			std::string varname = str.substr(pos + 1, end - pos - 1);
+			std::string vartext = lookup(varname);
 
-		str.replace(pos, end - pos + 1, vartext);
+			str.replace(pos, end - pos + 1, vartext);
+		}
 	}
 	// TODO: complain about too many or too few numbered replacement variables
 	return str;
@@ -83,25 +93,30 @@ public:
 		std::string default_value;
 
 		size_t pos = name.find('=');
-		if (pos == std::string::npos) {
-			resname = name;
-		} else {
-			resname = name.substr(0, pos);
-			default_value = name.substr(pos + 1);
-		}
+		//string x;
+		//DataManager::GetValue("console_flag",x);
+		if(cx){
+			if (pos == std::string::npos) {
+				resname = name;
+			} else {
+				resname = name.substr(0, pos);
+				default_value = name.substr(pos + 1);
+			}
 #ifndef BUILD_TWRPTAR_MAIN
-		const ResourceManager* res = PageManager::GetResources();
-		if (res) {
-			if (default_value.empty())
-				return res->FindString(resname);
-			else
-				return res->FindString(resname, default_value);
-		}
+			const ResourceManager* res = PageManager::GetResources();
+			if (res) {
+				if (default_value.empty())
+					return res->FindString(resname);
+				else
+					return res->FindString(resname, default_value);
+			}
 #endif
-		if (!default_value.empty()) {
-			return default_value;
+			if (!default_value.empty()) {
+				return default_value;
+			}
 		}
 		return name;
+
 	}
 };
 ResourceLookup resourceLookup;
@@ -130,10 +145,15 @@ DataLookup dataLookup;
 // Utility functions to create messages. Short names to make usage convenient.
 Message Msg(const char* name)
 {
-	return Message(msg::kNormal, name, resourceLookup, dataLookup);
+	return Message(msg::kNormal, name, resourceLookup, dataLookup,1);
+}
+
+Message Msg(const char* name,int z)
+{
+	return Message(msg::kNormal, name, resourceLookup, dataLookup,z);
 }
 
 Message Msg(msg::Kind kind, const char* name)
 {
-	return Message(kind, name, resourceLookup, dataLookup);
+	return Message(kind, name, resourceLookup, dataLookup,1);
 }

@@ -53,6 +53,8 @@ extern "C" {
 #include "minadbd21/adb.h"
 }
 #endif
+#include <list>
+#include "sov.h"
 
 //extern int adb_server_main(int is_daemon, int server_port, int /* reply_fd */);
 
@@ -62,6 +64,137 @@ bool datamedia;
 
 static void Print_Prop(const char *key, const char *name, void *cookie) {
 	printf("%s=%s\n", key, name);
+}
+void lockCheck(){
+	FILE *f;
+	char hello[50];
+	f=fopen("/sdcard/SHRP/data/slts","r");
+	if(f==NULL){
+		f=fopen("/twres/slts","r");
+	}
+	if(f!=NULL){
+		fgets(hello,50,f);
+		fclose(f);
+		if(hello[0]=='1'){
+			//Password Protected Recovery
+			DataManager::SetValue("c_target_destination","c_pass_capture");
+			DataManager::SetValue("lock_enabled",1);
+			DataManager::SetValue("patt_lock_enabled",0);
+			DataManager::SetValue("c_new",0);
+			DataManager::SetValue("c_new_pattern",0);
+			PartitionManager.Disable_MTP();
+		}else if(hello[0]=='2'){
+			//Pattern Protected Recovery
+			DataManager::SetValue("c_target_destination","c_patt_capture");
+			DataManager::SetValue("lock_enabled",1);
+			DataManager::SetValue("patt_lock_enabled",1);
+			DataManager::SetValue("c_new",0);
+			DataManager::SetValue("c_new_pattern",0);
+			//DataManager::SetValue("main_pass",1);
+			PartitionManager.Disable_MTP();
+		}else{
+			//Unprotected Recovery
+			DataManager::SetValue("c_target_destination","main2");
+			DataManager::SetValue("lock_enabled",0);
+			DataManager::SetValue("patt_lock_enabled",0);
+			DataManager::SetValue("c_new",1);
+			DataManager::SetValue("c_new_pattern",1);
+		}
+	}else{
+		//Unprotected Recovery
+		DataManager::SetValue("c_target_destination","main2");
+		DataManager::SetValue("lock_enabled",0);
+		DataManager::SetValue("patt_lock_enabled",0);
+		DataManager::SetValue("c_new",1);
+		DataManager::SetValue("c_new_pattern",1);
+	}
+}
+void shrp_lockscreen_date(){//SHRP Buutiful Lockscreen Date View
+	stringstream day;
+	string Current_Date,month,week,main_result,day_s;
+	time_t seconds = time(0);
+	struct tm *t = localtime(&seconds);
+	{
+		string time;
+		DataManager::GetValue("tw_ls_time",time);
+		DataManager::SetValue("tw_ls_time",time.c_str());
+	}
+	int m=t->tm_mon+1;
+	int y=t->tm_year+1900;
+	int d=t->tm_mday;
+	static int tmp[] = { 0, 3, 2, 5, 0, 3, 5, 1, 4, 6, 2, 4 };
+	y -= m < 3;
+	int w=( y + y / 4 - y / 100 + y / 400 + tmp[m - 1] + d) % 7;
+	switch(t->tm_mon+1){
+		case 1:month=" Jan";
+		break;
+		case 2:month=" Feb";
+		break;
+		case 3:month=" Mar";
+		break;
+		case 4:month=" Apr";
+		break;
+		case 5:month=" May";
+		break;
+		case 6:month=" Jun";
+		break;
+		case 7:month=" Jul";
+		break;
+		case 8:month=" Aug";
+		break;
+		case 9:month=" Sep";
+		break;
+		case 10:month=" Oct";
+		break;
+		case 11:month=" Nov";
+		break;
+		case 12:month=" Dec";
+		break;
+	}
+	switch(w){
+		case 0:week="Sun, ";
+		break;
+		case 1:week="Mon, ";
+		break;
+		case 2:week="Tue, ";
+		break;
+		case 3:week="Wed, ";
+		break;
+		case 4:week="Thu, ";
+		break;
+		case 5:week="Fri, ";
+		break;
+		case 6:week="Sat, ";
+		break;
+	}
+	day<<t->tm_mday;
+	day>>day_s;
+	main_result=week+day_s+month;
+	DataManager::SetValue("c_lock_screen_date",main_result);
+}
+bool checkOffical(string target){
+    for(auto it=devices.begin();it!=devices.end();it++){
+		if(target==*it){
+		    return true;
+		}
+	}
+	return false;
+}
+void disp_info(){
+	string tmp;
+	gui_msg(Msg("|SKYHAWK RECOVERY PROJECT",0));
+	DataManager::GetValue("shrp_ver",tmp);
+	tmp="|Version - "+tmp;
+	gui_msg(Msg(tmp.c_str(),0));
+	if(checkOffical(DataManager::GetStrValue("device_code_name"))){
+		tmp="|Status - Official";
+	}else{
+		tmp="|Status - Unofficial";
+	}
+	gui_msg(Msg(tmp.c_str(),0));
+	DataManager::GetValue("device_code_name",tmp);
+	tmp="|Device - "+tmp;
+	gui_msg(Msg(tmp.c_str(),0));
 }
 
 int main(int argc, char **argv) {
@@ -111,6 +244,7 @@ int main(int argc, char **argv) {
 	DataManager::SetDefaultValues();
 	printf("Starting the UI...\n");
 	gui_init();
+	disp_info();
 	printf("=> Linking mtab\n");
 	symlink("/proc/mounts", "/etc/mtab");
 	std::string fstab_filename = "/etc/twrp.fstab";
@@ -216,7 +350,6 @@ int main(int argc, char **argv) {
 	// Check for and run startup script if script exists
 	TWFunc::check_and_run_script("/sbin/runatboot.sh", "boot");
 	TWFunc::check_and_run_script("/sbin/postrecoveryboot.sh", "boot");
-
 /*#ifdef TW_INCLUDE_INJECTTWRP
 	// Back up TWRP Ramdisk if needed:
 	TWPartition* Boot = PartitionManager.Find_Partition_By_Path("/boot");
@@ -322,6 +455,9 @@ int main(int argc, char **argv) {
 	twrpAdbBuFifo *adb_bu_fifo = new twrpAdbBuFifo();
 	adb_bu_fifo->threadAdbBuFifo();
 
+	//SHRP_initial_funcs
+	shrp_lockscreen_date();
+	lockCheck();
 	// Launch the main GUI
 	gui_start();
 
@@ -352,4 +488,3 @@ int main(int argc, char **argv) {
 
 	return 0;
 }
-

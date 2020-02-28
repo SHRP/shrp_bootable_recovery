@@ -723,6 +723,12 @@ void DataManager::SetDefaultValues()
 #else
 	mConst.SetValue(TW_HAS_DEVICEAB, "0");
 #endif
+#ifdef TW_SKIP_COMPATIBILITY_CHECK
+	printf("TW_SKIP_COMPATIBILITY_CHECK := true\n");
+	mConst.SetValue("TW_SKIP_COMPATIBILITY_CHECK", "1");
+#else
+	mConst.SetValue("TW_SKIP_COMPATIBILITY_CHECK", "0");
+#endif
 #ifdef TW_HAS_DOWNLOAD_MODE
 	printf("TW_HAS_DOWNLOAD_MODE := true\n");
 	mConst.SetValue(TW_DOWNLOAD_MODE, "1");
@@ -783,6 +789,159 @@ void DataManager::SetDefaultValues()
 	mPersist.SetValue("tw_military_time", "0");
 	mPersist.SetValue("tw_inject_after_zip", "0");
 	mPersist.SetValue(TW_HAS_DEVICEAB, "0");
+
+	//SHRP constant variables
+	mConst.SetValue("shrp_ver", "2.2");
+	mConst.SetValue("shrp_ver_status", "Beta");
+	mConst.SetValue("c_magisk_path", "/_magisk/");
+	mConst.SetValue("c_magisk_stock_var", "20.3");
+
+	//SHRP SemiConstant variables
+	mData.SetValue("c_magisk_status", "0");
+	mData.SetValue("c_shrp_resource_status", "0");
+	mData.SetValue("c_magisk_ver", "0");
+	mData.SetValue("c_lock_screen_date", "0");
+	mData.SetValue("c_mm_name", "0");
+	mData.SetValue("c_mm_ver", "0");
+	mData.SetValue("c_mm_author", "0");
+	mData.SetValue("c_i_p", "0");
+	mData.SetValue("c_i_status", "Not Available");
+	mData.SetValue("c_e_p", "0");
+	mData.SetValue("c_e_status", "Not Available");
+	mData.SetValue("c_o_p", "0");
+	mData.SetValue("c_o_status", "Not Available");
+	mData.SetValue("c_r_p", "0");
+	mData.SetValue("c_r_status", "Not Available");
+	mData.SetValue("c_magisk_module_name", "0");
+	mData.SetValue("c_magisk_name", "0");
+	mData.SetValue("core", "0");
+	mData.SetValue("c_m_exist", "0");
+	mData.SetValue("c_module_disable", "0");
+	mData.SetValue("c_target_destination", "main2");
+	mData.SetValue("c_queue_enabled", "0");
+	mData.SetValue("c_magisk_update", "0");
+	mData.SetValue("tw_ls_time", "0");
+	mData.SetValue("shrp_zipName", "");
+	mData.SetValue("shrp_zipFolderName", "");
+	mData.SetValue("shrpUnzipFolder", "");
+	mData.SetValue("canBeUnzip", "0");
+	mData.SetValue("chFolder", "0");
+	//SHRP_PERSISTED_VARS
+	mPersist.SetValue("c_temp2", "pepe");
+	mPersist.SetValue("c_dateview", "0");
+	mPersist.SetValue("c_devMode", "0");
+	//SHRP_LOCK_VARS
+	mData.SetValue("lock_enabled", "0");
+	mData.SetValue("patt_lock_enabled", "0");
+	mData.SetValue("main_pass", "1");
+	mData.SetValue("c_new", "1");
+	mData.SetValue("c_new_pattern", "1");
+
+	//SHRP_BOARDCONFIGS_Variables (type - const)
+#ifdef SHRP_MAINTAINER
+	mConst.SetValue("device_maintainer_name", EXPAND(SHRP_MAINTAINER));
+#else
+	mConst.SetValue("device_maintainer_name", "N/A");
+#endif
+
+#ifdef SHRP_DEVICE_CODE
+	mConst.SetValue("device_code_name", EXPAND(SHRP_DEVICE_CODE));
+#else
+	mConst.SetValue("device_code_name", "N/A");
+#endif
+
+#ifdef SHRP_INTERNAL
+	mConst.SetValue("internal_storage_location", EXPAND(SHRP_INTERNAL));
+#else
+	mConst.SetValue("internal_storage_location", "/sdcard");
+#endif
+
+#ifdef SHRP_EXTERNAL
+	mConst.SetValue("external_storage_location", EXPAND(SHRP_EXTERNAL));
+#else
+	mConst.SetValue("external_storage_location", "/");
+#endif
+
+#ifdef SHRP_OTG
+	mConst.SetValue("usb_otg_location", EXPAND(SHRP_OTG));
+#else
+	mConst.SetValue("usb_otg_location", "/");
+#endif
+
+#ifdef SHRP_EDL_MODE
+	mConst.SetValue("has_edl_mode", EXPAND(SHRP_EDL_MODE));
+#else
+	mConst.SetValue("has_edl_mode", "0");
+#endif
+
+#ifdef SHRP_FLASH
+	mConst.SetValue("has_flashlight", EXPAND(SHRP_FLASH));
+#else
+	mConst.SetValue("has_flashlight", "0");
+#endif
+
+#ifdef SHRP_FONP_1
+	mConst.SetValue("c_flashlight_path_1", EXPAND(SHRP_FONP_1));
+#endif
+
+#ifdef SHRP_FONP_2
+	mConst.SetValue("c_flashlight_path_2", EXPAND(SHRP_FONP_2));
+#endif
+
+#ifdef SHRP_FONP_3
+	mConst.SetValue("c_flashlight_path_3", EXPAND(SHRP_FONP_3));
+#endif
+
+#ifdef SHRP_FLASH_MAX_BRIGHTNESS
+	mConst.SetValue("c_flashlight_max_brightness", EXPAND(SHRP_FLASH_MAX_BRIGHTNESS));
+#endif
+
+#ifdef SHRP_REC
+	mConst.SetValue("shrp_rec", EXPAND(SHRP_REC));
+#endif
+
+#ifdef SHRP_REC_TYPE
+	mConst.SetValue("shrp_rec_type", EXPAND(SHRP_REC_TYPE));
+#else
+	mConst.SetValue("shrp_rec_type", "N/A");
+#endif
+
+#ifdef SHRP_DEVICE_TYPE
+	mConst.SetValue("shrp_device_type", EXPAND(SHRP_DEVICE_TYPE));
+#else
+	mConst.SetValue("shrp_device_type", "N/A");
+#endif
+
+#ifdef SHRP_AB
+	mConst.SetValue("shrp_ab", "1");
+#else
+	mConst.SetValue("shrp_ab", "0");
+#endif
+
+#ifdef SHRP_STATUSBAR_RIGHT_PADDING
+	int val=0;
+	stringstream guun(EXPAND(SHRP_STATUSBAR_RIGHT_PADDING));
+	guun>>val;
+	val=val+20;
+	mConst.SetValue("c_time_x", val);
+#else
+	mConst.SetValue("c_time_x", 20);
+#endif
+
+#ifdef SHRP_STATUSBAR_LEFT_PADDING
+	int valL=0;
+	stringstream bappa(EXPAND(SHRP_STATUSBAR_LEFT_PADDING));
+	bappa>>valL;
+	mConst.SetValue("c_batteryText1", 913-val);
+	mConst.SetValue("c_batteryText2", 928-val);
+	mConst.SetValue("c_batteryText3", 950-val);
+	mConst.SetValue("c_batteryIco", 1020-val);
+#else
+	mConst.SetValue("c_batteryText1", 913);
+	mConst.SetValue("c_batteryText2", 928);
+	mConst.SetValue("c_batteryText3", 950);
+	mConst.SetValue("c_batteryIco", 1020);
+#endif
 
 #ifdef TW_INCLUDE_CRYPTO
 	mPersist.SetValue(TW_USE_SHA2, "1");
@@ -966,6 +1125,33 @@ int DataManager::GetMagicValue(const string& varName, string& value)
 				sprintf(tmp, "%d:%02d", current->tm_hour, current->tm_min);
 			else
 				sprintf(tmp, "%d:%02d AM", current->tm_hour == 0 ? 12 : current->tm_hour, current->tm_min);
+		}
+		value = tmp;
+		return 0;
+	}
+	else if (varName == "tw_ls_time")
+	{
+		char tmp[32];
+
+		struct tm *current;
+		time_t now;
+		int tw_military_time;
+		now = time(0);
+		current = localtime(&now);
+		GetValue(TW_MILITARY_TIME, tw_military_time);
+		if (current->tm_hour >= 12)
+		{
+			if (tw_military_time == 1)
+				sprintf(tmp, "%d:%02d", current->tm_hour, current->tm_min);
+			else
+				sprintf(tmp, "%d:%02d", current->tm_hour == 12 ? 12 : current->tm_hour - 12, current->tm_min);
+		}
+		else
+		{
+			if (tw_military_time == 1)
+				sprintf(tmp, "%d:%02d", current->tm_hour, current->tm_min);
+			else
+				sprintf(tmp, "%d:%02d", current->tm_hour == 0 ? 12 : current->tm_hour, current->tm_min);
 		}
 		value = tmp;
 		return 0;
