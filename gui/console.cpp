@@ -132,6 +132,14 @@ void gui_msg(const char* text)
 	}
 }
 
+void gui_msg(const char* text,int z)
+{
+	if (text) {
+		Message msg = Msg(text,z);
+		gui_msg(msg);
+	}
+}
+
 void gui_warn(const char* text)
 {
 	if (text) {

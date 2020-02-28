@@ -10,7 +10,6 @@
 	</details>
 	<variables>
 		<variable name="c_white" value="#010101"/>
-		<variable name="c_file_accent" value="#010101"/>
 		<variable name="nav_bg" value="#0E0E0E"/>
 	</variables>
 </recovery>

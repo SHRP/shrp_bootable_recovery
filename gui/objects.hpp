@@ -288,8 +288,9 @@ protected:
 	ThreadType getThreadType(const Action& action);
 	void simulate_progress_bar(void);
 	int flash_zip(std::string filename, int* wipe_cache);
-    void backup_before_flash();
+	void backup_before_flash();
 	int reinject_after_flash();
+	int ozip_decrypt(std::string zip_path);
 	void operation_start(const string operation_name);
 	void operation_end(const int operation_status);
 	time_t Start;
@@ -370,6 +371,22 @@ protected:
 	int uninstalltwrpsystemapp(std::string arg);
 	int repackimage(std::string arg);
 	int fixabrecoverybootloop(std::string arg);
+	int shrp_init(std::string arg);
+	int shrp_magisk_info(std::string arg);
+	int shrp_magisk_msc(std::string arg);
+	int shrp_magisk_mi(std::string arg);
+	int shrp_magisk_um(std::string arg);
+	int flashlight(std::string arg);
+	int sig(std::string arg);
+	int unlock(std::string arg);
+	int set_lock(std::string arg);
+	int reset_lock(std::string arg);
+	int c_repack(std::string arg);
+	int flashOP(std::string arg);
+	int clearInput(std::string arg);
+	int shrp_zip_init(std::string arg);
+	int navHandler(std::string arg);
+	int unZipSelector(std::string arg);
 
 	int simulate;
 };
@@ -812,30 +829,6 @@ protected:
 	bool lastCondition; // to track if the condition became true and we might need to resize the terminal engine
 };
 
-// GUIAnimation - Used for animations
-class GUIAnimation : public GUIObject, public RenderObject
-{
-public:
-	GUIAnimation(xml_node<>* node);
-
-public:
-	// Render - Render the full object to the GL surface
-	//  Return 0 on success, <0 on error
-	virtual int Render(void);
-
-	// Update - Update any UI component animations (called <= 30 FPS)
-	//  Return 0 if nothing to update, 1 on success and contiue, >1 if full render required, and <0 on error
-	virtual int Update(void);
-
-protected:
-	AnimationResource* mAnimation;
-	int mFrame;
-	int mFPS;
-	int mLoop;
-	int mRender;
-	int mUpdateCount;
-};
-
 class GUIProgressBar : public GUIObject, public RenderObject, public ActionObject
 {
 public:
@@ -869,35 +862,6 @@ protected:
 	virtual int RenderInternal(void);	   // Does the actual render
 };
 
-class GUISlider : public GUIObject, public RenderObject, public ActionObject
-{
-public:
-	GUISlider(xml_node<>* node);
-	virtual ~GUISlider();
-
-public:
-	// Render - Render the full object to the GL surface
-	//  Return 0 on success, <0 on error
-	virtual int Render(void);
-
-	// Update - Update any UI component animations (called <= 30 FPS)
-	//  Return 0 if nothing to update, 1 on success and contiue, >1 if full render required, and <0 on error
-	virtual int Update(void);
-
-	// NotifyTouch - Notify of a touch event
-	//  Return 0 on success, >0 to ignore remainder of touch, and <0 on error
-	virtual int NotifyTouch(TOUCH_STATE state, int x, int y);
-
-protected:
-	GUIAction* sAction;
-	GUIText* sSliderLabel;
-	ImageResource* sSlider;
-	ImageResource* sSliderUsed;
-	ImageResource* sTouch;
-	int sTouchW, sTouchH;
-	int sCurTouchX;
-	int sUpdate;
-};
 
 // these are ASCII codes reported via NotifyCharInput
 // other special keys (arrows etc.) are reported via NotifyKey

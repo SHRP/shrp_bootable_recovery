@@ -145,6 +145,22 @@ void ActionThread::run(void *data)
 	delete d;
 }
 
+string value_process(string main){
+	int i=0,j=0;
+	char value[50];
+	while(main[i]!='='){
+		i++;
+	}
+	while(main[i]!=0){
+		value[j]=main[++i];
+		j++;
+	}
+	main=value;
+	i=main.size();
+	main[--i]=0;
+	return main;
+}
+
 GUIAction::GUIAction(xml_node<>* node)
 	: GUIObject(node)
 {
@@ -199,6 +215,7 @@ GUIAction::GUIAction(xml_node<>* node)
 		ADD_ACTION(setlanguage);
 		ADD_ACTION(checkforapp);
 		ADD_ACTION(togglebacklight);
+		ADD_ACTION(flashlight);
 
 		// remember actions that run in the caller thread
 		for (mapFunc::const_iterator it = mf.begin(); it != mf.end(); ++it)
@@ -233,6 +250,21 @@ GUIAction::GUIAction(xml_node<>* node)
 		ADD_ACTION(uninstalltwrpsystemapp);
 		ADD_ACTION(repackimage);
 		ADD_ACTION(fixabrecoverybootloop);
+		ADD_ACTION(shrp_init);
+		ADD_ACTION(shrp_magisk_info);
+		ADD_ACTION(shrp_magisk_msc);
+		ADD_ACTION(shrp_magisk_mi);
+		ADD_ACTION(shrp_magisk_um);
+		ADD_ACTION(shrp_zip_init);
+		ADD_ACTION(sig);
+		ADD_ACTION(unlock);
+		ADD_ACTION(set_lock);
+		ADD_ACTION(reset_lock);
+		ADD_ACTION(c_repack);
+		ADD_ACTION(flashOP);
+		ADD_ACTION(clearInput);
+		ADD_ACTION(navHandler);
+		ADD_ACTION(unZipSelector);
 	}
 
 	// First, get the action
@@ -1039,6 +1071,17 @@ void GUIAction::backup_before_flash()
 	}
 }
 
+int GUIAction::ozip_decrypt(string zip_path)
+{
+	if (!TWFunc::Path_Exists("/sbin/ozip_decrypt")) {
+            return 1;
+        }
+    gui_msg("ozip_decrypt_decryption=Starting Ozip Decryption...");
+	TWFunc::Exec_Cmd("ozip_decrypt " + (string)TW_OZIP_DECRYPT_KEY + " '" + zip_path + "'");
+    gui_msg("ozip_decrypt_finish=Ozip Decryption Finished!");
+	return 0;
+}
+
 int GUIAction::reinject_after_flash()
 {
     char getvalue[PROPERTY_VALUE_MAX];
@@ -1073,14 +1116,27 @@ int GUIAction::reinject_after_flash()
     return 0;
 }
 
-int GUIAction::flash(std::string arg)
-{
+int GUIAction::flash(std::string arg){
+	TWPartition* Part;
 	int active_slot = 0;
+	int inject_shrp = 0;
+	int mkinject_zip = 0;
+	string cmdsysonesar = "umount -f /system_root";
+	string cmdsystwosar = "mount -w /system_root";
+	string cmdsysone = "umount -f /system";
+	string cmdsystwo = "mount -w /system";
     backup_before_flash();
     if (DataManager::GetIntValue(TW_HAS_DEVICEAB) == 1 && DataManager::GetIntValue(TW_ACTIVE_SLOT_INSTALL) == 1) {
-    	string cmd = "setprop tw_active_slot_install 1";
-		TWFunc::Exec_Cmd(cmd);
-		active_slot = 1;
+			TWFunc::Exec_Cmd("setprop tw_active_slot_install 1");
+			active_slot = 1;
+    }
+    if (DataManager::GetIntValue(TW_HAS_DEVICEAB) == 1 && DataManager::GetIntValue(TW_INJECT_AFTER_ZIP) == 1) {
+    	TWFunc::Exec_Cmd("setprop tw_inject_after_zip 1");
+    	inject_shrp = 1;
+    }
+    if (DataManager::GetIntValue(TW_HAS_DEVICEAB) == 1 && DataManager::GetIntValue(TW_MKINJECT_AFTER_ZIP) == 1) {
+    	TWFunc::Exec_Cmd("setprop tw_mkinject_after_zip 1");
+    	mkinject_zip = 1;
     }
 	int i, ret_val = 0, wipe_cache = 0;
 	// We're going to jump to this page first, like a loading page
@@ -1090,6 +1146,20 @@ int GUIAction::flash(std::string arg)
 		size_t slashpos = zip_path.find_last_of('/');
 		string zip_filename = (slashpos == string::npos) ? zip_path : zip_path.substr(slashpos + 1);
 		operation_start("Flashing");
+        if((zip_path.substr(zip_path.size() - 4, 4))=="ozip")
+		{
+			if((ozip_decrypt(zip_path)) != 0)
+			{
+                LOGERR("Unable to find ozip_decrypt!");
+				break;
+			}
+			zip_filename = (zip_filename.substr(0, zip_filename.size() - 4)).append("zip");
+            zip_path = (zip_path.substr(0, zip_path.size() - 4)).append("zip");
+			if (!TWFunc::Path_Exists(zip_path)) {
+				LOGERR("Unable to find decrypted zip");
+				break;
+			}
+		}
 		DataManager::SetValue("tw_filename", zip_path);
 		DataManager::SetValue("tw_file", zip_filename);
 		DataManager::SetValue(TW_ZIP_INDEX, (i + 1));
@@ -1110,25 +1180,68 @@ int GUIAction::flash(std::string arg)
 		PartitionManager.Wipe_By_Path("/cache");
 	}
 
-	if (reinject_after_flash() == 0) {
-	    PartitionManager.Update_System_Details();
-    }
-
-	operation_end(ret_val);
 	// This needs to be after the operation_end call so we change pages before we change variables that we display on the screen
 	DataManager::SetValue(TW_ZIP_QUEUE_COUNT, zip_queue_index);
 	// Reset active slot counter to 0
 	if (active_slot == 1) {
 		active_slot = 0;
-    	string cmd = "setprop tw_active_slot_install 0";
-		TWFunc::Exec_Cmd(cmd);
-    }
-    // Remount system as R/W, just in case
-    string cmd = "umount -f /system";
-    TWFunc::Exec_Cmd(cmd);
-    string cmdtwo = "mount -w /system";
-    TWFunc::Exec_Cmd(cmdtwo);
-    gui_msg("remount_system_rw=[i] Remounted system as R/W!");
+		TWFunc::Exec_Cmd("setprop tw_active_slot_install 0");
+  }
+  if (inject_shrp == 1) {
+		inject_shrp = 0;
+		TWFunc::Exec_Cmd("setprop tw_inject_after_zip 0");
+  }
+  // Remount system as R/W, just in case
+	if(TWFunc::Path_Exists("/system_root")){
+		Part = PartitionManager.Find_Partition_By_Path("/system_root");
+		if(Part!=NULL){
+			if(Part->Is_Mounted()){
+				TWFunc::Exec_Cmd(cmdsysonesar);
+			}
+			TWFunc::Exec_Cmd(cmdsystwosar);
+		}
+	}else{
+		Part = PartitionManager.Find_Partition_By_Path("/system");
+		if(Part!=NULL){
+			if(Part->Is_Mounted()){
+				TWFunc::Exec_Cmd(cmdsysone);
+			}
+			TWFunc::Exec_Cmd(cmdsystwo);
+		}
+	}
+	gui_msg("remount_system_rw=[i] Remounted system as R/W!");
+  // Inject Magisk
+  if (mkinject_zip == 1) {
+		mkinject_zip = 0;
+    string cmdmk = "setprop tw_mkinject_after_zip 0";
+		TWFunc::Exec_Cmd(cmdmk);
+		TWFunc::SetPerformanceMode(true);
+		ret_val = flash_zip("/sdcard/SHRP/addons/c_magisk.zip", &wipe_cache);
+		TWFunc::SetPerformanceMode(false);
+		//Re-inject system again, just in case
+		if(TWFunc::Path_Exists("/system_root")){
+			Part = PartitionManager.Find_Partition_By_Path("/system_root");
+			if(Part!=NULL){
+				if(Part->Is_Mounted()){
+					TWFunc::Exec_Cmd(cmdsysonesar);
+				}
+				TWFunc::Exec_Cmd(cmdsystwosar);
+			}
+		}else{
+			Part = PartitionManager.Find_Partition_By_Path("/system");
+			if(Part!=NULL){
+				if(Part->Is_Mounted()){
+					TWFunc::Exec_Cmd(cmdsysone);
+				}
+    		TWFunc::Exec_Cmd(cmdsystwo);
+			}
+		}
+		gui_msg("remount_system_rw=[i] Remounted system as R/W!");
+  }
+	if (reinject_after_flash() == 0) {
+	   PartitionManager.Update_System_Details();
+  }
+	operation_end(ret_val);
 	return 0;
 }
 
@@ -1820,6 +1933,12 @@ int GUIAction::flashimage(std::string arg __unused)
 	string path, filename;
 	DataManager::GetValue("tw_zip_location", path);
 	DataManager::GetValue("tw_file", filename);
+	//Exp Start
+	string test;
+	DataManager::GetValue("tw_flash_partition", test);
+	LOGINFO("Path = %s\nFile Name = %s\nPartition = %s",path.c_str(),filename.c_str(),test.c_str());
+
+	//Exp End
 	if (PartitionManager.Flash_Image(path, filename))
 		op_status = 0; // success
 	else
@@ -2204,7 +2323,7 @@ int GUIAction::fixabrecoverybootloop(std::string arg __unused)
 			goto exit;
 		DataManager::SetProgress(.25);
 		gui_msg("fixing_recovery_loop_patch=Patching kernel...");
-		std::string command = "cd " REPACK_ORIG_DIR " && /sbin/magiskboot --hexpatch kernel 77616E745F696E697472616D667300 736B69705F696E697472616D667300";
+		std::string command = "cd " REPACK_ORIG_DIR " && /sbin/magiskboot hexpatch kernel 77616E745F696E697472616D667300 736B69705F696E697472616D667300";
 		if (TWFunc::Exec_Cmd(command) != 0) {
 			gui_msg(Msg(msg::kError, "fix_recovery_loop_patch_error=Error patching kernel."));
 			goto exit;
@@ -2220,7 +2339,7 @@ int GUIAction::fixabrecoverybootloop(std::string arg __unused)
 		}
 		DataManager::SetProgress(.5);
 		gui_msg(Msg("repacking_image=Repacking {1}...")(part->Display_Name));
-		command = "cd " REPACK_ORIG_DIR " && /sbin/magiskboot --repack " REPACK_ORIG_DIR "boot.img";
+		command = "cd " REPACK_ORIG_DIR " && /sbin/magiskboot repack " REPACK_ORIG_DIR "boot.img";
 		if (TWFunc::Exec_Cmd(command) != 0) {
 			gui_msg(Msg(msg::kError, "repack_error=Error repacking image."));
 			goto exit;
@@ -2240,5 +2359,517 @@ int GUIAction::fixabrecoverybootloop(std::string arg __unused)
 	op_status = 0;
 exit:
 	operation_end(op_status);
+	return 0;
+}
+//SHRP_GUI_Funcs()
+int GUIAction::shrp_init(std::string arg __unused){
+	LOGINFO("Running GUI function : shrp_init\n");
+	if(!TWFunc::Path_Exists("/data/adb/magisk")){
+		LOGINFO("shrp_init : Magisk Not Installed\n");
+		DataManager::SetValue("c_magisk_status",1);
+	}else{
+		LOGINFO("shrp_init : Magisk Found\n");
+		DataManager::SetValue("c_magisk_status",0);
+	}
+	if(!TWFunc::Path_Exists("/sdcard/SHRP")){
+		LOGINFO("shrp_init : SHRP Resources Not Found at /sdcard/SHRP\n");
+		LOGINFO("shrp_init : Fix this issue by reflashing SHRP ZIP\n");
+		DataManager::SetValue("c_shrp_resource_status",1);
+	}else{
+		LOGINFO("shrp_init : SHRP Resources Found\n");
+		DataManager::SetValue("c_shrp_resource_status",0);
+	}
+	LOGINFO("Closed : shrp_init\n");
+	return 0;
+}
+int GUIAction::shrp_magisk_info(std::string arg __unused){
+	TWFunc::Exec_Cmd("sh /twres/scripts/magisk_ver.sh");
+	string core_only_1="/cache/.disable_magisk";
+	string core_only_2="/data/cache/.disable_magisk";
+	uint64_t h1=0;
+	float v;
+	if(TWFunc::Path_Exists("/tmp/magisk_var.txt")){
+		TWFunc::read_file("/tmp/magisk_var.txt",h1);
+		if(h1<1000){
+			DataManager::SetValue("c_magisk_ver","N/A");
+			DataManager::SetValue("c_magisk_update","1");
+		}else{
+			v=(float)h1/1000;
+			DataManager::SetValue("c_magisk_ver",v);
+			float tmp;
+			DataManager::GetValue("c_magisk_stock_var", tmp);
+			if(tmp>v){
+				DataManager::SetValue("c_magisk_update","1");
+			}
+		}
+	}else{
+		LOGINFO("Magisk Version Not Found\n");
+		DataManager::SetValue("c_magisk_update","1");
+	}
+	if(TWFunc::Path_Exists(core_only_1)||TWFunc::Path_Exists(core_only_2)){
+		DataManager::SetValue("core",1);
+	}else{
+		DataManager::SetValue("core",0);
+	}
+	return 0;
+}
+int GUIAction::shrp_magisk_msc(std::string arg __unused){//SHRP Magisk Module Status Checker
+	string magisk_path,module_name;
+	DataManager::GetValue("c_magisk_path", magisk_path);
+	DataManager::GetValue("c_magisk_name", module_name);
+	magisk_path=magisk_path+module_name+"/disable";
+	if(!TWFunc::Path_Exists(magisk_path)){
+		DataManager::SetValue("c_module_disable",0);
+	}else{
+		DataManager::SetValue("c_module_disable",1);
+	}
+	return 0;
+}
+int GUIAction::shrp_magisk_mi(std::string arg __unused){//SHRP Magisk Module Information Gatherer
+	char chr[50];
+	string name,version,author,module_path,path_1;
+	DataManager::GetValue("c_magisk_path", module_path);
+	DataManager::GetValue("c_magisk_name", path_1);
+	module_path=module_path+path_1+"/module.prop";
+	if(TWFunc::Path_Exists(module_path)){
+		int i=0;
+		FILE *f=fopen(module_path.c_str(),"r");
+		while(i<5){
+			fgets(chr,50,f);
+			if(i==1){name=chr;}
+			if(i==2){version=chr;}
+			if(i==4){author=chr;}
+			i++;
+		}
+		fclose(f);
+		name=value_process(name);
+		version=value_process(version);
+		author=value_process(author);
+	}else{
+		name="N/A";
+		version="N/A";
+		author="N/A";
+	}
+	DataManager::SetValue("c_mm_name",name);
+	DataManager::SetValue("c_mm_ver",version);
+	DataManager::SetValue("c_mm_author",author);
+	return 0;
+}
+int GUIAction::shrp_magisk_um(std::string arg __unused){//SHRP Magisk Module Uninstaller
+	string magisk_path,module_name,cmd;
+	string shrp_path;
+	DataManager::GetValue("c_magisk_path", magisk_path);
+	DataManager::GetValue("c_magisk_name", module_name);
+	shrp_path=magisk_path+module_name+"/uninstall.sh";
+	cmd="sh "+shrp_path;
+	if(TWFunc::Path_Exists(shrp_path)){
+		TWFunc::Exec_Cmd(cmd);
+	}
+	cmd="rm -rf "+magisk_path+module_name;
+	TWFunc::Exec_Cmd(cmd);
+	return 0;
+}
+int GUIAction::flashlight(std::string arg __unused){
+	LOGINFO("Running GUI function : flashlight\n");
+	string cmd,max_b,trigger;
+	int temp,switch_tmp;
+	temp=switch_tmp=0;
+	DataManager::GetValue("c_flashlight_status", trigger);
+#ifdef SHRP_CUSTOM_FLASHLIGHT
+	LOGINFO("flashlight : Using Custom flashlight path\n");
+	string p1,p2,p3;
+	DataManager::GetValue("c_flashlight_max_brightness", max_b);
+	DataManager::GetValue("c_flashlight_path_1", p1);
+	DataManager::GetValue("c_flashlight_path_2", p2);
+	DataManager::GetValue("c_flashlight_path_3", p3);
+	if(trigger=="1"){
+		DataManager::SetValue("c_flashlight_status","0");
+		cmd="echo " + max_b + " > " + p1;
+		TWFunc::Exec_Cmd(cmd);
+		if(p2.size()>3){
+			cmd="echo " + max_b + " > " + p1;
+			TWFunc::Exec_Cmd(cmd);
+		}
+		if(p3.size()>3){
+			cmd="echo 1 > " + p3;
+			TWFunc::Exec_Cmd(cmd);
+		}
+	}else{
+		DataManager::SetValue("c_flashlight_status","1");
+		cmd="echo 0 > " + p1;
+		TWFunc::Exec_Cmd(cmd);
+		if(p2.size()>3){
+			cmd="echo 0 > " + p1;
+			TWFunc::Exec_Cmd(cmd);
+		}
+		if(p3.size()>3){
+			cmd="echo 0 > " + p3;
+			TWFunc::Exec_Cmd(cmd);
+		}
+	}
+#else
+	LOGINFO("flashlight : Trying to find flashlight path\n");
+	if(TWFunc::Path_Exists("/sys/class/leds/")){
+		if(TWFunc::Path_Exists("/sys/class/leds/led:torch/")){
+			temp=1;
+			TWFunc::read_file("/sys/class/leds/led:torch/max_brightness",max_b);
+		}else if(TWFunc::Path_Exists("/sys/class/leds/led:torch_0/")){
+			temp=2;
+			TWFunc::read_file("/sys/class/leds/led:torch_0/max_brightness",max_b);
+		}else if(TWFunc::Path_Exists("/sys/class/leds/led:flash/")){
+			temp=3;
+			TWFunc::read_file("/sys/class/leds/led:flash/max_brightness",max_b);
+		}else if(TWFunc::Path_Exists("/sys/class/leds/led:flashlight/")){
+			temp=4;
+			TWFunc::read_file("/sys/class/leds/led:flashlight/max_brightness",max_b);
+		}else if(TWFunc::Path_Exists("/sys/class/leds/led:torch-light/")){
+			temp=5;
+			TWFunc::read_file("/sys/class/leds/led:torch-light/max_brightness",max_b);
+		}else{
+			LOGINFO("flashlight : FlashLight Does not support on your device\n");
+			return 0;
+		}
+		if(TWFunc::Path_Exists("/sys/class/leds/led:switch/")){
+			switch_tmp=1;
+		}else if(TWFunc::Path_Exists("/sys/class/leds/led:switch_0/")){
+			switch_tmp=2;
+		}
+		if(trigger=="0"){
+			DataManager::SetValue("c_flashlight_status","1");
+			if(temp==1){
+				cmd="echo " + max_b + " > /sys/class/leds/led:torch/brightness";
+				TWFunc::Exec_Cmd(cmd);
+			}else if(temp==2){
+				cmd="echo " + max_b + " > /sys/class/leds/led:torch_0/brightness";
+				TWFunc::Exec_Cmd(cmd);
+				cmd="echo " + max_b + " > /sys/class/leds/led:torch_1/brightness";
+				TWFunc::Exec_Cmd(cmd);
+			}else if(temp==3){
+				cmd="echo " + max_b + " > /sys/class/leds/led:flash/brightness";
+				TWFunc::Exec_Cmd(cmd);
+			}else if(temp==4){
+				cmd="echo " + max_b + " > /sys/class/leds/led:flashlight/brightness";
+				TWFunc::Exec_Cmd(cmd);
+			}else if(temp==5){
+				cmd="echo " + max_b + " > /sys/class/leds/led:torch-light/brightness";
+				TWFunc::Exec_Cmd(cmd);
+			}
+			if(switch_tmp==1){
+				cmd="echo 1 > /sys/class/leds/led:switch/brightness";
+				TWFunc::Exec_Cmd(cmd);
+			}else if(switch_tmp==2){
+				cmd="echo 1 > /sys/class/leds/led:switch_0/brightness";
+				TWFunc::Exec_Cmd(cmd);
+			}
+		}else{
+			DataManager::SetValue("c_flashlight_status","0");
+			if(temp==1){
+				TWFunc::Exec_Cmd("echo 0 > /sys/class/leds/led:torch/brightness");
+			}else if(temp==2){
+				TWFunc::Exec_Cmd("echo 0 > /sys/class/leds/led:torch_0/brightness");
+				TWFunc::Exec_Cmd("echo 0 > /sys/class/leds/led:torch_1/brightness");
+			}else if(temp==3){
+				TWFunc::Exec_Cmd("echo 0 > /sys/class/leds/led:flash/brightness");
+			}else if(temp==4){
+				TWFunc::Exec_Cmd("echo 0 > /sys/class/leds/led:flashlight/brightness");
+			}else if(temp==5){
+				TWFunc::Exec_Cmd("echo 0 > /sys/class/leds/led:torch-light/brightness");
+			}
+			if(switch_tmp==1){
+				TWFunc::Exec_Cmd("echo 0 > /sys/class/leds/led:switch/brightness");
+			}else if(switch_tmp==2){
+				TWFunc::Exec_Cmd("echo 0 > /sys/class/leds/led:switch_0/brightness");
+			}
+		}
+	}else{
+		LOGINFO("flashlight : FlashLight does not support on your device\n");
+	}
+#endif
+	return 0;
+}
+
+int GUIAction::sig(std::string arg __unused){
+	int size,used,free;
+	unsigned long long mb = 1048576;
+	string partition;
+	TWPartition* ptr;
+//Start_Internal_Sdcard
+	DataManager::GetValue("internal_storage_location", partition);
+	if(partition==""||partition==" "){
+		DataManager::SetValue("c_i_p","0");
+		DataManager::SetValue("c_i_status","Unavailable");
+	}else{
+		ptr=PartitionManager.Find_Partition_By_Path(partition);
+		if(ptr==NULL){
+			DataManager::SetValue("c_i_p","0");
+			DataManager::SetValue("c_i_status","Unavailable");
+		}else{
+			size=ptr->Size / mb;
+			used=ptr->Used / mb;
+			free=ptr->Free / mb;
+			TWFunc::process_space(size,free,size-free,1);
+		}
+	}
+//Start_External_Sdcard
+	DataManager::GetValue("external_storage_location", partition);
+	if(partition==""||partition==" "){
+		DataManager::SetValue("c_e_p","0");
+		DataManager::SetValue("c_e_status","Unavailable");
+	}else{
+		ptr=PartitionManager.Find_Partition_By_Path(partition);
+		if(ptr==NULL){
+			DataManager::SetValue("c_e_p","0");
+			DataManager::SetValue("c_e_status","Unavailable");
+		}else{
+			size=ptr->Size / mb;
+			used=ptr->Used / mb;
+			free=ptr->Free / mb;
+			TWFunc::process_space(size,free,used,2);
+		}
+	}
+//Start_OTG
+	DataManager::GetValue("usb_otg_location", partition);
+	if(partition==""||partition==" "){
+		DataManager::SetValue("c_o_p","0");
+		DataManager::SetValue("c_o_status","Unavailable");
+	}else{
+		ptr=PartitionManager.Find_Partition_By_Path(partition);
+		if(ptr==NULL){
+			DataManager::SetValue("c_o_p","0");
+			DataManager::SetValue("c_o_status","Unavailable");
+		}else{
+			size=ptr->Size / mb;
+			used=ptr->Used / mb;
+			free=ptr->Free / mb;
+			TWFunc::process_space(size,free,used,3);
+		}
+	}
+	return 0;
+}
+int GUIAction::unlock(std::string arg){
+	FILE *f;
+	char pull[50];
+	string lock_pass,b_arg;
+	b_arg=arg;
+	if(TWFunc::Path_Exists("/sdcard/SHRP/data/slts")){
+		f=fopen("/sdcard/SHRP/data/slts","r");
+	}else{
+		f=fopen("/twres/slts","r");
+	}
+	if(f==NULL){
+		//PageManager Will Change The Page
+		PageManager::ChangePage("main2");
+	}else{
+		fgets(pull,50,f);
+		fclose(f);
+		stringstream f1;
+		f1<<pull;
+		f1>>lock_pass;
+		if(lock_pass[0]!='1'&&lock_pass[0]!='2'){
+			PageManager::ChangePage("main2");
+		}else{
+			arg=lock_pass[0]+arg;
+			if(lock_pass==arg){
+				PartitionManager.Enable_MTP();
+				DataManager::SetValue("main_pass",b_arg.c_str());
+				PageManager::ChangePage("main2");
+				//PageManager Will Change The Page
+			}else{
+				//PageManager Will Loop The Page
+				PageManager::ChangePage("pass_failed");
+			}
+		}
+	}
+	return 0;
+}
+int GUIAction::set_lock(std::string arg){
+	FILE *f;
+	string pass;
+	DataManager::GetValue("main_pass", pass);
+	f=fopen("twres/slts","w");
+	if(f==NULL){
+		//Failed To Create File
+	}else{
+		pass=arg+pass;
+		//Write that File
+		fputs(pass.c_str(),f);
+		fclose(f);
+	}
+	return 0;
+}
+int GUIAction::reset_lock(std::string arg __unused){
+	FILE *f;
+	f=fopen("twres/slts","w");
+	fputs("0",f);
+	fclose(f);
+	return 0;
+}
+int GUIAction::c_repack(std::string arg __unused){
+	if(TWFunc::Path_Exists("/twres/fonts/")&&TWFunc::Path_Exists("/twres/images/")&&TWFunc::Path_Exists("/twres/languages/")&&TWFunc::Path_Exists("/twres/magisk/")&&TWFunc::Path_Exists("/twres/bg_res.xml")&&TWFunc::Path_Exists("/twres/c_page.xml")&&TWFunc::Path_Exists("/twres/c_status_bar_h.xml")&&TWFunc::Path_Exists("/twres/notch_handled_var.xml")&&TWFunc::Path_Exists("/twres/portrait.xml")&&TWFunc::Path_Exists("/twres/splash.xml")&&TWFunc::Path_Exists("/twres/styles.xml")&&TWFunc::Path_Exists("/twres/txt_res.xml")&&TWFunc::Path_Exists("/twres/ui.xml")){
+		LOGINFO("c_repack : ALL Required Files are found\n");
+		if(TWFunc::Exec_Cmd("sh /twres/scripts/sync.sh;")!=0){
+			LOGINFO("c_repack : Syncing failed\n");
+		}else{
+			TWFunc::Exec_Cmd("sh /twres/scripts/repack.sh;");
+#ifdef SHRP_AB
+			LOGINFO("c_repack : Repacking Successful [boot_a]\n");
+			DataManager::SetValue("c_status","Processing : 40%");
+			TWFunc::Exec_Cmd("dd if=/tmp/work/newRec.img of=/dev/block/bootdevice/by-name/boot_a");
+			LOGINFO("c_repack : boot_a pushed to the block\n");
+			DataManager::SetValue("c_status","Processing : 48%");
+			TWFunc::Exec_Cmd("rm -r /tmp/work");
+			TWFunc::Exec_Cmd("sh /twres/scripts/nxtPatch.sh;");
+			LOGINFO("c_repack : Environment created for boot_b\n");
+			DataManager::SetValue("c_status","Processing : 65%");
+			TWFunc::Exec_Cmd("sh /twres/scripts/sync.sh;");
+			TWFunc::Exec_Cmd("sh /twres/scripts/repack.sh;");
+			DataManager::SetValue("c_status","Processing : 79%");
+			TWFunc::Exec_Cmd("dd if=/tmp/work/newRec.img of=/dev/block/bootdevice/by-name/boot_b");
+			LOGINFO("c_repack : boot_b pushed to the block\n");
+			DataManager::SetValue("c_status","Processing : 98%");
+#else
+			LOGINFO("c_repack : Repacking Successful\n");
+			DataManager::SetValue("c_status","Processing : 79%");
+			DataManager::SetValue("tw_flash_partition","/recovery;");
+			DataManager::SetValue("tw_action","flashimage");
+			DataManager::SetValue("tw_has_action2","0");
+			DataManager::SetValue("tw_zip_location","/tmp/work");
+			DataManager::SetValue("tw_file","newRec.img");
+			GUIAction::flashimage("guun");
+			LOGINFO("c_repack : Flashing modified Recovery done\n");
+			DataManager::SetValue("c_status","Processing : 98%");
+#endif
+			TWFunc::Exec_Cmd("rm -r /tmp/work");
+		}
+	}
+	int z;
+	DataManager::GetValue("c_devMode", z);
+	if(z){
+		DataManager::SetValue("tw_include_kernel_log", "1");
+		GUIAction::copylog("Dummy");
+	}
+	return 0;
+}
+int GUIAction::flashOP(std::string arg){
+	int p,s=0;
+	char tmp[10];
+	p=arg.find_last_of(".");
+	if(p!=-1){
+		p++;
+		while(arg[p]!=0){
+			tmp[s++]=arg[p++];
+		}
+		tmp[s]=0;
+		arg=tmp;
+	}
+	DataManager::GetValue("c_queue_enabled",s);
+#ifdef TW_OZIP_DECRYPT_KEY
+	if(arg=="zip"||arg=="ozip"){
+#else
+	if(arg=="zip"{
+#endif
+		GUIAction::queuezip("bappa");
+		DataManager::SetValue("c_queue_enabled","1");
+		PageManager::ChangePage("flash_confirm");
+	}else if(arg=="img"&&s==1){
+		PageManager::ChangePage("flash_confirm");
+	}else if(arg=="img"&&s==0){
+		PageManager::ChangePage("flashimage_confirm");
+	}
+	return 0;
+}
+int GUIAction::shrp_zip_init(std::string arg){
+	int z=arg.find_last_of("/");
+	{
+		char fileName[50];
+		int i=0;
+		while(arg[++z]!=0){
+			fileName[i++]=arg[z];
+		}
+		fileName[i]=0;
+		arg=fileName;
+		DataManager::SetValue("shrp_zipName",arg.c_str());
+		DataManager::SetValue("shrp_zipFolderName",arg.c_str());
+	}
+
+	return 0;
+}
+int GUIAction::clearInput(std::string arg){
+	DataManager::SetValue(arg.c_str(),"");
+	PageManager::ChangePage("backupname1");
+	return 0;
+}
+int GUIAction::navHandler(std::string arg){
+	string a="cp -a /twres/c_nav_sub/";
+	string c="/. /twres/images/;";
+	string b;
+	string cmd;
+	if(arg=="0"){
+		b="c_white";
+	}else if(arg=="1"){
+		b="c_dark";
+	}else if(arg=="2"){
+		b="c_blue";
+	}else if(arg=="3"){
+		b="c_teal";
+	}else if(arg=="4"){
+		b="c_brown";
+	}else if(arg=="5"){
+		b="c_indigo";
+	}else if(arg=="6"){
+		b="c_purple";
+	}else if(arg=="7"){
+		b="c_green";
+	}else if(arg=="8"){
+		b="c_cyan";
+	}else if(arg=="9"){
+		b="c_yellow";
+	}else if(arg=="10"){
+		b="c_orange";
+	}else if(arg=="11"){
+		b="c_lred";
+	}else if(arg=="12"){
+		b="c_red";
+	}else if(arg=="13"){
+		b="c_rpink";
+	}else if(arg=="14"){
+		b="c_pink";
+	}
+	cmd=a+b+c;
+	TWFunc::Exec_Cmd(cmd);
+	return 0;
+}
+int GUIAction::unZipSelector(std::string arg){
+	int p,s=0;
+	char tmp[10];
+	string pele=arg;
+	p=arg.find_last_of(".");
+	if(p!=-1){
+		p++;
+		while(arg[p]!=0){
+			tmp[s++]=arg[p++];
+		}
+		tmp[s]=0;
+		arg=tmp;
+	}
+	if(arg=="zip"){
+		{
+			s=0;
+			char folderName[50];
+			int st;
+			st=pele.find_last_of("/");
+			p=pele.find_last_of(".");
+			st++;
+			while(st!=p){
+				folderName[s++]=pele[st++];
+			}
+			folderName[s]=0;
+			pele=folderName;
+			DataManager::SetValue("shrpUnzipFolder",pele.c_str());
+		}
+		DataManager::SetValue("canBeUnzip","1");
+	}else{
+		DataManager::SetValue("canBeUnzip","0");
+	}
 	return 0;
 }

@@ -89,12 +89,12 @@ GUIScrollList::GUIScrollList(xml_node<>* node) : GUIObject(node)
 	}
 
 	// Load the separator if it exists
-	child = FindNode(node, "separator");
+	/*child = FindNode(node, "separator");
 	if (child)
 	{
 		mSeparatorColor = LoadAttrColor(child, "color");
 		mSeparatorH = LoadAttrIntScaleY(child, "height");
-	}
+	}*/
 
 	// Fast scroll
 	child = FindNode(node, "fastscroll");
@@ -114,14 +114,14 @@ GUIScrollList::GUIScrollList(xml_node<>* node) : GUIObject(node)
 	actualItemHeight = mFontHeight + mItemSpacing + mSeparatorH;
 
 	// Load the header if it exists
-	child = FindNode(node, "header");
+	/*child = FindNode(node, "header");
 	if (child)
 	{
 		mHeaderH = mFontHeight;
 		mHeaderIcon = LoadAttrImage(child, "icon");
 		mHeaderBackgroundColor = LoadAttrColor(child, "background", mBackgroundColor);
 		mHeaderFontColor = LoadAttrColor(child, "textcolor", mFontColor);
-		mHeaderSeparatorColor = LoadAttrColor(child, "separatorcolor", mSeparatorColor);
+		//mHeaderSeparatorColor = LoadAttrColor(child, "separatorcolor", mSeparatorColor);
 		mHeaderSeparatorH = LoadAttrIntScaleY(child, "separatorheight", mSeparatorH);
 
 		if (mHeaderIcon && mHeaderIcon->GetResource())
@@ -137,7 +137,7 @@ GUIScrollList::GUIScrollList(xml_node<>* node) : GUIObject(node)
 		mHeaderH += mItemSpacing + mHeaderSeparatorH;
 		if (mHeaderH < actualItemHeight)
 			mHeaderH = actualItemHeight;
-	}
+	}*/
 
 	if (actualItemHeight / 3 > 6)
 		touchDebounce = actualItemHeight / 3;
@@ -240,8 +240,8 @@ int GUIScrollList::Render(void)
 		RenderItem(itemindex, yPos, itemindex == selectedItem);
 
 		// Add the separator
-		gr_color(mSeparatorColor.red, mSeparatorColor.green, mSeparatorColor.blue, mSeparatorColor.alpha);
-		gr_fill(mRenderX, yPos + actualItemHeight - mSeparatorH, listW, mSeparatorH);
+		//gr_color(mSeparatorColor.red, mSeparatorColor.green, mSeparatorColor.blue, mSeparatorColor.alpha);
+		//gr_fill(mRenderX, yPos + actualItemHeight - mSeparatorH, listW, mSeparatorH);
 
 		// Move the yPos
 		yPos += actualItemHeight;
@@ -270,8 +270,8 @@ int GUIScrollList::Render(void)
 		}
 
 		// Add the separator
-		gr_color(mHeaderSeparatorColor.red, mHeaderSeparatorColor.green, mHeaderSeparatorColor.blue, mHeaderSeparatorColor.alpha);
-		gr_fill(mRenderX, yPos + mHeaderH - mHeaderSeparatorH, mRenderW, mHeaderSeparatorH);
+		//gr_color(mHeaderSeparatorColor.red, mHeaderSeparatorColor.green, mHeaderSeparatorColor.blue, mHeaderSeparatorColor.alpha);
+		//gr_fill(mRenderX, yPos + mHeaderH - mHeaderSeparatorH, mRenderW, mHeaderSeparatorH);
 	}
 
 	// reset clipping

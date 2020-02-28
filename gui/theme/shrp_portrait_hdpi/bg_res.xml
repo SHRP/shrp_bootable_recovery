@@ -10,8 +10,6 @@
 	</details>
 	<variables>
 		<variable name="c_white" value="#ffffffff"/>
-		<variable name="c_file_accent" value="#ffffffff"/>
-		<variable name="c_circle_color_handler" value="#ffffffff"/>
 		<variable name="nav_bg" value="#fafafa"/>
 	</variables>
 </recovery>

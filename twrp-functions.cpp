@@ -388,6 +388,72 @@ int32_t TWFunc::timespec_diff_ms(timespec& start, timespec& end)
 			((start.tv_sec * 1000) + start.tv_nsec/1000000);
 }
 
+float round(float var) {
+	float value = (int)(var * 100 + .5);
+	return(float)value / 100;
+}
+
+void TWFunc::process_space(int size,int free,int used,int signal){
+	string partition,temp,tmp;
+	int p_val_usage=0;
+	float size_g,free_g;
+	if(size<=0){
+		tmp="Unavailable";
+		p_val_usage=0;
+	}else{
+		if(free>=1024){
+			free_g=(float)free/1024;
+			free_g=round(free_g);
+			{
+			stringstream buff;
+			buff<<free_g;
+			buff>>temp;
+			tmp=temp+" GB free of ";
+			}
+		}else{
+			{
+			stringstream buff;
+			buff<<free;
+			buff>>temp;
+			tmp=temp+" MB free of ";
+			}
+		}
+		if(size>=1024){
+			size_g=(float)size/1024;
+			size_g=round(size_g);
+			{
+			stringstream buff;
+			buff<<size_g;
+			buff>>temp;
+			tmp=tmp+temp+" GB";
+			}
+		}else{
+			{
+			stringstream buff;
+			buff<<size;
+			buff>>temp;
+			tmp=temp;
+			tmp=tmp+temp+" MB";
+			}
+		}
+		p_val_usage=used*100/size;
+	}
+	switch(signal){
+		case 1:
+			DataManager::SetValue("c_i_p",p_val_usage);
+			DataManager::SetValue("c_i_status",tmp);
+			break;
+		case 2:
+			DataManager::SetValue("c_e_p",p_val_usage);
+			DataManager::SetValue("c_e_status",tmp);
+			break;
+		case 3:
+			DataManager::SetValue("c_o_p",p_val_usage);
+			DataManager::SetValue("c_o_status",tmp);
+			break;
+	}
+}
+
 #ifndef BUILD_TWRPTAR_MAIN
 
 // Returns "/path" from a full /path/to/file.name
@@ -926,12 +992,12 @@ string TWFunc::System_Property_Get(string Prop_Name) {
 }
 
 void TWFunc::Auto_Generate_Backup_Name() {
-	string propvalue = System_Property_Get("ro.build.display.id");
-	if (propvalue.empty()) {
-		DataManager::SetValue(TW_BACKUP_NAME, Get_Current_Date());
-		return;
-	}
-	else {
+	//string propvalue = System_Property_Get("ro.build.display.id");
+	//if (propvalue.empty()) {
+	DataManager::SetValue(TW_BACKUP_NAME, Get_Current_Date());
+	return;
+	//}
+	/*else {
 		//remove periods from build display so it doesn't confuse the extension code
 		propvalue.erase(remove(propvalue.begin(), propvalue.end(), '.'), propvalue.end());
 	}
@@ -952,7 +1018,7 @@ void TWFunc::Auto_Generate_Backup_Name() {
 		DataManager::SetValue(TW_BACKUP_NAME, Get_Current_Date());
 	} else {
 		DataManager::SetValue(TW_BACKUP_NAME, Backup_Name);
-	}
+	}*/
 }
 
 void TWFunc::Fixup_Time_On_Boot(const string& time_paths /* = "" */)
