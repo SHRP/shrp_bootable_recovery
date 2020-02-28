@@ -343,7 +343,7 @@
 			<button style="c_reboot_text">
 				<placement x="430" y="1335" w="221" h="50"/>
 				<fill color="%transparent%"/>
-				<text><!--Put Here--></text>
+				<text>TWRP Survival</text>
 			</button>
 			<button style="c_text_dashboard">
 				<placement x="735" y="1225" w="261" h="170"/>
@@ -353,7 +353,7 @@
 			<button style="c_reboot_text">
 				<placement x="755" y="1335" w="221" h="50"/>
 				<fill color="%transparent%"/>
-				<text><!--Put Here--></text>
+				<text>/data fix</text>
 			</button>
 
 			<button style="c_text_dashboard">
