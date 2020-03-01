@@ -792,7 +792,7 @@ void DataManager::SetDefaultValues()
 
 	//SHRP constant variables
 	mConst.SetValue("shrp_ver", "2.2");
-	mConst.SetValue("shrp_ver_status", "Official");
+	mConst.SetValue("shrp_ver_status", "Stable");
 	mConst.SetValue("c_magisk_path", "/_magisk/");
 	mConst.SetValue("c_magisk_stock_var", "20.3");
 
@@ -918,7 +918,7 @@ void DataManager::SetDefaultValues()
 	mConst.SetValue("shrp_ab", "0");
 #endif
 
-#ifdef SHRP_STATUSBAR_RIGHT_PADDING
+#ifdef SHRP_STATUSBAR_LEFT_PADDING
 	int val=0;
 	stringstream guun(EXPAND(SHRP_STATUSBAR_RIGHT_PADDING));
 	guun>>val;
@@ -928,7 +928,7 @@ void DataManager::SetDefaultValues()
 	mConst.SetValue("c_time_x", 20);
 #endif
 
-#ifdef SHRP_STATUSBAR_LEFT_PADDING
+#ifdef SHRP_STATUSBAR_RIGHT_PADDING
 	int valL=0;
 	stringstream bappa(EXPAND(SHRP_STATUSBAR_LEFT_PADDING));
 	bappa>>valL;
