@@ -920,7 +920,7 @@ void DataManager::SetDefaultValues()
 
 #ifdef SHRP_STATUSBAR_LEFT_PADDING
 	int val=0;
-	stringstream guun(EXPAND(SHRP_STATUSBAR_RIGHT_PADDING));
+	stringstream guun(EXPAND(SHRP_STATUSBAR_LEFT_PADDING));
 	guun>>val;
 	val=val+20;
 	mConst.SetValue("c_time_x", val);
@@ -930,7 +930,7 @@ void DataManager::SetDefaultValues()
 
 #ifdef SHRP_STATUSBAR_RIGHT_PADDING
 	int valL=0;
-	stringstream bappa(EXPAND(SHRP_STATUSBAR_LEFT_PADDING));
+	stringstream bappa(EXPAND(SHRP_STATUSBAR_RIGHT_PADDING));
 	bappa>>valL;
 	mConst.SetValue("c_batteryText1", 913-val);
 	mConst.SetValue("c_batteryText2", 928-val);
