@@ -918,7 +918,7 @@ void DataManager::SetDefaultValues()
 	mConst.SetValue("shrp_ab", "0");
 #endif
 
-#ifdef SHRP_STATUSBAR_RIGHT_PADDING
+#ifdef SHRP_STATUSBAR_LEFT_PADDING
 	int val=0;
 	stringstream guun(EXPAND(SHRP_STATUSBAR_RIGHT_PADDING));
 	guun>>val;
@@ -928,7 +928,7 @@ void DataManager::SetDefaultValues()
 	mConst.SetValue("c_time_x", 20);
 #endif
 
-#ifdef SHRP_STATUSBAR_LEFT_PADDING
+#ifdef SHRP_STATUSBAR_RIGHT_PADDING
 	int valL=0;
 	stringstream bappa(EXPAND(SHRP_STATUSBAR_LEFT_PADDING));
 	bappa>>valL;
