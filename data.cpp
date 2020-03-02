@@ -932,10 +932,10 @@ void DataManager::SetDefaultValues()
 	int valL=0;
 	stringstream bappa(EXPAND(SHRP_STATUSBAR_RIGHT_PADDING));
 	bappa>>valL;
-	mConst.SetValue("c_batteryText1", 913-val);
-	mConst.SetValue("c_batteryText2", 928-val);
-	mConst.SetValue("c_batteryText3", 950-val);
-	mConst.SetValue("c_batteryIco", 1020-val);
+	mConst.SetValue("c_batteryText1", 913-valL);
+	mConst.SetValue("c_batteryText2", 928-valL);
+	mConst.SetValue("c_batteryText3", 950-valL);
+	mConst.SetValue("c_batteryIco", 1020-valL);
 #else
 	mConst.SetValue("c_batteryText1", 913);
 	mConst.SetValue("c_batteryText2", 928);
