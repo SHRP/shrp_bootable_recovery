@@ -7962,7 +7962,6 @@ cp /twres/c_dash_ico/aex/*.png /twres/images/;
 				<placement x="379" y="1620"/>
 				<conditions>
 					<condition var1="c_temp3" op="!=" var2="78"/>
-					<condition var1="c_shrp_resource_status" op="!=" var2="1"/>
 					<condition var1="shrp_ab" op="=" var2="0"/>
 				</conditions>
 				<image resource="c_theme_init_s" highlightresource="c_theme_init_s_hr"/>
@@ -7981,7 +7980,6 @@ sh /twres/scripts/create_env.sh;
 				<placement x="379" y="1620"/>
 				<conditions>
 					<condition var1="c_temp3" op="!=" var2="78"/>
-					<condition var1="c_shrp_resource_status" op="!=" var2="1"/>
 					<condition var1="shrp_ab" op="=" var2="1"/>
 				</conditions>
 				<image resource="c_theme_init_s" highlightresource="c_theme_init_s_hr"/>
