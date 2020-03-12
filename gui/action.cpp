@@ -1238,9 +1238,7 @@ int GUIAction::flash(std::string arg){
 		}
 		gui_msg("remount_system_rw=[i] Remounted system as R/W!");
   }
-	if (reinject_after_flash() == 0) {
-	   PartitionManager.Update_System_Details();
-  }
+	PartitionManager.Update_System_Details();
 	operation_end(ret_val);
 	return 0;
 }
