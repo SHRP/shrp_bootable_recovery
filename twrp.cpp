@@ -259,6 +259,9 @@ int main(int argc, char **argv) {
 	PartitionManager.Output_Partition_Logging();
 	// Load up all the resources
 	gui_loadResources();
+	//SHRP_initial_funcs
+	shrp_lockscreen_date();
+	lockCheck();
 
 	bool Shutdown = false;
 	bool SkipDecryption = false;
@@ -455,9 +458,6 @@ int main(int argc, char **argv) {
 	twrpAdbBuFifo *adb_bu_fifo = new twrpAdbBuFifo();
 	adb_bu_fifo->threadAdbBuFifo();
 
-	//SHRP_initial_funcs
-	shrp_lockscreen_date();
-	lockCheck();
 	// Launch the main GUI
 	gui_start();
 
