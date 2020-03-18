@@ -2761,10 +2761,10 @@ int GUIAction::flashOP(std::string arg){
 		arg=tmp;
 	}
 	DataManager::GetValue("c_queue_enabled",s);
-#ifdef TW_OZIP_DECRYPT_KEY
+#ifdef SHRP_OZIP_DECRYPT
 	if(arg=="zip"||arg=="ozip"){
 #else
-	if(arg=="zip"{
+	if(arg=="zip"){
 #endif
 		GUIAction::queuezip("bappa");
 		DataManager::SetValue("c_queue_enabled","1");
