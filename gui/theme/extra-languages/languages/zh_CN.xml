@@ -492,7 +492,7 @@
 		<string name="swipe_fix_contexts">   修复 Context</string>
 		<string name="fixing_contexts">正在修复 Context…</string>
 		<string name="fix_contexts_complete">修复 Context 完成</string>
-		<string name="reboot_hdr">重启选项</string>
+		<string name="reboot_hdr">重启</string>
 		<string name="install_cancel">不，以后再说</string>
 		<string name="sel_storage_list">选择存储位置</string>
 		<string name="ok_btn">确定</string>
@@ -911,8 +911,8 @@
 		<string name="c_moreInfo">更多信息</string>
 		<string name="c_recType">Rec Type</string>
 		<string name="c_deviceType">Device Type</string>
-		<string name="c_section">部分</string>
-		<string name="c_translation">翻译</string>
+		<string name="c_section">Section</string>
+		<string name="c_translation">Translation</string>
 		<string name="c_zip">Zip</string>
 		<string name="c_create">创建</string>
 		<string name="c_version">版本</string>
