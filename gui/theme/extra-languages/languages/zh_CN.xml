@@ -727,6 +727,7 @@
 		<string name="sha2_chk">使用 SHA2 进行散列校验</string>
 		<string name="unable_set_boot_slot">更改 bootloader 启动分区至 {1} 错误</string>
 		<!--Translated By LeChenOS-->
+		<string name="Tcredit">LeChenOS</string>
 		<string name="c_enter_pass">输入密码</string>
 		<string name="enter_pass_old">输入旧密码</string>
 		<string name="enter_pass_new">输入新密码</string>

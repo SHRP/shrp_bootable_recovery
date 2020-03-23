@@ -639,9 +639,10 @@
 		<string name="cancel_sideload">Cancelamento de sideload ADB...</string>
 		<string name="change_fs_err">Sistema de arquivo erro em mudança.</string>
 		<string name="theme_ver_err">Versão personalizada do tema não coincide com a versão TWRP. Usando o tema conservado em estoque.</string>
-		
-		
+
+
 		<!--Translated by ZJRDroid-->
+		<string name="Tcredit">ZJRDroid</string>
 		<string name="c_enter_pass">Digite a senha</string>
 		<string name="enter_pass_old">Digite sua senha antiga</string>
 		<string name="enter_pass_new">Digite sua senha nova</string>

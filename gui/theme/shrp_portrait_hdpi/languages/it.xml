@@ -9,7 +9,7 @@
 		<resource name="font_m" type="fontoverride" filename="RobotoCondensed-Regular.ttf" scale="100" />
 		<resource name="font_s" type="fontoverride" filename="RobotoCondensed-Regular.ttf" scale="100" />
 		<resource name="fixed" type="fontoverride" filename="DroidSansMono.ttf" scale="100" />
-	
+
 		<resource name="c_list" type="fontoverride" filename="RobotoCondensed-Regular.ttf" scale="100" />
 		<resource name="c_header" type="fontoverride" filename="RobotoCondensed-Regular.ttf" scale="100" />
 		<resource name="c_file_epicx" type="fontoverride" filename="RobotoCondensed-Regular.ttf" scale="100" />
@@ -694,9 +694,10 @@
 		<string name="copy_kernel_log">Log del kernel copiato in {1}</string>
 		<string name="include_kernel_log">Includi Log del Kernel</string>
 		<string name="unable_set_boot_slot">Errore nel cambio slot d'avvio del bootloader in {1}</string>
-		
-		
+
+
 		<!--Translated By Giovix92-->
+		<string name="Tcredit">Giovix92</string>
 		<string name="c_enter_pass">Inserisci la password</string>
 		<string name="enter_pass_old">Inserisci la tua vecchia password</string>
 		<string name="enter_pass_new">Inserisci la tua nuova password</string>

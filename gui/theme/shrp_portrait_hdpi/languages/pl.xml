@@ -674,6 +674,7 @@
 		<string name="up_a_level">(Cofnij)</string>
 		<string name="install_reboot">Ponowne uruchomienie za 5 sekund</string>
 		<!--Translated by @loIihentai & @tyler1machinegun-->
+		<string name="Tcredit">OlekOliwier</string>
 		<string name="c_enter_pass">Wpisz hasło</string>
 		<string name="enter_pass_old">Wpisz stare hasło</string>
 		<string name="enter_pass_new">Wpisz nowe hasło</string>

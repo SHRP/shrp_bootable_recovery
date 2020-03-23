@@ -9,7 +9,7 @@
 		<resource name="font_m" type="fontoverride" filename="RobotoCondensed-Regular.ttf" scale="90" />
 		<resource name="font_s" type="fontoverride" filename="RobotoCondensed-Regular.ttf" scale="90" />
 		<resource name="fixed" type="fontoverride" filename="DroidSansMono.ttf" scale="100" />
-		
+
 		<resource name="c_list" type="fontoverride" filename="RobotoCondensed-Regular.ttf" scale="90" />
 		<resource name="c_header" type="fontoverride" filename="RobotoCondensed-Regular.ttf" scale="90" />
 		<resource name="c_file_epicx" type="fontoverride" filename="RobotoCondensed-Regular.ttf" scale="90" />
@@ -696,9 +696,10 @@
 		<string name="include_kernel_log">Kernel Kaydını Dahil Et</string>
 		<string name="sha2_chk">Hash için SHA2 kullan</string>
 		<string name="unable_set_boot_slot">Önyükleyici önyükleme yuvasını {1} olarak değiştiremiyor</string>
-		
-		
+
+
 		<!--Translated by Burak D.-->
+		<string name="Tcredit">Burak D.</string>
 		<string name="c_enter_pass">Şifre Girin</string>
 		<string name="enter_pass_old">Eski şifrenizi girin</string>
 		<string name="enter_pass_new">Yeni şifrenizi girin</string>
