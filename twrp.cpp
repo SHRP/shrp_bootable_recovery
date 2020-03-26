@@ -368,18 +368,41 @@ int main(int argc, char **argv) {
 */
 	// Offer to decrypt if the device is encrypted
 	if (DataManager::GetIntValue(TW_IS_ENCRYPTED) != 0) {
-		if (SkipDecryption) {
-			LOGINFO("Skipping decryption\n");
-		} else {
-			LOGINFO("Is encrypted, do decrypt page first\n");
-			if (gui_startPage("decrypt", 1, 1) != 0) {
-				LOGERR("Failed to start decrypt GUI page.\n");
-			} else {
-				// Check for and load custom theme if present
-				TWFunc::check_selinux_support();
-				gui_loadCustomResources();
-			}
-		}
+	  if (SkipDecryption) {
+	    LOGINFO("Skipping decryption\n");
+	  } else {
+	    LOGINFO("Is encrypted, do decrypt page first\n");
+	    std::string Password;
+	    TWFunc::Exec_Cmd("mount -w "+PartitionManager.Get_Android_Root_Path());
+	    LOGINFO("SHRP Decrypt: Seaching for decryption key\n");
+	    if(TWFunc::Path_Exists(PartitionManager.Get_Android_Root_Path()+"/etc/cryptPass")){
+	      LOGINFO("SHRP Decrypt: Decryption key found\n");
+	      TWFunc::read_file(PartitionManager.Get_Android_Root_Path()+"/etc/cryptPass",Password);
+	      if(PartitionManager.Decrypt_Device(Password)!=0){
+	        LOGINFO("SHRP Decrypt: Decryption key not matched with the original key\n");
+	        TWFunc::Exec_Cmd("rm -r "+PartitionManager.Get_Android_Root_Path()+"/etc/cryptPass");
+					LOGINFO("SHRP Decrypt: Removed incorrect key which are already saved in system\n");
+	        if (gui_startPage("decrypt", 1, 1) != 0) {
+	          LOGERR("Failed to start decrypt GUI page.\n");
+	        } else {
+	          // Check for and load custom theme if present
+	          TWFunc::check_selinux_support();
+	          gui_loadCustomResources();
+	        }
+	      }else{
+	        LOGINFO("SHRP Decrypt: Successfully decrypted by saved key.\n");
+	      }
+	    }else{
+				LOGINFO("SHRP Decrypt: Decryption key not found.\n");
+	      if (gui_startPage("decrypt", 1, 1) != 0) {
+	        LOGERR("Failed to start decrypt GUI page.\n");
+	      } else {
+	        // Check for and load custom theme if present
+	        TWFunc::check_selinux_support();
+	        gui_loadCustomResources();
+	      }
+	    }
+	  }
 	} else if (datamedia) {
 		TWFunc::check_selinux_support();
 		if (tw_get_default_metadata(DataManager::GetSettingsStoragePath().c_str()) != 0) {

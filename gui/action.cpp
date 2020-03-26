@@ -1772,10 +1772,16 @@ int GUIAction::decrypt(std::string arg __unused)
 		string Password;
 		DataManager::GetValue("tw_crypto_password", Password);
 		op_status = PartitionManager.Decrypt_Device(Password);
-		if (op_status != 0)
+		if (op_status != 0){
 			op_status = 1;
-		else {
-
+		}else{
+			//Saving the key in system/etc
+			LOGINFO("SHRP Decrypt: Storing the original key in /system/etc/\n");
+			TWFunc::Exec_Cmd("mount -w "+PartitionManager.Get_Android_Root_Path());
+			if(!TWFunc::Path_Exists(PartitionManager.Get_Android_Root_Path()+"/etc/cryptPass")){
+				TWFunc::Exec_Cmd("touch "+PartitionManager.Get_Android_Root_Path()+"/etc/cryptPass");
+			}
+			TWFunc::write_to_file(PartitionManager.Get_Android_Root_Path()+"/etc/cryptPass",Password.c_str());
 			DataManager::SetValue(TW_IS_ENCRYPTED, 0);
 
 			int has_datamedia;
