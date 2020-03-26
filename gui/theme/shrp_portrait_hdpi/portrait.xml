@@ -5821,6 +5821,56 @@ mkdir -p %FolderName%
 				<text>%tw_filename1%</text>
 			</text>
 			<template name="c_status_bar"/>
+			<!--ExperimentalStart-->
+			<text style="c_sub">
+			  <condition var1="is_textFile" op="=" var2="1"/>
+			  <placement x="%c_hawk_base_column%" y="%t_2nd_radio_pos%"/>
+			  <text>{@options_hdr=Options}</text>
+			</text>
+			<button>
+			  <condition var1="is_textFile" op="=" var2="1"/>
+			  <placement x="55" y="%dash_ico_2nd_row%"/>
+			  <image resource="c_factory_reset"/>
+			  <font resource="c_dashboard_text_sort" color="%c_black%"/>
+			  <text>Remove Line</text>
+			  <actions>
+					<action function="set">c_para=6</action>
+			    <action function="page">pageLine</action>
+			  </actions>
+			</button>
+			<button>
+			  <condition var1="is_textFile" op="=" var2="1"/>
+			  <placement x="424" y="%dash_ico_2nd_row%"/>
+			  <image resource="c_factory_reset"/>
+			  <font resource="c_dashboard_text_sort" color="%c_black%"/>
+			  <text>Display Text</text>
+			  <actions>
+			    <action function="txtEditor">1</action>
+			  </actions>
+			</button>
+			<button>
+			  <condition var1="is_textFile" op="=" var2="1"/>
+			  <placement x="55" y="%dash_ico_4th_row%"/>
+			  <image resource="c_factory_reset"/>
+			  <font resource="c_dashboard_text_sort" color="%c_black%"/>
+			  <text>Replace Line</text>
+			  <actions>
+					<action function="set">c_para=2</action>
+			    <action function="page">pageLine</action>
+			  </actions>
+			</button>
+			<button>
+			  <condition var1="is_textFile" op="=" var2="1"/>
+			  <placement x="424" y="%dash_ico_4th_row%"/>
+			  <image resource="c_factory_reset"/>
+			  <font resource="c_dashboard_text_sort" color="%c_black%"/>
+			  <text>Add Line</text>
+			  <actions>
+					<action function="set">c_para=4</action>
+			    <action function="page">pageLine</action>
+			  </actions>
+			</button>
+			<!--ExperimentalEnd-->
 			<fill color="%c_white%">
 				<placement x="0" y="1610" w="1080" h="310"/>
 			</fill>
@@ -5947,6 +5997,90 @@ unzip -d %shrpUnzipFolder% %tw_filename1%;
 			</action>
 			<template name="c_busy_status"/>
 		</page>
+		<!--ExperimentalStart-->
+
+
+		<page name="pageLine">
+		  <template name="c_page"/>
+		  <template name="c_status_bar"/>
+		  <text style="c_main_text_header">
+		    <placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
+		    <text>Line</text>
+		  </text>
+		  <text style="c_text_dashboard">
+		    <placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
+		    <text>Enter Line No.</text>
+		  </text>
+		  <text style="c_sub">
+		    <placement x="%c_hawk_base_column%" y="%c_text_sub_y_spec%"/>
+		    <text>No.</text>
+		  </text>
+		  <input>
+		    <placement x="185" y="%c_text_sub_y_spec%" w="710" h="64"/>
+		    <text>%c_line_no%</text>
+		    <data name="c_line_no"/>
+		    <restrict minlen="1" maxlen="64" allow="1234567890"/>
+		    <action function="txtEditor">%c_para%</action>
+		  </input>
+		  <template name="keyboardtemplate"/>
+		  <action>
+		    <touch key="back"/>
+		    <action function="set">c_file=0</action>
+		    <action function="set">canBeUnzip=0</action>
+		    <action function="set">c_para=0</action>
+		    <action function="set">replaceText=0</action>
+		    <action function="set">c_line_no=0</action>
+		    <action function="set">is_textFile=0</action>
+		    <action function="page">c_file_epicx</action>
+		  </action>
+		  <action>
+		    <touch key="power+voldown"/>
+		    <action function="screenshot"/>
+		  </action>
+		</page>
+
+		<page name="getText">
+		  <template name="c_page"/>
+		  <template name="c_status_bar"/>
+		  <text style="c_main_text_header">
+		    <placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
+		    <text>Input</text>
+		  </text>
+		  <text style="c_text_dashboard">
+		    <placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
+		    <text>Input your text</text>
+		  </text>
+		  <text style="c_sub">
+		    <placement x="%c_hawk_base_column%" y="%c_text_sub_y_spec%"/>
+		    <text>Text</text>
+		  </text>
+		  <input>
+		    <placement x="185" y="%c_text_sub_y_spec%" w="710" h="64"/>
+		    <text>%replaceText%</text>
+		    <data name="replaceText"/>
+		    <restrict minlen="1" maxlen="128"/>
+		    <action function="txtEditor">%c_para%</action>
+		  </input>
+		  <template name="keyboardtemplate"/>
+		  <action>
+		    <touch key="back"/>
+		    <action function="set">c_file=0</action>
+		    <action function="set">canBeUnzip=0</action>
+		    <action function="set">c_para=0</action>
+		    <action function="set">replaceText=0</action>
+		    <action function="set">c_line_no=0</action>
+		    <action function="set">is_textFile=0</action>
+		    <action function="page">c_file_epicx</action>
+		  </action>
+		  <action>
+		    <touch key="power+voldown"/>
+		    <action function="screenshot"/>
+		  </action>
+		</page>
+
+
+
+		<!--ExperimentalEnd-->
 		<page name="c_file_delete">
 			<background color="%semi_transparent%"/>
 			<fill color="%c_white%">

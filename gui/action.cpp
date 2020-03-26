@@ -36,6 +36,7 @@
 
 #include <string>
 #include <sstream>
+#include <fstream>
 #include "../partitions.hpp"
 #include "../twrp-functions.hpp"
 #include "../openrecoveryscript.hpp"
@@ -161,6 +162,112 @@ string value_process(string main){
 	return main;
 }
 
+//SHRP 2.3 Beta Start
+//Text Editor Class
+class textEditor{
+	private:
+		void pushString(string,string);
+	public:
+		void disp_file(string);
+		void replaceLine(string,string,int);
+		void addLine(string,string,int);
+		void removeLine(string,int);
+		void getdString(string,string&,string&,int,int);
+		void getReplacebleLine(string,int);
+};
+//Funcs()
+//This func() will display the text of the file in the console
+void textEditor::disp_file(string path){
+	fstream file;
+	string tmp;
+	int line_no=1;
+	file.open(path.c_str(),ios::in);
+	if(file){
+		tmp="Text File - "+path;
+		gui_msg(Msg(tmp.c_str(),0));
+		while(getline(file, tmp)){
+			{
+      	stringstream guun;
+        string t;
+        guun<<line_no;
+        guun>>t;
+        tmp=t+" "+tmp;
+				gui_msg(Msg(tmp.c_str(),0));
+      }
+      line_no++;
+    }
+	}
+	file.close();
+}
+//This func() will divide the strings of the file according to the parameter
+void textEditor::getdString(string path,string &text1,string &text2,int line,int arg){
+	fstream file;
+	string tmp;
+	int line_no=1;
+	file.open(path.c_str(),ios::in);
+	if(file){
+		while(getline(file,tmp)){
+			if(line_no<line){
+				text1+=tmp+"\n";
+			}
+			if(arg==1&&line_no==line){
+				text2+=tmp+"\n";
+			}
+			if(line_no>line){
+				text2+=tmp+"\n";
+			}
+			line_no++;
+		}
+	}
+	file.close();
+}
+//This func() will found the line which are going to be replace
+void textEditor::getReplacebleLine(string path,int line){
+	fstream file;
+	string tmp;
+	int line_no=1;
+	file.open(path.c_str(),ios::in);
+	if(file){
+		while(getline(file,tmp)){
+			if(line_no==line){
+				break;
+			}
+			line_no++;
+		}
+		DataManager::SetValue("replaceText",tmp.c_str());
+	}
+	file.close();
+}
+//This func() will delete all lines of the file and replace by parameter text
+void textEditor::pushString(string path,string text){
+	fstream file;
+	file.open(path.c_str(),ios::out);
+	file<<text;
+	file.close();
+}
+//This func() will replace a specific line of the file
+void textEditor::replaceLine(string path,string rtext,int line){
+	string up,down;
+	getdString(path,up,down,line,0);
+	rtext=up+rtext+"\n"+down;
+	pushString(path,rtext);
+}
+//This func() will add a line in a sepecific location of the file
+void textEditor::addLine(string path,string rtext,int line){
+	string up,down;
+	getdString(path,up,down,line,1);
+	rtext=up+rtext+"\n"+down;
+	pushString(path,rtext);
+}
+//This func() will remove a line from a sepecific location of the file
+void textEditor::removeLine(string path,int line){
+	string up,down;
+	getdString(path,up,down,line,0);
+	up=up+down;
+	pushString(path,up);
+}
+//SHRP 2.3 Beta End
+
 GUIAction::GUIAction(xml_node<>* node)
 	: GUIObject(node)
 {
@@ -265,6 +372,7 @@ GUIAction::GUIAction(xml_node<>* node)
 		ADD_ACTION(clearInput);
 		ADD_ACTION(navHandler);
 		ADD_ACTION(unZipSelector);
+		ADD_ACTION(txtEditor);
 	}
 
 	// First, get the action
@@ -2870,8 +2978,63 @@ int GUIAction::unZipSelector(std::string arg){
 			DataManager::SetValue("shrpUnzipFolder",pele.c_str());
 		}
 		DataManager::SetValue("canBeUnzip","1");
-	}else{
+		DataManager::SetValue("is_textFile","0");
+	}else if(arg=="txt"||arg=="xml"||arg=="prop"){
+		DataManager::SetValue("is_textFile","1");
 		DataManager::SetValue("canBeUnzip","0");
+	}else{
+		DataManager::SetValue("is_textFile","0");
+		DataManager::SetValue("canBeUnzip","0");
+	}
+	return 0;
+}
+int GUIAction::txtEditor(std::string arg){
+	textEditor t;
+	string path=DataManager::GetStrValue("tw_filename1");
+	if(arg=="1"){//Display the text file
+		t.disp_file(path);
+		DataManager::SetValue("c_file","0");
+		DataManager::SetValue("canBeUnzip","0");
+		DataManager::SetValue("c_para","0");
+		DataManager::SetValue("replaceText","0");
+		DataManager::SetValue("c_line_no","0");
+		DataManager::SetValue("is_textFile","0");
+		PageManager::ChangePage("c_file_epicx");
+	}else if(arg=="2"){//Capture line which is going to be replaced
+		t.getReplacebleLine(path,DataManager::GetIntValue("c_line_no"));
+		DataManager::SetValue("c_para","3");
+		PageManager::ChangePage("getText");
+	}else if(arg=="3"){//Replace Line
+		t.replaceLine(path,DataManager::GetStrValue("replaceText"),DataManager::GetIntValue("c_line_no"));
+		DataManager::SetValue("c_file","0");
+		DataManager::SetValue("canBeUnzip","0");
+		DataManager::SetValue("c_para","0");
+		DataManager::SetValue("replaceText","0");
+		DataManager::SetValue("c_line_no","0");
+		DataManager::SetValue("is_textFile","0");
+		PageManager::ChangePage("c_file_epicx");
+	}else if(arg=="4"){//Before Add line
+		DataManager::SetValue("replaceText","0");
+		DataManager::SetValue("c_para","5");
+		PageManager::ChangePage("getText");
+	}else if(arg=="5"){//Add line
+		t.addLine(path,DataManager::GetStrValue("replaceText"),DataManager::GetIntValue("c_line_no"));
+		DataManager::SetValue("c_file","0");
+		DataManager::SetValue("canBeUnzip","0");
+		DataManager::SetValue("c_para","0");
+		DataManager::SetValue("replaceText","0");
+		DataManager::SetValue("c_line_no","0");
+		DataManager::SetValue("is_textFile","0");
+		PageManager::ChangePage("c_file_epicx");
+	}else if(arg=="6"){//Remove Line
+		t.removeLine(path,DataManager::GetIntValue("c_line_no"));
+		DataManager::SetValue("c_file","0");
+		DataManager::SetValue("canBeUnzip","0");
+		DataManager::SetValue("c_para","0");
+		DataManager::SetValue("replaceText","0");
+		DataManager::SetValue("c_line_no","0");
+		DataManager::SetValue("is_textFile","0");
+		PageManager::ChangePage("c_file_epicx");
 	}
 	return 0;
 }
