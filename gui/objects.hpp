@@ -628,6 +628,7 @@ protected:
 	std::string mSelection; // set when the user selects an item without the full path like selecting /path/to/foo would just be set to foo
 	int mShowFolders, mShowFiles; // indicates if the list should show folders and/or files
 	int mShowNavFolders; // indicates if the list should include the "up a level" item and allow you to traverse folders (nav folders are disabled for the restore list, for instance)
+	int mMode; // to filtering multiple extensions
 	static int mSortOrder; // must be static because it is used by the static function fileSort
 	ImageResource* mFolderIcon;
 	ImageResource* mFileIcon;

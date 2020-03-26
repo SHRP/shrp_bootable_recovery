@@ -792,7 +792,7 @@ void DataManager::SetDefaultValues()
 
 	//SHRP constant variables
 	mConst.SetValue("shrp_ver", "2.2");
-	mConst.SetValue("shrp_ver_status", "Beta");
+	mConst.SetValue("shrp_ver_status", "Stable");
 	mConst.SetValue("c_magisk_path", "/_magisk/");
 	mConst.SetValue("c_magisk_stock_var", "20.3");
 
@@ -918,9 +918,9 @@ void DataManager::SetDefaultValues()
 	mConst.SetValue("shrp_ab", "0");
 #endif
 
-#ifdef SHRP_STATUSBAR_RIGHT_PADDING
+#ifdef SHRP_STATUSBAR_LEFT_PADDING
 	int val=0;
-	stringstream guun(EXPAND(SHRP_STATUSBAR_RIGHT_PADDING));
+	stringstream guun(EXPAND(SHRP_STATUSBAR_LEFT_PADDING));
 	guun>>val;
 	val=val+20;
 	mConst.SetValue("c_time_x", val);
@@ -928,14 +928,14 @@ void DataManager::SetDefaultValues()
 	mConst.SetValue("c_time_x", 20);
 #endif
 
-#ifdef SHRP_STATUSBAR_LEFT_PADDING
+#ifdef SHRP_STATUSBAR_RIGHT_PADDING
 	int valL=0;
-	stringstream bappa(EXPAND(SHRP_STATUSBAR_LEFT_PADDING));
+	stringstream bappa(EXPAND(SHRP_STATUSBAR_RIGHT_PADDING));
 	bappa>>valL;
-	mConst.SetValue("c_batteryText1", 913-val);
-	mConst.SetValue("c_batteryText2", 928-val);
-	mConst.SetValue("c_batteryText3", 950-val);
-	mConst.SetValue("c_batteryIco", 1020-val);
+	mConst.SetValue("c_batteryText1", 913-valL);
+	mConst.SetValue("c_batteryText2", 928-valL);
+	mConst.SetValue("c_batteryText3", 950-valL);
+	mConst.SetValue("c_batteryIco", 1020-valL);
 #else
 	mConst.SetValue("c_batteryText1", 913);
 	mConst.SetValue("c_batteryText2", 928);

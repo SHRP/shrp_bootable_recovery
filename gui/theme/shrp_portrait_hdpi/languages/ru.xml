@@ -690,9 +690,10 @@
 		<string name="copy_kernel_log">Kernel Log скопирован в {1}</string>
 		<string name="include_kernel_log">Добавить Kernel Log</string>
 		<string name="unable_set_boot_slot">Ошибка смены слота загрузки bootloader на {1}</string>
-		
-		
+
+
 		<!--Translated by Kirill-->
+		<string name="Tcredit">Kirill</string>
 		<string name="c_enter_pass">Введите пароль</string>
 		<string name="enter_pass_old">Введите ваш старый пароль</string>
 		<string name="enter_pass_new">Введите ваш новый пароль</string>

@@ -698,6 +698,7 @@
 		<string name="sha2_chk">Use SHA2 for hashing</string>
 		<string name="unable_set_boot_slot">Error changing bootloader boot slot to {1}</string>
 		<!--Change All The strings from here-->
+		<string name="Tcredit">None</string>
 		<string name="c_enter_pass">Enter Password</string>
 		<string name="enter_pass_old">Enter your old Password</string>
 		<string name="enter_pass_new">Enter your new Password</string>

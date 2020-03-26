@@ -1238,9 +1238,7 @@ int GUIAction::flash(std::string arg){
 		}
 		gui_msg("remount_system_rw=[i] Remounted system as R/W!");
   }
-	if (reinject_after_flash() == 0) {
-	   PartitionManager.Update_System_Details();
-  }
+	PartitionManager.Update_System_Details();
 	operation_end(ret_val);
 	return 0;
 }
@@ -2542,8 +2540,10 @@ int GUIAction::flashlight(std::string arg __unused){
 			}else if(temp==2){
 				cmd="echo " + max_b + " > /sys/class/leds/led:torch_0/brightness";
 				TWFunc::Exec_Cmd(cmd);
-				cmd="echo " + max_b + " > /sys/class/leds/led:torch_1/brightness";
-				TWFunc::Exec_Cmd(cmd);
+				if(TWFunc::Path_Exists("/sys/class/leds/led:torch_1/")){
+					cmd="echo " + max_b + " > /sys/class/leds/led:torch_1/brightness";
+					TWFunc::Exec_Cmd(cmd);
+				}
 			}else if(temp==3){
 				cmd="echo " + max_b + " > /sys/class/leds/led:flash/brightness";
 				TWFunc::Exec_Cmd(cmd);
@@ -2567,7 +2567,9 @@ int GUIAction::flashlight(std::string arg __unused){
 				TWFunc::Exec_Cmd("echo 0 > /sys/class/leds/led:torch/brightness");
 			}else if(temp==2){
 				TWFunc::Exec_Cmd("echo 0 > /sys/class/leds/led:torch_0/brightness");
-				TWFunc::Exec_Cmd("echo 0 > /sys/class/leds/led:torch_1/brightness");
+				if(TWFunc::Path_Exists("/sys/class/leds/led:torch_1/")){
+					TWFunc::Exec_Cmd("echo 0 > /sys/class/leds/led:torch_1/brightness");
+				}
 			}else if(temp==3){
 				TWFunc::Exec_Cmd("echo 0 > /sys/class/leds/led:flash/brightness");
 			}else if(temp==4){
@@ -2763,10 +2765,10 @@ int GUIAction::flashOP(std::string arg){
 		arg=tmp;
 	}
 	DataManager::GetValue("c_queue_enabled",s);
-#ifdef TW_OZIP_DECRYPT_KEY
+#ifdef SHRP_OZIP_DECRYPT
 	if(arg=="zip"||arg=="ozip"){
 #else
-	if(arg=="zip"{
+	if(arg=="zip"){
 #endif
 		GUIAction::queuezip("bappa");
 		DataManager::SetValue("c_queue_enabled","1");

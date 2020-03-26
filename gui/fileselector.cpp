@@ -41,6 +41,7 @@ GUIFileSelector::GUIFileSelector(xml_node<>* node) : GUIScrollList(node)
 
 	mFolderIcon = mFileIcon = NULL;
 	mShowFolders = mShowFiles = mShowNavFolders = 1;
+	mMode=0;
 	mUpdate = 0;
 	mPathVar = "cwd";
 	updateFileList = false;
@@ -60,6 +61,9 @@ GUIFileSelector::GUIFileSelector(xml_node<>* node) : GUIScrollList(node)
 		attr = child->first_attribute("nav");
 		if (attr)
 			mShowNavFolders = atoi(attr->value());
+		attr = child->first_attribute("mode");
+		if (attr)
+			mMode = atoi(attr->value());
 	}
 
 	// Handle the path variable
@@ -279,11 +283,17 @@ int GUIFileSelector::GetFileList(const std::string folder)
 			if (mShowNavFolders || (data.fileName != "." && data.fileName != ".."))
 				mFolderList.push_back(data);
 		} else if (data.fileType == DT_REG || data.fileType == DT_LNK || data.fileType == DT_BLK) {
-			if (mExtn.empty() || (data.fileName.length() > mExtn.length() && data.fileName.substr(data.fileName.length() - mExtn.length()) == mExtn)) {
-				if (mExtn == ".ab" && twadbbu::Check_ADB_Backup_File(path))
-					mFolderList.push_back(data);
-				else
+			if(mMode&&data.fileName.length()>4){
+				std::string tmp=data.fileName.substr(data.fileName.length() - 4);
+				if(tmp==".zip"||tmp==".img"||tmp=="ozip"){
 					mFileList.push_back(data);
+				}
+			}else if (mExtn.empty() || (data.fileName.length() > mExtn.length() && data.fileName.substr(data.fileName.length() - mExtn.length()) == mExtn)) {
+				if (mExtn == ".ab" && twadbbu::Check_ADB_Backup_File(path)){
+					mFolderList.push_back(data);
+				}else{
+					mFileList.push_back(data);
+				}
 			}
 		}
 	}

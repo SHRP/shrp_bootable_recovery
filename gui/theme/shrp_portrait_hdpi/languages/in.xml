@@ -697,6 +697,7 @@ jangan ragu untuk mengubah lokasi yang tercantum atau menjatuhkan lokasi sepenuh
        <string name = "sha2_chk"> Gunakan SHA2 untuk hashing </string>
        <string name = "can't_set_boot_slot"> Kesalahan mengubah slot boot bootloader menjadi {1} </string>
 <!-- Ubah Semua string dari sini -->
+			 <string name="Tcredit">LayeardDevMod</string>
        <string name = "c_enter_pass"> Masukkan Kata Sandi </string>
        <string name = "enter_pass_old"> Masukkan Kata Sandi lama Anda </string>
        <string name = "enter_pass_new"> Masukkan Kata Sandi baru Anda </string>
