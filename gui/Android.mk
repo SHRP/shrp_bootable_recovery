@@ -98,6 +98,9 @@ endif
 ifeq ($(SHRP_AB),true)
     LOCAL_CFLAGS += -DSHRP_AB
 endif
+ifeq ($(TW_EXCLUDE_ENCRYPTED_BACKUPS), true)
+    LOCAL_CFLAGS += -DTW_EXCLUDE_ENCRYPTED_BACKUPS
+endif
 
 LOCAL_C_INCLUDES += \
     bionic \

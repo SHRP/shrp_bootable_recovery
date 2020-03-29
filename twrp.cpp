@@ -378,7 +378,12 @@ int main(int argc, char **argv) {
 	    LOGINFO("SHRP Decrypt: Seaching for decryption key\n");
 	    if(TWFunc::Path_Exists(PartitionManager.Get_Android_Root_Path()+"/etc/cryptPass")){
 	      LOGINFO("SHRP Decrypt: Decryption key found\n");
-	      TWFunc::read_file(PartitionManager.Get_Android_Root_Path()+"/etc/cryptPass",Password);
+#ifndef TW_EXCLUDE_ENCRYPTED_BACKUPS
+	      TWFunc::read_file(TWFunc::dencryptFile(PartitionManager.Get_Android_Root_Path()+"/etc/","cryptPass"),Password);
+				TWFunc::Exec_Cmd("rm -r /tmp/cryptPass");
+#else
+				TWFunc::read_file(PartitionManager.Get_Android_Root_Path()+"/etc/cryptPass",Password);
+#endif
 	      if(PartitionManager.Decrypt_Device(Password)!=0){
 	        LOGINFO("SHRP Decrypt: Decryption key not matched with the original key\n");
 	        TWFunc::Exec_Cmd("rm -r "+PartitionManager.Get_Android_Root_Path()+"/etc/cryptPass");

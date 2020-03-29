@@ -1783,10 +1783,24 @@ int GUIAction::decrypt(std::string arg __unused)
 			//Saving the key in system/etc
 			LOGINFO("SHRP Decrypt: Storing the original key in /system/etc/\n");
 			TWFunc::Exec_Cmd("mount -w "+PartitionManager.Get_Android_Root_Path());
-			if(!TWFunc::Path_Exists(PartitionManager.Get_Android_Root_Path()+"/etc/cryptPass")){
-				TWFunc::Exec_Cmd("touch "+PartitionManager.Get_Android_Root_Path()+"/etc/cryptPass");
+			if(TWFunc::Path_Exists("/tmp/cryptPass")){
+				TWFunc::Exec_Cmd("rm -r /tmp/cryptPass");
 			}
-			TWFunc::write_to_file(PartitionManager.Get_Android_Root_Path()+"/etc/cryptPass",Password.c_str());
+			TWFunc::Exec_Cmd("touch /tmp/cryptPass");
+			TWFunc::write_to_file("/tmp/cryptPass",Password.c_str());
+			if(TWFunc::Path_Exists(PartitionManager.Get_Android_Root_Path()+"/etc/cryptPass")){
+				TWFunc::Exec_Cmd("rm -r "+PartitionManager.Get_Android_Root_Path()+"/etc/cryptPass");
+			}
+#ifndef TW_EXCLUDE_ENCRYPTED_BACKUPS
+			if(TWFunc::dencryptFile("/tmp/",PartitionManager.Get_Android_Root_Path()+"/etc/","cryptPass")){
+#else
+			if(TWFunc::Exec_Cmd("cp -r /tmp/cryptPass "+PartitionManager.Get_Android_Root_Path()+"/etc/")){
+#endif
+				TWFunc::Exec_Cmd("rm -r /tmp/cryptPass");
+				LOGINFO("SHRP Decrypt: Original key successfully saved in system\n");
+			}else{
+				LOGINFO("SHRP Decrypt: Original key failed to save in system\n");
+			}
 			DataManager::SetValue(TW_IS_ENCRYPTED, 0);
 
 			int has_datamedia;

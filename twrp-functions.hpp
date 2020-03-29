@@ -70,6 +70,10 @@ public:
 	static timespec timespec_diff(timespec& start, timespec& end);	            // Return a diff for 2 times
 	static int32_t timespec_diff_ms(timespec& start, timespec& end);            // Returns diff in ms
 	static void process_space(int size,int free,int used,int signal);
+#ifndef TW_EXCLUDE_ENCRYPTED_BACKUPS
+	static string dencryptFile(string path,string fileName);
+	static bool dencryptFile(string path,string outPath,string fileName);
+#endif
 
 #ifndef BUILD_TWRPTAR_MAIN
 	static void install_htc_dumlock(void);                                      // Installs HTC Dumlock
