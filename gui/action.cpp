@@ -2017,13 +2017,24 @@ int GUIAction::changefilesystem(std::string arg __unused)
 int GUIAction::startmtp(std::string arg __unused)
 {
 	int op_status = 0;
+	int shrp_lock_val;
 
-	operation_start("Start MTP");
-	if (PartitionManager.Enable_MTP())
-		op_status = 0; // success
-	else
-		op_status = 1; // fail
-
+	shrp_lock_val = property_get_int64("shrp.lock", -1);
+	if(shrp_lock_val==-1){
+	    shrp_lock_val = DataManager::GetIntValue("shrp_lock");
+	    std::string shrp_lock_val_s = std::to_string(shrp_lock_val);
+	    property_set("shrp.lock", shrp_lock_val_s.c_str()); // needed as lockCheck() hasn't set it obviously
+	}
+	if(shrp_lock_val==0) {
+	    operation_start("Start MTP");
+	    if (PartitionManager.Enable_MTP())
+		    op_status = 0; // success
+	    else
+		    op_status = 1; // fail
+	}else{
+	    operation_start("Will not start MTP as device is locked");
+	    op_status = 1; // fail
+	}
 	operation_end(op_status);
 	return 0;
 }

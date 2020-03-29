@@ -82,6 +82,7 @@ void lockCheck(){
 			DataManager::SetValue("patt_lock_enabled",0);
 			DataManager::SetValue("c_new",0);
 			DataManager::SetValue("c_new_pattern",0);
+			property_set("shrp.lock","1");
 			PartitionManager.Disable_MTP();
 		}else if(hello[0]=='2'){
 			//Pattern Protected Recovery
@@ -90,6 +91,7 @@ void lockCheck(){
 			DataManager::SetValue("patt_lock_enabled",1);
 			DataManager::SetValue("c_new",0);
 			DataManager::SetValue("c_new_pattern",0);
+			property_set("shrp.lock","1");
 			//DataManager::SetValue("main_pass",1);
 			PartitionManager.Disable_MTP();
 		}else{
@@ -99,6 +101,7 @@ void lockCheck(){
 			DataManager::SetValue("patt_lock_enabled",0);
 			DataManager::SetValue("c_new",1);
 			DataManager::SetValue("c_new_pattern",1);
+			property_set("shrp.lock","0");
 		}
 	}else{
 		//Unprotected Recovery
@@ -107,6 +110,7 @@ void lockCheck(){
 		DataManager::SetValue("patt_lock_enabled",0);
 		DataManager::SetValue("c_new",1);
 		DataManager::SetValue("c_new_pattern",1);
+		property_set("shrp.lock","0");
 	}
 }
 void shrp_lockscreen_date(){//SHRP Buutiful Lockscreen Date View
@@ -430,9 +434,11 @@ int main(int argc, char **argv) {
 	}
 
 #ifdef TW_HAS_MTP
-	char mtp_crash_check[PROPERTY_VALUE_MAX];
-	property_get("mtp.crash_check", mtp_crash_check, "0");
-	if (DataManager::GetIntValue("tw_mtp_enabled")
+	if(DataManager::GetIntValue("lock_enabled") == 0) {
+	    LOGINFO("SHRP is unlocked; processing MTP now.\n");
+	    char mtp_crash_check[PROPERTY_VALUE_MAX];
+	    property_get("mtp.crash_check", mtp_crash_check, "0");
+	    if (DataManager::GetIntValue("tw_mtp_enabled")
 			&& !strcmp(mtp_crash_check, "0") && !crash_counter
 			&& (!DataManager::GetIntValue(TW_IS_ENCRYPTED) || DataManager::GetIntValue(TW_IS_DECRYPTED))) {
 		property_set("mtp.crash_check", "1");
@@ -442,13 +448,16 @@ int main(int argc, char **argv) {
 		else
 			gui_msg("mtp_enabled=MTP Enabled");
 		property_set("mtp.crash_check", "0");
-	} else if (strcmp(mtp_crash_check, "0")) {
+	    } else if (strcmp(mtp_crash_check, "0")) {
 		gui_warn("mtp_crash=MTP Crashed, not starting MTP on boot.");
 		DataManager::SetValue("tw_mtp_enabled", 0);
 		PartitionManager.Disable_MTP();
-	} else if (crash_counter == 1) {
+	    } else if (crash_counter == 1) {
 		LOGINFO("TWRP crashed; disabling MTP as a precaution.\n");
 		PartitionManager.Disable_MTP();
+	    }
+	}else{
+	    LOGINFO("SHRP is locked; MTP is not allowing to start.\n");
 	}
 #endif
 
