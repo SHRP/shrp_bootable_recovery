@@ -2809,44 +2809,40 @@ int GUIAction::unlock(std::string arg){
 		f.open("/twres/slts", ios::in);
 	}
 	if(!f){
-		//PageManager Will Change The Page
+		PageManager::ChangePage("c_recBlocked");
+		return 0;
+	}
+	//Reconstruct type, salt and hash
+	f.read(getlp,1);
+	lock_pass.append(getlp,1);
+
+	f.seekg(1,ios::beg);
+	f.read(getfs,BUFFER_SIZE_SLT);
+	fsalt.append(getfs,BUFFER_SIZE_SLT);
+
+	f.seekg(BUFFER_SIZE_SLT+1,ios::beg);
+	f.read(gethp,BUFFER_SIZE_PW);
+	fhash.append(gethp,BUFFER_SIZE_PW);
+  f.close();
+
+	if(lock_pass!="1" && lock_pass!="2"){
 		PageManager::ChangePage("main2");
-		property_set("shrp.lock", "0");
-		PartitionManager.Enable_MTP();
 	}else{
-		//Reconstruct type, salt and hash
-		f.read(getlp,1);
-		lock_pass.append(getlp,1);
+		chash = create_sha256(arg.c_str() + fsalt);
+		std::string givpw=lock_pass+fsalt+chash; // reconstructed type + reconstructed salt + generated hash
+		std::string recpw=lock_pass+fsalt+fhash; // reconstructed type + reconstructed salt + reconstructed hash
 
-		f.seekg(1,ios::beg);
-		f.read(getfs,BUFFER_SIZE_SLT);
-		fsalt.append(getfs,BUFFER_SIZE_SLT);
-
-		f.seekg(BUFFER_SIZE_SLT+1,ios::beg);
-		f.read(gethp,BUFFER_SIZE_PW);
-		fhash.append(gethp,BUFFER_SIZE_PW);
-
-                f.close();
-
-		if(lock_pass!="1" && lock_pass!="2"){
+		if(recpw == givpw){
+			property_set("shrp.lock", "0");
+			PartitionManager.Enable_MTP();
+			DataManager::SetValue("main_pass",b_arg.c_str());
+			//PageManager Will Change The Page
 			PageManager::ChangePage("main2");
 		}else{
-			chash = create_sha256(arg.c_str() + fsalt);
-			std::string givpw=lock_pass+fsalt+chash; // reconstructed type + reconstructed salt + generated hash
-			std::string recpw=lock_pass+fsalt+fhash; // reconstructed type + reconstructed salt + reconstructed hash
-
-			if(recpw == givpw){
-				property_set("shrp.lock", "0");
-				PartitionManager.Enable_MTP();
-				DataManager::SetValue("main_pass",b_arg.c_str());
-				PageManager::ChangePage("main2");
-				//PageManager Will Change The Page
-			}else{
-				property_set("shrp.lock", "1");
-				LOGINFO("%s: Failed verifying the given password!\n", __func__);
-				//PageManager Will Loop The Page
-				PageManager::ChangePage("pass_failed");
-			}
+			property_set("shrp.lock", "1");
+			LOGINFO("%s: Failed verifying the given password!\n", __func__);
+			//PageManager Will Loop The Page
+			PageManager::ChangePage("pass_failed");
 		}
 	}
 	return 0;

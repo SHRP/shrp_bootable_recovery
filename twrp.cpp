@@ -104,13 +104,10 @@ void lockCheck(){
 			property_set("shrp.lock","0");
 		}
 	}else{
-		//Unprotected Recovery
-		DataManager::SetValue("c_target_destination","main2");
-		DataManager::SetValue("lock_enabled",0);
-		DataManager::SetValue("patt_lock_enabled",0);
-		DataManager::SetValue("c_new",1);
-		DataManager::SetValue("c_new_pattern",1);
-		property_set("shrp.lock","0");
+		DataManager::SetValue("c_target_destination","c_recBlocked");
+		DataManager::SetValue("lock_enabled",1);
+		property_set("shrp.lock","1");
+		PartitionManager.Disable_MTP();
 	}
 }
 void shrp_lockscreen_date(){//SHRP Buutiful Lockscreen Date View

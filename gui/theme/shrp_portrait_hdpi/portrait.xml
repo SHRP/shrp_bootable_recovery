@@ -144,6 +144,21 @@
 				</actions>
 			</button>
 		</page>
+		<page name="c_recBlocked">
+			<template name="c_page"/>
+			<template name="c_status_bar"/>
+			<text style="c_main_text_header_failed">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
+				<text>{@c_failed=Failed}</text>
+			</text>
+			<text style="c_text_dashboard">
+				<conditions>
+					<condition var1="patt_lock_enabled" op="=" var2="0"/>
+				</conditions>
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
+				<text>Something went wrong.</text>
+			</text>
+		</page>
 
 		<page name="my_info">
 			<template name="c_page"/>
@@ -4031,7 +4046,6 @@
 			</image>
 			<button>
 				<conditions>
-					<condition var1="tw_is_encrypted" op="!=" var2="1"/>
 					<condition var1="c_new" op="=" var2="1"/>
 					<condition var1="c_new_pattern" op="=" var2="1"/>
 				</conditions>
