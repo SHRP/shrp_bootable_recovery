@@ -1236,7 +1236,6 @@ int GUIAction::reinject_after_flash()
 }
 
 int GUIAction::flash(std::string arg){
-	TWPartition* Part;
 	int active_slot = 0;
 	int inject_shrp = 0;
 	int mkinject_zip = 0;
