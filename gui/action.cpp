@@ -519,6 +519,9 @@ int GUIAction::flash_zip(std::string filename, int* wipe_cache)
 		LOGERR("No file specified.\n");
 		return -1;
 	}
+#ifdef SHRP_EXPRESS
+	TWFunc::shrpResExp(PartitionManager.Get_Android_Root_Path()+"/etc/shrp/","/tmp/shrp/");
+#endif
 
 	if (!TWFunc::Path_Exists(filename)) {
 		if (!PartitionManager.Mount_By_Path(filename, true)) {
@@ -552,6 +555,9 @@ int GUIAction::flash_zip(std::string filename, int* wipe_cache)
 	// Done
 	DataManager::SetValue("ui_progress", 100);
 	DataManager::SetValue("ui_progress", 0);
+#ifdef SHRP_EXPRESS
+	TWFunc::shrpResExp("/tmp/shrp/",PartitionManager.Get_Android_Root_Path()+"/etc/shrp/");
+#endif
 	return ret_val;
 }
 
@@ -1361,7 +1367,9 @@ int GUIAction::wipe(std::string arg)
 	operation_start("Format");
 	DataManager::SetValue("tw_partition", arg);
 	int ret_val = false;
-
+#ifdef SHRP_EXPRESS
+	TWFunc::shrpResExp(PartitionManager.Get_Android_Root_Path()+"/etc/shrp/","/tmp/shrp/");
+#endif
 	if (simulate) {
 		simulate_progress_bar();
 	} else {
@@ -1460,6 +1468,9 @@ int GUIAction::wipe(std::string arg)
 		}
 #endif
 	}
+#ifdef SHRP_EXPRESS
+	TWFunc::shrpResExp("/tmp/shrp/",PartitionManager.Get_Android_Root_Path()+"/etc/shrp/");
+#endif
 	PartitionManager.Update_System_Details();
 	if (ret_val)
 		ret_val = 0; // 0 is success
@@ -1515,6 +1526,9 @@ int GUIAction::nandroid(std::string arg)
 			}
 			DataManager::SetValue(TW_BACKUP_NAME, auto_gen);
 		} else if (arg == "restore") {
+#ifdef SHRP_EXPRESS
+			TWFunc::shrpResExp(PartitionManager.Get_Android_Root_Path()+"/etc/shrp/","/tmp/shrp/");
+#endif
 			string Restore_Name;
 			int gui_adb_backup;
 
@@ -1534,6 +1548,9 @@ int GUIAction::nandroid(std::string arg)
 				else
 					ret = 1; // failure
 			}
+#ifdef SHRP_EXPRESS
+			TWFunc::shrpResExp("/tmp/shrp/",PartitionManager.Get_Android_Root_Path()+"/etc/shrp/");
+#endif
 		} else {
 			operation_end(1); // invalid arg specified, fail
 			return -1;
@@ -1829,6 +1846,9 @@ int GUIAction::adbsideload(std::string arg __unused)
 		simulate_progress_bar();
 		operation_end(0);
 	} else {
+#ifdef SHRP_EXPRESS
+		TWFunc::shrpResExp(PartitionManager.Get_Android_Root_Path()+"/etc/shrp/","/tmp/shrp/");
+#endif
 		gui_msg("start_sideload=Starting ADB sideload feature...");
 		bool mtp_was_enabled = TWFunc::Toggle_MTP(false);
 
@@ -1873,6 +1893,9 @@ int GUIAction::adbsideload(std::string arg __unused)
 
 int GUIAction::adbsideloadcancel(std::string arg __unused)
 {
+#ifdef SHRP_EXPRESS
+	TWFunc::shrpResExp("/tmp/shrp/",PartitionManager.Get_Android_Root_Path()+"/etc/shrp/");
+#endif
 	struct stat st;
 	DataManager::SetValue("tw_has_cancel", 0); // Remove cancel button from gui
 	gui_msg("cancel_sideload=Cancelling ADB sideload...");
@@ -2079,13 +2102,17 @@ int GUIAction::flashimage(std::string arg __unused)
 	string test;
 	DataManager::GetValue("tw_flash_partition", test);
 	LOGINFO("Path = %s\nFile Name = %s\nPartition = %s",path.c_str(),filename.c_str(),test.c_str());
-
+#ifdef SHRP_EXPRESS
+	TWFunc::shrpResExp(PartitionManager.Get_Android_Root_Path()+"/etc/shrp/","/tmp/shrp/");
+#endif
 	//Exp End
 	if (PartitionManager.Flash_Image(path, filename))
 		op_status = 0; // success
 	else
 		op_status = 1; // fail
-
+#ifdef SHRP_EXPRESS
+	TWFunc::shrpResExp("/tmp/shrp/",PartitionManager.Get_Android_Root_Path()+"/etc/shrp/");
+#endif
 	operation_end(op_status);
 	return 0;
 }
@@ -2905,6 +2932,9 @@ int GUIAction::reset_lock(std::string arg __unused){
 	return 0;
 }
 int GUIAction::c_repack(std::string arg __unused){
+#ifdef SHRP_EXPRESS
+	TWFunc::shrpResExp("/twres/",PartitionManager.Get_Android_Root_Path()+"/etc/shrp/");
+#else
 	if(TWFunc::Path_Exists("/twres/fonts/")&&TWFunc::Path_Exists("/twres/images/")&&TWFunc::Path_Exists("/twres/languages/")&&TWFunc::Path_Exists("/twres/magisk/")&&TWFunc::Path_Exists("/twres/bg_res.xml")&&TWFunc::Path_Exists("/twres/c_page.xml")&&TWFunc::Path_Exists("/twres/c_status_bar_h.xml")&&TWFunc::Path_Exists("/twres/notch_handled_var.xml")&&TWFunc::Path_Exists("/twres/portrait.xml")&&TWFunc::Path_Exists("/twres/splash.xml")&&TWFunc::Path_Exists("/twres/styles.xml")&&TWFunc::Path_Exists("/twres/txt_res.xml")&&TWFunc::Path_Exists("/twres/ui.xml")){
 		LOGINFO("c_repack : ALL Required Files are found\n");
 		if(TWFunc::Exec_Cmd("sh /twres/scripts/sync.sh;")!=0){
@@ -2942,6 +2972,7 @@ int GUIAction::c_repack(std::string arg __unused){
 			TWFunc::Exec_Cmd("rm -r /tmp/work");
 		}
 	}
+#endif
 	int z;
 	DataManager::GetValue("c_devMode", z);
 	if(z){

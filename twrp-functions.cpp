@@ -1395,3 +1395,26 @@ bool TWFunc::dencryptFile(string path,string outPath,string fileName){//For Encr
 	}
 }
 #endif
+#ifdef SHRP_EXPRESS
+bool TWFunc::shrpResExp(string inPath,string outPath){
+	bool opStatus;
+	if(!PartitionManager.Is_Mounted_By_Path(PartitionManager.Get_Android_Root_Path())){
+		TWFunc::Exec_Cmd("mount -w "+PartitionManager.Get_Android_Root_Path());
+	}
+	if(Path_Exists(inPath)){
+		if(Path_Exists(outPath)){
+			Exec_Cmd("rm -r "+outPath);
+		}
+		Exec_Cmd("mkdir -p "+outPath);
+		if(Exec_Cmd("cp -r "+inPath+"* "+outPath)){
+			opStatus=true;
+		}else{
+			opStatus=false;
+		}
+	}else{
+		opStatus=false;
+	}
+	PartitionManager.UnMount_By_Path(PartitionManager.Get_Android_Root_Path(),false);
+	return opStatus;
+}
+#endif

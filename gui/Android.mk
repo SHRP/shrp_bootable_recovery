@@ -98,6 +98,9 @@ endif
 ifeq ($(SHRP_AB),true)
     LOCAL_CFLAGS += -DSHRP_AB
 endif
+ifeq ($(SHRP_EXPRESS),true)
+	LOCAL_CFLAGS += -DSHRP_EXPRESS
+endif
 ifeq ($(TW_EXCLUDE_ENCRYPTED_BACKUPS), true)
     LOCAL_CFLAGS += -DTW_EXCLUDE_ENCRYPTED_BACKUPS
 endif

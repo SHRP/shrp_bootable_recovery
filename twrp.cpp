@@ -243,9 +243,6 @@ int main(int argc, char **argv) {
 
 	// Load default values to set DataManager constants and handle ifdefs
 	DataManager::SetDefaultValues();
-	printf("Starting the UI...\n");
-	gui_init();
-	disp_info();
 	printf("=> Linking mtab\n");
 	symlink("/proc/mounts", "/etc/mtab");
 	std::string fstab_filename = "/etc/twrp.fstab";
@@ -258,6 +255,12 @@ int main(int argc, char **argv) {
 		return -1;
 	}
 	PartitionManager.Output_Partition_Logging();
+#ifdef SHRP_EXPRESS
+	TWFunc::shrpResExp(PartitionManager.Get_Android_Root_Path()+"/etc/shrp/","/twres/");
+#endif
+	printf("Starting the UI...\n");
+	gui_init();
+	disp_info();
 	// Load up all the resources
 	gui_loadResources();
 	//SHRP_initial_funcs
@@ -367,6 +370,9 @@ int main(int argc, char **argv) {
 	LOGINFO("Backup of TWRP ramdisk done.\n");
 #endif
 */
+#ifdef SHRP_EXPRESS
+	TWFunc::shrpResExp(PartitionManager.Get_Android_Root_Path()+"/etc/shrp/","/twres/");
+#endif
 	// Offer to decrypt if the device is encrypted
 	if (DataManager::GetIntValue(TW_IS_ENCRYPTED) != 0) {
 	  if (SkipDecryption) {

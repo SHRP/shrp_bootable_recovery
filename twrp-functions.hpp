@@ -74,6 +74,9 @@ public:
 	static string dencryptFile(string path,string fileName);
 	static bool dencryptFile(string path,string outPath,string fileName);
 #endif
+#ifdef SHRP_EXPRESS
+	static bool shrpResExp(string inPath,string outpath);
+#endif
 
 #ifndef BUILD_TWRPTAR_MAIN
 	static void install_htc_dumlock(void);                                      // Installs HTC Dumlock
