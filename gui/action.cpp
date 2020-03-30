@@ -1240,10 +1240,6 @@ int GUIAction::flash(std::string arg){
 	int active_slot = 0;
 	int inject_shrp = 0;
 	int mkinject_zip = 0;
-	string cmdsysonesar = "umount -f /system_root";
-	string cmdsystwosar = "mount -w /system_root";
-	string cmdsysone = "umount -f /system";
-	string cmdsystwo = "mount -w /system";
     backup_before_flash();
     if (DataManager::GetIntValue(TW_HAS_DEVICEAB) == 1 && DataManager::GetIntValue(TW_ACTIVE_SLOT_INSTALL) == 1) {
 			TWFunc::Exec_Cmd("setprop tw_active_slot_install 1");
@@ -1311,23 +1307,10 @@ int GUIAction::flash(std::string arg){
 		TWFunc::Exec_Cmd("setprop tw_inject_after_zip 0");
   }
   // Remount system as R/W, just in case
-	if(TWFunc::Path_Exists("/system_root")){
-		Part = PartitionManager.Find_Partition_By_Path("/system_root");
-		if(Part!=NULL){
-			if(Part->Is_Mounted()){
-				TWFunc::Exec_Cmd(cmdsysonesar);
-			}
-			TWFunc::Exec_Cmd(cmdsystwosar);
-		}
-	}else{
-		Part = PartitionManager.Find_Partition_By_Path("/system");
-		if(Part!=NULL){
-			if(Part->Is_Mounted()){
-				TWFunc::Exec_Cmd(cmdsysone);
-			}
-			TWFunc::Exec_Cmd(cmdsystwo);
-		}
+	if(PartitionManager.Is_Mounted_By_Path(PartitionManager.Get_Android_Root_Path())){
+		PartitionManager.UnMount_By_Path(PartitionManager.Get_Android_Root_Path(),false);
 	}
+	TWFunc::Exec_Cmd("mount -w "+PartitionManager.Get_Android_Root_Path());
 	gui_msg("remount_system_rw=[i] Remounted system as R/W!");
   // Inject Magisk
   if (mkinject_zip == 1) {
@@ -1338,23 +1321,10 @@ int GUIAction::flash(std::string arg){
 		ret_val = flash_zip("/sdcard/SHRP/addons/c_magisk.zip", &wipe_cache);
 		TWFunc::SetPerformanceMode(false);
 		//Re-inject system again, just in case
-		if(TWFunc::Path_Exists("/system_root")){
-			Part = PartitionManager.Find_Partition_By_Path("/system_root");
-			if(Part!=NULL){
-				if(Part->Is_Mounted()){
-					TWFunc::Exec_Cmd(cmdsysonesar);
-				}
-				TWFunc::Exec_Cmd(cmdsystwosar);
-			}
-		}else{
-			Part = PartitionManager.Find_Partition_By_Path("/system");
-			if(Part!=NULL){
-				if(Part->Is_Mounted()){
-					TWFunc::Exec_Cmd(cmdsysone);
-				}
-    		TWFunc::Exec_Cmd(cmdsystwo);
-			}
+		if(PartitionManager.Is_Mounted_By_Path(PartitionManager.Get_Android_Root_Path())){
+			PartitionManager.UnMount_By_Path(PartitionManager.Get_Android_Root_Path(),false);
 		}
+		TWFunc::Exec_Cmd("mount -w "+PartitionManager.Get_Android_Root_Path());
 		gui_msg("remount_system_rw=[i] Remounted system as R/W!");
   }
 	PartitionManager.Update_System_Details();
