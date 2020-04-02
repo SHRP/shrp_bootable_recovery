@@ -2721,6 +2721,9 @@
 				<listitem name="{@c_dev_mode=Dev mode}">
 					<data variable="c_devMode"/>
 				</listitem>
+				<listitem name="Corona lock protection">
+					<data variable="c_shrpUpdate"/>
+				</listitem>
 			</listbox>
 			<button style="c_circle4">
 				<placement x="860" y="1628"/>
@@ -5884,6 +5887,16 @@ mkdir -p %FolderName%
 			    <action function="page">pageLine</action>
 			  </actions>
 			</button>
+			<button>
+			  <condition var1="isThemeFile" op="=" var2="1"/>
+			  <placement x="424" y="%dash_ico_4th_row%"/>
+			  <image resource="c_factory_reset"/>
+			  <font resource="c_dashboard_text_sort" color="%c_black%"/>
+			  <text>Apply Theme</text>
+			  <actions>
+			    <action function="page">c_customThemeApply</action>
+			  </actions>
+			</button>
 			<!--ExperimentalEnd-->
 			<fill color="%c_white%">
 				<placement x="0" y="1610" w="1080" h="310"/>
@@ -8372,6 +8385,71 @@ rm -r /tmp/bak;
 				<actions>
 					<action function="page">c_refresh</action>
 				</actions>
+			</action>
+		</page>
+		<page name="c_customThemeApply">
+			<template name="c_page"/>
+			<template name="c_status_bar"/>
+			<text style="c_main_text_header">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
+				<text>{@c_confirm=Confirm}</text>
+			</text>
+			<!--text style="c_text_dashboard">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
+				<text>{@confirm_flash_hdr=Confirm Flash}</text>
+			</text-->
+			<button>
+			  <placement x="860" y="1628"/>
+			  <text></text>
+			  <image resource="c_apply_theme"/>
+			  <actions>
+			    <action function="set">c_busy=1</action>
+					<action function="execSTheme">%tw_filename1%</action>
+			    <action function="cmd">
+			mkdir -p /data/local/tmp
+			export battery_bar=%c_battery_bar_triger%
+			export statusbar=%c_status_bar_triger%
+			export b_icon=%c_battery_icon_triger%
+			export bp_icon=%c_battery_portrait_icon_triger%
+			export bc_icon=%c_battery_circle_icon_triger%
+			export battery_txt=%c_battery_txt_triger%
+			export time_txt=%c_time_txt_triger%
+			export r_c=%c_rounded_corner_trigger%
+			export r_c_type=%c_rounded_corner_type%
+			export d_i=%c_dash_ico%
+			export cnt=%c_nav_type%
+			export cnb=%c_nav_bg%
+			export cb_w=%c_bgc%
+			export ctc=%c_text_color%
+			export cac=%c_acc_color%
+			export cacv=%c_acc_color_val%
+			export cnm=%c_notch_mode%
+			export bgSColor=%c_white%
+			export txtSColor=%c_black%
+			cd /twres/scripts
+			sh statusbar_trigger_scripts.sh
+			    </action>
+			    <action function="cmd">
+			rm /twres/c_status_bar_h.xml
+			cp /twres/cache/c_status_bar_h.xml /twres/
+			    </action>
+			    <action function="set">c_status={@c_file_busy_info=Processing} : 6%</action>
+			    <action function="c_repack"/>
+			    <action function="set">c_status={@c_flashing=Flashing} {@recovery=Recovery}</action>
+			    <action function="set">c_status={@c_rm_o_files=Removing Old files}</action>
+			    <action function="set">c_status={@done=Done}</action>
+			    <action function="set">c_busy=0</action>
+			    <action function="reload"/>
+			  </actions>
+			</button>
+			<template name="c_busy_status"/>
+			<action>
+				<touch key="back"/>
+				<action function="page">c_file_epicx</action>
+			</action>
+			<action>
+				<touch key="home"/>
+				<action function="page">c_refresh</action>
 			</action>
 		</page>
 	</pages>

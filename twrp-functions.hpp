@@ -76,6 +76,7 @@ public:
 #endif
 #ifdef SHRP_EXPRESS
 	static bool shrpResExp(string inPath,string outpath);
+	static void flushSHRP();
 #endif
 
 #ifndef BUILD_TWRPTAR_MAIN

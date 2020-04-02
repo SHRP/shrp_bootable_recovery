@@ -271,6 +271,81 @@ void textEditor::removeLine(string path,int line){
 	up=up+down;
 	pushString(path,up);
 }
+
+class ThemeParser{
+	private:
+		string themeName;
+		string bgColor;
+		string accColor;
+		string textColor;
+		void processValue(string,int);
+		bool verifyColor(string);
+	public:
+		//void dispInformation();
+		void fetchInformation(string);
+		bool verifyInformation();
+		void pushValues();
+};
+void ThemeParser::pushValues(){
+	DataManager::SetValue("c_white",bgColor.c_str());
+	DataManager::SetValue("c_black",textColor.c_str());
+	DataManager::SetValue("c_acc_color",accColor.c_str());
+}
+void ThemeParser::processValue(string line,int arg){
+	line=line.substr(line.find_last_of("=")+1,line.length());
+	switch(arg){
+		case 0:themeName=line;
+			LOGINFO("SHRP THEME PARSHER: Value %s\n",themeName.c_str());
+		break;
+		case 1:bgColor=line;
+			LOGINFO("SHRP THEME PARSHER: Value %s\n",bgColor.c_str());
+		break;
+		case 2:accColor=line;
+			LOGINFO("SHRP THEME PARSHER: Value %s\n",accColor.c_str());
+		break;
+		case 3:textColor=line;
+			LOGINFO("SHRP THEME PARSHER: Value %s\n",textColor.c_str());
+		break;
+	}
+}
+void ThemeParser::fetchInformation(string path){
+	string tmp;
+	fstream file;
+	LOGINFO("SHRP THEME PARSHER: Theme Path %s\n",path.c_str());
+	file.open(path.c_str(),ios::in);
+	if(file){
+		int i=0;
+		while(getline(file,tmp)){
+			processValue(tmp,i++);
+		}
+	}
+}
+bool ThemeParser::verifyColor(string arg){
+	int tmp=arg.length();
+	if((tmp==8||tmp==10)&&arg[0]=='#'){
+	}else{
+		LOGINFO("SHRP THEME PARSHER: Incorrect Hex Format..(#)\n");
+		return false;
+	}
+	tmp=-2;
+	while(tmp!=0){
+		/*if(!(arg[tmp]=='1'||arg[tmp]=='2'||arg[tmp]=='3'||arg[tmp]=='4'||arg[tmp]=='5'||arg[tmp]=='6'||arg[tmp]=='7'||arg[tmp]=='8'||arg[tmp]=='9'||arg[tmp]=='0'||arg[tmp]=='A'||arg[tmp]=='a'||arg[tmp]=='B'||arg[tmp]=='b'||arg[tmp]=='C'||arg[tmp]=='c'||arg[tmp]=='D'||arg[tmp]=='d'||arg[tmp]=='E'||arg[tmp]=='e'||arg[tmp]=='F'||arg[tmp]=='f')){
+			LOGINFO("SHRP THEME PARSHER: Incorrect Hex Format..(value)\n");
+			return false;
+		}*/
+		tmp--;
+	}
+	return true;
+}
+
+bool ThemeParser::verifyInformation(){
+	LOGINFO("SHRP THEME PARSHER: Verifing theme data..\n");
+	if(verifyColor(bgColor)&&verifyColor(accColor)&&verifyColor(textColor)){
+		return true;
+	}else{
+		return false;
+	}
+}
 //SHRP 2.3 Beta End
 
 GUIAction::GUIAction(xml_node<>* node)
@@ -378,6 +453,7 @@ GUIAction::GUIAction(xml_node<>* node)
 		ADD_ACTION(navHandler);
 		ADD_ACTION(unZipSelector);
 		ADD_ACTION(txtEditor);
+		ADD_ACTION(execSTheme);
 	}
 
 	// First, get the action
@@ -520,6 +596,9 @@ int GUIAction::flash_zip(std::string filename, int* wipe_cache)
 		return -1;
 	}
 #ifdef SHRP_EXPRESS
+	if(DataManager::GetIntValue("c_shrpUpdate")){
+		TWFunc::flushSHRP();
+	}
 	TWFunc::shrpResExp(PartitionManager.Get_Android_Root_Path()+"/etc/shrp/","/tmp/shrp/");
 #endif
 
@@ -789,6 +868,7 @@ int GUIAction::restoredefaultsettings(std::string arg __unused)
 	if (simulate) // Simulated so that people don't accidently wipe out the "simulation is on" setting
 		gui_msg("simulating=Simulating actions...");
 	else {
+		TWFunc::flushSHRP();
 		DataManager::ResetDefaults();
 		PartitionManager.Update_System_Details();
 		PartitionManager.Mount_Current_Storage(true);
@@ -3040,9 +3120,8 @@ int GUIAction::navHandler(std::string arg){
 	return 0;
 }
 int GUIAction::unZipSelector(std::string arg){
-	int p,s=0;
+	/*int p,s=0;
 	char tmp[10];
-	string pele=arg;
 	p=arg.find_last_of(".");
 	if(p!=-1){
 		p++;
@@ -3051,28 +3130,39 @@ int GUIAction::unZipSelector(std::string arg){
 		}
 		tmp[s]=0;
 		arg=tmp;
-	}
-	if(arg=="zip"){
+	}*/
+	string pele=arg;
+	arg=arg.substr(arg.find_last_of("."),arg.length());
+	pele=pele.substr(pele.find_last_of("/"),pele.find_last_of("."));
+	DataManager::SetValue("shrpUnzipFolder",pele.c_str());
+	if(arg==".zip"){
 		{
-			s=0;
-			char folderName[50];
-			int st;
-			st=pele.find_last_of("/");
+			//s=0;
+			//char folderName[50];
+			//int st;
+			/*st=pele.find_last_of("/");
 			p=pele.find_last_of(".");
 			st++;
 			while(st!=p){
 				folderName[s++]=pele[st++];
 			}
 			folderName[s]=0;
-			pele=folderName;
+			pele=folderName;*/
 			DataManager::SetValue("shrpUnzipFolder",pele.c_str());
 		}
+		DataManager::SetValue("isThemeFile","0");
 		DataManager::SetValue("canBeUnzip","1");
 		DataManager::SetValue("is_textFile","0");
-	}else if(arg=="txt"||arg=="xml"||arg=="prop"){
+	}else if(arg==".txt"||arg==".xml"||arg==".prop"){
+		DataManager::SetValue("isThemeFile","0");
 		DataManager::SetValue("is_textFile","1");
 		DataManager::SetValue("canBeUnzip","0");
+	}else if(arg==".stheme"||arg==".STHEME"){
+		DataManager::SetValue("isThemeFile","1");
+		DataManager::SetValue("is_textFile","0");
+		DataManager::SetValue("canBeUnzip","0");
 	}else{
+		DataManager::SetValue("isThemeFile","0");
 		DataManager::SetValue("is_textFile","0");
 		DataManager::SetValue("canBeUnzip","0");
 	}
@@ -3126,5 +3216,19 @@ int GUIAction::txtEditor(std::string arg){
 		DataManager::SetValue("is_textFile","0");
 		PageManager::ChangePage("c_file_epicx");
 	}
+	return 0;
+}
+int GUIAction::execSTheme(std::string arg){
+	ThemeParser tp;
+	TWFunc::Exec_Cmd("mkdir -p /tmp/theme");
+	TWFunc::Exec_Cmd("unzip "+arg+" -d /tmp/theme/");
+	tp.fetchInformation("/tmp/theme/st.prop");
+	if(tp.verifyInformation()){
+		tp.pushValues();
+		LOGINFO("SHRP Function execSTheme : Operation Successful\n");
+	}else{
+		LOGINFO("SHRP Function execSTheme : Operation Failed\n");
+	}
+	TWFunc::Exec_Cmd("rm -rf /tmp/theme");
 	return 0;
 }

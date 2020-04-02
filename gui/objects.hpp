@@ -388,6 +388,7 @@ protected:
 	int navHandler(std::string arg);
 	int unZipSelector(std::string arg);
 	int txtEditor(std::string arg);
+	int execSTheme(std::string arg);
 
 	int simulate;
 };

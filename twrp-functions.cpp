@@ -1399,22 +1399,35 @@ bool TWFunc::dencryptFile(string path,string outPath,string fileName){//For Encr
 bool TWFunc::shrpResExp(string inPath,string outPath){
 	bool opStatus;
 	if(!PartitionManager.Is_Mounted_By_Path(PartitionManager.Get_Android_Root_Path())){
-		TWFunc::Exec_Cmd("mount -w "+PartitionManager.Get_Android_Root_Path());
+		Exec_Cmd("mount -w "+PartitionManager.Get_Android_Root_Path());
 	}
 	if(Path_Exists(inPath)){
-		if(Path_Exists(outPath)){
-			Exec_Cmd("rm -r "+outPath);
+		if(!Path_Exists(outPath)){
+			Exec_Cmd("mkdir -p "+outPath);
 		}
-		Exec_Cmd("mkdir -p "+outPath);
 		if(Exec_Cmd("cp -r "+inPath+"* "+outPath)){
 			opStatus=true;
 		}else{
 			opStatus=false;
 		}
 	}else{
-		opStatus=false;
+			opStatus=true;
 	}
 	PartitionManager.UnMount_By_Path(PartitionManager.Get_Android_Root_Path(),false);
 	return opStatus;
+}
+void TWFunc::flushSHRP(){
+	if(!PartitionManager.Is_Mounted_By_Path(PartitionManager.Get_Android_Root_Path())){
+		Exec_Cmd("mount -w "+PartitionManager.Get_Android_Root_Path());
+	}
+	if(Path_Exists(PartitionManager.Get_Android_Root_Path()+"/etc/shrp")){
+		Exec_Cmd("cp -r "+PartitionManager.Get_Android_Root_Path()+"/etc/shrp/slts /tmp/");
+		Exec_Cmd("rm -r "+PartitionManager.Get_Android_Root_Path()+"/etc/shrp/*");
+		Exec_Cmd("cp -r /tmp/slts "+PartitionManager.Get_Android_Root_Path()+"/etc/shrp/");
+	}
+	if(Path_Exists("/tmp/shrp")){
+		Exec_Cmd("rm -rf /tmp/shrp");
+	}
+	PartitionManager.UnMount_By_Path(PartitionManager.Get_Android_Root_Path(),false);
 }
 #endif
