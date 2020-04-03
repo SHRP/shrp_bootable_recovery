@@ -8181,12 +8181,9 @@ export cacv=%c_acc_color_val%
 export cnm=%c_notch_mode%
 cd /twres/scripts
 sh statusbar_trigger_scripts.sh
-					</action>
-					<action function="cmd">
-rm /twres/c_status_bar_h.xml
-cp /twres/cache/c_status_bar_h.xml /twres/
-					</action>
+</action>
 					<action function="set">c_status={@c_file_busy_info=Processing} : 6%</action>
+					<action function="set">c_target_destination=main2</action>
 					<action function="c_repack"/>
 					<action function="set">c_status={@c_flashing=Flashing} {@recovery=Recovery}</action>
 					<action function="set">c_status={@c_rm_o_files=Removing Old files}</action>
@@ -8406,33 +8403,31 @@ rm -r /tmp/bak;
 			    <action function="set">c_busy=1</action>
 					<action function="execSTheme">%tw_filename1%</action>
 			    <action function="cmd">
-			mkdir -p /data/local/tmp
-			export battery_bar=%c_battery_bar_triger%
-			export statusbar=%c_status_bar_triger%
-			export b_icon=%c_battery_icon_triger%
-			export bp_icon=%c_battery_portrait_icon_triger%
-			export bc_icon=%c_battery_circle_icon_triger%
-			export battery_txt=%c_battery_txt_triger%
-			export time_txt=%c_time_txt_triger%
-			export r_c=%c_rounded_corner_trigger%
-			export r_c_type=%c_rounded_corner_type%
-			export d_i=%c_dash_ico%
-			export cnt=%c_nav_type%
-			export cnb=%c_nav_bg%
-			export cb_w=%c_bgc%
-			export ctc=%c_text_color%
-			export cac=%c_acc_color%
-			export cacv=%c_acc_color_val%
-			export cnm=%c_notch_mode%
-			export bgSColor=%c_white%
-			export txtSColor=%c_black%
-			cd /twres/scripts
-			sh statusbar_trigger_scripts.sh
-			    </action>
-			    <action function="cmd">
-			rm /twres/c_status_bar_h.xml
-			cp /twres/cache/c_status_bar_h.xml /twres/
-			    </action>
+mkdir -p /data/local/tmp
+export battery_bar=%c_battery_bar_triger%
+export statusbar=%c_status_bar_triger%
+export b_icon=%c_battery_icon_triger%
+export bp_icon=%c_battery_portrait_icon_triger%
+export bc_icon=%c_battery_circle_icon_triger%
+export battery_txt=%c_battery_txt_triger%
+export time_txt=%c_time_txt_triger%
+export r_c=%c_rounded_corner_trigger%
+export r_c_type=%c_rounded_corner_type%
+export d_i=%c_dash_ico%
+export cnt=%c_nav_type%
+export cnb=%c_nav_bg%
+export cb_w=%c_bgc%
+export ctc=%c_text_color%
+export cac=%c_acc_color%
+export cacv=%c_acc_color_val%
+export cnm=%c_notch_mode%
+export bgSColor=%c_white%
+export txtSColor=%c_black%
+cd /twres/scripts
+sh statusbar_trigger_scripts.sh
+sh cthemeHelper.sh
+</action>
+					<action function="set">c_target_destination=main2</action>
 			    <action function="set">c_status={@c_file_busy_info=Processing} : 6%</action>
 			    <action function="c_repack"/>
 			    <action function="set">c_status={@c_flashing=Flashing} {@recovery=Recovery}</action>

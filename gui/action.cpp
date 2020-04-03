@@ -3059,19 +3059,9 @@ int GUIAction::flashOP(std::string arg){
 	return 0;
 }
 int GUIAction::shrp_zip_init(std::string arg){
-	int z=arg.find_last_of("/");
-	{
-		char fileName[50];
-		int i=0;
-		while(arg[++z]!=0){
-			fileName[i++]=arg[z];
-		}
-		fileName[i]=0;
-		arg=fileName;
-		DataManager::SetValue("shrp_zipName",arg.c_str());
-		DataManager::SetValue("shrp_zipFolderName",arg.c_str());
-	}
-
+	arg=arg.substr(arg.find_last_of("/")+1,arg.find_last_of(".")-(arg.find_last_of("/")+1));
+	DataManager::SetValue("shrp_zipName",arg.c_str());
+	DataManager::SetValue("shrp_zipFolderName",arg.c_str());
 	return 0;
 }
 int GUIAction::clearInput(std::string arg){
@@ -3120,36 +3110,12 @@ int GUIAction::navHandler(std::string arg){
 	return 0;
 }
 int GUIAction::unZipSelector(std::string arg){
-	/*int p,s=0;
-	char tmp[10];
-	p=arg.find_last_of(".");
-	if(p!=-1){
-		p++;
-		while(arg[p]!=0){
-			tmp[s++]=arg[p++];
-		}
-		tmp[s]=0;
-		arg=tmp;
-	}*/
-	string pele=arg;
+	int x=arg.find_last_of("/")+1;
+	string zipName=arg.substr(x,arg.find_last_of(".")-x);
 	arg=arg.substr(arg.find_last_of("."),arg.length());
-	pele=pele.substr(pele.find_last_of("/"),pele.find_last_of("."));
-	DataManager::SetValue("shrpUnzipFolder",pele.c_str());
+	LOGINFO("After Folder Name: %s",zipName.c_str());
+	DataManager::SetValue("shrpUnzipFolder",zipName.c_str());
 	if(arg==".zip"){
-		{
-			//s=0;
-			//char folderName[50];
-			//int st;
-			/*st=pele.find_last_of("/");
-			p=pele.find_last_of(".");
-			st++;
-			while(st!=p){
-				folderName[s++]=pele[st++];
-			}
-			folderName[s]=0;
-			pele=folderName;*/
-			DataManager::SetValue("shrpUnzipFolder",pele.c_str());
-		}
 		DataManager::SetValue("isThemeFile","0");
 		DataManager::SetValue("canBeUnzip","1");
 		DataManager::SetValue("is_textFile","0");
@@ -3220,9 +3186,11 @@ int GUIAction::txtEditor(std::string arg){
 }
 int GUIAction::execSTheme(std::string arg){
 	ThemeParser tp;
+	int x=arg.find_last_of("/")+1;
+	string themeName=arg.substr(x,arg.find_last_of(".")-x);
 	TWFunc::Exec_Cmd("mkdir -p /tmp/theme");
 	TWFunc::Exec_Cmd("unzip "+arg+" -d /tmp/theme/");
-	tp.fetchInformation("/tmp/theme/st.prop");
+	tp.fetchInformation("/tmp/theme/"+themeName+"/st.prop");
 	if(tp.verifyInformation()){
 		tp.pushValues();
 		LOGINFO("SHRP Function execSTheme : Operation Successful\n");
