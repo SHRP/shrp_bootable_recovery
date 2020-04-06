@@ -7807,6 +7807,13 @@ cp /twres/c_rounded_res/type_3/*.png /twres/images/;
 				<placement x="130" y="%t_4th_radio_text_pos%"/>
 				<text>{@c_big=Big}</text>
 			</text>
+
+			<checkbox>
+			  <placement x="%c_hawk_base_column%" y="1575"/>
+			  <text>Secondary Text Color</text>
+			  <data variable="c_scolor_status"/>
+			</checkbox>
+
 			<button>
 				<condition var1="c_notch_mode" op="=" var2="0"/>
 				<placement x="%c_hawk_base_column%" y="1630"/>
@@ -8179,11 +8186,19 @@ export ctc=%c_text_color%
 export cac=%c_acc_color%
 export cacv=%c_acc_color_val%
 export cnm=%c_notch_mode%
+export scolor=%c_scolor_status%
 cd /twres/scripts
 sh statusbar_trigger_scripts.sh
 </action>
 					<action function="set">c_status={@c_file_busy_info=Processing} : 6%</action>
 					<action function="set">c_target_destination=main2</action>
+					<action function="c_scolorHandler"/>
+					<action function="c_scolorExec">
+export x=%c_white%;
+export y=%c_scolor%;
+export z=%nav_bg%;
+sh /twres/scripts/scolorHandle.sh
+</action>
 					<action function="c_repack"/>
 					<action function="set">c_status={@c_flashing=Flashing} {@recovery=Recovery}</action>
 					<action function="set">c_status={@c_rm_o_files=Removing Old files}</action>
@@ -8421,6 +8436,7 @@ export ctc=%c_text_color%
 export cac=%c_acc_color%
 export cacv=%c_acc_color_val%
 export cnm=%c_notch_mode%
+export scolor=%c_scolor_status%
 export bgSColor=%c_white%
 export txtSColor=%c_black%
 cd /twres/scripts

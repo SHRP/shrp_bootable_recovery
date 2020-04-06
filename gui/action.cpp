@@ -447,6 +447,8 @@ GUIAction::GUIAction(xml_node<>* node)
 		ADD_ACTION(unlock);
 		ADD_ACTION(set_lock);
 		ADD_ACTION(reset_lock);
+		ADD_ACTION(c_scolorHandler);
+		ADD_ACTION(c_scolorExec);
 		ADD_ACTION(c_repack);
 		ADD_ACTION(flashOP);
 		ADD_ACTION(clearInput);
@@ -2978,6 +2980,104 @@ int GUIAction::reset_lock(std::string arg __unused){
 	f=fopen("twres/slts","w");
 	fputs("0",f);
 	fclose(f);
+	return 0;
+}
+int GUIAction::c_scolorHandler(std::string arg __unused){
+	if(!DataManager::GetIntValue("c_scolor_status")){
+		switch(DataManager::GetIntValue("c_text_color")){
+			case 0:
+				DataManager::SetValue("c_scolor","#ffffffff");
+				break;
+			case 1:
+				DataManager::SetValue("c_scolor","#242422");
+				break;
+			case 2:
+				DataManager::SetValue("c_scolor","#0088FF");
+				break;
+			case 3:
+				DataManager::SetValue("c_scolor","#009688");
+				break;
+			case 4:
+				DataManager::SetValue("c_scolor","#795548");
+				break;
+			case 5:
+				DataManager::SetValue("c_scolor","#3F51B5");
+				break;
+			case 6:
+				DataManager::SetValue("c_scolor","#7750FB");
+				break;
+			case 7:
+				DataManager::SetValue("c_scolor","#21EF8B");
+				break;
+			case 8:
+				DataManager::SetValue("c_scolor","#00F2C4");
+				break;
+			case 9:
+				DataManager::SetValue("c_scolor","#FFC000");
+				break;
+			case 10:
+				DataManager::SetValue("c_scolor","#ED6F01");
+				break;
+			case 11:
+				DataManager::SetValue("c_scolor","#FF5353");
+				break;
+			case 12:
+				DataManager::SetValue("c_scolor","#E53935");
+				break;
+			case 13:
+				DataManager::SetValue("c_scolor","#FD0F60");
+				break;
+			case 14:
+				DataManager::SetValue("c_scolor","#FF0095");
+				break;
+		}
+		switch(DataManager::GetIntValue("c_bgc")){
+			case 0:
+				DataManager::SetValue("c_white","#ffffffff");
+				DataManager::SetValue("nav_bg","#fafafa");
+				break;
+			case 1:
+				DataManager::SetValue("c_white","#00021f");
+				DataManager::SetValue("nav_bg","#0D0F2A");
+				break;
+			case 2:
+				DataManager::SetValue("c_white","#242038");
+				DataManager::SetValue("nav_bg","#2F2B42");
+				break;
+			case 3:
+				DataManager::SetValue("c_white","#191919");
+				DataManager::SetValue("nav_bg","#252525");
+				break;
+			case 4:
+				DataManager::SetValue("c_white","#010101");
+				DataManager::SetValue("nav_bg","#0E0E0E");
+				break;
+		}
+	}
+	return 0;
+}
+int GUIAction::c_scolorExec(std::string arg){
+	if(!DataManager::GetIntValue("c_scolor_status")){
+		TWFunc::Exec_Cmd(arg);
+	}else{
+		switch(DataManager::GetIntValue("c_bgc")){
+			case 0:
+				TWFunc::Exec_Cmd("cp /twres/c_bg/white.xml /twres/bg_res.xml;");
+				break;
+			case 1:
+				TWFunc::Exec_Cmd("cp /twres/c_bg/wetasphalt.xml /twres/bg_res.xml;");
+				break;
+			case 2:
+				TWFunc::Exec_Cmd("cp /twres/c_bg/midnightblue.xml /twres/bg_res.xml;");
+				break;
+			case 3:
+				TWFunc::Exec_Cmd("cp /twres/c_bg/dark.xml /twres/bg_res.xml;");
+				break;
+			case 4:
+				TWFunc::Exec_Cmd("cp /twres/c_bg/black.xml /twres/bg_res.xml;");
+				break;
+		}
+	}
 	return 0;
 }
 int GUIAction::c_repack(std::string arg __unused){

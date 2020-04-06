@@ -381,6 +381,8 @@ protected:
 	int unlock(std::string arg);
 	int set_lock(std::string arg);
 	int reset_lock(std::string arg);
+	int c_scolorHandler(std::string arg);
+	int c_scolorExec(std::string arg);
 	int c_repack(std::string arg);
 	int flashOP(std::string arg);
 	int clearInput(std::string arg);
