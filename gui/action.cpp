@@ -2581,6 +2581,7 @@ exit:
 	operation_end(op_status);
 	return 0;
 }
+
 //SHRP_GUI_Funcs()
 int GUIAction::shrp_init(std::string arg __unused){
 	LOGINFO("Running GUI function : shrp_init\n");
@@ -2602,6 +2603,7 @@ int GUIAction::shrp_init(std::string arg __unused){
 	LOGINFO("Closed : shrp_init\n");
 	return 0;
 }
+
 int GUIAction::shrp_magisk_info(std::string arg __unused){
 	TWFunc::Exec_Cmd("sh /twres/scripts/magisk_ver.sh");
 	string core_only_1="/cache/.disable_magisk";
@@ -2633,6 +2635,7 @@ int GUIAction::shrp_magisk_info(std::string arg __unused){
 	}
 	return 0;
 }
+
 int GUIAction::shrp_magisk_msc(std::string arg __unused){//SHRP Magisk Module Status Checker
 	string magisk_path,module_name;
 	DataManager::GetValue("c_magisk_path", magisk_path);
@@ -2645,6 +2648,7 @@ int GUIAction::shrp_magisk_msc(std::string arg __unused){//SHRP Magisk Module St
 	}
 	return 0;
 }
+
 int GUIAction::shrp_magisk_mi(std::string arg __unused){//SHRP Magisk Module Information Gatherer
 	char chr[50];
 	string name,version,author,module_path,path_1;
@@ -2675,6 +2679,7 @@ int GUIAction::shrp_magisk_mi(std::string arg __unused){//SHRP Magisk Module Inf
 	DataManager::SetValue("c_mm_author",author);
 	return 0;
 }
+
 int GUIAction::shrp_magisk_um(std::string arg __unused){//SHRP Magisk Module Uninstaller
 	string magisk_path,module_name,cmd;
 	string shrp_path;
@@ -2689,6 +2694,7 @@ int GUIAction::shrp_magisk_um(std::string arg __unused){//SHRP Magisk Module Uni
 	TWFunc::Exec_Cmd(cmd);
 	return 0;
 }
+
 int GUIAction::flashlight(std::string arg __unused){
 	LOGINFO("Running GUI function : flashlight\n");
 	string cmd,max_b,trigger;
@@ -2870,6 +2876,7 @@ int GUIAction::sig(std::string arg __unused){
 	}
 	return 0;
 }
+
 string create_sha256(const string str)
 {
     unsigned char hash[SHA256_DIGEST_LENGTH];
@@ -2939,6 +2946,7 @@ int GUIAction::unlock(std::string arg){
 	}
 	return 0;
 }
+
 string create_salt( size_t length ){
     static std::string chrs = "0123456789"
         "abcdefghijklmnopqrstuvwxyz"
@@ -2975,6 +2983,7 @@ int GUIAction::set_lock(std::string arg){
 	}
 	return 0;
 }
+
 int GUIAction::reset_lock(std::string arg __unused){
 	FILE *f;
 	f=fopen("twres/slts","w");
@@ -2982,6 +2991,7 @@ int GUIAction::reset_lock(std::string arg __unused){
 	fclose(f);
 	return 0;
 }
+
 int GUIAction::c_scolorHandler(std::string arg __unused){
 	if(!DataManager::GetIntValue("c_scolor_status")){
 		switch(DataManager::GetIntValue("c_text_color")){
@@ -3056,6 +3066,7 @@ int GUIAction::c_scolorHandler(std::string arg __unused){
 	}
 	return 0;
 }
+
 int GUIAction::c_scolorExec(std::string arg){
 	if(!DataManager::GetIntValue("c_scolor_status")){
 		TWFunc::Exec_Cmd(arg);
@@ -3080,6 +3091,7 @@ int GUIAction::c_scolorExec(std::string arg){
 	}
 	return 0;
 }
+
 int GUIAction::c_repack(std::string arg __unused){
 #ifdef SHRP_EXPRESS
 	TWFunc::shrpResExp("/twres/",PartitionManager.Get_Android_Root_Path()+"/etc/shrp/");
@@ -3130,6 +3142,7 @@ int GUIAction::c_repack(std::string arg __unused){
 	}
 	return 0;
 }
+
 int GUIAction::flashOP(std::string arg){
 	int p,s=0;
 	char tmp[10];
@@ -3158,17 +3171,20 @@ int GUIAction::flashOP(std::string arg){
 	}
 	return 0;
 }
+
 int GUIAction::shrp_zip_init(std::string arg){
 	arg=arg.substr(arg.find_last_of("/")+1,arg.find_last_of(".")-(arg.find_last_of("/")+1));
 	DataManager::SetValue("shrp_zipName",arg.c_str());
 	DataManager::SetValue("shrp_zipFolderName",arg.c_str());
 	return 0;
 }
+
 int GUIAction::clearInput(std::string arg){
 	DataManager::SetValue(arg.c_str(),"");
 	PageManager::ChangePage("backupname1");
 	return 0;
 }
+
 int GUIAction::navHandler(std::string arg){
 	string a="cp -a /twres/c_nav_sub/";
 	string c="/. /twres/images/;";
@@ -3209,6 +3225,7 @@ int GUIAction::navHandler(std::string arg){
 	TWFunc::Exec_Cmd(cmd);
 	return 0;
 }
+
 int GUIAction::unZipSelector(std::string arg){
 	int x=arg.find_last_of("/")+1;
 	string zipName=arg.substr(x,arg.find_last_of(".")-x);
@@ -3234,6 +3251,7 @@ int GUIAction::unZipSelector(std::string arg){
 	}
 	return 0;
 }
+
 int GUIAction::txtEditor(std::string arg){
 	textEditor t;
 	string path=DataManager::GetStrValue("tw_filename1");
@@ -3284,6 +3302,7 @@ int GUIAction::txtEditor(std::string arg){
 	}
 	return 0;
 }
+
 int GUIAction::execSTheme(std::string arg){
 	ThemeParser tp;
 	int x=arg.find_last_of("/")+1;
