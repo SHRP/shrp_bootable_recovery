@@ -1260,13 +1260,12 @@ int GUIAction::flash(std::string arg){
 	int active_slot = 0;
 	int inject_shrp = 0;
 	int mkinject_zip = 0;
-    backup_before_flash();
     if (DataManager::GetIntValue(TW_HAS_DEVICEAB) == 1 && DataManager::GetIntValue(TW_ACTIVE_SLOT_INSTALL) == 1) {
 			TWFunc::Exec_Cmd("setprop tw_active_slot_install 1");
 			active_slot = 1;
     }
     if (DataManager::GetIntValue(TW_HAS_DEVICEAB) == 1 && DataManager::GetIntValue(TW_INJECT_AFTER_ZIP) == 1) {
-    	TWFunc::Exec_Cmd("setprop tw_inject_after_zip 1");
+    	backup_before_flash();
     	inject_shrp = 1;
     }
     if (DataManager::GetIntValue(TW_HAS_DEVICEAB) == 1 && DataManager::GetIntValue(TW_MKINJECT_AFTER_ZIP) == 1) {
@@ -1309,7 +1308,6 @@ int GUIAction::flash(std::string arg){
 		}
 	}
 	zip_queue_index = 0;
-	reinject_after_flash();
 
 	if (wipe_cache) {
 		gui_msg("zip_wipe_cache=One or more zip requested a cache wipe -- Wiping cache now.");
@@ -1321,6 +1319,7 @@ int GUIAction::flash(std::string arg){
 	// Reset active slot counter to 0
 	if (active_slot == 1) {
 		active_slot = 0;
+		reinject_after_flash();
 		TWFunc::Exec_Cmd("setprop tw_active_slot_install 0");
   }
   if (inject_shrp == 1) {
