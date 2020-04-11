@@ -1265,8 +1265,14 @@ int GUIAction::flash(std::string arg){
 			active_slot = 1;
     }
     if (DataManager::GetIntValue(TW_HAS_DEVICEAB) == 1 && DataManager::GetIntValue(TW_INJECT_AFTER_ZIP) == 1) {
-    	backup_before_flash();
-    	inject_shrp = 1;
+			backup_before_flash();
+			if (TWFunc::Path_Exists("/dev/tmp/shrpinj/old_a/ramdisk.cpio") && TWFunc::Path_Exists("/dev/tmp/shrpinj/old_b/ramdisk.cpio")) {
+				inject_shrp = 1;
+				gui_msg("[i] Backup of both boot imgs done! Proceeding.");
+			} else {
+				gui_msg("[!!] One file doesn't exist, exlcluding injection!!");
+				inject_shrp = 0;
+			}
     }
     if (DataManager::GetIntValue(TW_HAS_DEVICEAB) == 1 && DataManager::GetIntValue(TW_MKINJECT_AFTER_ZIP) == 1) {
     	TWFunc::Exec_Cmd("setprop tw_mkinject_after_zip 1");
@@ -1319,13 +1325,19 @@ int GUIAction::flash(std::string arg){
 	// Reset active slot counter to 0
 	if (active_slot == 1) {
 		active_slot = 0;
-		reinject_after_flash();
 		TWFunc::Exec_Cmd("setprop tw_active_slot_install 0");
   }
   if (inject_shrp == 1) {
 		inject_shrp = 0;
+		if(!reinject_after_flash()) {
+			gui_msg("[!!] Restore failed! Please flash manually a SHRP zip file.");
+		} else {
+			gui_msg("[i] SHRP restored successfully!");
+		}
 		TWFunc::Exec_Cmd("setprop tw_inject_after_zip 0");
-  }
+  } else {
+		gui_msg("[!] Please flash a SHRP zip file manually, SHRP injection failed.");
+	}
   // Remount system as R/W, just in case
 	if(PartitionManager.Is_Mounted_By_Path(PartitionManager.Get_Android_Root_Path())){
 		PartitionManager.UnMount_By_Path(PartitionManager.Get_Android_Root_Path(),false);
