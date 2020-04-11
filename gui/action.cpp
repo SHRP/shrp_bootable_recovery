@@ -1235,41 +1235,9 @@ int GUIAction::fileexists(std::string arg)
 	return 0;
 }
 
-void GUIAction::backup_before_flash()
+int GUIAction::backup_before_flash(std::string arg)
 {
-    char getvalue[PROPERTY_VALUE_MAX];
-    property_get("ro.boot.fastboot", getvalue, "");
-    std::string bootmode(getvalue);
-	if (DataManager::GetIntValue(TW_HAS_INJECTTWRP) == 1 && DataManager::GetIntValue(TW_INJECT_AFTER_ZIP) == 1 && bootmode != "1") {
-		if (simulate) {
-			simulate_progress_bar();
-		} else {
-			TWPartition* Boot = PartitionManager.Find_Partition_By_Path("/boot");
-			std::string target_image = "/tmp/backup_boot_twrp.img";
-			PartitionSettings part_settings;
-			part_settings.Part = Boot;
-			part_settings.Backup_Folder = "/tmp/";
-			part_settings.adbbackup = false;
-			part_settings.generate_digest = false;
-			part_settings.generate_md5 = false;
-			part_settings.PM_Method = PM_BACKUP;
-			part_settings.progress = NULL;
-			pid_t not_a_pid = 0;
-			if (!Boot->Backup(&part_settings, &not_a_pid))
-            {
-            return;
-            }
-			else {
-			    std::string backed_up_image = part_settings.Backup_Folder;
-			    backed_up_image += Boot->Backup_FileName;
-			    target_image = "/tmp/backup_boot_twrp.img";
-			    if (rename(backed_up_image.c_str(), target_image.c_str()) != 0) {
-				    LOGERR("Failed to rename '%s' to '%s'\n", backed_up_image.c_str(), target_image.c_str());
-                }
-			}
-		}
-		gui_msg("done=Done.");
-	}
+		TWFunc::Exec_Cmd("sh /twres/scripts/backup_ab.sh");
 }
 
 int GUIAction::ozip_decrypt(string zip_path)
@@ -1283,38 +1251,9 @@ int GUIAction::ozip_decrypt(string zip_path)
 	return 0;
 }
 
-int GUIAction::reinject_after_flash()
+int GUIAction::reinject_after_flash(std::string arg)
 {
-    char getvalue[PROPERTY_VALUE_MAX];
-    property_get("ro.boot.fastboot", getvalue, "");
-    std::string bootmode(getvalue);
-	if (DataManager::GetIntValue(TW_HAS_INJECTTWRP) == 1 && DataManager::GetIntValue(TW_INJECT_AFTER_ZIP) == 1 && bootmode != "1") {
-        if (!TWFunc::Path_Exists("/tmp/backup_boot_twrp.img")) {
-            LOGERR("Backup image doesn't exist so TWRP is unable to restore it!");
-            return 0;
-        }
-		gui_msg("injecttwrp=Restoring TWRP in boot image...");
-		int op_status = 1;
-		operation_start("Repack Image");
-		if (!simulate)
-		{
-			std::string path = "/tmp/backup_boot_twrp.img";
-			Repack_Options_struct Repack_Options;
-			Repack_Options.Disable_Verity = false;
-			Repack_Options.Disable_Force_Encrypt = false;
-			Repack_Options.Backup_First = false;
-			Repack_Options.Type = REPLACE_RAMDISK;
-			if (!PartitionManager.Repack_Images(path, Repack_Options))
-				return 0;
-            string cmd = "rm -f " + path;
-		    TWFunc::Exec_Cmd(cmd);
-		} else
-			simulate_progress_bar();
-		op_status = 0;
-		operation_end(op_status);
-        return 1;
-	}
-    return 0;
+    TWFunc::Exec_Cmd("sh /twres/scripts/restore_ab.sh");
 }
 
 int GUIAction::flash(std::string arg){
@@ -1370,6 +1309,7 @@ int GUIAction::flash(std::string arg){
 		}
 	}
 	zip_queue_index = 0;
+	reinject_after_flash();
 
 	if (wipe_cache) {
 		gui_msg("zip_wipe_cache=One or more zip requested a cache wipe -- Wiping cache now.");
