@@ -322,7 +322,7 @@ void ThemeParser::fetchInformation(string path){
 }
 bool ThemeParser::verifyColor(string arg){
 	int tmp=arg.length();
-	if((tmp==8||tmp==10)&&arg[0]=='#'){
+	if((tmp==7||tmp==9)&&arg[0]=='#'){
 	}else{
 		LOGINFO("SHRP THEME PARSHER: Incorrect Hex Format..(#)\n");
 		return false;
@@ -3286,13 +3286,14 @@ int GUIAction::txtEditor(std::string arg){
 }
 int GUIAction::execSTheme(std::string arg){
 	ThemeParser tp;
-	int x=arg.find_last_of("/")+1;
-	string themeName=arg.substr(x,arg.find_last_of(".")-x);
+	//int x=arg.find_last_of("/")+1;
+	//string themeName=arg.substr(x,arg.find_last_of(".")-x);
 	TWFunc::Exec_Cmd("mkdir -p /tmp/theme");
 	TWFunc::Exec_Cmd("unzip "+arg+" -d /tmp/theme/");
-	tp.fetchInformation("/tmp/theme/"+themeName+"/st.prop");
+	tp.fetchInformation("/tmp/theme/st.prop");
 	if(tp.verifyInformation()){
 		tp.pushValues();
+		TWFunc::Exec_Cmd("cp -r /tmp/theme/res/* /twres/images/");
 		LOGINFO("SHRP Function execSTheme : Operation Successful\n");
 	}else{
 		LOGINFO("SHRP Function execSTheme : Operation Failed\n");
