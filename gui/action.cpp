@@ -289,7 +289,7 @@ class ThemeParser{
 void ThemeParser::pushValues(){
 	DataManager::SetValue("c_white",bgColor.c_str());
 	DataManager::SetValue("c_black",textColor.c_str());
-	DataManager::SetValue("c_acc_color",accColor.c_str());
+	DataManager::SetValue("c_acc_color_val",accColor.c_str());
 }
 void ThemeParser::processValue(string line,int arg){
 	line=line.substr(line.find_last_of("=")+1,line.length());
@@ -327,12 +327,13 @@ bool ThemeParser::verifyColor(string arg){
 		LOGINFO("SHRP THEME PARSHER: Incorrect Hex Format..(#)\n");
 		return false;
 	}
-	tmp=-2;
+	tmp--;
+	//tmp=-2;
 	while(tmp!=0){
-		/*if(!(arg[tmp]=='1'||arg[tmp]=='2'||arg[tmp]=='3'||arg[tmp]=='4'||arg[tmp]=='5'||arg[tmp]=='6'||arg[tmp]=='7'||arg[tmp]=='8'||arg[tmp]=='9'||arg[tmp]=='0'||arg[tmp]=='A'||arg[tmp]=='a'||arg[tmp]=='B'||arg[tmp]=='b'||arg[tmp]=='C'||arg[tmp]=='c'||arg[tmp]=='D'||arg[tmp]=='d'||arg[tmp]=='E'||arg[tmp]=='e'||arg[tmp]=='F'||arg[tmp]=='f')){
+		if(!(arg[tmp]=='1'||arg[tmp]=='2'||arg[tmp]=='3'||arg[tmp]=='4'||arg[tmp]=='5'||arg[tmp]=='6'||arg[tmp]=='7'||arg[tmp]=='8'||arg[tmp]=='9'||arg[tmp]=='0'||arg[tmp]=='A'||arg[tmp]=='a'||arg[tmp]=='B'||arg[tmp]=='b'||arg[tmp]=='C'||arg[tmp]=='c'||arg[tmp]=='D'||arg[tmp]=='d'||arg[tmp]=='E'||arg[tmp]=='e'||arg[tmp]=='F'||arg[tmp]=='f')){
 			LOGINFO("SHRP THEME PARSHER: Incorrect Hex Format..(value)\n");
 			return false;
-		}*/
+		}
 		tmp--;
 	}
 	return true;
@@ -1234,12 +1235,15 @@ int GUIAction::fileexists(std::string arg)
 		operation_end(1);
 	return 0;
 }
-
-int GUIAction::backup_before_flash(std::string arg)
-{
+#ifdef SHRP_AB
+void backup_before_flash(){
 		TWFunc::Exec_Cmd("sh /twres/scripts/backup_ab.sh");
 }
 
+int reinject_after_flash(){
+    return TWFunc::Exec_Cmd("sh /twres/scripts/restore_ab.sh");
+}
+#endif
 int GUIAction::ozip_decrypt(string zip_path)
 {
 	if (!TWFunc::Path_Exists("/sbin/ozip_decrypt")) {
@@ -1251,15 +1255,11 @@ int GUIAction::ozip_decrypt(string zip_path)
 	return 0;
 }
 
-int GUIAction::reinject_after_flash(std::string arg)
-{
-    TWFunc::Exec_Cmd("sh /twres/scripts/restore_ab.sh");
-}
-
 int GUIAction::flash(std::string arg){
-	int active_slot = 0;
-	int inject_shrp = 0;
 	int mkinject_zip = 0;
+#ifdef SHRP_AB
+	int inject_shrp = 0;
+	int active_slot = 0;
     if (DataManager::GetIntValue(TW_HAS_DEVICEAB) == 1 && DataManager::GetIntValue(TW_ACTIVE_SLOT_INSTALL) == 1) {
 			TWFunc::Exec_Cmd("setprop tw_active_slot_install 1");
 			active_slot = 1;
@@ -1268,9 +1268,9 @@ int GUIAction::flash(std::string arg){
 			backup_before_flash();
 			if (TWFunc::Path_Exists("/dev/tmp/shrpinj/old_a/ramdisk.cpio") && TWFunc::Path_Exists("/dev/tmp/shrpinj/old_b/ramdisk.cpio")) {
 				inject_shrp = 1;
-				gui_msg("[i] Backup of both boot imgs done! Proceeding.");
+				gui_msg(Msg("[i] Backup of both boot imgs done! Proceeding.",0));
 			} else {
-				gui_msg("[!!] One file doesn't exist, exlcluding injection!!");
+				gui_msg(Msg("[!!] One file doesn't exist, exlcluding injection!!",0));
 				inject_shrp = 0;
 			}
     }
@@ -1278,6 +1278,7 @@ int GUIAction::flash(std::string arg){
     	TWFunc::Exec_Cmd("setprop tw_mkinject_after_zip 1");
     	mkinject_zip = 1;
     }
+#endif
 	int i, ret_val = 0, wipe_cache = 0;
 	// We're going to jump to this page first, like a loading page
 	gui_changePage(arg);
@@ -1322,6 +1323,7 @@ int GUIAction::flash(std::string arg){
 
 	// This needs to be after the operation_end call so we change pages before we change variables that we display on the screen
 	DataManager::SetValue(TW_ZIP_QUEUE_COUNT, zip_queue_index);
+#ifdef SHRP_AB
 	// Reset active slot counter to 0
 	if (active_slot == 1) {
 		active_slot = 0;
@@ -1330,14 +1332,16 @@ int GUIAction::flash(std::string arg){
   if (inject_shrp == 1) {
 		inject_shrp = 0;
 		if(!reinject_after_flash()) {
-			gui_msg("[!!] Restore failed! Please flash manually a SHRP zip file.");
+			gui_msg(Msg("[!!] Restore failed! Please flash manually a SHRP zip file.",0));
 		} else {
-			gui_msg("[i] SHRP restored successfully!");
+			gui_msg(Msg("[i] SHRP restored successfully!",0));
 		}
 		TWFunc::Exec_Cmd("setprop tw_inject_after_zip 0");
   } else {
-		gui_msg("[!] Please flash a SHRP zip file manually, SHRP injection failed.");
+		gui_msg(Msg("[!] Please flash a SHRP zip file manually.",0));
+		gui_msg(Msg("[!] SHRP injection failed.",0));
 	}
+#endif
   // Remount system as R/W, just in case
 	if(PartitionManager.Is_Mounted_By_Path(PartitionManager.Get_Android_Root_Path())){
 		PartitionManager.UnMount_By_Path(PartitionManager.Get_Android_Root_Path(),false);
@@ -1371,6 +1375,7 @@ int GUIAction::wipe(std::string arg)
 	int ret_val = false;
 #ifdef SHRP_EXPRESS
 	TWFunc::shrpResExp(PartitionManager.Get_Android_Root_Path()+"/etc/shrp/","/tmp/shrp/");
+	TWFunc::shrpResExp("/sdcard/SHRP/","/tmp/SDATA/");
 #endif
 	if (simulate) {
 		simulate_progress_bar();
@@ -1472,6 +1477,7 @@ int GUIAction::wipe(std::string arg)
 	}
 #ifdef SHRP_EXPRESS
 	TWFunc::shrpResExp("/tmp/shrp/",PartitionManager.Get_Android_Root_Path()+"/etc/shrp/");
+	TWFunc::shrpResExp("/tmp/SDATA/","/sdcard/SHRP/");
 #endif
 	PartitionManager.Update_System_Details();
 	if (ret_val)
