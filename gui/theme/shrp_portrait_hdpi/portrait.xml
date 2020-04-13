@@ -696,10 +696,10 @@
 			</text>
 
 			<checkbox>
-				<condition var1="tw_has_injecttwrp" var2="1"/>
+				<condition var1="tw_has_deviceab" var2="1"/>
 				<placement x="%c_hawk_base_column%" y="1350"/>
-				<text>{@inject_magisk_chk=Inject Magisk after install}</text>
-				<data variable="tw_mkinject_after_zip"/>
+				<text>{@active_slot_install=Install in the active slot}</text>
+				<data variable="tw_active_slot_install"/>
 			</checkbox>
 
 			<checkbox>
@@ -710,12 +710,11 @@
 			</checkbox>
 
 			<checkbox>
-				<condition var1="tw_has_deviceab" var2="1"/>
 				<placement x="%c_hawk_base_column%" y="1500"/>
-				<text>{@active_slot_install=Install in the active slot}</text>
-				<data variable="tw_active_slot_install"/>
+				<text>{@inject_magisk_chk=Inject Magisk after install}</text>
+				<data variable="tw_mkinject_after_zip"/>
 			</checkbox>
-
+			
 			<checkbox>
 				<placement x="%c_hawk_base_column%" y="1575"/>
 				<text>{@zip_sig_chk=Zip signature verification}</text>

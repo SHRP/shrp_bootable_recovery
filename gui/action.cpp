@@ -598,12 +598,6 @@ int GUIAction::flash_zip(std::string filename, int* wipe_cache)
 		LOGERR("No file specified.\n");
 		return -1;
 	}
-#ifdef SHRP_EXPRESS
-	if(DataManager::GetIntValue("c_shrpUpdate")){
-		TWFunc::flushSHRP();
-	}
-	TWFunc::shrpResExp(PartitionManager.Get_Android_Root_Path()+"/etc/shrp/","/tmp/shrp/");
-#endif
 
 	if (!TWFunc::Path_Exists(filename)) {
 		if (!PartitionManager.Mount_By_Path(filename, true)) {
@@ -637,9 +631,6 @@ int GUIAction::flash_zip(std::string filename, int* wipe_cache)
 	// Done
 	DataManager::SetValue("ui_progress", 100);
 	DataManager::SetValue("ui_progress", 0);
-#ifdef SHRP_EXPRESS
-	TWFunc::shrpResExp("/tmp/shrp/",PartitionManager.Get_Android_Root_Path()+"/etc/shrp/");
-#endif
 	return ret_val;
 }
 
@@ -1244,6 +1235,13 @@ int reinject_after_flash(){
     return TWFunc::Exec_Cmd("sh /twres/scripts/restore_ab.sh");
 }
 #endif
+void remountSystem(){
+	if(PartitionManager.Is_Mounted_By_Path(PartitionManager.Get_Android_Root_Path())){
+	  PartitionManager.UnMount_By_Path(PartitionManager.Get_Android_Root_Path(),false);
+	}
+	TWFunc::Exec_Cmd("mount -w "+PartitionManager.Get_Android_Root_Path());
+	gui_msg("remount_system_rw=[i] Remounted system as R/W!");
+}
 int GUIAction::ozip_decrypt(string zip_path)
 {
 	if (!TWFunc::Path_Exists("/sbin/ozip_decrypt")) {
@@ -1257,31 +1255,39 @@ int GUIAction::ozip_decrypt(string zip_path)
 
 int GUIAction::flash(std::string arg){
 	int mkinject_zip = 0;
-#ifdef SHRP_AB
-	int inject_shrp = 0;
-	int active_slot = 0;
-    if (DataManager::GetIntValue(TW_HAS_DEVICEAB) == 1 && DataManager::GetIntValue(TW_ACTIVE_SLOT_INSTALL) == 1) {
-			TWFunc::Exec_Cmd("setprop tw_active_slot_install 1");
-			active_slot = 1;
-    }
-    if (DataManager::GetIntValue(TW_HAS_DEVICEAB) == 1 && DataManager::GetIntValue(TW_INJECT_AFTER_ZIP) == 1) {
-			backup_before_flash();
-			if (TWFunc::Path_Exists("/dev/tmp/shrpinj/old_a/ramdisk.cpio") && TWFunc::Path_Exists("/dev/tmp/shrpinj/old_b/ramdisk.cpio")) {
-				inject_shrp = 1;
-				gui_msg(Msg("[i] Backup of both boot imgs done! Proceeding.",0));
-			} else {
-				gui_msg(Msg("[!!] One file doesn't exist, exlcluding injection!!",0));
-				inject_shrp = 0;
-			}
-    }
-    if (DataManager::GetIntValue(TW_HAS_DEVICEAB) == 1 && DataManager::GetIntValue(TW_MKINJECT_AFTER_ZIP) == 1) {
-    	TWFunc::Exec_Cmd("setprop tw_mkinject_after_zip 1");
-    	mkinject_zip = 1;
-    }
-#endif
 	int i, ret_val = 0, wipe_cache = 0;
 	// We're going to jump to this page first, like a loading page
 	gui_changePage(arg);
+	//SHRP Start
+#ifdef SHRP_AB
+	int inject_shrp = 0;
+	int active_slot = 0;
+	if (DataManager::GetIntValue(TW_HAS_DEVICEAB) == 1 && DataManager::GetIntValue(TW_ACTIVE_SLOT_INSTALL) == 1) {
+		TWFunc::Exec_Cmd("setprop tw_active_slot_install 1");
+		active_slot = 1;
+	}
+	if (DataManager::GetIntValue(TW_HAS_DEVICEAB) == 1 && DataManager::GetIntValue(TW_INJECT_AFTER_ZIP) == 1) {
+		backup_before_flash();
+		if (TWFunc::Path_Exists("/dev/tmp/shrpinj/old_a/ramdisk.cpio") && TWFunc::Path_Exists("/dev/tmp/shrpinj/old_b/ramdisk.cpio")) {
+			inject_shrp = 1;
+			gui_msg(Msg("[i] Backup of both boot imgs done! Proceeding.",0));
+		} else {
+			gui_msg(Msg("[!!] One file doesn't exist, exlcluding injection!!",0));
+			inject_shrp = 0;
+		}
+	}
+	if (DataManager::GetIntValue(TW_HAS_DEVICEAB) == 1 && DataManager::GetIntValue(TW_MKINJECT_AFTER_ZIP) == 1) {
+	    TWFunc::Exec_Cmd("setprop tw_mkinject_after_zip 1");
+	    mkinject_zip = 1;
+	}
+#endif
+#ifdef SHRP_EXPRESS
+	if(DataManager::GetIntValue("c_shrpUpdate")){
+		TWFunc::flushSHRP();
+	}
+	TWFunc::shrpResExp(PartitionManager.Get_Android_Root_Path()+"/etc/shrp/","/tmp/shrp/");
+#endif
+	//SHRP END
 	for (i=0; i<zip_queue_index; i++) {
 		string zip_path = zip_queue[i];
 		size_t slashpos = zip_path.find_last_of('/');
@@ -1343,11 +1349,7 @@ int GUIAction::flash(std::string arg){
 	}
 #endif
   // Remount system as R/W, just in case
-	if(PartitionManager.Is_Mounted_By_Path(PartitionManager.Get_Android_Root_Path())){
-		PartitionManager.UnMount_By_Path(PartitionManager.Get_Android_Root_Path(),false);
-	}
-	TWFunc::Exec_Cmd("mount -w "+PartitionManager.Get_Android_Root_Path());
-	gui_msg("remount_system_rw=[i] Remounted system as R/W!");
+	remountSystem();
   // Inject Magisk
   if (mkinject_zip == 1) {
 		mkinject_zip = 0;
@@ -1357,12 +1359,11 @@ int GUIAction::flash(std::string arg){
 		ret_val = flash_zip("/sdcard/SHRP/addons/c_magisk.zip", &wipe_cache);
 		TWFunc::SetPerformanceMode(false);
 		//Re-inject system again, just in case
-		if(PartitionManager.Is_Mounted_By_Path(PartitionManager.Get_Android_Root_Path())){
-			PartitionManager.UnMount_By_Path(PartitionManager.Get_Android_Root_Path(),false);
-		}
-		TWFunc::Exec_Cmd("mount -w "+PartitionManager.Get_Android_Root_Path());
-		gui_msg("remount_system_rw=[i] Remounted system as R/W!");
+		remountSystem();
   }
+#ifdef SHRP_EXPRESS
+	TWFunc::shrpResExp("/tmp/shrp/",PartitionManager.Get_Android_Root_Path()+"/etc/shrp/");
+#endif
 	PartitionManager.Update_System_Details();
 	operation_end(ret_val);
 	return 0;
