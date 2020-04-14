@@ -196,6 +196,12 @@ void disp_info(){
 	DataManager::GetValue("device_code_name",tmp);
 	tmp="|Device - "+tmp;
 	gui_msg(Msg(tmp.c_str(),0));
+#ifdef SHRP_BUILD_DATE
+	stringstream date(EXPAND(SHRP_BUILD_DATE));
+	date>>tmp;
+	tmp="|Build - "+tmp;
+	gui_msg(Msg(tmp.c_str(),0));
+#endif
 }
 
 int main(int argc, char **argv) {
