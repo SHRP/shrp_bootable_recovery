@@ -21,7 +21,7 @@ test "$tmp/old_b";
 
 # Let's backup new boot imgs firstly
 for slot in a b; do
-  $slot=_$slot;
+  slot=_$slot;
   cd new$slot;
   dd if=$target$slot of=boot.img;
   magiskboot unpack -h boot.img;
