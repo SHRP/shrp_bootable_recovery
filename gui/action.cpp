@@ -1,4 +1,4 @@
-/*
++/*
 	Copyright 2013 bigbiff/Dees_Troy TeamWin
 	This file is part of TWRP/TeamWin Recovery Project.
 
@@ -862,7 +862,9 @@ int GUIAction::restoredefaultsettings(std::string arg __unused)
 	if (simulate) // Simulated so that people don't accidently wipe out the "simulation is on" setting
 		gui_msg("simulating=Simulating actions...");
 	else {
+#ifdef SHRP_EXPRESS
 		TWFunc::flushSHRP();
+#endif
 		DataManager::ResetDefaults();
 		PartitionManager.Update_System_Details();
 		PartitionManager.Mount_Current_Storage(true);
