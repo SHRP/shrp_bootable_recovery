@@ -30,7 +30,7 @@ done
 
 # Fun part: replace every ramdisk.cpio, then reflash everything
 for slot in a b; do
-  $slot=_$slot;
+  slot=_$slot;
   rm -rf new$slot/ramdisk.cpio;
   mv old$slot/ramdisk.cpio new$slot/ramdisk.cpio;
 
