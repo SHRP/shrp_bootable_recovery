@@ -1226,6 +1226,7 @@ int GUIAction::fileexists(std::string arg)
 		operation_end(1);
 	return 0;
 }
+
 #ifdef SHRP_AB
 void backup_before_flash(){
 		TWFunc::Exec_Cmd("sh /twres/scripts/backup_ab.sh");
@@ -1235,6 +1236,7 @@ int reinject_after_flash(){
     return TWFunc::Exec_Cmd("sh /twres/scripts/restore_ab.sh");
 }
 #endif
+
 void remountSystem(){
 	if(PartitionManager.Is_Mounted_By_Path(PartitionManager.Get_Android_Root_Path())){
 	  PartitionManager.UnMount_By_Path(PartitionManager.Get_Android_Root_Path(),false);
