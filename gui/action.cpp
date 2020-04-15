@@ -1349,7 +1349,7 @@ int GUIAction::flash(std::string arg){
 		TWFunc::Exec_Cmd("setprop tw_inject_after_zip 0");
   } else {
 		gui_msg(Msg("[!] Please flash a SHRP zip file manually.",0));
-		gui_msg(Msg("[!] SHRP injection failed.",0));
+		gui_msg(Msg("[!] SHRP injection aborted/failed.",0));
 	}
 #endif
   // Remount system as R/W, just in case
