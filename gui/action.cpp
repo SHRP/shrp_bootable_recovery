@@ -1261,7 +1261,7 @@ int GUIAction::flash(std::string arg){
 	// We're going to jump to this page first, like a loading page
 	gui_changePage(arg);
 	//SHRP Start
-#ifdef SHRP_AB
+	#ifdef SHRP_AB
 	int inject_shrp = 0;
 	int active_slot = 0;
 	if (DataManager::GetIntValue(TW_HAS_DEVICEAB) == 1 && DataManager::GetIntValue(TW_ACTIVE_SLOT_INSTALL) == 1) {
@@ -1278,11 +1278,11 @@ int GUIAction::flash(std::string arg){
 			inject_shrp = 0;
 		}
 	}
-	if (DataManager::GetIntValue(TW_HAS_DEVICEAB) == 1 && DataManager::GetIntValue(TW_MKINJECT_AFTER_ZIP) == 1) {
+	#endif
+	if (DataManager::GetIntValue(TW_MKINJECT_AFTER_ZIP) == 1) {
 	    TWFunc::Exec_Cmd("setprop tw_mkinject_after_zip 1");
 	    mkinject_zip = 1;
 	}
-#endif
 #ifdef SHRP_EXPRESS
 	if(DataManager::GetIntValue("c_shrpUpdate")){
 		TWFunc::flushSHRP();
