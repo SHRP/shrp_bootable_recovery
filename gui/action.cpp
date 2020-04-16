@@ -1,4 +1,4 @@
-+/*
+/*
 	Copyright 2013 bigbiff/Dees_Troy TeamWin
 	This file is part of TWRP/TeamWin Recovery Project.
 
@@ -276,18 +276,19 @@ class ThemeParser{
 	private:
 		string themeName;
 		string bgColor;
+		string navBgColor;
 		string accColor;
 		string textColor;
 		void processValue(string,int);
 		bool verifyColor(string);
 	public:
-		//void dispInformation();
 		void fetchInformation(string);
 		bool verifyInformation();
 		void pushValues();
 };
 void ThemeParser::pushValues(){
 	DataManager::SetValue("c_white",bgColor.c_str());
+	DataManager::SetValue("nav_bg",navBgColor.c_str());
 	DataManager::SetValue("c_black",textColor.c_str());
 	DataManager::SetValue("c_acc_color_val",accColor.c_str());
 }
@@ -295,18 +296,17 @@ void ThemeParser::processValue(string line,int arg){
 	line=line.substr(line.find_last_of("=")+1,line.length());
 	switch(arg){
 		case 0:themeName=line;
-			LOGINFO("SHRP THEME PARSHER: Value %s\n",themeName.c_str());
 		break;
 		case 1:bgColor=line;
-			LOGINFO("SHRP THEME PARSHER: Value %s\n",bgColor.c_str());
 		break;
-		case 2:accColor=line;
-			LOGINFO("SHRP THEME PARSHER: Value %s\n",accColor.c_str());
+		case 2:navBgColor=line;
 		break;
-		case 3:textColor=line;
-			LOGINFO("SHRP THEME PARSHER: Value %s\n",textColor.c_str());
+		case 3:accColor=line;
+		break;
+		case 4:textColor=line;
 		break;
 	}
+	LOGINFO("SHRP THEME PARSHER: %s\t %s\t %s\t %s\t %s\n",themeName.c_str(),bgColor.c_str(),navBgColor.c_str(),accColor.c_str(),textColor.c_str());
 }
 void ThemeParser::fetchInformation(string path){
 	string tmp;

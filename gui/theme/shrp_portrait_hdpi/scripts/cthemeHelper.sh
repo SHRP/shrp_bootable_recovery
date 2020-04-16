@@ -11,7 +11,7 @@ cat > /twres/bg_res.xml <<EOF
 	</details>
 	<variables>
 		<variable name="c_white" value="$bgSColor"/>
-		<variable name="nav_bg" value="#fafafa"/>
+		<variable name="nav_bg" value="$navBgColor"/>
 	</variables>
 </recovery>
 EOF

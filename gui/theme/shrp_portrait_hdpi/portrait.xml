@@ -714,7 +714,7 @@
 				<text>{@inject_magisk_chk=Inject Magisk after install}</text>
 				<data variable="tw_mkinject_after_zip"/>
 			</checkbox>
-			
+
 			<checkbox>
 				<placement x="%c_hawk_base_column%" y="1575"/>
 				<text>{@zip_sig_chk=Zip signature verification}</text>
@@ -8437,6 +8437,7 @@ export cacv=%c_acc_color_val%
 export cnm=%c_notch_mode%
 export scolor=%c_scolor_status%
 export bgSColor=%c_white%
+export navBgColor=%nav_bg%
 export txtSColor=%c_black%
 cd /twres/scripts
 sh statusbar_trigger_scripts.sh
