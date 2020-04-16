@@ -2,8 +2,7 @@
 # Backup script for SHRP injection
 # Part of this code belongs to TWRP's update-binary
 
-# Let's set a quick escape room in case of errors.
-set -e;
+ui_print() { $BOOTMODE && echo "$1" || echo -e "ui_print $1\nui_print" >> $OUTFD; }
 
 # target partition without the slot suffix
 target=/dev/block/bootdevice/by-name/boot;
@@ -25,8 +24,8 @@ mkdir new_b;
 for slot in a b; do
   slot=_$slot;
   cd old$slot;
-  dd if=$target$slot of=boot.img;
-  magiskboot unpack -h boot.img;
-  rm -rf header kernel kernel_dtb boot.img;
+  dd if=$target$slot of=boot$slot.img;
+  magiskboot unpack -n -h boot$slot.img;
+  rm -rf header kernel kernel_dtb boot$slot.img;
   cd $tmp;
 done;
