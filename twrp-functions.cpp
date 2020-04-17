@@ -1434,7 +1434,7 @@ void TWFunc::flushSHRP(){
 #endif
 string TWFunc::getSHRPBasePath(){
 	if(!PartitionManager.Is_Mounted_By_Path(PartitionManager.Get_Android_Root_Path())){
-		PartitionManager.Mount_By_Path(PartitionManager.Get_Android_Root_Path(),false);
+		Exec_Cmd("mount -w "+PartitionManager.Get_Android_Root_Path());
 	}
 	if(Path_Exists(PartitionManager.Get_Android_Root_Path()+"/system")){
 		return (PartitionManager.Get_Android_Root_Path()+"/system");
