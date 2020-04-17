@@ -1417,13 +1417,14 @@ bool TWFunc::shrpResExp(string inPath,string outPath){
 	return opStatus;
 }
 void TWFunc::flushSHRP(){
+	string basePath=getSHRPBasePath();
 	if(!PartitionManager.Is_Mounted_By_Path(PartitionManager.Get_Android_Root_Path())){
 		Exec_Cmd("mount -w "+PartitionManager.Get_Android_Root_Path());
 	}
-	if(Path_Exists(PartitionManager.Get_Android_Root_Path()+"/etc/shrp")){
-		Exec_Cmd("cp -r "+PartitionManager.Get_Android_Root_Path()+"/etc/shrp/slts /tmp/");
-		Exec_Cmd("rm -r "+PartitionManager.Get_Android_Root_Path()+"/etc/shrp/*");
-		Exec_Cmd("cp -r /tmp/slts "+PartitionManager.Get_Android_Root_Path()+"/etc/shrp/");
+	if(Path_Exists(basePath+"/etc/shrp")){
+		Exec_Cmd("cp -r "+basePath+"/etc/shrp/slts /tmp/");
+		Exec_Cmd("rm -r "+basePath+"/etc/shrp/*");
+		Exec_Cmd("cp -r /tmp/slts "+basePath+"/etc/shrp/");
 	}
 	if(Path_Exists("/tmp/shrp")){
 		Exec_Cmd("rm -rf /tmp/shrp");
@@ -1431,3 +1432,13 @@ void TWFunc::flushSHRP(){
 	PartitionManager.UnMount_By_Path(PartitionManager.Get_Android_Root_Path(),false);
 }
 #endif
+string TWFunc::getSHRPBasePath(){
+	if(!PartitionManager.Is_Mounted_By_Path(PartitionManager.Get_Android_Root_Path())){
+		PartitionManager.Mount_By_Path(PartitionManager.Get_Android_Root_Path(),false);
+	}
+	if(Path_Exists(PartitionManager.Get_Android_Root_Path()+"/system")){
+		return (PartitionManager.Get_Android_Root_Path()+"/system");
+	}else{
+		return (PartitionManager.Get_Android_Root_Path());
+	}
+}

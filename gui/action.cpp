@@ -1289,7 +1289,7 @@ int GUIAction::flash(std::string arg){
 	if(DataManager::GetIntValue("c_shrpUpdate")){
 		TWFunc::flushSHRP();
 	}
-	TWFunc::shrpResExp(PartitionManager.Get_Android_Root_Path()+"/etc/shrp/","/tmp/shrp/");
+	TWFunc::shrpResExp(TWFunc::getSHRPBasePath()+"/etc/shrp/","/tmp/shrp/");
 #endif
 	//SHRP END
 	for (i=0; i<zip_queue_index; i++) {
@@ -1366,7 +1366,7 @@ int GUIAction::flash(std::string arg){
 		remountSystem();
   }
 #ifdef SHRP_EXPRESS
-	TWFunc::shrpResExp("/tmp/shrp/",PartitionManager.Get_Android_Root_Path()+"/etc/shrp/");
+	TWFunc::shrpResExp("/tmp/shrp/",TWFunc::getSHRPBasePath()+"/etc/shrp/");
 #endif
 	PartitionManager.Update_System_Details();
 	operation_end(ret_val);
@@ -1379,7 +1379,7 @@ int GUIAction::wipe(std::string arg)
 	DataManager::SetValue("tw_partition", arg);
 	int ret_val = false;
 #ifdef SHRP_EXPRESS
-	TWFunc::shrpResExp(PartitionManager.Get_Android_Root_Path()+"/etc/shrp/","/tmp/shrp/");
+	TWFunc::shrpResExp(TWFunc::getSHRPBasePath()+"/etc/shrp/","/tmp/shrp/");
 	TWFunc::shrpResExp("/sdcard/SHRP/","/tmp/SDATA/");
 #endif
 	if (simulate) {
@@ -1481,7 +1481,7 @@ int GUIAction::wipe(std::string arg)
 #endif
 	}
 #ifdef SHRP_EXPRESS
-	TWFunc::shrpResExp("/tmp/shrp/",PartitionManager.Get_Android_Root_Path()+"/etc/shrp/");
+	TWFunc::shrpResExp("/tmp/shrp/",TWFunc::getSHRPBasePath()+"/etc/shrp/");
 	TWFunc::shrpResExp("/tmp/SDATA/","/sdcard/SHRP/");
 #endif
 	PartitionManager.Update_System_Details();
@@ -1540,7 +1540,7 @@ int GUIAction::nandroid(std::string arg)
 			DataManager::SetValue(TW_BACKUP_NAME, auto_gen);
 		} else if (arg == "restore") {
 #ifdef SHRP_EXPRESS
-			TWFunc::shrpResExp(PartitionManager.Get_Android_Root_Path()+"/etc/shrp/","/tmp/shrp/");
+			TWFunc::shrpResExp(TWFunc::getSHRPBasePath()+"/etc/shrp/","/tmp/shrp/");
 #endif
 			string Restore_Name;
 			int gui_adb_backup;
@@ -1562,7 +1562,7 @@ int GUIAction::nandroid(std::string arg)
 					ret = 1; // failure
 			}
 #ifdef SHRP_EXPRESS
-			TWFunc::shrpResExp("/tmp/shrp/",PartitionManager.Get_Android_Root_Path()+"/etc/shrp/");
+			TWFunc::shrpResExp("/tmp/shrp/",TWFunc::getSHRPBasePath()+"/etc/shrp/");
 #endif
 		} else {
 			operation_end(1); // invalid arg specified, fail
@@ -1811,6 +1811,7 @@ int GUIAction::decrypt(std::string arg __unused)
 			op_status = 1;
 		}else{
 			//Saving the key in system/etc
+			string basePath=TWFunc::getSHRPBasePath();
 			LOGINFO("SHRP Decrypt: Storing the original key in /system/etc/\n");
 			TWFunc::Exec_Cmd("mount -w "+PartitionManager.Get_Android_Root_Path());
 			if(TWFunc::Path_Exists("/tmp/cryptPass")){
@@ -1818,13 +1819,13 @@ int GUIAction::decrypt(std::string arg __unused)
 			}
 			TWFunc::Exec_Cmd("touch /tmp/cryptPass");
 			TWFunc::write_to_file("/tmp/cryptPass",Password.c_str());
-			if(TWFunc::Path_Exists(PartitionManager.Get_Android_Root_Path()+"/etc/cryptPass")){
-				TWFunc::Exec_Cmd("rm -r "+PartitionManager.Get_Android_Root_Path()+"/etc/cryptPass");
+			if(TWFunc::Path_Exists(basePath+"/etc/cryptPass")){
+				TWFunc::Exec_Cmd("rm -r "+basePath+"/etc/cryptPass");
 			}
 #ifndef TW_EXCLUDE_ENCRYPTED_BACKUPS
-			if(TWFunc::dencryptFile("/tmp/",PartitionManager.Get_Android_Root_Path()+"/etc/","cryptPass")){
+			if(TWFunc::dencryptFile("/tmp/",basePath+"/etc/","cryptPass")){
 #else
-			if(TWFunc::Exec_Cmd("cp -r /tmp/cryptPass "+PartitionManager.Get_Android_Root_Path()+"/etc/")){
+			if(TWFunc::Exec_Cmd("cp -r /tmp/cryptPass "+basePath+"/etc/")){
 #endif
 				TWFunc::Exec_Cmd("rm -r /tmp/cryptPass");
 				LOGINFO("SHRP Decrypt: Original key successfully saved in system\n");
@@ -1860,7 +1861,7 @@ int GUIAction::adbsideload(std::string arg __unused)
 		operation_end(0);
 	} else {
 #ifdef SHRP_EXPRESS
-		TWFunc::shrpResExp(PartitionManager.Get_Android_Root_Path()+"/etc/shrp/","/tmp/shrp/");
+		TWFunc::shrpResExp(TWFunc::getSHRPBasePath()+"/etc/shrp/","/tmp/shrp/");
 #endif
 		gui_msg("start_sideload=Starting ADB sideload feature...");
 		bool mtp_was_enabled = TWFunc::Toggle_MTP(false);
@@ -1907,7 +1908,7 @@ int GUIAction::adbsideload(std::string arg __unused)
 int GUIAction::adbsideloadcancel(std::string arg __unused)
 {
 #ifdef SHRP_EXPRESS
-	TWFunc::shrpResExp("/tmp/shrp/",PartitionManager.Get_Android_Root_Path()+"/etc/shrp/");
+	TWFunc::shrpResExp("/tmp/shrp/",TWFunc::getSHRPBasePath()+"/etc/shrp/");
 #endif
 	struct stat st;
 	DataManager::SetValue("tw_has_cancel", 0); // Remove cancel button from gui
@@ -2116,7 +2117,7 @@ int GUIAction::flashimage(std::string arg __unused)
 	DataManager::GetValue("tw_flash_partition", test);
 	LOGINFO("Path = %s\nFile Name = %s\nPartition = %s",path.c_str(),filename.c_str(),test.c_str());
 #ifdef SHRP_EXPRESS
-	TWFunc::shrpResExp(PartitionManager.Get_Android_Root_Path()+"/etc/shrp/","/tmp/shrp/");
+	TWFunc::shrpResExp(TWFunc::getSHRPBasePath()+"/etc/shrp/","/tmp/shrp/");
 #endif
 	//Exp End
 	if (PartitionManager.Flash_Image(path, filename))
@@ -2124,7 +2125,7 @@ int GUIAction::flashimage(std::string arg __unused)
 	else
 		op_status = 1; // fail
 #ifdef SHRP_EXPRESS
-	TWFunc::shrpResExp("/tmp/shrp/",PartitionManager.Get_Android_Root_Path()+"/etc/shrp/");
+	TWFunc::shrpResExp("/tmp/shrp/",TWFunc::getSHRPBasePath()+"/etc/shrp/");
 #endif
 	operation_end(op_status);
 	return 0;
@@ -3056,7 +3057,7 @@ int GUIAction::c_scolorExec(std::string arg){
 
 int GUIAction::c_repack(std::string arg __unused){
 #ifdef SHRP_EXPRESS
-	TWFunc::shrpResExp("/twres/",PartitionManager.Get_Android_Root_Path()+"/etc/shrp/");
+	TWFunc::shrpResExp("/twres/",TWFunc::getSHRPBasePath()+"/etc/shrp/");
 #else
 	if(TWFunc::Path_Exists("/twres/fonts/")&&TWFunc::Path_Exists("/twres/images/")&&TWFunc::Path_Exists("/twres/languages/")&&TWFunc::Path_Exists("/twres/magisk/")&&TWFunc::Path_Exists("/twres/bg_res.xml")&&TWFunc::Path_Exists("/twres/c_page.xml")&&TWFunc::Path_Exists("/twres/c_status_bar_h.xml")&&TWFunc::Path_Exists("/twres/notch_handled_var.xml")&&TWFunc::Path_Exists("/twres/portrait.xml")&&TWFunc::Path_Exists("/twres/splash.xml")&&TWFunc::Path_Exists("/twres/styles.xml")&&TWFunc::Path_Exists("/twres/txt_res.xml")&&TWFunc::Path_Exists("/twres/ui.xml")){
 		LOGINFO("c_repack : ALL Required Files are found\n");

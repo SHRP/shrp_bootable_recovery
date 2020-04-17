@@ -261,8 +261,9 @@ int main(int argc, char **argv) {
 		return -1;
 	}
 	PartitionManager.Output_Partition_Logging();
+	string basePath=TWFunc::getSHRPBasePath();
 #ifdef SHRP_EXPRESS
-	TWFunc::shrpResExp(PartitionManager.Get_Android_Root_Path()+"/etc/shrp/","/twres/");
+	TWFunc::shrpResExp(basePath+"/etc/shrp/","/twres/");
 #endif
 	printf("Starting the UI...\n");
 	gui_init();
@@ -377,7 +378,7 @@ int main(int argc, char **argv) {
 #endif
 */
 #ifdef SHRP_EXPRESS
-	TWFunc::shrpResExp(PartitionManager.Get_Android_Root_Path()+"/etc/shrp/","/twres/");
+	TWFunc::shrpResExp(basePath+"/etc/shrp/","/twres/");
 #endif
 	// Offer to decrypt if the device is encrypted
 	if (DataManager::GetIntValue(TW_IS_ENCRYPTED) != 0) {
@@ -388,17 +389,17 @@ int main(int argc, char **argv) {
 	    std::string Password;
 	    TWFunc::Exec_Cmd("mount -w "+PartitionManager.Get_Android_Root_Path());
 	    LOGINFO("SHRP Decrypt: Seaching for decryption key\n");
-	    if(TWFunc::Path_Exists(PartitionManager.Get_Android_Root_Path()+"/etc/cryptPass")){
+	    if(TWFunc::Path_Exists(basePath+"/etc/cryptPass")){
 	      LOGINFO("SHRP Decrypt: Decryption key found\n");
 #ifndef TW_EXCLUDE_ENCRYPTED_BACKUPS
-	      TWFunc::read_file(TWFunc::dencryptFile(PartitionManager.Get_Android_Root_Path()+"/etc/","cryptPass"),Password);
+	      TWFunc::read_file(TWFunc::dencryptFile(basePath+"/etc/","cryptPass"),Password);
 				TWFunc::Exec_Cmd("rm -r /tmp/cryptPass");
 #else
-				TWFunc::read_file(PartitionManager.Get_Android_Root_Path()+"/etc/cryptPass",Password);
+				TWFunc::read_file(basePath+"/etc/cryptPass",Password);
 #endif
 	      if(PartitionManager.Decrypt_Device(Password)!=0){
 	        LOGINFO("SHRP Decrypt: Decryption key not matched with the original key\n");
-	        TWFunc::Exec_Cmd("rm -r "+PartitionManager.Get_Android_Root_Path()+"/etc/cryptPass");
+	        TWFunc::Exec_Cmd("rm -r "+basePath+"/etc/cryptPass");
 					LOGINFO("SHRP Decrypt: Removed incorrect key which are already saved in system\n");
 	        if (gui_startPage("decrypt", 1, 1) != 0) {
 	          LOGERR("Failed to start decrypt GUI page.\n");
