@@ -1341,10 +1341,10 @@ int GUIAction::flash(std::string arg){
   }
   if (inject_shrp == 1) {
 		inject_shrp = 0;
-		if(!reinject_after_flash()) {
-			gui_msg(Msg("[!!] Restore failed! Please flash manually a SHRP zip file.",0));
-		} else {
+		if(reinject_after_flash()) {
 			gui_msg(Msg("[i] SHRP restored successfully!",0));
+		} else {
+			gui_msg(Msg("[!!] Restore failed! Please flash manually a SHRP zip file.",0));
 		}
 		TWFunc::Exec_Cmd("setprop tw_inject_after_zip 0");
   } else {
