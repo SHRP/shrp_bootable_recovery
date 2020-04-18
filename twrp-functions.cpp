@@ -1433,12 +1433,20 @@ void TWFunc::flushSHRP(){
 }
 #endif
 string TWFunc::getSHRPBasePath(){
+	int x=0;
 	if(!PartitionManager.Is_Mounted_By_Path(PartitionManager.Get_Android_Root_Path())){
+		x=1;
 		Exec_Cmd("mount -w "+PartitionManager.Get_Android_Root_Path());
 	}
 	if(Path_Exists(PartitionManager.Get_Android_Root_Path()+"/system")){
+		if(x){
+				PartitionManager.UnMount_By_Path(PartitionManager.Get_Android_Root_Path(),false);
+		}
 		return (PartitionManager.Get_Android_Root_Path()+"/system");
 	}else{
+		if(x){
+				PartitionManager.UnMount_By_Path(PartitionManager.Get_Android_Root_Path(),false);
+		}
 		return (PartitionManager.Get_Android_Root_Path());
 	}
 }

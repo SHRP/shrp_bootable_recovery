@@ -2720,7 +2720,8 @@
 				<listitem name="{@c_dev_mode=Dev mode}">
 					<data variable="c_devMode"/>
 				</listitem>
-				<listitem name="Corona lock protection">
+				<listitem name="Disable SHRP Theme Survival">
+					<condition var1="av_express" op="=" var2="1"/>
 					<data variable="c_shrpUpdate"/>
 				</listitem>
 			</listbox>
@@ -4204,6 +4205,7 @@
 				<conditions>
 					<condition var1="password_before" op="=" var2="password_before_2"/>
 					<condition var1="shrp_ab" op="=" var2="0"/>
+					<condition var1="av_express" op="=" var2="0"/>
 				</conditions>
 				<placement x="860" y="1628"/>
 				<image resource="c_ok"/>
@@ -4233,6 +4235,7 @@ sh /twres/scripts/create_env.sh;
 				<conditions>
 					<condition var1="password_before" op="=" var2="password_before_2"/>
 					<condition var1="shrp_ab" op="=" var2="1"/>
+					<condition var1="av_express" op="=" var2="0"/>
 				</conditions>
 				<placement x="860" y="1628"/>
 				<image resource="c_ok"/>
@@ -4250,6 +4253,31 @@ sh /twres/scripts/create_env.sh;
 					<action function="cmd">
 sh /twres/scripts/create_envAB.sh;
 					</action>
+					<action function="set">c_status={@c_flashing=Flashing} {@recovery=Recovery}</action>
+					<action function="c_repack"/>
+					<action function="set">c_status={@done=Done}</action>
+					<action function="set">c_busy=0</action>
+					<action function="page">set_pass_successful</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="password_before" op="=" var2="password_before_2"/>
+					<condition var1="av_express" op="=" var2="1"/>
+				</conditions>
+				<placement x="860" y="1628"/>
+				<image resource="c_ok"/>
+				<actions>
+					<action function="set">c_busy=1</action>
+					<action function="set">main_pass=%password_before_2%</action>
+					<action function="set">lock_enabled=1</action>
+					<action function="set">patt_lock_enabled=1</action>
+					<action function="set">c_new=0</action>
+					<action function="set">c_new_pattern=0</action>
+					<action function="set">password_before=</action>
+					<action function="set">password_before_2=</action>
+					<action function="set">c_status={@c_repacking=Repacking} {@recovery=Recovery}</action>
+					<action function="set_lock">2</action>
 					<action function="set">c_status={@c_flashing=Flashing} {@recovery=Recovery}</action>
 					<action function="c_repack"/>
 					<action function="set">c_status={@done=Done}</action>
@@ -4285,6 +4313,7 @@ sh /twres/scripts/create_envAB.sh;
 				<conditions>
 					<condition var1="password_before" op="=" var2="password_before_2"/>
 					<condition var1="shrp_ab" op="=" var2="0"/>
+					<condition var1="av_express" op="=" var2="0"/>
 				</conditions>
 				<placement x="860" y="1628"/>
 				<image resource="c_ok"/>
@@ -4314,6 +4343,7 @@ sh /twres/scripts/create_env.sh;
 				<conditions>
 					<condition var1="password_before" op="=" var2="password_before_2"/>
 					<condition var1="shrp_ab" op="=" var2="1"/>
+					<condition var1="av_express" op="=" var2="0"/>
 				</conditions>
 				<placement x="860" y="1628"/>
 				<image resource="c_ok"/>
@@ -4331,6 +4361,31 @@ sh /twres/scripts/create_env.sh;
 					<action function="cmd">
 sh /twres/scripts/create_envAB.sh;
 					</action>
+					<action function="set">c_status={@c_flashing=Flashing} {@recovery=Recovery}</action>
+					<action function="c_repack"/>
+					<action function="set">c_status={@done=Done}</action>
+					<action function="set">c_busy=0</action>
+					<action function="page">set_pass_successful</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="password_before" op="=" var2="password_before_2"/>
+					<condition var1="av_express" op="=" var2="1"/>
+				</conditions>
+				<placement x="860" y="1628"/>
+				<image resource="c_ok"/>
+				<actions>
+					<action function="set">c_busy=1</action>
+					<action function="set">main_pass=%password_before_2%</action>
+					<action function="set">lock_enabled=1</action>
+					<action function="set">patt_lock_enabled=0</action>
+					<action function="set">c_new=0</action>
+					<action function="set">c_new_pattern=0</action>
+					<action function="set">password_before=</action>
+					<action function="set">password_before_2=</action>
+					<action function="set">c_status={@c_repacking=Repacking} {@recovery=Recovery}</action>
+					<action function="set_lock">1</action>
 					<action function="set">c_status={@c_flashing=Flashing} {@recovery=Recovery}</action>
 					<action function="c_repack"/>
 					<action function="set">c_status={@done=Done}</action>
@@ -5887,7 +5942,10 @@ mkdir -p %FolderName%
 			  </actions>
 			</button>
 			<button>
-			  <condition var1="isThemeFile" op="=" var2="1"/>
+				<conditions>
+			  	<condition var1="av_express" op="=" var2="1"/>
+					<condition var1="isThemeFile" op="=" var2="1"/>
+				</conditions>
 			  <placement x="424" y="%dash_ico_4th_row%"/>
 			  <image resource="c_factory_reset"/>
 			  <font resource="c_dashboard_text_sort" color="%c_black%"/>
@@ -8046,6 +8104,7 @@ cp /twres/c_dash_ico/aex/*.png /twres/images/;
 				<conditions>
 					<condition var1="c_temp3" op="!=" var2="78"/>
 					<condition var1="shrp_ab" op="=" var2="0"/>
+					<condition var1="av_express" op="=" var2="0"/>
 				</conditions>
 				<image resource="c_theme_init_s" highlightresource="c_theme_init_s_hr"/>
 				<actions>
@@ -8064,6 +8123,7 @@ sh /twres/scripts/create_env.sh;
 				<conditions>
 					<condition var1="c_temp3" op="!=" var2="78"/>
 					<condition var1="shrp_ab" op="=" var2="1"/>
+					<condition var1="av_express" op="=" var2="0"/>
 				</conditions>
 				<image resource="c_theme_init_s" highlightresource="c_theme_init_s_hr"/>
 				<actions>
@@ -8072,6 +8132,22 @@ sh /twres/scripts/create_env.sh;
 					<action function="cmd">
 cp -r /twres /tmp/bak/;
 sh /twres/scripts/create_envAB.sh;
+					</action>
+					<action function="page">c_new_shrp_theme_dashboard</action>
+				</actions>
+			</button>
+			<button>
+				<placement x="379" y="1620"/>
+				<conditions>
+					<condition var1="c_temp3" op="!=" var2="78"/>
+					<condition var1="av_express" op="=" var2="1"/>
+				</conditions>
+				<image resource="c_theme_init_s" highlightresource="c_theme_init_s_hr"/>
+				<actions>
+					<action function="set">c_status={@c_init=Initializing}</action>
+					<action function="set">c_temp3=78</action>
+					<action function="cmd">
+cp -r /twres /tmp/bak/;
 					</action>
 					<action function="page">c_new_shrp_theme_dashboard</action>
 				</actions>

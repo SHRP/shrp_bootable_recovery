@@ -945,6 +945,12 @@ void DataManager::SetDefaultValues()
 	mConst.SetValue("c_batteryIco", 1020);
 #endif
 
+#ifdef SHRP_EXPRESS
+	mConst.SetValue("av_express", 1);
+#else
+	mConst.SetValue("av_express", 0);
+#endif
+
 #ifdef TW_INCLUDE_CRYPTO
 	mPersist.SetValue(TW_USE_SHA2, "1");
 	mPersist.SetValue(TW_NO_SHA2, "0");
