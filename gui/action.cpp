@@ -1287,7 +1287,9 @@ int GUIAction::flash(std::string arg){
 	}
 #ifdef SHRP_EXPRESS
 	if(DataManager::GetIntValue("c_shrpUpdate")){
+		LOGINFO("SHRP FLUSH: Started\n");
 		TWFunc::flushSHRP();
+		LOGINFO("SHRP FLUSH: Ended\n");
 	}
 	TWFunc::shrpResExp(TWFunc::getSHRPBasePath()+"/etc/shrp/","/tmp/shrp/");
 #endif
@@ -3193,7 +3195,6 @@ int GUIAction::unZipSelector(std::string arg){
 	int x=arg.find_last_of("/")+1;
 	string zipName=arg.substr(x,arg.find_last_of(".")-x);
 	arg=arg.substr(arg.find_last_of("."),arg.length());
-	LOGINFO("After Folder Name: %s",zipName.c_str());
 	DataManager::SetValue("shrpUnzipFolder",zipName.c_str());
 	if(arg==".zip"){
 		DataManager::SetValue("isThemeFile","0");
