@@ -2714,16 +2714,6 @@
 					<condition var1="tw_no_sha2" var2="0"/>
 					<data variable="tw_use_sha2"/>
 				</listitem>
-				<listitem name="{@c_show_lc=Show date on lockscreen}">
-					<data variable="c_dateview"/>
-				</listitem>
-				<listitem name="{@c_dev_mode=Dev mode}">
-					<data variable="c_devMode"/>
-				</listitem>
-				<listitem name="Disable SHRP Theme Survival">
-					<condition var1="av_express" op="=" var2="1"/>
-					<data variable="c_shrpUpdate"/>
-				</listitem>
 			</listbox>
 			<button style="c_circle4">
 				<placement x="860" y="1628"/>
@@ -2819,12 +2809,12 @@
 			</action>
 		</page>
 
-		<page name="settings_screen">
+		<page name="settings_device">
 			<template name="c_page"/>
 			<template name="c_status_bar"/>
 			<text style="c_main_text_header">
 				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
-				<text>{@settings_screen_btn=Screen}</text>
+				<text>{@c_device=Device}</text>
 			</text>
 			<template name="c_tab_settings"/>
 			<button>
@@ -2875,6 +2865,36 @@
 				</actions>
 			</slidervalue>
 
+			<!--Vibration-->
+			<text style="c_sub">
+				<placement x="%c_hawk_base_column%" y="%sub_head_mid%"/>
+				<text>{@button_vibration=Button Vibration:} %tw_button_vibrate%</text>
+			</text>
+			<slidervalue>
+				<placement x="%c_hawk_base_column%" y="%t_5th_checkbox_pos%" w="%file_selector_default_w%"/>
+				<text></text>
+				<data variable="tw_button_vibrate" min="0" max="300"/>
+			</slidervalue>
+			<text style="c_sub">
+				<placement x="%c_hawk_base_column%" y="%ca_10%"/>
+				<text>{@kb_vibration=Keyboard Vibration:} %tw_keyboard_vibrate%</text>
+			</text>
+			<slidervalue>
+				<placement x="%c_hawk_base_column%" y="%t_3rd_heading%" w="%file_selector_default_w%"/>
+				<text></text>
+				<data variable="tw_keyboard_vibrate" min="0" max="300"/>
+			</slidervalue>
+
+			<text style="c_sub">
+				<placement x="%c_hawk_base_column%" y="%ca_13%"/>
+				<text>{@act_vibration=Action Vibration:} %tw_action_vibrate%</text>
+			</text>
+			<slidervalue>
+				<placement x="%c_hawk_base_column%" y="%t_6th_row%" w="%file_selector_default_w%"/>
+				<text></text>
+				<data variable="tw_action_vibrate" min="0" max="500"/>
+			</slidervalue>
+
 
 			<action>
 				<touch key="home"/>
@@ -2887,44 +2907,28 @@
 			</action>
 		</page>
 
-		<page name="settings_vibration">
+		<page name="settings_shrp">
 			<template name="c_page"/>
 			<template name="c_status_bar"/>
 			<text style="c_main_text_header">
 				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
-				<text>{@settings_vibration_btn=Vibration}</text>
+				<text>SHRP</text>
 			</text>
 			<template name="c_tab_settings"/>
-			<text style="c_sub">
-				<placement x="%c_hawk_base_column%" y="%c_custom_pos_1%"/>
-				<text>{@button_vibration=Button Vibration:} %tw_button_vibrate%</text>
-			</text>
-			<slidervalue>
-				<placement x="%c_hawk_base_column%" y="%c_custom_pos_2%" w="%file_selector_default_w%"/>
-				<text></text>
-				<data variable="tw_button_vibrate" min="0" max="300"/>
-			</slidervalue>
-			<text style="c_sub">
-				<placement x="%c_hawk_base_column%" y="%dash_ico_2nd_row%"/>
-				<text>{@kb_vibration=Keyboard Vibration:} %tw_keyboard_vibrate%</text>
-			</text>
-			<slidervalue>
-				<placement x="%c_hawk_base_column%" y="%settings_2nd_slider_y%" w="%file_selector_default_w%"/>
-				<text></text>
-				<data variable="tw_keyboard_vibrate" min="0" max="300"/>
-			</slidervalue>
-			<text style="c_sub">
-				<placement x="%c_hawk_base_column%" y="%sub_head_mid%"/>
-				<text>{@act_vibration=Action Vibration:} %tw_action_vibrate%</text>
-			</text>
-
-			<slidervalue>
-				<placement x="%c_hawk_base_column%" y="%t_5th_checkbox_text_pos%" w="%file_selector_default_w%"/>
-				<text></text>
-				<data variable="tw_action_vibrate" min="0" max="500"/>
-			</slidervalue>
-
-
+			<listbox style="scrolllist">
+				<placement x="%c_hawk_base_column%" y="%c_text_sub_y2%" w="%file_selector_default_w%" h="%settings_main_list_h%"/>
+				<icon selected="checkbox_true" unselected="checkbox_false"/>
+				<listitem name="{@c_show_lc=Show date on lockscreen}">
+					<data variable="c_dateview"/>
+				</listitem>
+				<listitem name="{@c_dev_mode=Dev mode}">
+					<data variable="c_devMode"/>
+				</listitem>
+				<listitem name="Disable SHRP Theme Survival">
+					<condition var1="av_express" op="=" var2="1"/>
+					<data variable="c_shrpUpdate"/>
+				</listitem>
+			</listbox>
 			<action>
 				<touch key="home"/>
 				<action function="page">c_refresh</action>

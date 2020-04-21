@@ -402,14 +402,14 @@
 
 			<button style="c_tab_set">
 				<placement x="536" y="%c_tab_row%"/>
-				<text>{@settings_screen_btn=Screen}</text>
-				<action function="page">settings_screen</action>
+				<text>{@c_device=Device}</text>
+				<action function="page">settings_device</action>
 			</button>
 
 			<button style="c_tab_set">
 				<placement x="807" y="%c_tab_row%"/>
-				<text>{@settings_vibration_btn=Vibration}</text>
-				<action function="page">settings_vibration</action>
+				<text>SHRP</text>
+				<action function="page">settings_shrp</action>
 			</button>
 		</template>
 		<template name="c_tab_backup_options">
