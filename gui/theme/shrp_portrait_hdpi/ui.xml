@@ -122,6 +122,7 @@
 		<image name="c_flashlight_off" filename="c_flashlight_off" retainaspect="1"/>
 		<image name="c_flashlight_on" filename="c_flashlight_on" retainaspect="1"/>
 		<image name="c_epicxsort" filename="c_epicxsort" retainaspect="1"/>
+		<image name="c_dateSort" filename="c_dateSort" retainaspect="1"/>
 		<image name="c_modules" filename="c_modules" retainaspect="1"/>
 		<image name="white_mode_color" filename="white_mode_color" retainaspect="1"/>
 		<image name="dark_black_mode_color" filename="dark_black_mode_color" retainaspect="1"/>
@@ -460,16 +461,29 @@
 		<template name="c_simple_sort">
 			<background color="%c_white%"/>
 			<button>
-				<condition var1="tw_gui_sort_order" op="=" var2="1"/>
-				<placement x="920" y="%sort_button_y%"/>
+				<condition var1="tw_gui_sort_order" op="!=" var2="-1"/>
+				<placement x="776" y="%sort_button_y%"/>
 				<image resource="c_epicxsort"/>
 				<action function="set">tw_gui_sort_order=-1</action>
 			</button>
 			<button>
-				<condition var1="tw_gui_sort_order" op="=" var2="-1"/>
-				<placement x="920" y="%sort_button_y%"/>
+				<condition var1="tw_gui_sort_order" op="!=" var2="1"/>
+				<placement x="776" y="%sort_button_y%"/>
 				<image resource="c_epicxsort"/>
 				<action function="set">tw_gui_sort_order=1</action>
+			</button>
+
+			<button>
+				<condition var1="tw_gui_sort_order" op="!=" var2="-2"/>
+				<placement x="920" y="%sort_button_y%"/>
+				<image resource="c_dateSort"/>
+				<action function="set">tw_gui_sort_order=-2</action>
+			</button>
+			<button>
+				<condition var1="tw_gui_sort_order" op="!=" var2="2"/>
+				<placement x="920" y="%sort_button_y%"/>
+				<image resource="c_dateSort"/>
+				<action function="set">tw_gui_sort_order=2</action>
 			</button>
 		</template>
 		<template name="c_reboot_page">

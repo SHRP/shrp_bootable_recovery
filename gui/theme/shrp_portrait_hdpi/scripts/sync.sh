@@ -109,6 +109,7 @@ magiskboot cpio ramdisk.cpio \
 "add 750 twres/images/c_download_mode.png /twres/images/c_download_mode.png" \
 "add 750 twres/images/c_edl_mode.png /twres/images/c_edl_mode.png" \
 "add 750 twres/images/c_epicxsort.png /twres/images/c_epicxsort.png" \
+"add 750 twres/images/c_dateSort.png /twres/images/c_dateSort.png" \
 "add 750 twres/images/c_file_back.png /twres/images/c_file_back.png" \
 "add 750 twres/images/c_line.png /twres/images/c_line.png" \
 "add 750 twres/images/c_menu.png /twres/images/c_menu.png" \
