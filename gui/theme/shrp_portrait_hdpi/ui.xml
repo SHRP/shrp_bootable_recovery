@@ -412,59 +412,7 @@
 				<action function="page">settings_shrp</action>
 			</button>
 		</template>
-		<template name="c_tab_backup_options">
-			<button style="c_tab">
-				<placement x="480" y="%backup_tab_y%"/>
-				<text>{@backup_hdr=Backup}</text>
-				<action function="page">backup</action>
-			</button>
-			<button style="c_tab">
-				<conditions>
-					<condition var1="tw_include_encrypted_backup" var2="1"/>
-					<condition var1="tw_encrypt_backup" var2="0"/>
-					<condition var1="tw_enable_adb_backup" op="!=" var2="1"/>
-				</conditions>
-				<placement x="760" y="%backup_tab_y%"/>
-				<text>{@encryption_tab=Encryption}</text>
-				<actions>
-					<action function="set">tw_password_not_match=0</action>
-					<action function="page">backupencryption</action>
-				</actions>
-			</button>
-		</template>
-		<template name="c_tab_encryption">
-			<button style="c_tab">
-				<placement x="530" y="%backup_tab_y%"/>
-				<text>{@backup_hdr=Backup}</text>
-				<action function="page">backup</action>
-			</button>
 
-			<button style="c_tab">
-				<placement x="780" y="%backup_tab_y%"/>
-				<text>{@options_hdr=Options}</text>
-				<action function="page">backup_options</action>
-			</button>
-		</template>
-		<template name="c_tab_backup">
-			<button style="c_tab">
-				<placement x="430" y="%backup_tab_y%"/>
-				<text>{@options_hdr=Options}</text>
-				<action function="page">backup_options</action>
-			</button>
-			<button style="c_tab">
-				<conditions>
-					<condition var1="tw_include_encrypted_backup" var2="1"/>
-					<condition var1="tw_encrypt_backup" var2="0"/>
-					<condition var1="tw_enable_adb_backup" op="!=" var2="1"/>
-				</conditions>
-				<placement x="710" y="%backup_tab_y%"/>
-				<text>{@encryption_tab=Encryption}</text>
-				<actions>
-					<action function="set">tw_password_not_match=0</action>
-					<action function="page">backupencryption</action>
-				</actions>
-			</button>
-		</template>
 		<template name="c_lock">
 			<background color="%semi_transparent%"/>
 			<button>

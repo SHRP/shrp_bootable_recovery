@@ -1724,7 +1724,6 @@
 				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
 				<text>{@backup_hdr=Backup}</text>
 			</text>
-			<template name="c_tab_backup"/>
 
 			<text style="c_text_dashboard">
 				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
@@ -1751,14 +1750,29 @@
 			</partitionlist>
 
 			<button>
-				<condition var1="tw_enable_adb_backup" op="!=" var2="1"/>
-				<placement x="860" y="1450"/>
-				<image resource="c_storage"/>
-				<actions>
-					<action function="set">tw_back=backup</action>
-					<action function="overlay">select_storage</action>
-				</actions>
+			  <placement x="55" y="1645"/>
+			  <image resource="c_factory_reset"/>
+			  <font resource="c_dashboard_text_sort" color="%c_black%"/>
+			  <text>{@options_hdr=Options}</text>
+			  <action function="page">backup_options</action>
 			</button>
+
+			<button>
+			  <placement x="424" y="1645"/>
+				<conditions>
+					<condition var1="tw_include_encrypted_backup" var2="1"/>
+					<condition var1="tw_encrypt_backup" var2="0"/>
+					<condition var1="tw_enable_adb_backup" op="!=" var2="1"/>
+				</conditions>
+			  <image resource="c_factory_reset"/>
+			  <font resource="c_dashboard_text_sort" color="%c_black%"/>
+			  <text>{@encryption_tab=Encryption}</text>
+			  <actions>
+			    <action function="set">tw_password_not_match=0</action>
+			    <action function="page">backupencryption</action>
+			  </actions>
+			</button>
+
 
 			<button>
 				<placement x="860" y="1270"/>
@@ -1766,6 +1780,16 @@
 				<actions>
 					<action function="refreshsizes"/>
 					<action function="page">backup</action>
+				</actions>
+			</button>
+
+			<button>
+				<condition var1="tw_enable_adb_backup" op="!=" var2="1"/>
+				<placement x="860" y="1450"/>
+				<image resource="c_storage"/>
+				<actions>
+					<action function="set">tw_back=backup</action>
+					<action function="overlay">select_storage</action>
 				</actions>
 			</button>
 
@@ -1797,7 +1821,6 @@
 				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
 				<text>{@storage_hdr=Storage: %tw_storage_display_name% (%tw_storage_free_size% MB)}</text>
 			</text>
-			<template name="c_tab_backup_options"/>
 			<checkbox>
 				<placement x="%c_hawk_base_column%" y="%file_selector_default_y%"/>
 				<text>{@enable_backup_comp_chk=Enable compression}</text>
@@ -1954,8 +1977,6 @@
 				<text>{@enter_pass=Enter Password:}</text>
 			</text>
 
-			<template name="c_tab_encryption"/>
-
 			<input>
 				<placement x="60" y="%t_1st_heading%" w="%file_selector_default_w%" h="%input_height%"/>
 				<text>%tw_backup_encrypt_display%</text>
@@ -2004,10 +2025,9 @@
 				<placement x="%c_hawk_base_column%" y="%c_text_sub_y%"/>
 				<text>{@enter_pass_again=Enter Password again: }</text>
 			</text>
-			<template name="c_tab_encryption"/>
 
 			<input>
-				<placement x="50" y="%c_text_sub_y_spec%" w="%file_selector_default_w%" h="%input_height%"/>
+				<placement x="60" y="%t_1st_heading%" w="%file_selector_default_w%" h="%input_height%"/>
 				<text>%tw_backup_encrypt_display2%</text>
 				<data name="tw_backup_password2" mask="*" maskvariable="tw_backup_encrypt_display2"/>
 				<restrict minlen="1" maxlen="32" allow="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_"/>
