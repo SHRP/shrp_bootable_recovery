@@ -154,7 +154,12 @@ ifeq ($(TW_EXTRA_LANGUAGES),true)
     TWRP_RES += $(LOCAL_PATH)/theme/extra-languages/fonts
     TWRP_RES += $(LOCAL_PATH)/theme/extra-languages/languages
 endif
-TW_THEME := shrp_portrait_hdpi
+
+ifeq ($(SHRP_DARK),true)
+	TW_THEME := shrp_dark_portrait_hdpi
+else
+	TW_THEME := shrp_portrait_hdpi
+endif
 
 TWRP_THEME_LOC := $(LOCAL_PATH)/theme/$(TW_THEME)
 
