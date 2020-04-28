@@ -216,6 +216,10 @@
 		<image name="kb_arrow_right" filename="kb_arrow_right" retainaspect="1"/>
 		<image name="kb_arrow_up" filename="kb_arrow_up" retainaspect="1"/>
 		<image name="kb_arrow_down" filename="kb_arrow_down" retainaspect="1"/>
+		<image name="c_displayTxt" filename="c_displayTxt" retainaspect="1"/>
+		<image name="c_editTxt" filename="c_editTxt" retainaspect="1"/>
+		<image name="c_removeLine" filename="c_removeLine" retainaspect="1"/>
+		<image name="c_applyCustomTheme" filename="c_applyCustomTheme" retainaspect="1"/>
 	</resources>
 
 	<variables>

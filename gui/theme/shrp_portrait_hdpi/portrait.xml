@@ -1724,6 +1724,11 @@
 				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
 				<text>{@backup_hdr=Backup}</text>
 			</text>
+			<button>
+				<placement x="920" y="%sort_button_y%"/>
+				<image resource="c_epicxsort"/>
+				<action function="page">backup_options</action>
+			</button>
 
 			<text style="c_text_dashboard">
 				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
@@ -1750,23 +1755,13 @@
 			</partitionlist>
 
 			<button>
-			  <placement x="55" y="1645"/>
-			  <image resource="c_factory_reset"/>
-			  <font resource="c_dashboard_text_sort" color="%c_black%"/>
-			  <text>{@options_hdr=Options}</text>
-			  <action function="page">backup_options</action>
-			</button>
-
-			<button>
-			  <placement x="424" y="1645"/>
+			  <placement x="860" y="1090"/>
 				<conditions>
 					<condition var1="tw_include_encrypted_backup" var2="1"/>
 					<condition var1="tw_encrypt_backup" var2="0"/>
 					<condition var1="tw_enable_adb_backup" op="!=" var2="1"/>
 				</conditions>
-			  <image resource="c_factory_reset"/>
-			  <font resource="c_dashboard_text_sort" color="%c_black%"/>
-			  <text>{@encryption_tab=Encryption}</text>
+			  <image resource="c_reset_lock"/>
 			  <actions>
 			    <action function="set">tw_password_not_match=0</action>
 			    <action function="page">backupencryption</action>
@@ -5917,65 +5912,80 @@ mkdir -p %FolderName%
 			</text>
 			<template name="c_status_bar"/>
 			<!--ExperimentalStart-->
+
 			<text style="c_sub">
 			  <condition var1="is_textFile" op="=" var2="1"/>
-			  <placement x="%c_hawk_base_column%" y="%t_2nd_radio_pos%"/>
+			  <placement x="%c_hawk_base_column%" y="%c_text_sub_y_spec%"/>
 			  <text>{@options_hdr=Options}</text>
 			</text>
-			<button>
-			  <condition var1="is_textFile" op="=" var2="1"/>
-			  <placement x="55" y="%dash_ico_2nd_row%"/>
-			  <image resource="c_factory_reset"/>
-			  <font resource="c_dashboard_text_sort" color="%c_black%"/>
-			  <text>Remove Line</text>
-			  <actions>
-					<action function="set">c_para=6</action>
-			    <action function="page">pageLine</action>
-			  </actions>
-			</button>
-			<button>
-			  <condition var1="is_textFile" op="=" var2="1"/>
-			  <placement x="424" y="%dash_ico_2nd_row%"/>
-			  <image resource="c_factory_reset"/>
-			  <font resource="c_dashboard_text_sort" color="%c_black%"/>
-			  <text>Display Text</text>
-			  <actions>
-			    <action function="txtEditor">1</action>
-			  </actions>
-			</button>
-			<button>
-			  <condition var1="is_textFile" op="=" var2="1"/>
-			  <placement x="55" y="%dash_ico_4th_row%"/>
-			  <image resource="c_factory_reset"/>
-			  <font resource="c_dashboard_text_sort" color="%c_black%"/>
-			  <text>Replace Line</text>
-			  <actions>
-					<action function="set">c_para=2</action>
-			    <action function="page">pageLine</action>
-			  </actions>
-			</button>
-			<button>
-			  <condition var1="is_textFile" op="=" var2="1"/>
-			  <placement x="424" y="%dash_ico_4th_row%"/>
-			  <image resource="c_factory_reset"/>
-			  <font resource="c_dashboard_text_sort" color="%c_black%"/>
-			  <text>Add Line</text>
-			  <actions>
-					<action function="set">c_para=4</action>
-			    <action function="page">pageLine</action>
-			  </actions>
-			</button>
-			<button>
+
+			<text style="c_sub">
 				<conditions>
 			  	<condition var1="av_express" op="=" var2="1"/>
 					<condition var1="isThemeFile" op="=" var2="1"/>
 				</conditions>
-			  <placement x="424" y="%dash_ico_4th_row%"/>
-			  <image resource="c_factory_reset"/>
-			  <font resource="c_dashboard_text_sort" color="%c_black%"/>
-			  <text>Apply Theme</text>
-			  <actions>
+			  <placement x="%c_hawk_base_column%" y="%c_text_sub_y_spec%"/>
+			  <text>{@options_hdr=Options}</text>
+			</text>
+
+			<button>
+			  <placement x="60" y="%t_1st_heading%" textplacement="6"/>
+				<conditions>
+			  	<condition var1="av_express" op="=" var2="1"/>
+					<condition var1="isThemeFile" op="=" var2="1"/>
+				</conditions>
+				<font resource="font_m" color="%c_black%"/>
+			  <text>Apply theme</text>
+			  <image resource="c_applyCustomTheme"/>
+				<actions>
 			    <action function="page">c_customThemeApply</action>
+			  </actions>
+			</button>
+
+			<button>
+			  <placement x="60" y="%t_1st_heading%" textplacement="6"/>
+			  <font resource="font_m" color="%c_black%"/>
+			  <condition var1="is_textFile" op="=" var2="1"/>
+			  <text>Display text</text>
+			  <image resource="c_displayTxt"/>
+				<actions>
+			    <action function="txtEditor">1</action>
+			  </actions>
+			</button>
+
+			<button>
+			  <placement x="60" y="%t_1st_radio_text_pos%" textplacement="6"/>
+			  <font resource="font_m" color="%c_black%"/>
+			  <condition var1="is_textFile" op="=" var2="1"/>
+			  <text>Add line</text>
+			  <image resource="c_editTxt"/>
+				<actions>
+					<action function="set">c_para=4</action>
+			    <action function="page">pageLine</action>
+			  </actions>
+			</button>
+
+			<button>
+			  <placement x="60" y="%t_2nd_radio_text_pos%" textplacement="6"/>
+			  <font resource="font_m" color="%c_black%"/>
+			  <condition var1="is_textFile" op="=" var2="1"/>
+			  <text>Replace line</text>
+			  <image resource="c_editTxt"/>
+				<actions>
+					<action function="set">c_para=2</action>
+			    <action function="page">pageLine</action>
+			  </actions>
+			</button>
+
+			<button>
+			  <placement x="60" y="%t_3rd_radio_text_pos%" textplacement="6"/>
+			  <font resource="font_m" color="%c_black%"/>
+			  <condition var1="is_textFile" op="=" var2="1"/>
+			  <text>Remove line</text>
+			  <image resource="c_removeLine"/>
+				<actions>
+					<action function="set">c_para=6</action>
+			    <action function="page">pageLine</action>
 			  </actions>
 			</button>
 			<!--ExperimentalEnd-->
@@ -8505,15 +8515,17 @@ rm -r /tmp/bak;
 				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
 				<text>{@c_confirm=Confirm}</text>
 			</text>
-			<!--text style="c_text_dashboard">
+			<text style="c_text_dashboard">
 				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
-				<text>{@confirm_flash_hdr=Confirm Flash}</text>
-			</text-->
+				<text>{@c_action_cancel=Press back button to cancel.}</text>
+			</text>
 			<button>
 			  <placement x="860" y="1628"/>
 			  <text></text>
 			  <image resource="c_apply_theme"/>
 			  <actions>
+					<action function="set">c_file=0</action>
+					<action function="set">canBeUnzip=0</action>
 			    <action function="set">c_busy=1</action>
 					<action function="execSTheme">%tw_filename1%</action>
 			    <action function="cmd">
@@ -8556,10 +8568,14 @@ sh cthemeHelper.sh
 			<template name="c_busy_status"/>
 			<action>
 				<touch key="back"/>
+				<action function="set">c_file=0</action>
+				<action function="set">canBeUnzip=0</action>
 				<action function="page">c_file_epicx</action>
 			</action>
 			<action>
 				<touch key="home"/>
+				<action function="set">c_file=0</action>
+				<action function="set">canBeUnzip=0</action>
 				<action function="page">c_refresh</action>
 			</action>
 		</page>

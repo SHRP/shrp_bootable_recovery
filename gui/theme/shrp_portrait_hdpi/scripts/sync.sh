@@ -190,6 +190,10 @@ magiskboot cpio ramdisk.cpio \
 "add 750 twres/images/c_rename.png /twres/images/c_rename.png" \
 "add 750 twres/images/c_splash_bg.png /twres/images/c_splash_bg.png" \
 "add 750 twres/images/c_factory_reset.png /twres/images/c_factory_reset.png" \
+"add 750 twres/images/c_applyCustomTheme.png /twres/images/c_applyCustomTheme.png" \
+"add 750 twres/images/c_displayTxt.png /twres/images/c_displayTxt.png" \
+"add 750 twres/images/c_editTxt.png /twres/images/c_editTxt.png" \
+"add 750 twres/images/c_removeLine.png /twres/images/c_removeLine.png" \
 "add 750 twres/bg_res.xml /twres/bg_res.xml" \
 "add 750 twres/c_status_bar_h.xml /twres/c_status_bar_h.xml" \
 "add 750 twres/notch_handled_var.xml /twres/notch_handled_var.xml" \
