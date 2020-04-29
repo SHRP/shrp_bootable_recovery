@@ -187,9 +187,12 @@ void disp_info(){
 	DataManager::GetValue("shrp_ver",tmp);
 	tmp="|Version - "+tmp;
 	gui_msg(Msg(tmp.c_str(),0));
+#ifdef SHRP_OFFICIAL
 	if(checkOffical(DataManager::GetStrValue("device_code_name"))){
 		tmp="|Status - Official";
-	}else{
+	}else
+#endif
+	{
 		tmp="|Status - Unofficial";
 	}
 	gui_msg(Msg(tmp.c_str(),0));
