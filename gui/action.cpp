@@ -3192,27 +3192,31 @@ int GUIAction::navHandler(std::string arg){
 }
 
 int GUIAction::unZipSelector(std::string arg){
+	
 	int x=arg.find_last_of("/")+1;
-	string zipName=arg.substr(x,arg.find_last_of(".")-x);
-	arg=arg.substr(arg.find_last_of("."),arg.length());
-	DataManager::SetValue("shrpUnzipFolder",zipName.c_str());
-	if(arg==".zip"){
-		DataManager::SetValue("isThemeFile","0");
-		DataManager::SetValue("canBeUnzip","1");
-		DataManager::SetValue("is_textFile","0");
-	}else if(arg==".txt"||arg==".xml"||arg==".prop"){
-		DataManager::SetValue("isThemeFile","0");
-		DataManager::SetValue("is_textFile","1");
-		DataManager::SetValue("canBeUnzip","0");
-	}else if(arg==".stheme"||arg==".STHEME"){
-		DataManager::SetValue("isThemeFile","1");
-		DataManager::SetValue("is_textFile","0");
-		DataManager::SetValue("canBeUnzip","0");
-	}else{
-		DataManager::SetValue("isThemeFile","0");
-		DataManager::SetValue("is_textFile","0");
-		DataManager::SetValue("canBeUnzip","0");
-	}
+	if(arg.find_last_of(".")>0){
+		DataManager::SetValue("shrpUnzipFolder",arg.substr(x,arg.find_last_of(".")-x));
+		string extn=arg.substr(arg.find_last_of("."),arg.length());
+		if(extn==".zip"){
+			DataManager::SetValue("isThemeFile","0");
+			DataManager::SetValue("canBeUnzip","1");
+			DataManager::SetValue("is_textFile","0");
+			return 0;
+		}else if(extn==".txt"||extn==".xml"||extn==".prop"){
+			DataManager::SetValue("isThemeFile","0");
+			DataManager::SetValue("is_textFile","1");
+			DataManager::SetValue("canBeUnzip","0");
+			return 0;
+		}else if(extn==".stheme"||extn==".STHEME"){
+			DataManager::SetValue("isThemeFile","1");
+			DataManager::SetValue("is_textFile","0");
+			DataManager::SetValue("canBeUnzip","0");
+			return 0;
+		}
+	}	
+	DataManager::SetValue("isThemeFile","0");
+	DataManager::SetValue("is_textFile","0");
+	DataManager::SetValue("canBeUnzip","0");
 	return 0;
 }
 
