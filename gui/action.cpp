@@ -171,16 +171,16 @@ string value_process(string main){
 //Text Editor Class
 class textEditor{
 	private:
-		void pushString(string,string);
+		void pushString(string,string);									//push the processed strings into the file
 	public:
-		void disp_file(string);
-		void replaceLine(string,string,int);
-		void addLine(string,string,int);
-		void removeLine(string,int);
-		void getdString(string,string&,string&,int,int);
-		void getReplacebleLine(string,int);
-		string handleTab(string str);
-		int getLineNo(string path);
+		void disp_file(string);													//displays the content of the file in the console
+		void replaceLine(string,string,int);						//replaces specific line into the file
+		void addLine(string,string,int);								//adds specific line into the file
+		void removeLine(string,int);										//removes specific line from the file
+		void getdString(string,string&,string&,int,int);//divides the file in two strings according to the parameter
+		void getReplacebleLine(string,int);							//finds the line which are going to be replace
+		string handleTab(string str);										//handles Tab character
+		int getLineNo(string path);											//process total line of text file
 };
 //Funcs()
 int textEditor::getLineNo(string path){
@@ -196,7 +196,6 @@ int textEditor::getLineNo(string path){
 		return 0;
 	}
 	file.close();
-	LOGINFO("Line No - %d",line);
 	return line-1;
 }
 
@@ -210,7 +209,6 @@ string textEditor::handleTab(string str){
 	return str;
 }
 
-//This func() will display the text of the file in the console
 void textEditor::disp_file(string path){
 	fstream file;
 	string tmp;
@@ -234,7 +232,7 @@ void textEditor::disp_file(string path){
 	}
 	file.close();
 }
-//This func() will divide the strings of the file according to the parameter
+
 void textEditor::getdString(string path,string &text1,string &text2,int line,int arg){
 	fstream file;
 	string tmp;
@@ -264,11 +262,11 @@ void textEditor::getdString(string path,string &text1,string &text2,int line,int
 		while(getline(file,tmp)){
 			text1+=tmp+"\n";
 		}
-		
+
 	}
 	file.close();
 }
-//This func() will found the line which are going to be replace
+
 void textEditor::getReplacebleLine(string path,int line){
 	fstream file;
 	string tmp;
@@ -293,28 +291,28 @@ void textEditor::getReplacebleLine(string path,int line){
 	}
 	file.close();
 }
-//This func() will delete all lines of the file and replace by parameter text
+
 void textEditor::pushString(string path,string text){
 	fstream file;
 	file.open(path.c_str(),ios::out);
 	file<<text;
 	file.close();
 }
-//This func() will replace a specific line of the file
+
 void textEditor::replaceLine(string path,string rtext,int line){
 	string up,down;
 	getdString(path,up,down,line,0);
 	rtext=up+rtext+"\n"+down;
 	pushString(path,rtext);
 }
-//This func() will add a line in a sepecific location of the file
+
 void textEditor::addLine(string path,string rtext,int line){
 	string up,down;
 	getdString(path,up,down,line,1);
 	rtext=up+rtext+"\n"+down;
 	pushString(path,rtext);
 }
-//This func() will remove a line from a sepecific location of the file
+
 void textEditor::removeLine(string path,int line){
 	string up,down;
 	getdString(path,up,down,line,0);
