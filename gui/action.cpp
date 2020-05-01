@@ -179,8 +179,37 @@ class textEditor{
 		void removeLine(string,int);
 		void getdString(string,string&,string&,int,int);
 		void getReplacebleLine(string,int);
+		string handleTab(string str);
+		int getLineNo(string path);
 };
 //Funcs()
+int textEditor::getLineNo(string path){
+	int line=1;
+	string tmp;
+	fstream file;
+	file.open(path.c_str(),ios::in);
+	if(file){
+		while(getline(file, tmp)){
+			line++;
+		}
+	}else{
+		return 0;
+	}
+	file.close();
+	LOGINFO("Line No - %d",line);
+	return line-1;
+}
+
+string textEditor::handleTab(string str){
+	int tmp1=str.find_first_of('\t');
+	while(tmp1!=-1){
+		str[tmp1]=' ';
+		str.insert(tmp1,"  ");
+		tmp1=str.find_first_of('\t');
+	}
+	return str;
+}
+
 //This func() will display the text of the file in the console
 void textEditor::disp_file(string path){
 	fstream file;
@@ -196,6 +225,7 @@ void textEditor::disp_file(string path){
         string t;
         guun<<line_no;
         guun>>t;
+				tmp=handleTab(tmp);
         tmp=t+" "+tmp;
 				gui_msg(Msg(tmp.c_str(),0));
       }
@@ -209,8 +239,15 @@ void textEditor::getdString(string path,string &text1,string &text2,int line,int
 	fstream file;
 	string tmp;
 	int line_no=1;
+	int fileLineNo=getLineNo(path);
+	int swt=1;
+	if(line>fileLineNo){
+		swt=0;
+	}else if(line<line_no){
+		line=1;
+	}
 	file.open(path.c_str(),ios::in);
-	if(file){
+	if(file&&swt){
 		while(getline(file,tmp)){
 			if(line_no<line){
 				text1+=tmp+"\n";
@@ -223,6 +260,11 @@ void textEditor::getdString(string path,string &text1,string &text2,int line,int
 			}
 			line_no++;
 		}
+	}else if(file){
+		while(getline(file,tmp)){
+			text1+=tmp+"\n";
+		}
+		
 	}
 	file.close();
 }
@@ -231,6 +273,9 @@ void textEditor::getReplacebleLine(string path,int line){
 	fstream file;
 	string tmp;
 	int line_no=1;
+	if(line<=line_no){
+		line=1;
+	}
 	file.open(path.c_str(),ios::in);
 	if(file){
 		while(getline(file,tmp)){
@@ -238,6 +283,11 @@ void textEditor::getReplacebleLine(string path,int line){
 				break;
 			}
 			line_no++;
+		}
+		if(line_no<line){
+				tmp=" ";
+		}else{
+				tmp=handleTab(tmp);
 		}
 		DataManager::SetValue("replaceText",tmp.c_str());
 	}
@@ -3192,28 +3242,30 @@ int GUIAction::navHandler(std::string arg){
 }
 
 int GUIAction::unZipSelector(std::string arg){
-	
 	int x=arg.find_last_of("/")+1;
-	if(arg.find_last_of(".")>0){
-		DataManager::SetValue("shrpUnzipFolder",arg.substr(x,arg.find_last_of(".")-x));
-		string extn=arg.substr(arg.find_last_of("."),arg.length());
-		if(extn==".zip"){
-			DataManager::SetValue("isThemeFile","0");
-			DataManager::SetValue("canBeUnzip","1");
-			DataManager::SetValue("is_textFile","0");
-			return 0;
-		}else if(extn==".txt"||extn==".xml"||extn==".prop"){
-			DataManager::SetValue("isThemeFile","0");
-			DataManager::SetValue("is_textFile","1");
-			DataManager::SetValue("canBeUnzip","0");
-			return 0;
-		}else if(extn==".stheme"||extn==".STHEME"){
-			DataManager::SetValue("isThemeFile","1");
-			DataManager::SetValue("is_textFile","0");
-			DataManager::SetValue("canBeUnzip","0");
-			return 0;
+	if((x-1)!=-1){
+		int tmp=arg.find_last_of(".");
+		if(tmp!=-1){
+			DataManager::SetValue("shrpUnzipFolder",arg.substr(x,tmp-x));
+			string extn=arg.substr(tmp,arg.length()-tmp);
+			if(extn==".zip"){
+				DataManager::SetValue("isThemeFile","0");
+				DataManager::SetValue("canBeUnzip","1");
+				DataManager::SetValue("is_textFile","0");
+				return 0;
+			}else if(extn==".txt"||extn==".xml"||extn==".prop"){
+				DataManager::SetValue("isThemeFile","0");
+				DataManager::SetValue("is_textFile","1");
+				DataManager::SetValue("canBeUnzip","0");
+				return 0;
+			}else if(extn==".stheme"||extn==".STHEME"){
+				DataManager::SetValue("isThemeFile","1");
+				DataManager::SetValue("is_textFile","0");
+				DataManager::SetValue("canBeUnzip","0");
+				return 0;
+			}
 		}
-	}	
+	}
 	DataManager::SetValue("isThemeFile","0");
 	DataManager::SetValue("is_textFile","0");
 	DataManager::SetValue("canBeUnzip","0");
