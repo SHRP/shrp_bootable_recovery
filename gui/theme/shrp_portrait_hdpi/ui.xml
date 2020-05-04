@@ -417,39 +417,6 @@
 				<action function="page">settings_shrp</action>
 			</button>
 		</template>
-
-		<template name="c_lock">
-			<background color="%semi_transparent%"/>
-			<button>
-				<placement x="0" y="400" w="1080" h="378"/>
-				<fill color="%transparent%"/>
-				<font resource="c_lock_clock" color="#ffffffff"/>
-				<text>%tw_ls_time%</text>
-			</button>
-			<button>
-				<condition var1="c_dateview" var2="1"/>
-				<placement x="0" y="700" w="1080" h="100"/>
-				<fill color="%transparent%"/>
-				<font resource="c_dashboard_text_sort" color="#ffffffff"/>
-				<text>%c_lock_screen_date%</text>
-			</button>
-			<button>
-				<condition var1="c_dateview" var2="0"/>
-				<placement x="0" y="700" w="1080" h="100"/>
-				<fill color="%transparent%"/>
-				<font resource="c_dashboard_text_sort" color="#ffffffff"/>
-				<text>{@cpu_temp=CPU: %tw_cpu_temp% &#xB0;C} | {@battery_pct=Battery: %tw_battery%}</text>
-			</button>
-			<button>
-				<placement x="490" y="1530"/>
-				<image resource="c_on_tap_unlock" highlightresource="c_on_tap_unlock_pressed"/>
-				<action function="overlay"/>
-			</button>
-			<action>
-				<touch key="power+voldown"/>
-				<action function="screenshot"/>
-			</action>
-		</template>
 		<template name="c_console">
 			<background color="%c_white%"/>
 			<console>
@@ -933,30 +900,6 @@
 					<keylabel key="0:layout3" text="?123"/>
 				</layout4>
 			</keyboard>
-		</template>
-		<template name="flashlight">
-			<button>
-				<conditions>
-					<condition var1="has_flashlight" op="=" var2="1"/>
-					<condition var1="c_flashlight_status" op="=" var2="0"/>
-				</conditions>
-				<placement x="975" y="1814"/>
-				<image resource="c_flashlight_on"/>
-				<actions>
-					<action function="flashlight"/>
-				</actions>
-			</button>
-			<button>
-				<conditions>
-					<condition var1="has_flashlight" op="=" var2="1"/>
-					<condition var1="c_flashlight_status" op="=" var2="1"/>
-				</conditions>
-				<placement x="975" y="1814"/>
-				<image resource="c_flashlight_off"/>
-				<actions>
-					<action function="flashlight"/>
-				</actions>
-			</button>
 		</template>
 	</templates>
 </recovery>
