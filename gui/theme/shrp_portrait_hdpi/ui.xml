@@ -193,6 +193,7 @@
 		<image name="c_edl_mode" filename="c_edl_mode" retainaspect="1"/>
     <image name="backup" filename="backup" retainaspect="1"/>
 		<image name="c_reload" filename="c_reload" retainaspect="1"/>
+		<image name="c_backup_encryption" filename="c_backup_encryption" retainaspect="1"/>
 		<image name="c_magisk_not_exist" filename="c_magisk_not_exist" retainaspect="1"/>
 		<!--epicX_image_resources_end-->
 		<image name="file" filename="file" retainaspect="1"/>
