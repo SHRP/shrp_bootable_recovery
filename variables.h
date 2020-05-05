@@ -144,6 +144,7 @@
 #define TW_ACTIVE_SLOT_INSTALL	    "tw_active_slot_install"
 #define TW_INJECT_AFTER_ZIP 		"tw_inject_after_zip"
 #define TW_MKINJECT_AFTER_ZIP		"tw_mkinject_after_zip"
+#define REBOOTOTA_DISABLED		  "rebootota_disabled"
 
 // Also used:
 //   tw_boot_is_mountable

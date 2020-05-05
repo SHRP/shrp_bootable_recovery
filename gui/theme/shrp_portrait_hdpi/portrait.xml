@@ -2942,6 +2942,9 @@
 					<condition var1="av_express" op="=" var2="1"/>
 					<data variable="c_shrpUpdate"/>
 				</listitem>
+				<listitem name="Disable automatic reboot after OTA">
+					<data variable="rebootota_disabled"/>
+				</listitem>
 			</listbox>
 			<action>
 				<touch key="home"/>

@@ -334,7 +334,7 @@ int OpenRecoveryScript::run_script_file(void) {
 					// error message already displayed by Recursive_Mkdir
 					ret_val = 1;
 				}
-			} else if (strcmp(command, "reboot") == 0) {
+			} else if (strcmp(command, "reboot") == 0 && DataManager::GetIntValue(REBOOTOTA_DISABLED) == 0) {
 				if (strlen(value) && strcmp(value, "recovery") == 0)
 					TWFunc::tw_reboot(rb_recovery);
 				else if (strlen(value) && strcmp(value, "poweroff") == 0)
@@ -347,6 +347,9 @@ int OpenRecoveryScript::run_script_file(void) {
 					TWFunc::tw_reboot(rb_edl);
 				else
 					TWFunc::tw_reboot(rb_system);
+				} else if (strcmp(command, "reboot") == 0 && DataManager::GetIntValue(REBOOTOTA_DISABLED) == 1) {
+					gui_msg(Msg("[i] Reboot disabled. Returning back to main page.",0));
+					DataManager::SetValue("tw_page_done", 1);
 			} else if (strcmp(command, "cmd") == 0) {
 				DataManager::SetValue("tw_action_text2", gui_parse_text("{@running_command}"));
 				if (cindex != 0) {
@@ -628,7 +631,7 @@ int OpenRecoveryScript::Run_OpenRecoveryScript_Action() {
 			op_status = 0;
 		}
 	}
-	if (reboot) {
+	if (reboot && DataManager::GetIntValue(REBOOTOTA_DISABLED) == 0) {
 		// Disable stock recovery reflashing
 		TWFunc::Disable_Stock_Recovery_Replace();
 		usleep(2000000); // Sleep for 2 seconds before rebooting
