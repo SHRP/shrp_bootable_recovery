@@ -372,14 +372,14 @@
 			</button>
 
 			<button style="c_text_dashboard">
-				<placement x="105" y="1445" w="221" h="170"/>
+				<placement x="85" y="1445" w="241" h="170"/>
 				<fill color="%transparent%"/>
 				<text>steadfasterX</text>
 			</button>
 			<button style="c_reboot_text">
 				<placement x="105" y="1575" w="221" h="50"/>
 				<fill color="%transparent%"/>
-				<text>Security</text>
+				<text>{@c_security=Security}</text>
 			</button>
 
 			<button style="c_text_dashboard">
@@ -4024,8 +4024,8 @@
 			</text>
 
 			<checkbox>
+				<placement x="%c_hawk_base_column%" y="%c_text_sub_y%"/>
 				<condition var1="isShrpZip" op="=" var2="1"/>
-				<placement x="%c_hawk_base_column%" y="1650"/>
 				<text>Update SHRP</text>
 				<data variable="c_shrpUpdate"/>
 			</checkbox>
