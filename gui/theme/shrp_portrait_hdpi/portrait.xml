@@ -374,10 +374,21 @@
 			<button style="c_text_dashboard">
 				<placement x="105" y="1445" w="221" h="170"/>
 				<fill color="%transparent%"/>
-				<text>{@Tcredit=None}</text>
+				<text>steadfasterX</text>
 			</button>
 			<button style="c_reboot_text">
 				<placement x="105" y="1575" w="221" h="50"/>
+				<fill color="%transparent%"/>
+				<text>Security</text>
+			</button>
+
+			<button style="c_text_dashboard">
+				<placement x="410" y="1445" w="261" h="170"/>
+				<fill color="%transparent%"/>
+				<text>{@Tcredit=None}</text>
+			</button>
+			<button style="c_reboot_text">
+				<placement x="430" y="1575" w="221" h="50"/>
 				<fill color="%transparent%"/>
 				<text>{@c_translation=Translation}</text>
 			</button>
