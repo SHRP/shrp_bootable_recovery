@@ -749,6 +749,7 @@
 				<image resource="c_cancel"/>
 				<actions>
 					<action function="queueclear"/>
+					<action function="set">isShrpZip=0</action>
 					<action function="set">c_queue_enabled=0</action>
 					<action function="page">install</action>
 				</actions>
@@ -765,6 +766,7 @@
 				<touch key="back"/>
 				<actions>
 					<action function="queueclear"/>
+					<action function="set">isShrpZip=0</action>
 					<action function="set">c_queue_enabled=0</action>
 					<action function="page">install</action>
 				</actions>
@@ -774,6 +776,7 @@
 				<touch key="home"/>
 				<actions>
 					<action function="queueclear"/>
+					<action function="set">isShrpZip=0</action>
 					<action function="set">c_queue_enabled=0</action>
 					<action function="page">c_refresh</action>
 				</actions>
@@ -4019,9 +4022,18 @@
 				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
 				<text>{@confirm_flash_hdr=Confirm Flash}</text>
 			</text>
+
+			<checkbox>
+				<condition var1="isShrpZip" op="=" var2="1"/>
+				<placement x="%c_hawk_base_column%" y="1650"/>
+				<text>Update SHRP</text>
+				<data variable="c_shrpUpdate"/>
+			</checkbox>
+
 			<button>
 				<placement x="860" y="1628"/>
 				<image resource="c_flash"/>
+				<action function="set">isShrpZip=0</action>
 				<action function="set">c_queue_enabled=0</action>
 				<action function="flash">flash_zip</action>
 			</button>
@@ -4031,6 +4043,7 @@
 			</action>
 			<action>
 				<touch key="home"/>
+				<action function="set">isShrpZip=0</action>
 				<action function="queueclear"/>
 				<action function="set">c_queue_enabled=0</action>
 				<action function="page">c_refresh</action>

@@ -826,6 +826,7 @@ void DataManager::SetDefaultValues()
 	mData.SetValue("shrpUnzipFolder", "");
 	mData.SetValue("canBeUnzip", "0");
 	mData.SetValue("isThemeFile", "0");
+	mData.SetValue("isShrpZip", "0");
 	mData.SetValue("chFolder", "0");
 	//SHRP_PERSISTED_VARS
 	mPersist.SetValue("c_temp2", "pepe");

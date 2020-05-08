@@ -3159,6 +3159,7 @@ int GUIAction::c_repack(std::string arg __unused){
 int GUIAction::flashOP(std::string arg){
 	int p,s=0;
 	char tmp[10];
+	int isSHRPZip=arg.find_last_of("SHRP");
 	p=arg.find_last_of(".");
 	if(p!=-1){
 		p++;
@@ -3174,6 +3175,9 @@ int GUIAction::flashOP(std::string arg){
 #else
 	if(arg=="zip"){
 #endif
+		if(isSHRPZip!=-1){
+			DataManager::SetValue("isShrpZip","1");
+		}
 		GUIAction::queuezip("bappa");
 		DataManager::SetValue("c_queue_enabled","1");
 		PageManager::ChangePage("flash_confirm");
