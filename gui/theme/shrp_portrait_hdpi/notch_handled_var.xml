@@ -163,5 +163,6 @@
 		<variable name="ca_12" value="1180"/>
 		<variable name="ca_13" value="1265"/>
 		<variable name="ca_14" value="1345"/>
+		<variable name="c_cleanInputYpos" value="340"/>
 	</variables>
 </recovery>

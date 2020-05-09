@@ -1927,8 +1927,13 @@
 				<text>{@name=Name:}</text>
 			</text>
 
+			<fill color="nav_bg">
+				<placement x="50" y="%dash_ico_1st_row%" w="970" h="94"/>
+			</fill>
+
 			<input>
-				<placement x="185" y="%c_text_sub_y_spec%" w="710" h="64"/>
+				<placement x="80" y="%input_file_manager_y%" w="800" h="64"/>
+				<background color="%nav_bg%"/>
 				<text>%tw_backup_name%</text>
 				<data name="tw_backup_name"/>
 				<restrict minlen="1" maxlen="64" allow=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-_.{}[]"/>
@@ -1940,7 +1945,7 @@
 				</actions>
 			</input>
 			<button>
-				<placement x="944" y="%c_custom_pos_4%"/>
+				<placement x="944" y="%c_cleanInputYpos%"/>
 				<image resource="c_clear_input"/>
 				<action function="clearInput">tw_backup_name</action>
 			</button>
@@ -2393,8 +2398,13 @@
 				<text>{@c_name=Name:}</text>
 			</text>
 
+			<fill color="nav_bg">
+				<placement x="50" y="%dash_ico_1st_row%" w="970" h="94"/>
+			</fill>
+
 			<input>
-				<placement x="%c_hawk_base_column%" y="%input_default_y%" w="%content_width%" h="%input_height%"/>
+				<placement x="80" y="%input_file_manager_y%" w="800" h="64"/>
+				<background color="%nav_bg%"/>
 				<text>%tw_backup_rename%</text>
 				<data name="tw_backup_rename"/>
 				<restrict minlen="1" maxlen="64" allow=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-_.{}[]"/>
@@ -3367,8 +3377,13 @@
 				<text>{@name=Name:}</text>
 			</text>
 
+			<fill color="nav_bg">
+				<placement x="50" y="%dash_ico_1st_row%" w="970" h="94"/>
+			</fill>
+
 			<input>
-				<placement x="60" y="%input_file_manager_y%" w="%content_width%" h="%input_height%"/>
+				<placement x="80" y="%input_file_manager_y%" w="800" h="64"/>
+				<background color="%nav_bg%"/>
 				<text>%tw_filemanager_rename%</text>
 				<data name="tw_filemanager_rename"/>
 				<restrict minlen="1" maxlen="128"/>
@@ -3413,8 +3428,13 @@
 				<text>{@name=Name:}</text>
 			</text>
 
+			<fill color="nav_bg">
+				<placement x="50" y="%dash_ico_1st_row%" w="970" h="94"/>
+			</fill>
+
 			<input>
-				<placement x="60" y="%input_file_manager_y%" w="%content_width%" h="%input_height%"/>
+				<placement x="80" y="%input_file_manager_y%" w="800" h="64"/>
+				<background color="%nav_bg%"/>
 				<text>%tw_filemanager_rename%</text>
 				<data name="tw_filemanager_rename"/>
 				<restrict minlen="1" maxlen="128"/>
@@ -3460,8 +3480,13 @@
 				<text>{@fm_perms=Permissions:}</text>
 			</text>
 
+			<fill color="nav_bg">
+				<placement x="50" y="%dash_ico_1st_row%" w="970" h="94"/>
+			</fill>
+
 			<input>
-				<placement x="60" y="%input_file_manager_y%" w="%content_width%" h="%input_height%"/>
+				<placement x="80" y="%input_file_manager_y%" w="800" h="64"/>
+				<background color="%nav_bg%"/>
 				<text>%tw_filemanager_rename%</text>
 				<data name="tw_filemanager_rename"/>
 				<restrict minlen="3" maxlen="4" allow="0123456789"/>
@@ -3514,8 +3539,14 @@
 				<condition var1="tw_password_fail" op="!=" var2="1"/>
 				<text>{@enter_pass=Enter Password:}</text>
 			</text>
+
+			<fill color="nav_bg">
+				<placement x="50" y="%dash_ico_1st_row%" w="970" h="94"/>
+			</fill>
+
 			<input>
-				<placement x="60" y="%input_default_y%" w="%content_width%" h="%input_height%"/>
+				<placement x="80" y="%input_file_manager_y%" w="800" h="64"/>
+				<background color="%nav_bg%"/>
 				<text>%tw_crypto_display%</text>
 				<data name="tw_crypto_password" mask="*" maskvariable="tw_crypto_display"/>
 				<restrict minlen="1" maxlen="254"/>
@@ -5645,8 +5676,14 @@ sh /twres/scripts/create_envAB.sh;
 				<placement x="%c_hawk_base_column%" y="%c_text_sub_y_spec%"/>
 				<text>{@name=Name:}</text>
 			</text>
+
+			<fill color="nav_bg">
+				<placement x="50" y="%dash_ico_1st_row%" w="970" h="94"/>
+			</fill>
+
 			<input>
-				<placement x="185" y="%c_text_sub_y_spec%" w="710" h="64"/>
+				<placement x="80" y="%input_file_manager_y%" w="800" h="64"/>
+				<background color="%nav_bg%"/>
 				<text>%shrp_zipName%</text>
 				<data name="shrp_zipName"/>
 				<restrict minlen="1" maxlen="64" allow=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-_.{}[]"/>
@@ -5688,8 +5725,12 @@ zip -r %shrp_zipName%.zip %shrp_zipFolderName%
 				<placement x="%c_hawk_base_column%" y="%c_text_sub_y_spec%"/>
 				<text>{@name=Name:}</text>
 			</text>
+			<fill color="nav_bg">
+				<placement x="50" y="%dash_ico_1st_row%" w="970" h="94"/>
+			</fill>
 			<input>
-				<placement x="185" y="%c_text_sub_y_spec%" w="710" h="64"/>
+				<placement x="80" y="%input_file_manager_y%" w="800" h="64"/>
+				<background color="%nav_bg%"/>
 				<text>Newfolder</text>
 				<data name="FolderName"/>
 				<restrict minlen="1" maxlen="64" allow=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-_.{}[]"/>
@@ -6216,8 +6257,14 @@ unzip -d %shrpUnzipFolder% %tw_filename1%;
 		    <placement x="%c_hawk_base_column%" y="%c_text_sub_y_spec%"/>
 		    <text>{@c_line_no=No.}</text>
 		  </text>
+
+		  <fill color="nav_bg">
+			<placement x="50" y="%dash_ico_1st_row%" w="970" h="94"/>
+		  </fill>
+
 		  <input>
-		    <placement x="185" y="%c_text_sub_y_spec%" w="710" h="64"/>
+		    <placement x="80" y="%input_file_manager_y%" w="800" h="64"/>
+			<background color="%nav_bg%"/>
 		    <text>%c_line_no%</text>
 		    <data name="c_line_no"/>
 		    <restrict minlen="1" maxlen="64" allow="1234567890"/>
@@ -6255,8 +6302,14 @@ unzip -d %shrpUnzipFolder% %tw_filename1%;
 		    <placement x="%c_hawk_base_column%" y="%c_text_sub_y_spec%"/>
 		    <text>{@c_text=Text}</text>
 		  </text>
+
+		  <fill color="nav_bg">
+			<placement x="50" y="%dash_ico_1st_row%" w="970" h="94"/>
+		  </fill>
+
 		  <input>
-		    <placement x="185" y="%c_text_sub_y_spec%" w="710" h="64"/>
+		    <placement x="80" y="%input_file_manager_y%" w="800" h="64"/>
+			<background color="%nav_bg%"/>
 		    <text>%replaceText%</text>
 		    <data name="replaceText"/>
 		    <restrict minlen="1" maxlen="128"/>
