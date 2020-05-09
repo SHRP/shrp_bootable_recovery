@@ -156,7 +156,7 @@
 					<condition var1="patt_lock_enabled" op="=" var2="0"/>
 				</conditions>
 				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
-				<text>Something went wrong.</text>
+				<text>{@c_failed_info_blocked=Something went wrong}</text>
 			</text>
 		</page>
 
@@ -4026,7 +4026,7 @@
 			<checkbox>
 				<placement x="%c_hawk_base_column%" y="%c_text_sub_y%"/>
 				<condition var1="isShrpZip" op="=" var2="1"/>
-				<text>Update SHRP</text>
+				<text>{@c_update_shrp=Update SHRP}</text>
 				<data variable="c_shrpUpdate"/>
 			</checkbox>
 
@@ -6018,7 +6018,7 @@ mkdir -p %FolderName%
 					<condition var1="isThemeFile" op="=" var2="1"/>
 				</conditions>
 				<font resource="font_m" color="%c_black%"/>
-			  <text>Apply theme</text>
+			  <text>{@c_apply_theme=Apply theme}</text>
 			  <image resource="c_applyCustomTheme"/>
 				<actions>
 			    <action function="page">c_customThemeApply</action>
@@ -6029,7 +6029,7 @@ mkdir -p %FolderName%
 			  <placement x="60" y="%t_1st_heading%" textplacement="6"/>
 			  <font resource="font_m" color="%c_black%"/>
 			  <condition var1="is_textFile" op="=" var2="1"/>
-			  <text>Display text</text>
+			  <text>{@c_display_text=Display text}</text>
 			  <image resource="c_displayTxt"/>
 				<actions>
 			    <action function="txtEditor">1</action>
@@ -6040,7 +6040,7 @@ mkdir -p %FolderName%
 			  <placement x="60" y="%t_1st_radio_text_pos%" textplacement="6"/>
 			  <font resource="font_m" color="%c_black%"/>
 			  <condition var1="is_textFile" op="=" var2="1"/>
-			  <text>Add line</text>
+			  <text>{@c_add_line=Add line}</text>
 			  <image resource="c_editTxt"/>
 				<actions>
 					<action function="set">c_para=4</action>
@@ -6052,7 +6052,7 @@ mkdir -p %FolderName%
 			  <placement x="60" y="%t_2nd_radio_text_pos%" textplacement="6"/>
 			  <font resource="font_m" color="%c_black%"/>
 			  <condition var1="is_textFile" op="=" var2="1"/>
-			  <text>Replace line</text>
+			  <text>{@c_replace_line=Replace line}</text>
 			  <image resource="c_editTxt"/>
 				<actions>
 					<action function="set">c_para=2</action>
@@ -6064,7 +6064,7 @@ mkdir -p %FolderName%
 			  <placement x="60" y="%t_3rd_radio_text_pos%" textplacement="6"/>
 			  <font resource="font_m" color="%c_black%"/>
 			  <condition var1="is_textFile" op="=" var2="1"/>
-			  <text>Remove line</text>
+			  <text>{@c_remove_line=Remove line}</text>
 			  <image resource="c_removeLine"/>
 				<actions>
 					<action function="set">c_para=6</action>
@@ -6206,15 +6206,15 @@ unzip -d %shrpUnzipFolder% %tw_filename1%;
 		  <template name="c_status_bar"/>
 		  <text style="c_main_text_header">
 		    <placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
-		    <text>Line</text>
+		    <text>{@c_line=Line}</text>
 		  </text>
 		  <text style="c_text_dashboard">
 		    <placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
-		    <text>Enter Line No.</text>
+		    <text>{@c_enter_line_no=Enter Line No.}</text>
 		  </text>
 		  <text style="c_sub">
 		    <placement x="%c_hawk_base_column%" y="%c_text_sub_y_spec%"/>
-		    <text>No.</text>
+		    <text>{@c_line_no=No.}</text>
 		  </text>
 		  <input>
 		    <placement x="185" y="%c_text_sub_y_spec%" w="710" h="64"/>
@@ -6245,15 +6245,15 @@ unzip -d %shrpUnzipFolder% %tw_filename1%;
 		  <template name="c_status_bar"/>
 		  <text style="c_main_text_header">
 		    <placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
-		    <text>Input</text>
+		    <text>{@c_text=Text}</text>
 		  </text>
 		  <text style="c_text_dashboard">
 		    <placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
-		    <text>Input your text</text>
+		    <text>{@c_enter_text=Enter your text}</text>
 		  </text>
 		  <text style="c_sub">
 		    <placement x="%c_hawk_base_column%" y="%c_text_sub_y_spec%"/>
-		    <text>Text</text>
+		    <text>{@c_text=Text}</text>
 		  </text>
 		  <input>
 		    <placement x="185" y="%c_text_sub_y_spec%" w="710" h="64"/>
@@ -7982,11 +7982,11 @@ cp /twres/c_rounded_res/type_3/*.png /twres/images/;
 				<text>{@c_big=Big}</text>
 			</text>
 
-			<checkbox>
+			<!--checkbox>
 			  <placement x="%c_hawk_base_column%" y="1575"/>
-			  <text>Secondary Text Color</text>
+			  <text>{@c_secondary=Secondary Text Color}</text>
 			  <data variable="c_scolor_status"/>
-			</checkbox>
+			</checkbox-->
 
 			<button>
 				<condition var1="c_notch_mode" op="=" var2="0"/>

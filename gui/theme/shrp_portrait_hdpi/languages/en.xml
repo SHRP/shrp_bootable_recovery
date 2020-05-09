@@ -898,5 +898,18 @@
 		<string name="c_stock_dashboard_ico">Stock</string>
 		<string name="ozip_decrypt_decryption">Starting Ozip Decryption...</string>
 		<string name="ozip_decrypt_finish">Ozip Decryption Finished!</string>
+		<!--2.3 Strings-->
+		<string name="c_failed_info_blocked">Something went wrong</string>
+		<string name="c_update_shrp">Update SHRP</string>
+		<string name="c_line">Line</string>
+		<string name="c_line_no">Line No.</string>
+		<string name="c_enter_line_no">Enter Line No.</string>
+		<string name="c_enter_text">Enter your text</string>
+		<string name="c_apply_theme">Apply theme</string>
+		<string name="c_display_text">Display text</string>
+		<string name="c_add_line">Add line</string>
+		<string name="c_replace_line">Replace line</string>
+		<string name="c_remove_line">Remove line</string>
+		<string name="c_secondary">Secondary Text Color</string>
 	</resources>
 </language>
