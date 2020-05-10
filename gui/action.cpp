@@ -3160,6 +3160,7 @@ int GUIAction::flashOP(std::string arg){
 	int p,s=0;
 	char tmp[10];
 	int isSHRPZip=arg.find_last_of("SHRP");
+	int isSHRPZip2=arg.find_last_of("shrp");
 	p=arg.find_last_of(".");
 	if(p!=-1){
 		p++;
@@ -3175,7 +3176,7 @@ int GUIAction::flashOP(std::string arg){
 #else
 	if(arg=="zip"){
 #endif
-		if(isSHRPZip!=-1){
+		if(isSHRPZip!=-1||isSHRPZip2!=-1){
 			DataManager::SetValue("isShrpZip","1");
 		}
 		GUIAction::queuezip("bappa");
@@ -3255,7 +3256,7 @@ int GUIAction::unZipSelector(std::string arg){
 				DataManager::SetValue("canBeUnzip","1");
 				DataManager::SetValue("is_textFile","0");
 				return 0;
-			}else if(extn==".txt"||extn==".xml"||extn==".prop"){
+			}else if(extn==".txt"||extn==".TXT"||extn==".xml"||extn==".XML"||extn==".prop"||extn==".PROP"||extn==".sh"||extn==".SH"){
 				DataManager::SetValue("isThemeFile","0");
 				DataManager::SetValue("is_textFile","1");
 				DataManager::SetValue("canBeUnzip","0");
@@ -3266,6 +3267,11 @@ int GUIAction::unZipSelector(std::string arg){
 				DataManager::SetValue("canBeUnzip","0");
 				return 0;
 			}
+		}else{
+			DataManager::SetValue("isThemeFile","0");
+			DataManager::SetValue("is_textFile","1");
+			DataManager::SetValue("canBeUnzip","0");
+			return 0;
 		}
 	}
 	DataManager::SetValue("isThemeFile","0");
@@ -3286,6 +3292,7 @@ int GUIAction::txtEditor(std::string arg){
 		DataManager::SetValue("c_line_no","0");
 		DataManager::SetValue("is_textFile","0");
 		PageManager::ChangePage("c_file_epicx");
+		GUIAction::overlay("slideout");
 	}else if(arg=="2"){//Capture line which is going to be replaced
 		t.getReplacebleLine(path,DataManager::GetIntValue("c_line_no"));
 		DataManager::SetValue("c_para","3");
