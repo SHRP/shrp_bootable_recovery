@@ -2753,13 +2753,26 @@
 					<data variable="tw_use_sha2"/>
 				</listitem>
 			</listbox>
-			<button style="c_circle4">
+			<button>
 				<placement x="860" y="1628"/>
-				<text>{@restore_defaults_btn=Restore Defaults}</text>
+				<condition var1="av_express" var2="0"/>
+				<image resource="c_restoreDefault"/>
 				<actions>
 					<action function="set">tw_samsung_navbar=0</action>
 					<action function="set">tw_tab_icons=0</action>
-					<action function="restoredefaultsettings"/>
+					<action function="restoredefaultsettings">guun</action>
+					<action function="reload"/>
+				</actions>
+			</button>
+			<button>
+				<placement x="860" y="1628"/>
+				<condition var1="av_express" var2="1"/>
+				<image resource="c_restoreDefault"/>
+				<actions>
+					<action function="set">tw_samsung_navbar=0</action>
+					<action function="set">tw_tab_icons=0</action>
+					<action function="restoredefaultsettings">guun</action>
+					<action function="cmd">reboot recovery</action>
 				</actions>
 			</button>
 			<action>
@@ -8407,6 +8420,14 @@ cp -r /twres /tmp/bak/;
 			</text>
 
 			<button>
+				<placement x="860" y="1450"/>
+				<condition var1="av_express" var2="1"/>
+				<image resource="c_restoreDefault"/>
+				<action function="restoredefaultsettings">theme</action>
+				<action function="cmd">reboot recovery</action>
+			</button>
+
+			<button>
 				<placement x="860" y="1628"/>
 				<text></text>
 				<image resource="c_apply_theme"/>
@@ -8445,6 +8466,10 @@ export z=%nav_bg%;
 sh /twres/scripts/scolorHandle.sh
 </action>
 					<action function="c_repack"/>
+					<action function="cmd">
+rm -r /tmp/work;
+rm -r /tmp/bak;
+					</action>
 					<action function="set">c_status={@c_flashing=Flashing} {@recovery=Recovery}</action>
 					<action function="set">c_status={@c_rm_o_files=Removing Old files}</action>
 					<action function="set">c_status={@done=Done}</action>

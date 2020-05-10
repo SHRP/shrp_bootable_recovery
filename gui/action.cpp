@@ -904,7 +904,7 @@ int GUIAction::unmount(std::string arg)
 	return 0;
 }
 
-int GUIAction::restoredefaultsettings(std::string arg __unused)
+int GUIAction::restoredefaultsettings(std::string arg)
 {
 	operation_start("Restore Defaults");
 	if (simulate) // Simulated so that people don't accidently wipe out the "simulation is on" setting
@@ -913,9 +913,11 @@ int GUIAction::restoredefaultsettings(std::string arg __unused)
 #ifdef SHRP_EXPRESS
 		TWFunc::flushSHRP();
 #endif
-		DataManager::ResetDefaults();
-		PartitionManager.Update_System_Details();
-		PartitionManager.Mount_Current_Storage(true);
+		if(arg!="theme"){
+			DataManager::ResetDefaults();
+			PartitionManager.Update_System_Details();
+			PartitionManager.Mount_Current_Storage(true);
+		}
 	}
 	operation_end(0);
 	return 0;

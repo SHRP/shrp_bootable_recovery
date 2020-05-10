@@ -221,6 +221,7 @@
 		<image name="c_editTxt" filename="c_editTxt" retainaspect="1"/>
 		<image name="c_removeLine" filename="c_removeLine" retainaspect="1"/>
 		<image name="c_applyCustomTheme" filename="c_applyCustomTheme" retainaspect="1"/>
+		<image name="c_restoreDefault" filename="c_restoreDefault" retainaspect="1"/>
 	</resources>
 
 	<variables>
