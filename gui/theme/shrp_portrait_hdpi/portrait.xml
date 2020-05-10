@@ -3332,7 +3332,7 @@
 					<condition var1="c_flashlight_status" op="=" var2="0"/>
 				</conditions>
 				<placement x="914" y="1754"/>
-				<image resource="c_flashlight_on"/>
+				<image resource="c_flashlight_off"/>
 				<actions>
 					<action function="flashlight"/>
 				</actions>
@@ -3343,7 +3343,7 @@
 					<condition var1="c_flashlight_status" op="=" var2="1"/>
 				</conditions>
 				<placement x="914" y="1754"/>
-				<image resource="c_flashlight_off"/>
+				<image resource="c_flashlight_on"/>
 				<actions>
 					<action function="flashlight"/>
 				</actions>

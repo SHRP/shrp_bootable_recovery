@@ -880,8 +880,10 @@ void DataManager::SetDefaultValues()
 
 #ifdef SHRP_FLASH
 	mConst.SetValue("has_flashlight", EXPAND(SHRP_FLASH));
+	mData.SetValue("c_flashlight_status", "0");
 #else
 	mConst.SetValue("has_flashlight", "0");
+	mData.SetValue("c_flashlight_status", "0");
 #endif
 
 #ifdef SHRP_FONP_1

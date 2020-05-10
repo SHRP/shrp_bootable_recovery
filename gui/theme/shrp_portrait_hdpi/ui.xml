@@ -298,7 +298,6 @@
 		<variable name="c_mv" value="0"/>
 		<variable name="c_menu" value="0"/>
 		<variable name="c_busy" value="0"/>
-		<variable name="c_flashlight_status" value="0" persist="0"/>
 		<variable name="c_temp" value="pepe" persist="0"/>
 		<variable name="c_temp3" value="pepe" persist="0"/>
 	</variables>
@@ -643,6 +642,7 @@
 			</button>
 			<button style="c_reboot_text">
 				<placement x="744" y="739" w="315" h="60"/>
+				<condition var1="tw_reboot_bootloader" var2="1"/>
 				<fill color="%transparent%"/>
 				<text>{@rb_bootloader_btn=Bootloader}</text>
 				<actions>
