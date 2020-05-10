@@ -2761,7 +2761,6 @@
 					<action function="set">tw_samsung_navbar=0</action>
 					<action function="set">tw_tab_icons=0</action>
 					<action function="restoredefaultsettings">guun</action>
-					<action function="reload"/>
 				</actions>
 			</button>
 			<button>
@@ -2772,7 +2771,10 @@
 					<action function="set">tw_samsung_navbar=0</action>
 					<action function="set">tw_tab_icons=0</action>
 					<action function="restoredefaultsettings">guun</action>
-					<action function="cmd">reboot recovery</action>
+					<action function="set">tw_action=reboot</action>
+					<action function="set">tw_action_param=recovery</action>
+					<action function="set">tw_reboot_param=recovery</action>
+					<action function="reboot">%tw_reboot_param%</action>
 				</actions>
 			</button>
 			<action>
@@ -8424,7 +8426,10 @@ cp -r /twres /tmp/bak/;
 				<condition var1="av_express" var2="1"/>
 				<image resource="c_restoreDefault"/>
 				<action function="restoredefaultsettings">theme</action>
-				<action function="cmd">reboot recovery</action>
+				<action function="set">tw_action=reboot</action>
+				<action function="set">tw_action_param=recovery</action>
+				<action function="set">tw_reboot_param=recovery</action>
+				<action function="reboot">%tw_reboot_param%</action>
 			</button>
 
 			<button>
