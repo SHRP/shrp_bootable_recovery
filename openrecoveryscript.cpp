@@ -334,34 +334,36 @@ int OpenRecoveryScript::run_script_file(void) {
 					// error message already displayed by Recursive_Mkdir
 					ret_val = 1;
 				}
-			} else if (strcmp(command, "reboot") == 0 && DataManager::GetIntValue(REBOOTOTA_DISABLED) == 0) {
+			} else if (strcmp(command, "reboot") == 0) {
 				// Magisk flash, firstly
 				if (DataManager::GetIntValue(INSTALLMAGISK_OTA) == 1) {
 					DataManager::SetValue("tw_action_text2", "Installing Zip");
-					ret_val = Install_Command("/sdcard/SHRP/addons/c_magisk.zip");
-					install_cmd = -1;
-				}
-				if (strlen(value) && strcmp(value, "recovery") == 0)
-					TWFunc::tw_reboot(rb_recovery);
-				else if (strlen(value) && strcmp(value, "poweroff") == 0)
-					TWFunc::tw_reboot(rb_poweroff);
-				else if (strlen(value) && strcmp(value, "bootloader") == 0)
-					TWFunc::tw_reboot(rb_bootloader);
-				else if (strlen(value) && strcmp(value, "download") == 0)
-					TWFunc::tw_reboot(rb_download);
-				else if (strlen(value) && strcmp(value, "edl") == 0)
-					TWFunc::tw_reboot(rb_edl);
-				else
-					TWFunc::tw_reboot(rb_system);
-				} else if (strcmp(command, "reboot") == 0 && DataManager::GetIntValue(REBOOTOTA_DISABLED) == 1) {
-					// Magisk flash, firstly
-					if (DataManager::GetIntValue(INSTALLMAGISK_OTA) == 1) {
-						DataManager::SetValue("tw_action_text2", "Installing Zip");
-						ret_val = Install_Command("/sdcard/SHRP/addons/c_magisk.zip");
-						install_cmd = -1;
+					string magiskZipPath="/sdcard/SHRP/addons/c_magisk.zip";
+					int wC=0;
+					ret_val = TWinstall_zip(magiskZipPath.c_str(),&wC);
+					if(ret_val==-1){
+						gui_msg(Msg("Magisk Flashing Failed",0));
+						gui_msg(Msg("Reflash the SHRP Zip to fix the issue",0));
 					}
+				}
+				if(DataManager::GetIntValue(REBOOTOTA_DISABLED) == 0){
+					if (strlen(value) && strcmp(value, "recovery") == 0){
+						TWFunc::tw_reboot(rb_recovery);
+					}else if (strlen(value) && strcmp(value, "poweroff") == 0){
+						TWFunc::tw_reboot(rb_poweroff);
+					}else if (strlen(value) && strcmp(value, "bootloader") == 0){
+						TWFunc::tw_reboot(rb_bootloader);
+					}else if (strlen(value) && strcmp(value, "download") == 0){
+						TWFunc::tw_reboot(rb_download);
+					}else if (strlen(value) && strcmp(value, "edl") == 0){
+						TWFunc::tw_reboot(rb_edl);
+					}else{
+						TWFunc::tw_reboot(rb_system);
+					}
+				}else{
 					gui_msg(Msg("[i] Reboot disabled. Returning back to main page.",0));
 					DataManager::SetValue("tw_page_done", 1);
+				}	
 			} else if (strcmp(command, "cmd") == 0) {
 				DataManager::SetValue("tw_action_text2", gui_parse_text("{@running_command}"));
 				if (cindex != 0) {
@@ -650,6 +652,16 @@ int OpenRecoveryScript::Run_OpenRecoveryScript_Action() {
 		TWFunc::tw_reboot(rb_system);
 		usleep(5000000); // Sleep for 5 seconds to allow reboot to occur
 	} else {
+		if (DataManager::GetIntValue(INSTALLMAGISK_OTA) == 1) {
+			DataManager::SetValue("tw_action_text2", "Installing Zip");
+			string magiskZipPath="/sdcard/SHRP/addons/c_magisk.zip";
+			int wC=0;
+			int ret_val = TWinstall_zip(magiskZipPath.c_str(),&wC);
+			if(ret_val==-1){
+				gui_msg(Msg("Magisk Flashing Failed",0));
+				gui_msg(Msg("Reflash the SHRP Zip to fix the issue",0));
+			}
+		}
 		DataManager::SetValue("tw_page_done", 1);
 	}
 	return op_status;
