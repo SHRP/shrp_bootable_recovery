@@ -911,5 +911,9 @@
 		<string name="c_replace_line">Replace line</string>
 		<string name="c_remove_line">Remove line</string>
 		<string name="c_secondary">Secondary Text Color</string>
+
+		<string name="c_disable_theme_survival">Disable SHRP theme survival</string>
+		<string name="c_disable_auto_reboot_ota">Prevent auto reboot after OTA</string>
+		<string name="c_magisk_install_after_ota">Install Magisk automatically after OTA</string>
 	</resources>
 </language>

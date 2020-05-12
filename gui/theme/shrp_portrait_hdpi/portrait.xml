@@ -2977,14 +2977,14 @@
 				<listitem name="{@c_dev_mode=Dev mode}">
 					<data variable="c_devMode"/>
 				</listitem>
-				<listitem name="Disable SHRP Theme Survival">
+				<listitem name="{@c_disable_theme_survival=Disable SHRP theme survival}">
 					<condition var1="av_express" op="=" var2="1"/>
 					<data variable="c_shrpUpdate"/>
 				</listitem>
-				<listitem name="Disable automatic reboot after OTA">
+				<listitem name="{@c_disable_auto_reboot_ota=Prevent auto reboot after OTA}">
 					<data variable="rebootota_disabled"/>
 				</listitem>
-				<listitem name="Install Magisk automatically after OTA">
+				<listitem name="{@c_magisk_install_after_ota=Install Magisk automatically after OTA}">
 					<data variable="installmagisk_ota"/>
 				</listitem>
 			</listbox>
