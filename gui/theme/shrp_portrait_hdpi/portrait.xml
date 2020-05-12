@@ -2984,6 +2984,9 @@
 				<listitem name="Disable automatic reboot after OTA">
 					<data variable="rebootota_disabled"/>
 				</listitem>
+				<listitem name="Install Magisk automatically after OTA">
+					<data variable="installmagisk_ota"/>
+				</listitem>
 			</listbox>
 			<action>
 				<touch key="home"/>

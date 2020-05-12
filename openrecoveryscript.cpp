@@ -335,6 +335,12 @@ int OpenRecoveryScript::run_script_file(void) {
 					ret_val = 1;
 				}
 			} else if (strcmp(command, "reboot") == 0 && DataManager::GetIntValue(REBOOTOTA_DISABLED) == 0) {
+				// Magisk flash, firstly
+				if (DataManager::GetIntValue(INSTALLMAGISK_OTA) == 1) {
+					DataManager::SetValue("tw_action_text2", "Installing Zip");
+					ret_val = Install_Command("/sdcard/SHRP/addons/c_magisk.zip");
+					install_cmd = -1;
+				}
 				if (strlen(value) && strcmp(value, "recovery") == 0)
 					TWFunc::tw_reboot(rb_recovery);
 				else if (strlen(value) && strcmp(value, "poweroff") == 0)
@@ -348,6 +354,12 @@ int OpenRecoveryScript::run_script_file(void) {
 				else
 					TWFunc::tw_reboot(rb_system);
 				} else if (strcmp(command, "reboot") == 0 && DataManager::GetIntValue(REBOOTOTA_DISABLED) == 1) {
+					// Magisk flash, firstly
+					if (DataManager::GetIntValue(INSTALLMAGISK_OTA) == 1) {
+						DataManager::SetValue("tw_action_text2", "Installing Zip");
+						ret_val = Install_Command("/sdcard/SHRP/addons/c_magisk.zip");
+						install_cmd = -1;
+					}
 					gui_msg(Msg("[i] Reboot disabled. Returning back to main page.",0));
 					DataManager::SetValue("tw_page_done", 1);
 			} else if (strcmp(command, "cmd") == 0) {

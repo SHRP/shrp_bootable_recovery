@@ -833,7 +833,8 @@ void DataManager::SetDefaultValues()
 	mPersist.SetValue("c_dateview", "0");
 	mPersist.SetValue("c_devMode", "0");
 	mPersist.SetValue("c_shrpUpdate", "0");
-	mPersist.SetValue(REBOOTOTA_DISABLED, 1);
+	mPersist.SetValue(REBOOTOTA_DISABLED, "1");
+	mPersist.SetValue(INSTALLMAGISK_OTA, "1");
 	//SHRP_LOCK_VARS
 	mData.SetValue("lock_enabled", "0");
 	mData.SetValue("patt_lock_enabled", "0");
