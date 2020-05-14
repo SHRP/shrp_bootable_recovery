@@ -2723,8 +2723,8 @@ int GUIAction::flashlight(std::string arg __unused){
 	DataManager::GetValue("c_flashlight_path_1", p1);
 	DataManager::GetValue("c_flashlight_path_2", p2);
 	DataManager::GetValue("c_flashlight_path_3", p3);
-	if(trigger=="1"){
-		DataManager::SetValue("c_flashlight_status","0");
+	if(trigger=="0"){
+		DataManager::SetValue("c_flashlight_status","1");
 		cmd="echo " + max_b + " > " + p1;
 		TWFunc::Exec_Cmd(cmd);
 		if(p2.size()>3){
@@ -2736,7 +2736,7 @@ int GUIAction::flashlight(std::string arg __unused){
 			TWFunc::Exec_Cmd(cmd);
 		}
 	}else{
-		DataManager::SetValue("c_flashlight_status","1");
+		DataManager::SetValue("c_flashlight_status","0");
 		cmd="echo 0 > " + p1;
 		TWFunc::Exec_Cmd(cmd);
 		if(p2.size()>3){
