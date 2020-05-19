@@ -353,12 +353,12 @@
 			<button style="c_text_dashboard">
 				<placement x="410" y="1225" w="261" h="170"/>
 				<fill color="%transparent%"/>
-				<text>Mauronofrio</text>
+				<text>steadfasterX</text>
 			</button>
 			<button style="c_reboot_text">
 				<placement x="430" y="1335" w="221" h="50"/>
 				<fill color="%transparent%"/>
-				<text>TWRP Survival</text>
+				<text>{@c_security=Security}</text>
 			</button>
 			<button style="c_text_dashboard">
 				<placement x="735" y="1225" w="261" h="170"/>
@@ -374,21 +374,10 @@
 			<button style="c_text_dashboard">
 				<placement x="85" y="1445" w="241" h="170"/>
 				<fill color="%transparent%"/>
-				<text>steadfasterX</text>
-			</button>
-			<button style="c_reboot_text">
-				<placement x="105" y="1575" w="221" h="50"/>
-				<fill color="%transparent%"/>
-				<text>{@c_security=Security}</text>
-			</button>
-
-			<button style="c_text_dashboard">
-				<placement x="410" y="1445" w="261" h="170"/>
-				<fill color="%transparent%"/>
 				<text>{@Tcredit=None}</text>
 			</button>
 			<button style="c_reboot_text">
-				<placement x="430" y="1575" w="221" h="50"/>
+				<placement x="105" y="1575" w="221" h="50"/>
 				<fill color="%transparent%"/>
 				<text>{@c_translation=Translation}</text>
 			</button>
