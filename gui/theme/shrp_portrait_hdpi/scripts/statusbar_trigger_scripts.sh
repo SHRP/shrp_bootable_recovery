@@ -1,5 +1,5 @@
 #!/sbin/sh
-cat > /twres/cache/c_status_bar_h.xml <<EOF
+cat > /twres/c_status_bar_h.xml <<EOF
 <?xml version="1.0"?>
 <recovery>
 	<details>
@@ -28,6 +28,7 @@ cat > /twres/cache/c_status_bar_h.xml <<EOF
 		<variable name="c_acc_color" value="$cac" persist="0"/>
 		<variable name="c_acc_color_val" value="$cacv" persist="0"/>
 		<variable name="c_notch_mode" value="$cnm" persist="0"/>
+		<variable name="c_scolor_status" value="$scolor" persist="0"/>
 	</variables>
 </recovery>
 EOF

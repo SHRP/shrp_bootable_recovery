@@ -34,8 +34,14 @@
 #include <dirent.h>
 #include <private/android_filesystem_config.h>
 
+#include <openssl/sha.h>	// sha hashing
+#include <iomanip>		// setw for hashing
+#include <random>		// salting
+#include <fstream>		// slts processing
+
 #include <string>
 #include <sstream>
+#include <fstream>
 #include "../partitions.hpp"
 #include "../twrp-functions.hpp"
 #include "../openrecoveryscript.hpp"
@@ -161,6 +167,236 @@ string value_process(string main){
 	return main;
 }
 
+//SHRP 2.3 Beta Start
+//Text Editor Class
+class textEditor{
+	private:
+		void pushString(string,string);									//push the processed strings into the file
+	public:
+		void disp_file(string);													//displays the content of the file in the console
+		void replaceLine(string,string,int);						//replaces specific line into the file
+		void addLine(string,string,int);								//adds specific line into the file
+		void removeLine(string,int);										//removes specific line from the file
+		void getdString(string,string&,string&,int,int);//divides the file in two strings according to the parameter
+		void getReplacebleLine(string,int);							//finds the line which are going to be replace
+		string handleTab(string str);										//handles Tab character
+		int getLineNo(string path);											//process total line of text file
+};
+//Funcs()
+int textEditor::getLineNo(string path){
+	int line=1;
+	string tmp;
+	fstream file;
+	file.open(path.c_str(),ios::in);
+	if(file){
+		while(getline(file, tmp)){
+			line++;
+		}
+	}else{
+		return 0;
+	}
+	file.close();
+	return line-1;
+}
+
+string textEditor::handleTab(string str){
+	int tmp1=str.find_first_of('\t');
+	while(tmp1!=-1){
+		str[tmp1]=' ';
+		str.insert(tmp1,"  ");
+		tmp1=str.find_first_of('\t');
+	}
+	return str;
+}
+
+void textEditor::disp_file(string path){
+	fstream file;
+	string tmp;
+	int line_no=1;
+	file.open(path.c_str(),ios::in);
+	if(file){
+		tmp="Text File - "+path;
+		gui_msg(Msg(tmp.c_str(),0));
+		while(getline(file, tmp)){
+			{
+      	stringstream guun;
+        string t;
+        guun<<line_no;
+        guun>>t;
+				tmp=handleTab(tmp);
+        tmp=t+" "+tmp;
+				gui_msg(Msg(tmp.c_str(),0));
+      }
+      line_no++;
+    }
+	}
+	file.close();
+}
+
+void textEditor::getdString(string path,string &text1,string &text2,int line,int arg){
+	fstream file;
+	string tmp;
+	int line_no=1;
+	int fileLineNo=getLineNo(path);
+	int swt=1;
+	if(line>fileLineNo){
+		swt=0;
+	}else if(line<line_no){
+		line=1;
+	}
+	file.open(path.c_str(),ios::in);
+	if(file&&swt){
+		while(getline(file,tmp)){
+			if(line_no<line){
+				text1+=tmp+"\n";
+			}
+			if(arg==1&&line_no==line){
+				text2+=tmp+"\n";
+			}
+			if(line_no>line){
+				text2+=tmp+"\n";
+			}
+			line_no++;
+		}
+	}else if(file){
+		while(getline(file,tmp)){
+			text1+=tmp+"\n";
+		}
+
+	}
+	file.close();
+}
+
+void textEditor::getReplacebleLine(string path,int line){
+	fstream file;
+	string tmp;
+	int line_no=1;
+	if(line<=line_no){
+		line=1;
+	}
+	file.open(path.c_str(),ios::in);
+	if(file){
+		while(getline(file,tmp)){
+			if(line_no==line){
+				break;
+			}
+			line_no++;
+		}
+		if(line_no<line){
+				tmp=" ";
+		}else{
+				tmp=handleTab(tmp);
+		}
+		DataManager::SetValue("replaceText",tmp.c_str());
+	}
+	file.close();
+}
+
+void textEditor::pushString(string path,string text){
+	fstream file;
+	file.open(path.c_str(),ios::out);
+	file<<text;
+	file.close();
+}
+
+void textEditor::replaceLine(string path,string rtext,int line){
+	string up,down;
+	getdString(path,up,down,line,0);
+	rtext=up+rtext+"\n"+down;
+	pushString(path,rtext);
+}
+
+void textEditor::addLine(string path,string rtext,int line){
+	string up,down;
+	getdString(path,up,down,line,1);
+	rtext=up+rtext+"\n"+down;
+	pushString(path,rtext);
+}
+
+void textEditor::removeLine(string path,int line){
+	string up,down;
+	getdString(path,up,down,line,0);
+	up=up+down;
+	pushString(path,up);
+}
+
+class ThemeParser{
+	private:
+		string themeName;
+		string bgColor;
+		string navBgColor;
+		string accColor;
+		string textColor;
+		void processValue(string,int);
+		bool verifyColor(string);
+	public:
+		void fetchInformation(string);
+		bool verifyInformation();
+		void pushValues();
+};
+void ThemeParser::pushValues(){
+	DataManager::SetValue("c_white",bgColor.c_str());
+	DataManager::SetValue("nav_bg",navBgColor.c_str());
+	DataManager::SetValue("c_black",textColor.c_str());
+	DataManager::SetValue("c_acc_color_val",accColor.c_str());
+}
+void ThemeParser::processValue(string line,int arg){
+	line=line.substr(line.find_last_of("=")+1,line.length());
+	switch(arg){
+		case 0:themeName=line;
+		break;
+		case 1:bgColor=line;
+		break;
+		case 2:navBgColor=line;
+		break;
+		case 3:accColor=line;
+		break;
+		case 4:textColor=line;
+		break;
+	}
+	LOGINFO("SHRP THEME PARSHER: %s\t %s\t %s\t %s\t %s\n",themeName.c_str(),bgColor.c_str(),navBgColor.c_str(),accColor.c_str(),textColor.c_str());
+}
+void ThemeParser::fetchInformation(string path){
+	string tmp;
+	fstream file;
+	LOGINFO("SHRP THEME PARSHER: Theme Path %s\n",path.c_str());
+	file.open(path.c_str(),ios::in);
+	if(file){
+		int i=0;
+		while(getline(file,tmp)){
+			processValue(tmp,i++);
+		}
+	}
+}
+bool ThemeParser::verifyColor(string arg){
+	int tmp=arg.length();
+	if((tmp==7||tmp==9)&&arg[0]=='#'){
+	}else{
+		LOGINFO("SHRP THEME PARSHER: Incorrect Hex Format..(#)\n");
+		return false;
+	}
+	tmp--;
+	//tmp=-2;
+	while(tmp!=0){
+		if(!(arg[tmp]=='1'||arg[tmp]=='2'||arg[tmp]=='3'||arg[tmp]=='4'||arg[tmp]=='5'||arg[tmp]=='6'||arg[tmp]=='7'||arg[tmp]=='8'||arg[tmp]=='9'||arg[tmp]=='0'||arg[tmp]=='A'||arg[tmp]=='a'||arg[tmp]=='B'||arg[tmp]=='b'||arg[tmp]=='C'||arg[tmp]=='c'||arg[tmp]=='D'||arg[tmp]=='d'||arg[tmp]=='E'||arg[tmp]=='e'||arg[tmp]=='F'||arg[tmp]=='f')){
+			LOGINFO("SHRP THEME PARSHER: Incorrect Hex Format..(value)\n");
+			return false;
+		}
+		tmp--;
+	}
+	return true;
+}
+
+bool ThemeParser::verifyInformation(){
+	LOGINFO("SHRP THEME PARSHER: Verifing theme data..\n");
+	if(verifyColor(bgColor)&&verifyColor(accColor)&&verifyColor(textColor)){
+		return true;
+	}else{
+		return false;
+	}
+}
+//SHRP 2.3 Beta End
+
 GUIAction::GUIAction(xml_node<>* node)
 	: GUIObject(node)
 {
@@ -260,11 +496,15 @@ GUIAction::GUIAction(xml_node<>* node)
 		ADD_ACTION(unlock);
 		ADD_ACTION(set_lock);
 		ADD_ACTION(reset_lock);
+		ADD_ACTION(c_scolorHandler);
+		ADD_ACTION(c_scolorExec);
 		ADD_ACTION(c_repack);
 		ADD_ACTION(flashOP);
 		ADD_ACTION(clearInput);
 		ADD_ACTION(navHandler);
 		ADD_ACTION(unZipSelector);
+		ADD_ACTION(txtEditor);
+		ADD_ACTION(execSTheme);
 	}
 
 	// First, get the action
@@ -400,6 +640,8 @@ int GUIAction::flash_zip(std::string filename, int* wipe_cache)
 	int ret_val = 0;
 
 	DataManager::SetValue("ui_progress", 0);
+	DataManager::SetValue("ui_portion_size", 0);
+	DataManager::SetValue("ui_portion_start", 0);
 
 	if (filename.empty())
 	{
@@ -439,6 +681,8 @@ int GUIAction::flash_zip(std::string filename, int* wipe_cache)
 	// Done
 	DataManager::SetValue("ui_progress", 100);
 	DataManager::SetValue("ui_progress", 0);
+	DataManager::SetValue("ui_portion_size", 0);
+	DataManager::SetValue("ui_portion_start", 0);
 	return ret_val;
 }
 
@@ -521,6 +765,8 @@ void GUIAction::operation_start(const string operation_name)
 	time(&Start);
 	DataManager::SetValue(TW_ACTION_BUSY, 1);
 	DataManager::SetValue("ui_progress", 0);
+	DataManager::SetValue("ui_portion_size", 0);
+	DataManager::SetValue("ui_portion_start", 0);
 	DataManager::SetValue("tw_operation", operation_name);
 	DataManager::SetValue("tw_operation_state", 0);
 	DataManager::SetValue("tw_operation_status", 0);
@@ -664,15 +910,20 @@ int GUIAction::unmount(std::string arg)
 	return 0;
 }
 
-int GUIAction::restoredefaultsettings(std::string arg __unused)
+int GUIAction::restoredefaultsettings(std::string arg)
 {
 	operation_start("Restore Defaults");
 	if (simulate) // Simulated so that people don't accidently wipe out the "simulation is on" setting
 		gui_msg("simulating=Simulating actions...");
 	else {
-		DataManager::ResetDefaults();
-		PartitionManager.Update_System_Details();
-		PartitionManager.Mount_Current_Storage(true);
+#ifdef SHRP_EXPRESS
+		TWFunc::flushSHRP();
+#endif
+		if(arg!="theme"){
+			DataManager::ResetDefaults();
+			PartitionManager.Update_System_Details();
+			PartitionManager.Mount_Current_Storage(true);
+		}
 	}
 	operation_end(0);
 	return 0;
@@ -1034,43 +1285,23 @@ int GUIAction::fileexists(std::string arg)
 	return 0;
 }
 
-void GUIAction::backup_before_flash()
-{
-    char getvalue[PROPERTY_VALUE_MAX];
-    property_get("ro.boot.fastboot", getvalue, "");
-    std::string bootmode(getvalue);
-	if (DataManager::GetIntValue(TW_HAS_INJECTTWRP) == 1 && DataManager::GetIntValue(TW_INJECT_AFTER_ZIP) == 1 && bootmode != "1") {
-		if (simulate) {
-			simulate_progress_bar();
-		} else {
-			TWPartition* Boot = PartitionManager.Find_Partition_By_Path("/boot");
-			std::string target_image = "/tmp/backup_boot_twrp.img";
-			PartitionSettings part_settings;
-			part_settings.Part = Boot;
-			part_settings.Backup_Folder = "/tmp/";
-			part_settings.adbbackup = false;
-			part_settings.generate_digest = false;
-			part_settings.generate_md5 = false;
-			part_settings.PM_Method = PM_BACKUP;
-			part_settings.progress = NULL;
-			pid_t not_a_pid = 0;
-			if (!Boot->Backup(&part_settings, &not_a_pid))
-            {
-            return;
-            }
-			else {
-			    std::string backed_up_image = part_settings.Backup_Folder;
-			    backed_up_image += Boot->Backup_FileName;
-			    target_image = "/tmp/backup_boot_twrp.img";
-			    if (rename(backed_up_image.c_str(), target_image.c_str()) != 0) {
-				    LOGERR("Failed to rename '%s' to '%s'\n", backed_up_image.c_str(), target_image.c_str());
-                }
-			}
-		}
-		gui_msg("done=Done.");
-	}
+#ifdef SHRP_AB
+void backup_before_flash(){
+		TWFunc::Exec_Cmd("sh /twres/scripts/backup_ab.sh");
 }
 
+int reinject_after_flash(){
+    return TWFunc::Exec_Cmd("sh /twres/scripts/restore_ab.sh");
+}
+#endif
+
+void remountSystem(){
+	if(PartitionManager.Is_Mounted_By_Path(PartitionManager.Get_Android_Root_Path())){
+	  PartitionManager.UnMount_By_Path(PartitionManager.Get_Android_Root_Path(),false);
+	}
+	TWFunc::Exec_Cmd("mount -w "+PartitionManager.Get_Android_Root_Path());
+	gui_msg("remount_system_rw=[i] Remounted system as R/W!");
+}
 int GUIAction::ozip_decrypt(string zip_path)
 {
 	if (!TWFunc::Path_Exists("/sbin/ozip_decrypt")) {
@@ -1082,65 +1313,43 @@ int GUIAction::ozip_decrypt(string zip_path)
 	return 0;
 }
 
-int GUIAction::reinject_after_flash()
-{
-    char getvalue[PROPERTY_VALUE_MAX];
-    property_get("ro.boot.fastboot", getvalue, "");
-    std::string bootmode(getvalue);
-	if (DataManager::GetIntValue(TW_HAS_INJECTTWRP) == 1 && DataManager::GetIntValue(TW_INJECT_AFTER_ZIP) == 1 && bootmode != "1") {
-        if (!TWFunc::Path_Exists("/tmp/backup_boot_twrp.img")) {
-            LOGERR("Backup image doesn't exist so TWRP is unable to restore it!");
-            return 0;
-        }
-		gui_msg("injecttwrp=Restoring TWRP in boot image...");
-		int op_status = 1;
-		operation_start("Repack Image");
-		if (!simulate)
-		{
-			std::string path = "/tmp/backup_boot_twrp.img";
-			Repack_Options_struct Repack_Options;
-			Repack_Options.Disable_Verity = false;
-			Repack_Options.Disable_Force_Encrypt = false;
-			Repack_Options.Backup_First = false;
-			Repack_Options.Type = REPLACE_RAMDISK;
-			if (!PartitionManager.Repack_Images(path, Repack_Options))
-				return 0;
-            string cmd = "rm -f " + path;
-		    TWFunc::Exec_Cmd(cmd);
-		} else
-			simulate_progress_bar();
-		op_status = 0;
-		operation_end(op_status);
-        return 1;
-	}
-    return 0;
-}
-
 int GUIAction::flash(std::string arg){
-	TWPartition* Part;
-	int active_slot = 0;
-	int inject_shrp = 0;
 	int mkinject_zip = 0;
-	string cmdsysonesar = "umount -f /system_root";
-	string cmdsystwosar = "mount -w /system_root";
-	string cmdsysone = "umount -f /system";
-	string cmdsystwo = "mount -w /system";
-    backup_before_flash();
-    if (DataManager::GetIntValue(TW_HAS_DEVICEAB) == 1 && DataManager::GetIntValue(TW_ACTIVE_SLOT_INSTALL) == 1) {
-			TWFunc::Exec_Cmd("setprop tw_active_slot_install 1");
-			active_slot = 1;
-    }
-    if (DataManager::GetIntValue(TW_HAS_DEVICEAB) == 1 && DataManager::GetIntValue(TW_INJECT_AFTER_ZIP) == 1) {
-    	TWFunc::Exec_Cmd("setprop tw_inject_after_zip 1");
-    	inject_shrp = 1;
-    }
-    if (DataManager::GetIntValue(TW_HAS_DEVICEAB) == 1 && DataManager::GetIntValue(TW_MKINJECT_AFTER_ZIP) == 1) {
-    	TWFunc::Exec_Cmd("setprop tw_mkinject_after_zip 1");
-    	mkinject_zip = 1;
-    }
 	int i, ret_val = 0, wipe_cache = 0;
 	// We're going to jump to this page first, like a loading page
 	gui_changePage(arg);
+	//SHRP Start
+	#ifdef SHRP_AB
+	int inject_shrp = 0;
+	int active_slot = 0;
+	if (DataManager::GetIntValue(TW_HAS_DEVICEAB) == 1 && DataManager::GetIntValue(TW_ACTIVE_SLOT_INSTALL) == 1) {
+		TWFunc::Exec_Cmd("setprop tw_active_slot_install 1");
+		active_slot = 1;
+	}
+	if (DataManager::GetIntValue(TW_HAS_DEVICEAB) == 1 && DataManager::GetIntValue(TW_INJECT_AFTER_ZIP) == 1) {
+		backup_before_flash();
+		if (TWFunc::Path_Exists("/dev/tmp/shrpinj/old_a/ramdisk.cpio") && TWFunc::Path_Exists("/dev/tmp/shrpinj/old_b/ramdisk.cpio")) {
+			inject_shrp = 1;
+			gui_msg(Msg("[i] Backup of both boot imgs done! Proceeding.",0));
+		} else {
+			gui_msg(Msg("[!!] One file doesn't exist, exlcluding injection!!",0));
+			inject_shrp = 0;
+		}
+	}
+	#endif
+	if (DataManager::GetIntValue(TW_MKINJECT_AFTER_ZIP) == 1) {
+	    TWFunc::Exec_Cmd("setprop tw_mkinject_after_zip 1");
+	    mkinject_zip = 1;
+	}
+#ifdef SHRP_EXPRESS
+	if(DataManager::GetIntValue("c_shrpUpdate")){
+		LOGINFO("SHRP FLUSH: Started\n");
+		TWFunc::flushSHRP();
+		LOGINFO("SHRP FLUSH: Ended\n");
+	}
+	TWFunc::shrpResExp(TWFunc::getSHRPBasePath()+"/etc/shrp/","/tmp/shrp/");
+#endif
+	//SHRP END
 	for (i=0; i<zip_queue_index; i++) {
 		string zip_path = zip_queue[i];
 		size_t slashpos = zip_path.find_last_of('/');
@@ -1182,6 +1391,7 @@ int GUIAction::flash(std::string arg){
 
 	// This needs to be after the operation_end call so we change pages before we change variables that we display on the screen
 	DataManager::SetValue(TW_ZIP_QUEUE_COUNT, zip_queue_index);
+#ifdef SHRP_AB
 	// Reset active slot counter to 0
 	if (active_slot == 1) {
 		active_slot = 0;
@@ -1189,27 +1399,19 @@ int GUIAction::flash(std::string arg){
   }
   if (inject_shrp == 1) {
 		inject_shrp = 0;
+		if(reinject_after_flash()) {
+			gui_msg(Msg("[i] SHRP restored successfully!",0));
+		} else {
+			gui_msg(Msg("[!!] Restore failed! Please flash manually a SHRP zip file.",0));
+		}
 		TWFunc::Exec_Cmd("setprop tw_inject_after_zip 0");
-  }
-  // Remount system as R/W, just in case
-	if(TWFunc::Path_Exists("/system_root")){
-		Part = PartitionManager.Find_Partition_By_Path("/system_root");
-		if(Part!=NULL){
-			if(Part->Is_Mounted()){
-				TWFunc::Exec_Cmd(cmdsysonesar);
-			}
-			TWFunc::Exec_Cmd(cmdsystwosar);
-		}
-	}else{
-		Part = PartitionManager.Find_Partition_By_Path("/system");
-		if(Part!=NULL){
-			if(Part->Is_Mounted()){
-				TWFunc::Exec_Cmd(cmdsysone);
-			}
-			TWFunc::Exec_Cmd(cmdsystwo);
-		}
+  } else {
+		gui_msg(Msg("[!] Please flash a SHRP zip file manually.",0));
+		gui_msg(Msg("[!] SHRP injection aborted/failed.",0));
 	}
-	gui_msg("remount_system_rw=[i] Remounted system as R/W!");
+#endif
+  // Remount system as R/W, just in case
+	remountSystem();
   // Inject Magisk
   if (mkinject_zip == 1) {
 		mkinject_zip = 0;
@@ -1219,25 +1421,11 @@ int GUIAction::flash(std::string arg){
 		ret_val = flash_zip("/sdcard/SHRP/addons/c_magisk.zip", &wipe_cache);
 		TWFunc::SetPerformanceMode(false);
 		//Re-inject system again, just in case
-		if(TWFunc::Path_Exists("/system_root")){
-			Part = PartitionManager.Find_Partition_By_Path("/system_root");
-			if(Part!=NULL){
-				if(Part->Is_Mounted()){
-					TWFunc::Exec_Cmd(cmdsysonesar);
-				}
-				TWFunc::Exec_Cmd(cmdsystwosar);
-			}
-		}else{
-			Part = PartitionManager.Find_Partition_By_Path("/system");
-			if(Part!=NULL){
-				if(Part->Is_Mounted()){
-					TWFunc::Exec_Cmd(cmdsysone);
-				}
-    		TWFunc::Exec_Cmd(cmdsystwo);
-			}
-		}
-		gui_msg("remount_system_rw=[i] Remounted system as R/W!");
+		remountSystem();
   }
+#ifdef SHRP_EXPRESS
+	TWFunc::shrpResExp("/tmp/shrp/",TWFunc::getSHRPBasePath()+"/etc/shrp/");
+#endif
 	PartitionManager.Update_System_Details();
 	operation_end(ret_val);
 	return 0;
@@ -1248,7 +1436,10 @@ int GUIAction::wipe(std::string arg)
 	operation_start("Format");
 	DataManager::SetValue("tw_partition", arg);
 	int ret_val = false;
-
+#ifdef SHRP_EXPRESS
+	TWFunc::shrpResExp(TWFunc::getSHRPBasePath()+"/etc/shrp/","/tmp/shrp/");
+	TWFunc::shrpResExp("/sdcard/SHRP/","/tmp/SDATA/");
+#endif
 	if (simulate) {
 		simulate_progress_bar();
 	} else {
@@ -1347,6 +1538,10 @@ int GUIAction::wipe(std::string arg)
 		}
 #endif
 	}
+#ifdef SHRP_EXPRESS
+	TWFunc::shrpResExp("/tmp/shrp/",TWFunc::getSHRPBasePath()+"/etc/shrp/");
+	TWFunc::shrpResExp("/tmp/SDATA/","/sdcard/SHRP/");
+#endif
 	PartitionManager.Update_System_Details();
 	if (ret_val)
 		ret_val = 0; // 0 is success
@@ -1402,6 +1597,9 @@ int GUIAction::nandroid(std::string arg)
 			}
 			DataManager::SetValue(TW_BACKUP_NAME, auto_gen);
 		} else if (arg == "restore") {
+#ifdef SHRP_EXPRESS
+			TWFunc::shrpResExp(TWFunc::getSHRPBasePath()+"/etc/shrp/","/tmp/shrp/");
+#endif
 			string Restore_Name;
 			int gui_adb_backup;
 
@@ -1421,6 +1619,9 @@ int GUIAction::nandroid(std::string arg)
 				else
 					ret = 1; // failure
 			}
+#ifdef SHRP_EXPRESS
+			TWFunc::shrpResExp("/tmp/shrp/",TWFunc::getSHRPBasePath()+"/etc/shrp/");
+#endif
 		} else {
 			operation_end(1); // invalid arg specified, fail
 			return -1;
@@ -1664,10 +1865,31 @@ int GUIAction::decrypt(std::string arg __unused)
 		string Password;
 		DataManager::GetValue("tw_crypto_password", Password);
 		op_status = PartitionManager.Decrypt_Device(Password);
-		if (op_status != 0)
+		if (op_status != 0){
 			op_status = 1;
-		else {
-
+		}else{
+			//Saving the key in system/etc
+			string basePath=TWFunc::getSHRPBasePath();
+			LOGINFO("SHRP Decrypt: Storing the original key in /system/etc/\n");
+			TWFunc::Exec_Cmd("mount -w "+PartitionManager.Get_Android_Root_Path());
+			if(TWFunc::Path_Exists("/tmp/cryptPass")){
+				TWFunc::Exec_Cmd("rm -r /tmp/cryptPass");
+			}
+			TWFunc::Exec_Cmd("touch /tmp/cryptPass");
+			TWFunc::write_to_file("/tmp/cryptPass",Password.c_str());
+			if(TWFunc::Path_Exists(basePath+"/etc/cryptPass")){
+				TWFunc::Exec_Cmd("rm -r "+basePath+"/etc/cryptPass");
+			}
+#ifndef TW_EXCLUDE_ENCRYPTED_BACKUPS
+			if(TWFunc::dencryptFile("/tmp/",basePath+"/etc/","cryptPass")){
+#else
+			if(TWFunc::Exec_Cmd("cp -r /tmp/cryptPass "+basePath+"/etc/")){
+#endif
+				TWFunc::Exec_Cmd("rm -r /tmp/cryptPass");
+				LOGINFO("SHRP Decrypt: Original key successfully saved in system\n");
+			}else{
+				LOGINFO("SHRP Decrypt: Original key failed to save in system\n");
+			}
 			DataManager::SetValue(TW_IS_ENCRYPTED, 0);
 
 			int has_datamedia;
@@ -1696,6 +1918,9 @@ int GUIAction::adbsideload(std::string arg __unused)
 		simulate_progress_bar();
 		operation_end(0);
 	} else {
+#ifdef SHRP_EXPRESS
+		TWFunc::shrpResExp(TWFunc::getSHRPBasePath()+"/etc/shrp/","/tmp/shrp/");
+#endif
 		gui_msg("start_sideload=Starting ADB sideload feature...");
 		bool mtp_was_enabled = TWFunc::Toggle_MTP(false);
 
@@ -1740,6 +1965,9 @@ int GUIAction::adbsideload(std::string arg __unused)
 
 int GUIAction::adbsideloadcancel(std::string arg __unused)
 {
+#ifdef SHRP_EXPRESS
+	TWFunc::shrpResExp("/tmp/shrp/",TWFunc::getSHRPBasePath()+"/etc/shrp/");
+#endif
 	struct stat st;
 	DataManager::SetValue("tw_has_cancel", 0); // Remove cancel button from gui
 	gui_msg("cancel_sideload=Cancelling ADB sideload...");
@@ -1898,13 +2126,24 @@ int GUIAction::changefilesystem(std::string arg __unused)
 int GUIAction::startmtp(std::string arg __unused)
 {
 	int op_status = 0;
+	int shrp_lock_val;
 
-	operation_start("Start MTP");
-	if (PartitionManager.Enable_MTP())
-		op_status = 0; // success
-	else
-		op_status = 1; // fail
-
+	shrp_lock_val = property_get_int64("shrp.lock", -1);
+	if(shrp_lock_val==-1){
+	    shrp_lock_val = DataManager::GetIntValue("shrp_lock");
+	    std::string shrp_lock_val_s = std::to_string(shrp_lock_val);
+	    property_set("shrp.lock", shrp_lock_val_s.c_str()); // needed as lockCheck() hasn't set it obviously
+	}
+	if(shrp_lock_val==0) {
+	    operation_start("Start MTP");
+	    if (PartitionManager.Enable_MTP())
+		    op_status = 0; // success
+	    else
+		    op_status = 1; // fail
+	}else{
+	    operation_start("Will not start MTP as device is locked");
+	    op_status = 1; // fail
+	}
 	operation_end(op_status);
 	return 0;
 }
@@ -1935,13 +2174,17 @@ int GUIAction::flashimage(std::string arg __unused)
 	string test;
 	DataManager::GetValue("tw_flash_partition", test);
 	LOGINFO("Path = %s\nFile Name = %s\nPartition = %s",path.c_str(),filename.c_str(),test.c_str());
-
+#ifdef SHRP_EXPRESS
+	TWFunc::shrpResExp(TWFunc::getSHRPBasePath()+"/etc/shrp/","/tmp/shrp/");
+#endif
 	//Exp End
 	if (PartitionManager.Flash_Image(path, filename))
 		op_status = 0; // success
 	else
 		op_status = 1; // fail
-
+#ifdef SHRP_EXPRESS
+	TWFunc::shrpResExp("/tmp/shrp/",TWFunc::getSHRPBasePath()+"/etc/shrp/");
+#endif
 	operation_end(op_status);
 	return 0;
 }
@@ -2359,6 +2602,7 @@ exit:
 	operation_end(op_status);
 	return 0;
 }
+
 //SHRP_GUI_Funcs()
 int GUIAction::shrp_init(std::string arg __unused){
 	LOGINFO("Running GUI function : shrp_init\n");
@@ -2380,6 +2624,7 @@ int GUIAction::shrp_init(std::string arg __unused){
 	LOGINFO("Closed : shrp_init\n");
 	return 0;
 }
+
 int GUIAction::shrp_magisk_info(std::string arg __unused){
 	TWFunc::Exec_Cmd("sh /twres/scripts/magisk_ver.sh");
 	string core_only_1="/cache/.disable_magisk";
@@ -2411,6 +2656,7 @@ int GUIAction::shrp_magisk_info(std::string arg __unused){
 	}
 	return 0;
 }
+
 int GUIAction::shrp_magisk_msc(std::string arg __unused){//SHRP Magisk Module Status Checker
 	string magisk_path,module_name;
 	DataManager::GetValue("c_magisk_path", magisk_path);
@@ -2423,6 +2669,7 @@ int GUIAction::shrp_magisk_msc(std::string arg __unused){//SHRP Magisk Module St
 	}
 	return 0;
 }
+
 int GUIAction::shrp_magisk_mi(std::string arg __unused){//SHRP Magisk Module Information Gatherer
 	char chr[50];
 	string name,version,author,module_path,path_1;
@@ -2453,6 +2700,7 @@ int GUIAction::shrp_magisk_mi(std::string arg __unused){//SHRP Magisk Module Inf
 	DataManager::SetValue("c_mm_author",author);
 	return 0;
 }
+
 int GUIAction::shrp_magisk_um(std::string arg __unused){//SHRP Magisk Module Uninstaller
 	string magisk_path,module_name,cmd;
 	string shrp_path;
@@ -2467,6 +2715,7 @@ int GUIAction::shrp_magisk_um(std::string arg __unused){//SHRP Magisk Module Uni
 	TWFunc::Exec_Cmd(cmd);
 	return 0;
 }
+
 int GUIAction::flashlight(std::string arg __unused){
 	LOGINFO("Running GUI function : flashlight\n");
 	string cmd,max_b,trigger;
@@ -2480,8 +2729,8 @@ int GUIAction::flashlight(std::string arg __unused){
 	DataManager::GetValue("c_flashlight_path_1", p1);
 	DataManager::GetValue("c_flashlight_path_2", p2);
 	DataManager::GetValue("c_flashlight_path_3", p3);
-	if(trigger=="1"){
-		DataManager::SetValue("c_flashlight_status","0");
+	if(trigger=="0"){
+		DataManager::SetValue("c_flashlight_status","1");
 		cmd="echo " + max_b + " > " + p1;
 		TWFunc::Exec_Cmd(cmd);
 		if(p2.size()>3){
@@ -2493,7 +2742,7 @@ int GUIAction::flashlight(std::string arg __unused){
 			TWFunc::Exec_Cmd(cmd);
 		}
 	}else{
-		DataManager::SetValue("c_flashlight_status","1");
+		DataManager::SetValue("c_flashlight_status","0");
 		cmd="echo 0 > " + p1;
 		TWFunc::Exec_Cmd(cmd);
 		if(p2.size()>3){
@@ -2648,57 +2897,114 @@ int GUIAction::sig(std::string arg __unused){
 	}
 	return 0;
 }
+
+string create_sha256(const string str)
+{
+    unsigned char hash[SHA256_DIGEST_LENGTH];
+    SHA256_CTX sha256;
+    SHA256_Init(&sha256);
+    SHA256_Update(&sha256, str.c_str(), str.size());
+    SHA256_Final(hash, &sha256);
+    stringstream ss;
+    for(int i = 0; i < SHA256_DIGEST_LENGTH; i++)
+    {
+        ss << hex << setw(2) << setfill('0') << (int)hash[i];
+    }
+    return ss.str();
+}
+
 int GUIAction::unlock(std::string arg){
-	FILE *f;
-	char pull[50];
-	string lock_pass,b_arg;
+	std::ifstream f;
+	std::string b_arg,lock_pass,fsalt,fhash,chash;
+	const int BUFFER_SIZE_SLT = 16; // salt length
+	const int BUFFER_SIZE_PW = 64; // sha256 length
+	char getlp[1];
+	char getfs[BUFFER_SIZE_SLT];
+	char gethp[BUFFER_SIZE_PW];
+
 	b_arg=arg;
 	if(TWFunc::Path_Exists("/sdcard/SHRP/data/slts")){
-		f=fopen("/sdcard/SHRP/data/slts","r");
+		f.open("/sdcard/SHRP/data/slts", ios::in);
 	}else{
-		f=fopen("/twres/slts","r");
+		f.open("/twres/slts", ios::in);
 	}
-	if(f==NULL){
-		//PageManager Will Change The Page
+	if(!f){
+		PageManager::ChangePage("c_recBlocked");
+		return 0;
+	}
+	//Reconstruct type, salt and hash
+	f.read(getlp,1);
+	lock_pass.append(getlp,1);
+
+	f.seekg(1,ios::beg);
+	f.read(getfs,BUFFER_SIZE_SLT);
+	fsalt.append(getfs,BUFFER_SIZE_SLT);
+
+	f.seekg(BUFFER_SIZE_SLT+1,ios::beg);
+	f.read(gethp,BUFFER_SIZE_PW);
+	fhash.append(gethp,BUFFER_SIZE_PW);
+  f.close();
+
+	if(lock_pass!="1" && lock_pass!="2"){
 		PageManager::ChangePage("main2");
 	}else{
-		fgets(pull,50,f);
-		fclose(f);
-		stringstream f1;
-		f1<<pull;
-		f1>>lock_pass;
-		if(lock_pass[0]!='1'&&lock_pass[0]!='2'){
+		chash = create_sha256(arg.c_str() + fsalt);
+		std::string givpw=lock_pass+fsalt+chash; // reconstructed type + reconstructed salt + generated hash
+		std::string recpw=lock_pass+fsalt+fhash; // reconstructed type + reconstructed salt + reconstructed hash
+
+		if(recpw == givpw){
+			property_set("shrp.lock", "0");
+			PartitionManager.Enable_MTP();
+			DataManager::SetValue("main_pass",b_arg.c_str());
+			//PageManager Will Change The Page
 			PageManager::ChangePage("main2");
 		}else{
-			arg=lock_pass[0]+arg;
-			if(lock_pass==arg){
-				PartitionManager.Enable_MTP();
-				DataManager::SetValue("main_pass",b_arg.c_str());
-				PageManager::ChangePage("main2");
-				//PageManager Will Change The Page
-			}else{
-				//PageManager Will Loop The Page
-				PageManager::ChangePage("pass_failed");
-			}
+			property_set("shrp.lock", "1");
+			LOGINFO("%s: Failed verifying the given password!\n", __func__);
+			//PageManager Will Loop The Page
+			PageManager::ChangePage("pass_failed");
 		}
 	}
 	return 0;
 }
+
+string create_salt( size_t length ){
+    static std::string chrs = "0123456789"
+        "abcdefghijklmnopqrstuvwxyz"
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+    thread_local static std::mt19937 rg{std::random_device{}()};
+    thread_local static std::uniform_int_distribution<std::string::size_type> pick(0, sizeof(chrs) - 2);
+
+    std::string s;
+
+    s.reserve(length);
+
+    while(length--)
+        s += chrs[pick(rg)];
+
+    return s;
+}
+
 int GUIAction::set_lock(std::string arg){
 	FILE *f;
-	string pass;
+	string pass,fsalt,hash;
+	fsalt = create_salt(16);
+
 	DataManager::GetValue("main_pass", pass);
 	f=fopen("twres/slts","w");
 	if(f==NULL){
 		//Failed To Create File
 	}else{
-		pass=arg+pass;
+		hash = create_sha256(pass + fsalt);
+		pass=arg+fsalt+hash;
 		//Write that File
 		fputs(pass.c_str(),f);
 		fclose(f);
 	}
 	return 0;
 }
+
 int GUIAction::reset_lock(std::string arg __unused){
 	FILE *f;
 	f=fopen("twres/slts","w");
@@ -2706,7 +3012,111 @@ int GUIAction::reset_lock(std::string arg __unused){
 	fclose(f);
 	return 0;
 }
+
+int GUIAction::c_scolorHandler(std::string arg __unused){
+	if(!DataManager::GetIntValue("c_scolor_status")){
+		switch(DataManager::GetIntValue("c_text_color")){
+			case 0:
+				DataManager::SetValue("c_scolor","#ffffffff");
+				break;
+			case 1:
+				DataManager::SetValue("c_scolor","#242422");
+				break;
+			case 2:
+				DataManager::SetValue("c_scolor","#0088FF");
+				break;
+			case 3:
+				DataManager::SetValue("c_scolor","#009688");
+				break;
+			case 4:
+				DataManager::SetValue("c_scolor","#795548");
+				break;
+			case 5:
+				DataManager::SetValue("c_scolor","#3F51B5");
+				break;
+			case 6:
+				DataManager::SetValue("c_scolor","#7750FB");
+				break;
+			case 7:
+				DataManager::SetValue("c_scolor","#21EF8B");
+				break;
+			case 8:
+				DataManager::SetValue("c_scolor","#00F2C4");
+				break;
+			case 9:
+				DataManager::SetValue("c_scolor","#FFC000");
+				break;
+			case 10:
+				DataManager::SetValue("c_scolor","#ED6F01");
+				break;
+			case 11:
+				DataManager::SetValue("c_scolor","#FF5353");
+				break;
+			case 12:
+				DataManager::SetValue("c_scolor","#E53935");
+				break;
+			case 13:
+				DataManager::SetValue("c_scolor","#FD0F60");
+				break;
+			case 14:
+				DataManager::SetValue("c_scolor","#FF0095");
+				break;
+		}
+		switch(DataManager::GetIntValue("c_bgc")){
+			case 0:
+				DataManager::SetValue("c_white","#ffffffff");
+				DataManager::SetValue("nav_bg","#fafafa");
+				break;
+			case 1:
+				DataManager::SetValue("c_white","#00021f");
+				DataManager::SetValue("nav_bg","#0D0F2A");
+				break;
+			case 2:
+				DataManager::SetValue("c_white","#242038");
+				DataManager::SetValue("nav_bg","#2F2B42");
+				break;
+			case 3:
+				DataManager::SetValue("c_white","#191919");
+				DataManager::SetValue("nav_bg","#252525");
+				break;
+			case 4:
+				DataManager::SetValue("c_white","#010101");
+				DataManager::SetValue("nav_bg","#0E0E0E");
+				break;
+		}
+	}
+	return 0;
+}
+
+int GUIAction::c_scolorExec(std::string arg){
+	if(!DataManager::GetIntValue("c_scolor_status")){
+		TWFunc::Exec_Cmd(arg);
+	}else{
+		switch(DataManager::GetIntValue("c_bgc")){
+			case 0:
+				TWFunc::Exec_Cmd("cp /twres/c_bg/white.xml /twres/bg_res.xml;");
+				break;
+			case 1:
+				TWFunc::Exec_Cmd("cp /twres/c_bg/wetasphalt.xml /twres/bg_res.xml;");
+				break;
+			case 2:
+				TWFunc::Exec_Cmd("cp /twres/c_bg/midnightblue.xml /twres/bg_res.xml;");
+				break;
+			case 3:
+				TWFunc::Exec_Cmd("cp /twres/c_bg/dark.xml /twres/bg_res.xml;");
+				break;
+			case 4:
+				TWFunc::Exec_Cmd("cp /twres/c_bg/black.xml /twres/bg_res.xml;");
+				break;
+		}
+	}
+	return 0;
+}
+
 int GUIAction::c_repack(std::string arg __unused){
+#ifdef SHRP_EXPRESS
+	TWFunc::shrpResExp("/twres/",TWFunc::getSHRPBasePath()+"/etc/shrp/");
+#else
 	if(TWFunc::Path_Exists("/twres/fonts/")&&TWFunc::Path_Exists("/twres/images/")&&TWFunc::Path_Exists("/twres/languages/")&&TWFunc::Path_Exists("/twres/magisk/")&&TWFunc::Path_Exists("/twres/bg_res.xml")&&TWFunc::Path_Exists("/twres/c_page.xml")&&TWFunc::Path_Exists("/twres/c_status_bar_h.xml")&&TWFunc::Path_Exists("/twres/notch_handled_var.xml")&&TWFunc::Path_Exists("/twres/portrait.xml")&&TWFunc::Path_Exists("/twres/splash.xml")&&TWFunc::Path_Exists("/twres/styles.xml")&&TWFunc::Path_Exists("/twres/txt_res.xml")&&TWFunc::Path_Exists("/twres/ui.xml")){
 		LOGINFO("c_repack : ALL Required Files are found\n");
 		if(TWFunc::Exec_Cmd("sh /twres/scripts/sync.sh;")!=0){
@@ -2744,6 +3154,7 @@ int GUIAction::c_repack(std::string arg __unused){
 			TWFunc::Exec_Cmd("rm -r /tmp/work");
 		}
 	}
+#endif
 	int z;
 	DataManager::GetValue("c_devMode", z);
 	if(z){
@@ -2752,9 +3163,12 @@ int GUIAction::c_repack(std::string arg __unused){
 	}
 	return 0;
 }
+
 int GUIAction::flashOP(std::string arg){
 	int p,s=0;
 	char tmp[10];
+	int isSHRPZip=arg.find_last_of("SHRP");
+	int isSHRPZip2=arg.find_last_of("shrp");
 	p=arg.find_last_of(".");
 	if(p!=-1){
 		p++;
@@ -2770,6 +3184,9 @@ int GUIAction::flashOP(std::string arg){
 #else
 	if(arg=="zip"){
 #endif
+		if(isSHRPZip!=-1||isSHRPZip2!=-1){
+			DataManager::SetValue("isShrpZip","1");
+		}
 		GUIAction::queuezip("bappa");
 		DataManager::SetValue("c_queue_enabled","1");
 		PageManager::ChangePage("flash_confirm");
@@ -2780,27 +3197,20 @@ int GUIAction::flashOP(std::string arg){
 	}
 	return 0;
 }
-int GUIAction::shrp_zip_init(std::string arg){
-	int z=arg.find_last_of("/");
-	{
-		char fileName[50];
-		int i=0;
-		while(arg[++z]!=0){
-			fileName[i++]=arg[z];
-		}
-		fileName[i]=0;
-		arg=fileName;
-		DataManager::SetValue("shrp_zipName",arg.c_str());
-		DataManager::SetValue("shrp_zipFolderName",arg.c_str());
-	}
 
+int GUIAction::shrp_zip_init(std::string arg){
+	arg=arg.substr(arg.find_last_of("/")+1,arg.find_last_of(".")-(arg.find_last_of("/")+1));
+	DataManager::SetValue("shrp_zipName",arg.c_str());
+	DataManager::SetValue("shrp_zipFolderName",arg.c_str());
 	return 0;
 }
+
 int GUIAction::clearInput(std::string arg){
 	DataManager::SetValue(arg.c_str(),"");
 	PageManager::ChangePage("backupname1");
 	return 0;
 }
+
 int GUIAction::navHandler(std::string arg){
 	string a="cp -a /twres/c_nav_sub/";
 	string c="/. /twres/images/;";
@@ -2841,37 +3251,109 @@ int GUIAction::navHandler(std::string arg){
 	TWFunc::Exec_Cmd(cmd);
 	return 0;
 }
+
 int GUIAction::unZipSelector(std::string arg){
-	int p,s=0;
-	char tmp[10];
-	string pele=arg;
-	p=arg.find_last_of(".");
-	if(p!=-1){
-		p++;
-		while(arg[p]!=0){
-			tmp[s++]=arg[p++];
-		}
-		tmp[s]=0;
-		arg=tmp;
-	}
-	if(arg=="zip"){
-		{
-			s=0;
-			char folderName[50];
-			int st;
-			st=pele.find_last_of("/");
-			p=pele.find_last_of(".");
-			st++;
-			while(st!=p){
-				folderName[s++]=pele[st++];
+	int x=arg.find_last_of("/")+1;
+	if((x-1)!=-1){
+		int tmp=arg.find_last_of(".");
+		if(tmp!=-1){
+			DataManager::SetValue("shrpUnzipFolder",arg.substr(x,tmp-x));
+			string extn=arg.substr(tmp,arg.length()-tmp);
+			if(extn==".zip"){
+				DataManager::SetValue("isThemeFile","0");
+				DataManager::SetValue("canBeUnzip","1");
+				DataManager::SetValue("is_textFile","0");
+				return 0;
+			}else if(extn==".txt"||extn==".TXT"||extn==".xml"||extn==".XML"||extn==".prop"||extn==".PROP"||extn==".sh"||extn==".SH"){
+				DataManager::SetValue("isThemeFile","0");
+				DataManager::SetValue("is_textFile","1");
+				DataManager::SetValue("canBeUnzip","0");
+				return 0;
+			}else if(extn==".stheme"||extn==".STHEME"){
+				DataManager::SetValue("isThemeFile","1");
+				DataManager::SetValue("is_textFile","0");
+				DataManager::SetValue("canBeUnzip","0");
+				return 0;
 			}
-			folderName[s]=0;
-			pele=folderName;
-			DataManager::SetValue("shrpUnzipFolder",pele.c_str());
+		}else{
+			DataManager::SetValue("isThemeFile","0");
+			DataManager::SetValue("is_textFile","1");
+			DataManager::SetValue("canBeUnzip","0");
+			return 0;
 		}
-		DataManager::SetValue("canBeUnzip","1");
-	}else{
-		DataManager::SetValue("canBeUnzip","0");
 	}
+	DataManager::SetValue("isThemeFile","0");
+	DataManager::SetValue("is_textFile","0");
+	DataManager::SetValue("canBeUnzip","0");
+	return 0;
+}
+
+int GUIAction::txtEditor(std::string arg){
+	textEditor t;
+	string path=DataManager::GetStrValue("tw_filename1");
+	if(arg=="1"){//Display the text file
+		t.disp_file(path);
+		DataManager::SetValue("c_file","0");
+		DataManager::SetValue("canBeUnzip","0");
+		DataManager::SetValue("c_para","0");
+		DataManager::SetValue("replaceText","0");
+		DataManager::SetValue("c_line_no","0");
+		DataManager::SetValue("is_textFile","0");
+		PageManager::ChangePage("c_file_epicx");
+		GUIAction::overlay("slideout");
+	}else if(arg=="2"){//Capture line which is going to be replaced
+		t.getReplacebleLine(path,DataManager::GetIntValue("c_line_no"));
+		DataManager::SetValue("c_para","3");
+		PageManager::ChangePage("getText");
+	}else if(arg=="3"){//Replace Line
+		t.replaceLine(path,DataManager::GetStrValue("replaceText"),DataManager::GetIntValue("c_line_no"));
+		DataManager::SetValue("c_file","0");
+		DataManager::SetValue("canBeUnzip","0");
+		DataManager::SetValue("c_para","0");
+		DataManager::SetValue("replaceText","0");
+		DataManager::SetValue("c_line_no","0");
+		DataManager::SetValue("is_textFile","0");
+		PageManager::ChangePage("c_file_epicx");
+	}else if(arg=="4"){//Before Add line
+		DataManager::SetValue("replaceText","0");
+		DataManager::SetValue("c_para","5");
+		PageManager::ChangePage("getText");
+	}else if(arg=="5"){//Add line
+		t.addLine(path,DataManager::GetStrValue("replaceText"),DataManager::GetIntValue("c_line_no"));
+		DataManager::SetValue("c_file","0");
+		DataManager::SetValue("canBeUnzip","0");
+		DataManager::SetValue("c_para","0");
+		DataManager::SetValue("replaceText","0");
+		DataManager::SetValue("c_line_no","0");
+		DataManager::SetValue("is_textFile","0");
+		PageManager::ChangePage("c_file_epicx");
+	}else if(arg=="6"){//Remove Line
+		t.removeLine(path,DataManager::GetIntValue("c_line_no"));
+		DataManager::SetValue("c_file","0");
+		DataManager::SetValue("canBeUnzip","0");
+		DataManager::SetValue("c_para","0");
+		DataManager::SetValue("replaceText","0");
+		DataManager::SetValue("c_line_no","0");
+		DataManager::SetValue("is_textFile","0");
+		PageManager::ChangePage("c_file_epicx");
+	}
+	return 0;
+}
+
+int GUIAction::execSTheme(std::string arg){
+	ThemeParser tp;
+	//int x=arg.find_last_of("/")+1;
+	//string themeName=arg.substr(x,arg.find_last_of(".")-x);
+	TWFunc::Exec_Cmd("mkdir -p /tmp/theme");
+	TWFunc::Exec_Cmd("unzip "+arg+" -d /tmp/theme/");
+	tp.fetchInformation("/tmp/theme/st.prop");
+	if(tp.verifyInformation()){
+		tp.pushValues();
+		TWFunc::Exec_Cmd("cp -r /tmp/theme/res/* /twres/images/");
+		LOGINFO("SHRP Function execSTheme : Operation Successful\n");
+	}else{
+		LOGINFO("SHRP Function execSTheme : Operation Failed\n");
+	}
+	TWFunc::Exec_Cmd("rm -rf /tmp/theme");
 	return 0;
 }

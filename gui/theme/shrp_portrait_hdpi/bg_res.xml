@@ -10,6 +10,7 @@
 	</details>
 	<variables>
 		<variable name="c_white" value="#ffffffff"/>
+		<variable name="c_scolor" value="#101010"/>
 		<variable name="nav_bg" value="#fafafa"/>
 	</variables>
 </recovery>

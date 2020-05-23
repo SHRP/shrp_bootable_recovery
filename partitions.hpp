@@ -26,6 +26,7 @@
 #include "exclude.hpp"
 #include "tw_atomic.hpp"
 #include "progresstracking.hpp"
+#include "ext4crypt_tar.h"
 
 #define MAX_FSTAB_LINE_LENGTH 2048
 
@@ -178,7 +179,7 @@ protected:
 	void Setup_Data_Media();                                                  // Sets up a partition as a /data/media emulated storage partition
 
 private:
-	bool Process_Fstab_Line(const char *fstab_line, bool Display_Error, std::map<string, Flags_Map> *twrp_flags); // Processes a fstab line
+	bool Process_Fstab_Line(const char *fstab_line, bool Display_Error, std::map<string, Flags_Map> *twrp_flags, bool Sar_Detect); // Processes a fstab line
 	void Setup_Data_Partition(bool Display_Error);                            // Setup data partition after fstab processed
 	void Setup_Cache_Partition(bool Display_Error);                           // Setup cache partition after fstab processed
 	bool Find_Wildcard_Block_Devices(const string& Device);                   // Searches for and finds wildcard block devices
@@ -207,6 +208,7 @@ private:
 	bool Wipe_NTFS();                                                         // Uses mkntfs to wipe
 	bool Wipe_Data_Without_Wiping_Media();                                    // Uses rm -rf to wipe but does not wipe /data/media
 	bool Wipe_Data_Without_Wiping_Media_Func(const string& parent);           // Uses rm -rf to wipe but does not wipe /data/media
+	bool Recreate_AB_Cache_Dir(const ext4_encryption_policy &policy);				  // Recreate AB_CACHE_DIR after wipe
 	void Wipe_Crypto_Key();                                                   // Wipe crypto key from either footer or block device
 	bool Backup_Tar(PartitionSettings *part_settings, pid_t *tar_fork_pid);   // Backs up using tar for file systems
 	bool Backup_Image(PartitionSettings *part_settings);                      // Backs up using raw read/write for emmc memory types
@@ -281,7 +283,7 @@ private:
 	bool SlotSelect;                                                          // Partition has A/B slots
 	TWExclude backup_exclusions;                                              // Exclusions for file based backups
 	TWExclude wipe_exclusions;                                                // Exclusions for file based wipes (data/media devices only)
-	string Key_Directory;                                                      // Metadata key directory needed for mounting FBE encrypted data partitions using metadata encryption
+	string Key_Directory;                                                     // Metadata key directory needed for mounting FBE encrypted data partitions using metadata encryption
 
 	struct partition_fs_flags_struct {                                        // This struct is used to store mount flags and options for different file systems for the same partition
 		string File_System;
@@ -305,7 +307,7 @@ public:
 	~TWPartitionManager() {}
 
 public:
-	int Process_Fstab(string Fstab_Filename, bool Display_Error);             // Parses the fstab and populates the partitions
+	int Process_Fstab(string Fstab_Filename, bool Display_Error, bool Sar_Detect);             // Parses the fstab and populates the partitions
 	int Write_Fstab();                                                        // Creates /etc/fstab file that's used by the command line for mount commands
 	void Output_Partition_Logging();                                          // Outputs partition information to the log
 	void Output_Partition(TWPartition* Part);                                 // Outputs partition details to the log

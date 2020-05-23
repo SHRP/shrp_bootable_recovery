@@ -144,6 +144,21 @@
 				</actions>
 			</button>
 		</page>
+		<page name="c_recBlocked">
+			<template name="c_page"/>
+			<template name="c_status_bar"/>
+			<text style="c_main_text_header_failed">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
+				<text>{@c_failed=Failed}</text>
+			</text>
+			<text style="c_text_dashboard">
+				<conditions>
+					<condition var1="patt_lock_enabled" op="=" var2="0"/>
+				</conditions>
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
+				<text>{@c_failed_info_blocked=Something went wrong}</text>
+			</text>
+		</page>
 
 		<page name="my_info">
 			<template name="c_page"/>
@@ -338,12 +353,12 @@
 			<button style="c_text_dashboard">
 				<placement x="410" y="1225" w="261" h="170"/>
 				<fill color="%transparent%"/>
-				<text>Mauronofrio</text>
+				<text>steadfasterX</text>
 			</button>
 			<button style="c_reboot_text">
 				<placement x="430" y="1335" w="221" h="50"/>
 				<fill color="%transparent%"/>
-				<text>TWRP Survival</text>
+				<text>{@c_security=Security}</text>
 			</button>
 			<button style="c_text_dashboard">
 				<placement x="735" y="1225" w="261" h="170"/>
@@ -357,7 +372,7 @@
 			</button>
 
 			<button style="c_text_dashboard">
-				<placement x="105" y="1445" w="221" h="170"/>
+				<placement x="85" y="1445" w="241" h="170"/>
 				<fill color="%transparent%"/>
 				<text>{@Tcredit=None}</text>
 			</button>
@@ -681,10 +696,10 @@
 			</text>
 
 			<checkbox>
-				<condition var1="tw_has_injecttwrp" var2="1"/>
+				<condition var1="tw_has_deviceab" var2="1"/>
 				<placement x="%c_hawk_base_column%" y="1350"/>
-				<text>{@inject_magisk_chk=Inject Magisk after install}</text>
-				<data variable="tw_mkinject_after_zip"/>
+				<text>{@active_slot_install=Install in the active slot}</text>
+				<data variable="tw_active_slot_install"/>
 			</checkbox>
 
 			<checkbox>
@@ -695,10 +710,9 @@
 			</checkbox>
 
 			<checkbox>
-				<condition var1="tw_has_deviceab" var2="1"/>
 				<placement x="%c_hawk_base_column%" y="1500"/>
-				<text>{@active_slot_install=Install in the active slot}</text>
-				<data variable="tw_active_slot_install"/>
+				<text>{@inject_magisk_chk=Inject Magisk after install}</text>
+				<data variable="tw_mkinject_after_zip"/>
 			</checkbox>
 
 			<checkbox>
@@ -724,6 +738,7 @@
 				<image resource="c_cancel"/>
 				<actions>
 					<action function="queueclear"/>
+					<action function="set">isShrpZip=0</action>
 					<action function="set">c_queue_enabled=0</action>
 					<action function="page">install</action>
 				</actions>
@@ -740,6 +755,7 @@
 				<touch key="back"/>
 				<actions>
 					<action function="queueclear"/>
+					<action function="set">isShrpZip=0</action>
 					<action function="set">c_queue_enabled=0</action>
 					<action function="page">install</action>
 				</actions>
@@ -749,6 +765,7 @@
 				<touch key="home"/>
 				<actions>
 					<action function="queueclear"/>
+					<action function="set">isShrpZip=0</action>
 					<action function="set">c_queue_enabled=0</action>
 					<action function="page">c_refresh</action>
 				</actions>
@@ -1710,7 +1727,11 @@
 				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
 				<text>{@backup_hdr=Backup}</text>
 			</text>
-			<template name="c_tab_backup"/>
+			<button>
+				<placement x="920" y="%sort_button_y%"/>
+				<image resource="c_epicxsort"/>
+				<action function="page">backup_options</action>
+			</button>
 
 			<text style="c_text_dashboard">
 				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
@@ -1737,13 +1758,17 @@
 			</partitionlist>
 
 			<button>
-				<condition var1="tw_enable_adb_backup" op="!=" var2="1"/>
-				<placement x="860" y="1450"/>
-				<image resource="c_storage"/>
-				<actions>
-					<action function="set">tw_back=backup</action>
-					<action function="overlay">select_storage</action>
-				</actions>
+			  <placement x="860" y="1090"/>
+				<conditions>
+					<condition var1="tw_include_encrypted_backup" var2="1"/>
+					<condition var1="tw_encrypt_backup" var2="0"/>
+					<condition var1="tw_enable_adb_backup" op="!=" var2="1"/>
+				</conditions>
+			  <image resource="c_backup_encryption"/>
+			  <actions>
+			    <action function="set">tw_password_not_match=0</action>
+			    <action function="page">backupencryption</action>
+			  </actions>
 			</button>
 
 			<button>
@@ -1752,6 +1777,16 @@
 				<actions>
 					<action function="refreshsizes"/>
 					<action function="page">backup</action>
+				</actions>
+			</button>
+
+			<button>
+				<condition var1="tw_enable_adb_backup" op="!=" var2="1"/>
+				<placement x="860" y="1450"/>
+				<image resource="c_storage"/>
+				<actions>
+					<action function="set">tw_back=backup</action>
+					<action function="overlay">select_storage</action>
 				</actions>
 			</button>
 
@@ -1783,7 +1818,6 @@
 				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
 				<text>{@storage_hdr=Storage: %tw_storage_display_name% (%tw_storage_free_size% MB)}</text>
 			</text>
-			<template name="c_tab_backup_options"/>
 			<checkbox>
 				<placement x="%c_hawk_base_column%" y="%file_selector_default_y%"/>
 				<text>{@enable_backup_comp_chk=Enable compression}</text>
@@ -1882,8 +1916,13 @@
 				<text>{@name=Name:}</text>
 			</text>
 
+			<fill color="nav_bg">
+				<placement x="50" y="%dash_ico_1st_row%" w="970" h="94"/>
+			</fill>
+
 			<input>
-				<placement x="185" y="%c_text_sub_y_spec%" w="710" h="64"/>
+				<placement x="80" y="%input_file_manager_y%" w="800" h="64"/>
+				<background color="%nav_bg%"/>
 				<text>%tw_backup_name%</text>
 				<data name="tw_backup_name"/>
 				<restrict minlen="1" maxlen="64" allow=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-_.{}[]"/>
@@ -1895,7 +1934,7 @@
 				</actions>
 			</input>
 			<button>
-				<placement x="944" y="%c_custom_pos_4%"/>
+				<placement x="944" y="%c_cleanInputYpos%"/>
 				<image resource="c_clear_input"/>
 				<action function="clearInput">tw_backup_name</action>
 			</button>
@@ -1939,8 +1978,6 @@
 				<placement x="%c_hawk_base_column%" y="%c_text_sub_y%"/>
 				<text>{@enter_pass=Enter Password:}</text>
 			</text>
-
-			<template name="c_tab_encryption"/>
 
 			<input>
 				<placement x="60" y="%t_1st_heading%" w="%file_selector_default_w%" h="%input_height%"/>
@@ -1990,10 +2027,9 @@
 				<placement x="%c_hawk_base_column%" y="%c_text_sub_y%"/>
 				<text>{@enter_pass_again=Enter Password again: }</text>
 			</text>
-			<template name="c_tab_encryption"/>
 
 			<input>
-				<placement x="50" y="%c_text_sub_y_spec%" w="%file_selector_default_w%" h="%input_height%"/>
+				<placement x="60" y="%t_1st_heading%" w="%file_selector_default_w%" h="%input_height%"/>
 				<text>%tw_backup_encrypt_display2%</text>
 				<data name="tw_backup_password2" mask="*" maskvariable="tw_backup_encrypt_display2"/>
 				<restrict minlen="1" maxlen="32" allow="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_"/>
@@ -2351,8 +2387,13 @@
 				<text>{@c_name=Name:}</text>
 			</text>
 
+			<fill color="nav_bg">
+				<placement x="50" y="%dash_ico_1st_row%" w="970" h="94"/>
+			</fill>
+
 			<input>
-				<placement x="%c_hawk_base_column%" y="%input_default_y%" w="%content_width%" h="%input_height%"/>
+				<placement x="80" y="%input_file_manager_y%" w="800" h="64"/>
+				<background color="%nav_bg%"/>
 				<text>%tw_backup_rename%</text>
 				<data name="tw_backup_rename"/>
 				<restrict minlen="1" maxlen="64" allow=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-_.{}[]"/>
@@ -2700,20 +2741,29 @@
 					<condition var1="tw_no_sha2" var2="0"/>
 					<data variable="tw_use_sha2"/>
 				</listitem>
-				<listitem name="{@c_show_lc=Show date on lockscreen}">
-					<data variable="c_dateview"/>
-				</listitem>
-				<listitem name="{@c_dev_mode=Dev mode}">
-					<data variable="c_devMode"/>
-				</listitem>
 			</listbox>
-			<button style="c_circle4">
+			<button>
 				<placement x="860" y="1628"/>
-				<text>{@restore_defaults_btn=Restore Defaults}</text>
+				<condition var1="av_express" var2="0"/>
+				<image resource="c_restoreDefault"/>
 				<actions>
 					<action function="set">tw_samsung_navbar=0</action>
 					<action function="set">tw_tab_icons=0</action>
-					<action function="restoredefaultsettings"/>
+					<action function="restoredefaultsettings">guun</action>
+				</actions>
+			</button>
+			<button>
+				<placement x="860" y="1628"/>
+				<condition var1="av_express" var2="1"/>
+				<image resource="c_restoreDefault"/>
+				<actions>
+					<action function="set">tw_samsung_navbar=0</action>
+					<action function="set">tw_tab_icons=0</action>
+					<action function="restoredefaultsettings">guun</action>
+					<action function="set">tw_action=reboot</action>
+					<action function="set">tw_action_param=recovery</action>
+					<action function="set">tw_reboot_param=recovery</action>
+					<action function="reboot">%tw_reboot_param%</action>
 				</actions>
 			</button>
 			<action>
@@ -2801,12 +2851,12 @@
 			</action>
 		</page>
 
-		<page name="settings_screen">
+		<page name="settings_device">
 			<template name="c_page"/>
 			<template name="c_status_bar"/>
 			<text style="c_main_text_header">
 				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
-				<text>{@settings_screen_btn=Screen}</text>
+				<text>{@c_device=Device}</text>
 			</text>
 			<template name="c_tab_settings"/>
 			<button>
@@ -2857,6 +2907,36 @@
 				</actions>
 			</slidervalue>
 
+			<!--Vibration-->
+			<text style="c_sub">
+				<placement x="%c_hawk_base_column%" y="%sub_head_mid%"/>
+				<text>{@button_vibration=Button Vibration:} %tw_button_vibrate%</text>
+			</text>
+			<slidervalue>
+				<placement x="%c_hawk_base_column%" y="%t_5th_checkbox_pos%" w="%file_selector_default_w%"/>
+				<text></text>
+				<data variable="tw_button_vibrate" min="0" max="300"/>
+			</slidervalue>
+			<text style="c_sub">
+				<placement x="%c_hawk_base_column%" y="%ca_10%"/>
+				<text>{@kb_vibration=Keyboard Vibration:} %tw_keyboard_vibrate%</text>
+			</text>
+			<slidervalue>
+				<placement x="%c_hawk_base_column%" y="%t_3rd_heading%" w="%file_selector_default_w%"/>
+				<text></text>
+				<data variable="tw_keyboard_vibrate" min="0" max="300"/>
+			</slidervalue>
+
+			<text style="c_sub">
+				<placement x="%c_hawk_base_column%" y="%ca_13%"/>
+				<text>{@act_vibration=Action Vibration:} %tw_action_vibrate%</text>
+			</text>
+			<slidervalue>
+				<placement x="%c_hawk_base_column%" y="%t_6th_row%" w="%file_selector_default_w%"/>
+				<text></text>
+				<data variable="tw_action_vibrate" min="0" max="500"/>
+			</slidervalue>
+
 
 			<action>
 				<touch key="home"/>
@@ -2869,44 +2949,34 @@
 			</action>
 		</page>
 
-		<page name="settings_vibration">
+		<page name="settings_shrp">
 			<template name="c_page"/>
 			<template name="c_status_bar"/>
 			<text style="c_main_text_header">
 				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
-				<text>{@settings_vibration_btn=Vibration}</text>
+				<text>SHRP</text>
 			</text>
 			<template name="c_tab_settings"/>
-			<text style="c_sub">
-				<placement x="%c_hawk_base_column%" y="%c_custom_pos_1%"/>
-				<text>{@button_vibration=Button Vibration:} %tw_button_vibrate%</text>
-			</text>
-			<slidervalue>
-				<placement x="%c_hawk_base_column%" y="%c_custom_pos_2%" w="%file_selector_default_w%"/>
-				<text></text>
-				<data variable="tw_button_vibrate" min="0" max="300"/>
-			</slidervalue>
-			<text style="c_sub">
-				<placement x="%c_hawk_base_column%" y="%dash_ico_2nd_row%"/>
-				<text>{@kb_vibration=Keyboard Vibration:} %tw_keyboard_vibrate%</text>
-			</text>
-			<slidervalue>
-				<placement x="%c_hawk_base_column%" y="%settings_2nd_slider_y%" w="%file_selector_default_w%"/>
-				<text></text>
-				<data variable="tw_keyboard_vibrate" min="0" max="300"/>
-			</slidervalue>
-			<text style="c_sub">
-				<placement x="%c_hawk_base_column%" y="%sub_head_mid%"/>
-				<text>{@act_vibration=Action Vibration:} %tw_action_vibrate%</text>
-			</text>
-
-			<slidervalue>
-				<placement x="%c_hawk_base_column%" y="%t_5th_checkbox_text_pos%" w="%file_selector_default_w%"/>
-				<text></text>
-				<data variable="tw_action_vibrate" min="0" max="500"/>
-			</slidervalue>
-
-
+			<listbox style="scrolllist">
+				<placement x="%c_hawk_base_column%" y="%c_text_sub_y2%" w="%file_selector_default_w%" h="%settings_main_list_h%"/>
+				<icon selected="checkbox_true" unselected="checkbox_false"/>
+				<listitem name="{@c_show_lc=Show date on lockscreen}">
+					<data variable="c_dateview"/>
+				</listitem>
+				<listitem name="{@c_dev_mode=Dev mode}">
+					<data variable="c_devMode"/>
+				</listitem>
+				<listitem name="{@c_disable_theme_survival=Disable SHRP theme survival}">
+					<condition var1="av_express" op="=" var2="1"/>
+					<data variable="c_shrpUpdate"/>
+				</listitem>
+				<listitem name="{@c_disable_auto_reboot_ota=Prevent auto reboot after OTA}">
+					<data variable="rebootota_disabled"/>
+				</listitem>
+				<listitem name="{@c_magisk_install_after_ota=Install Magisk automatically after OTA}">
+					<data variable="installmagisk_ota"/>
+				</listitem>
+			</listbox>
 			<action>
 				<touch key="home"/>
 				<action function="page">c_refresh</action>
@@ -3232,9 +3302,66 @@
 			</action>
 		</page>
 		<page name="lock">
-			<template name="c_lock"/>
+			<background color="%semi_transparent%"/>
+			<button>
+				<placement x="0" y="400" w="1080" h="378"/>
+				<fill color="%transparent%"/>
+				<font resource="c_lock_clock" color="#ffffffff"/>
+				<text>%tw_ls_time%</text>
+			</button>
+			<button>
+				<condition var1="c_dateview" var2="1"/>
+				<placement x="0" y="700" w="1080" h="100"/>
+				<fill color="%transparent%"/>
+				<font resource="c_dashboard_text_sort" color="#ffffffff"/>
+				<text>%c_lock_screen_date%</text>
+			</button>
+			<button>
+				<condition var1="c_dateview" var2="0"/>
+				<placement x="0" y="700" w="1080" h="100"/>
+				<fill color="%transparent%"/>
+				<font resource="c_dashboard_text_sort" color="#ffffffff"/>
+				<text>{@cpu_temp=CPU: %tw_cpu_temp% &#xB0;C} | {@battery_pct=Battery: %tw_battery%}</text>
+			</button>
+			<button>
+				<placement x="414" y="1454"/>
+				<image resource="c_on_tap_unlock" highlightresource="c_on_tap_unlock_pressed"/>
+				<action function="overlay"/>
+			</button>
+
+
 			<template name="c_status_bar"/>
-			<template name="flashlight"/>
+
+			<!--FlashLight Icon-->
+			<button>
+				<conditions>
+					<condition var1="has_flashlight" op="=" var2="1"/>
+					<condition var1="c_flashlight_status" op="=" var2="0"/>
+				</conditions>
+				<placement x="914" y="1754"/>
+				<image resource="c_flashlight_off"/>
+				<actions>
+					<action function="flashlight"/>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="has_flashlight" op="=" var2="1"/>
+					<condition var1="c_flashlight_status" op="=" var2="1"/>
+				</conditions>
+				<placement x="914" y="1754"/>
+				<image resource="c_flashlight_on"/>
+				<actions>
+					<action function="flashlight"/>
+				</actions>
+			</button>
+
+
+			<action>
+				<touch key="power+voldown"/>
+				<action function="screenshot"/>
+			</action>
+
 			<action>
 				<touch key="power"/>
 				<action function="togglebacklight"/>
@@ -3257,8 +3384,13 @@
 				<text>{@name=Name:}</text>
 			</text>
 
+			<fill color="nav_bg">
+				<placement x="50" y="%dash_ico_1st_row%" w="970" h="94"/>
+			</fill>
+
 			<input>
-				<placement x="60" y="%input_file_manager_y%" w="%content_width%" h="%input_height%"/>
+				<placement x="80" y="%input_file_manager_y%" w="800" h="64"/>
+				<background color="%nav_bg%"/>
 				<text>%tw_filemanager_rename%</text>
 				<data name="tw_filemanager_rename"/>
 				<restrict minlen="1" maxlen="128"/>
@@ -3303,8 +3435,13 @@
 				<text>{@name=Name:}</text>
 			</text>
 
+			<fill color="nav_bg">
+				<placement x="50" y="%dash_ico_1st_row%" w="970" h="94"/>
+			</fill>
+
 			<input>
-				<placement x="60" y="%input_file_manager_y%" w="%content_width%" h="%input_height%"/>
+				<placement x="80" y="%input_file_manager_y%" w="800" h="64"/>
+				<background color="%nav_bg%"/>
 				<text>%tw_filemanager_rename%</text>
 				<data name="tw_filemanager_rename"/>
 				<restrict minlen="1" maxlen="128"/>
@@ -3350,8 +3487,13 @@
 				<text>{@fm_perms=Permissions:}</text>
 			</text>
 
+			<fill color="nav_bg">
+				<placement x="50" y="%dash_ico_1st_row%" w="970" h="94"/>
+			</fill>
+
 			<input>
-				<placement x="60" y="%input_file_manager_y%" w="%content_width%" h="%input_height%"/>
+				<placement x="80" y="%input_file_manager_y%" w="800" h="64"/>
+				<background color="%nav_bg%"/>
 				<text>%tw_filemanager_rename%</text>
 				<data name="tw_filemanager_rename"/>
 				<restrict minlen="3" maxlen="4" allow="0123456789"/>
@@ -3404,8 +3546,14 @@
 				<condition var1="tw_password_fail" op="!=" var2="1"/>
 				<text>{@enter_pass=Enter Password:}</text>
 			</text>
+
+			<fill color="nav_bg">
+				<placement x="50" y="%dash_ico_1st_row%" w="970" h="94"/>
+			</fill>
+
 			<input>
-				<placement x="60" y="%input_default_y%" w="%content_width%" h="%input_height%"/>
+				<placement x="80" y="%input_file_manager_y%" w="800" h="64"/>
+				<background color="%nav_bg%"/>
 				<text>%tw_crypto_display%</text>
 				<data name="tw_crypto_password" mask="*" maskvariable="tw_crypto_display"/>
 				<restrict minlen="1" maxlen="254"/>
@@ -3912,9 +4060,18 @@
 				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
 				<text>{@confirm_flash_hdr=Confirm Flash}</text>
 			</text>
+
+			<checkbox>
+				<placement x="%c_hawk_base_column%" y="%c_text_sub_y%"/>
+				<condition var1="isShrpZip" op="=" var2="1"/>
+				<text>{@c_update_shrp=Update SHRP}</text>
+				<data variable="c_shrpUpdate"/>
+			</checkbox>
+
 			<button>
 				<placement x="860" y="1628"/>
 				<image resource="c_flash"/>
+				<action function="set">isShrpZip=0</action>
 				<action function="set">c_queue_enabled=0</action>
 				<action function="flash">flash_zip</action>
 			</button>
@@ -3924,6 +4081,7 @@
 			</action>
 			<action>
 				<touch key="home"/>
+				<action function="set">isShrpZip=0</action>
 				<action function="queueclear"/>
 				<action function="set">c_queue_enabled=0</action>
 				<action function="page">c_refresh</action>
@@ -4031,7 +4189,6 @@
 			</image>
 			<button>
 				<conditions>
-					<condition var1="tw_is_encrypted" op="!=" var2="1"/>
 					<condition var1="c_new" op="=" var2="1"/>
 					<condition var1="c_new_pattern" op="=" var2="1"/>
 				</conditions>
@@ -4188,6 +4345,7 @@
 				<conditions>
 					<condition var1="password_before" op="=" var2="password_before_2"/>
 					<condition var1="shrp_ab" op="=" var2="0"/>
+					<condition var1="av_express" op="=" var2="0"/>
 				</conditions>
 				<placement x="860" y="1628"/>
 				<image resource="c_ok"/>
@@ -4217,6 +4375,7 @@ sh /twres/scripts/create_env.sh;
 				<conditions>
 					<condition var1="password_before" op="=" var2="password_before_2"/>
 					<condition var1="shrp_ab" op="=" var2="1"/>
+					<condition var1="av_express" op="=" var2="0"/>
 				</conditions>
 				<placement x="860" y="1628"/>
 				<image resource="c_ok"/>
@@ -4234,6 +4393,31 @@ sh /twres/scripts/create_env.sh;
 					<action function="cmd">
 sh /twres/scripts/create_envAB.sh;
 					</action>
+					<action function="set">c_status={@c_flashing=Flashing} {@recovery=Recovery}</action>
+					<action function="c_repack"/>
+					<action function="set">c_status={@done=Done}</action>
+					<action function="set">c_busy=0</action>
+					<action function="page">set_pass_successful</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="password_before" op="=" var2="password_before_2"/>
+					<condition var1="av_express" op="=" var2="1"/>
+				</conditions>
+				<placement x="860" y="1628"/>
+				<image resource="c_ok"/>
+				<actions>
+					<action function="set">c_busy=1</action>
+					<action function="set">main_pass=%password_before_2%</action>
+					<action function="set">lock_enabled=1</action>
+					<action function="set">patt_lock_enabled=1</action>
+					<action function="set">c_new=0</action>
+					<action function="set">c_new_pattern=0</action>
+					<action function="set">password_before=</action>
+					<action function="set">password_before_2=</action>
+					<action function="set">c_status={@c_repacking=Repacking} {@recovery=Recovery}</action>
+					<action function="set_lock">2</action>
 					<action function="set">c_status={@c_flashing=Flashing} {@recovery=Recovery}</action>
 					<action function="c_repack"/>
 					<action function="set">c_status={@done=Done}</action>
@@ -4269,6 +4453,7 @@ sh /twres/scripts/create_envAB.sh;
 				<conditions>
 					<condition var1="password_before" op="=" var2="password_before_2"/>
 					<condition var1="shrp_ab" op="=" var2="0"/>
+					<condition var1="av_express" op="=" var2="0"/>
 				</conditions>
 				<placement x="860" y="1628"/>
 				<image resource="c_ok"/>
@@ -4298,6 +4483,7 @@ sh /twres/scripts/create_env.sh;
 				<conditions>
 					<condition var1="password_before" op="=" var2="password_before_2"/>
 					<condition var1="shrp_ab" op="=" var2="1"/>
+					<condition var1="av_express" op="=" var2="0"/>
 				</conditions>
 				<placement x="860" y="1628"/>
 				<image resource="c_ok"/>
@@ -4315,6 +4501,31 @@ sh /twres/scripts/create_env.sh;
 					<action function="cmd">
 sh /twres/scripts/create_envAB.sh;
 					</action>
+					<action function="set">c_status={@c_flashing=Flashing} {@recovery=Recovery}</action>
+					<action function="c_repack"/>
+					<action function="set">c_status={@done=Done}</action>
+					<action function="set">c_busy=0</action>
+					<action function="page">set_pass_successful</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="password_before" op="=" var2="password_before_2"/>
+					<condition var1="av_express" op="=" var2="1"/>
+				</conditions>
+				<placement x="860" y="1628"/>
+				<image resource="c_ok"/>
+				<actions>
+					<action function="set">c_busy=1</action>
+					<action function="set">main_pass=%password_before_2%</action>
+					<action function="set">lock_enabled=1</action>
+					<action function="set">patt_lock_enabled=0</action>
+					<action function="set">c_new=0</action>
+					<action function="set">c_new_pattern=0</action>
+					<action function="set">password_before=</action>
+					<action function="set">password_before_2=</action>
+					<action function="set">c_status={@c_repacking=Repacking} {@recovery=Recovery}</action>
+					<action function="set_lock">1</action>
 					<action function="set">c_status={@c_flashing=Flashing} {@recovery=Recovery}</action>
 					<action function="c_repack"/>
 					<action function="set">c_status={@done=Done}</action>
@@ -5472,8 +5683,14 @@ sh /twres/scripts/create_envAB.sh;
 				<placement x="%c_hawk_base_column%" y="%c_text_sub_y_spec%"/>
 				<text>{@name=Name:}</text>
 			</text>
+
+			<fill color="nav_bg">
+				<placement x="50" y="%dash_ico_1st_row%" w="970" h="94"/>
+			</fill>
+
 			<input>
-				<placement x="185" y="%c_text_sub_y_spec%" w="710" h="64"/>
+				<placement x="80" y="%input_file_manager_y%" w="800" h="64"/>
+				<background color="%nav_bg%"/>
 				<text>%shrp_zipName%</text>
 				<data name="shrp_zipName"/>
 				<restrict minlen="1" maxlen="64" allow=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-_.{}[]"/>
@@ -5515,8 +5732,12 @@ zip -r %shrp_zipName%.zip %shrp_zipFolderName%
 				<placement x="%c_hawk_base_column%" y="%c_text_sub_y_spec%"/>
 				<text>{@name=Name:}</text>
 			</text>
+			<fill color="nav_bg">
+				<placement x="50" y="%dash_ico_1st_row%" w="970" h="94"/>
+			</fill>
 			<input>
-				<placement x="185" y="%c_text_sub_y_spec%" w="710" h="64"/>
+				<placement x="80" y="%input_file_manager_y%" w="800" h="64"/>
+				<background color="%nav_bg%"/>
 				<text>Newfolder</text>
 				<data name="FolderName"/>
 				<restrict minlen="1" maxlen="64" allow=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-_.{}[]"/>
@@ -5821,6 +6042,84 @@ mkdir -p %FolderName%
 				<text>%tw_filename1%</text>
 			</text>
 			<template name="c_status_bar"/>
+			<!--ExperimentalStart-->
+
+			<text style="c_sub">
+			  <condition var1="is_textFile" op="=" var2="1"/>
+			  <placement x="%c_hawk_base_column%" y="%c_text_sub_y_spec%"/>
+			  <text>{@options_hdr=Options}</text>
+			</text>
+
+			<text style="c_sub">
+				<conditions>
+			  	<condition var1="av_express" op="=" var2="1"/>
+					<condition var1="isThemeFile" op="=" var2="1"/>
+				</conditions>
+			  <placement x="%c_hawk_base_column%" y="%c_text_sub_y_spec%"/>
+			  <text>{@options_hdr=Options}</text>
+			</text>
+
+			<button>
+			  <placement x="60" y="%t_1st_heading%" textplacement="6"/>
+				<conditions>
+			  	<condition var1="av_express" op="=" var2="1"/>
+					<condition var1="isThemeFile" op="=" var2="1"/>
+				</conditions>
+				<font resource="font_m" color="%c_black%"/>
+			  <text>{@c_apply_theme=Apply theme}</text>
+			  <image resource="c_applyCustomTheme"/>
+				<actions>
+			    <action function="page">c_customThemeApply</action>
+			  </actions>
+			</button>
+
+			<button>
+			  <placement x="60" y="%t_1st_heading%" textplacement="6"/>
+			  <font resource="font_m" color="%c_black%"/>
+			  <condition var1="is_textFile" op="=" var2="1"/>
+			  <text>{@c_display_text=Display text}</text>
+			  <image resource="c_displayTxt"/>
+				<actions>
+			    <action function="txtEditor">1</action>
+			  </actions>
+			</button>
+
+			<button>
+			  <placement x="60" y="%t_1st_radio_text_pos%" textplacement="6"/>
+			  <font resource="font_m" color="%c_black%"/>
+			  <condition var1="is_textFile" op="=" var2="1"/>
+			  <text>{@c_add_line=Add line}</text>
+			  <image resource="c_editTxt"/>
+				<actions>
+					<action function="set">c_para=4</action>
+			    <action function="page">pageLine</action>
+			  </actions>
+			</button>
+
+			<button>
+			  <placement x="60" y="%t_2nd_radio_text_pos%" textplacement="6"/>
+			  <font resource="font_m" color="%c_black%"/>
+			  <condition var1="is_textFile" op="=" var2="1"/>
+			  <text>{@c_replace_line=Replace line}</text>
+			  <image resource="c_editTxt"/>
+				<actions>
+					<action function="set">c_para=2</action>
+			    <action function="page">pageLine</action>
+			  </actions>
+			</button>
+
+			<button>
+			  <placement x="60" y="%t_3rd_radio_text_pos%" textplacement="6"/>
+			  <font resource="font_m" color="%c_black%"/>
+			  <condition var1="is_textFile" op="=" var2="1"/>
+			  <text>{@c_remove_line=Remove line}</text>
+			  <image resource="c_removeLine"/>
+				<actions>
+					<action function="set">c_para=6</action>
+			    <action function="page">pageLine</action>
+			  </actions>
+			</button>
+			<!--ExperimentalEnd-->
 			<fill color="%c_white%">
 				<placement x="0" y="1610" w="1080" h="310"/>
 			</fill>
@@ -5947,6 +6246,102 @@ unzip -d %shrpUnzipFolder% %tw_filename1%;
 			</action>
 			<template name="c_busy_status"/>
 		</page>
+		<!--ExperimentalStart-->
+
+
+		<page name="pageLine">
+		  <template name="c_page"/>
+		  <template name="c_status_bar"/>
+		  <text style="c_main_text_header">
+		    <placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
+		    <text>{@c_line=Line}</text>
+		  </text>
+		  <text style="c_text_dashboard">
+		    <placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
+		    <text>{@c_enter_line_no=Enter Line No.}</text>
+		  </text>
+		  <text style="c_sub">
+		    <placement x="%c_hawk_base_column%" y="%c_text_sub_y_spec%"/>
+		    <text>{@c_line_no=No.}</text>
+		  </text>
+
+		  <fill color="nav_bg">
+			<placement x="50" y="%dash_ico_1st_row%" w="970" h="94"/>
+		  </fill>
+
+		  <input>
+		    <placement x="80" y="%input_file_manager_y%" w="800" h="64"/>
+			<background color="%nav_bg%"/>
+		    <text>%c_line_no%</text>
+		    <data name="c_line_no"/>
+		    <restrict minlen="1" maxlen="64" allow="1234567890"/>
+		    <action function="txtEditor">%c_para%</action>
+		  </input>
+		  <template name="keyboardtemplate"/>
+		  <action>
+		    <touch key="back"/>
+		    <action function="set">c_file=0</action>
+		    <action function="set">canBeUnzip=0</action>
+		    <action function="set">c_para=0</action>
+		    <action function="set">replaceText=0</action>
+		    <action function="set">c_line_no=0</action>
+		    <action function="set">is_textFile=0</action>
+		    <action function="page">c_file_epicx</action>
+		  </action>
+		  <action>
+		    <touch key="power+voldown"/>
+		    <action function="screenshot"/>
+		  </action>
+		</page>
+
+		<page name="getText">
+		  <template name="c_page"/>
+		  <template name="c_status_bar"/>
+		  <text style="c_main_text_header">
+		    <placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
+		    <text>{@c_text=Text}</text>
+		  </text>
+		  <text style="c_text_dashboard">
+		    <placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
+		    <text>{@c_enter_text=Enter your text}</text>
+		  </text>
+		  <text style="c_sub">
+		    <placement x="%c_hawk_base_column%" y="%c_text_sub_y_spec%"/>
+		    <text>{@c_text=Text}</text>
+		  </text>
+
+		  <fill color="nav_bg">
+			<placement x="50" y="%dash_ico_1st_row%" w="970" h="94"/>
+		  </fill>
+
+		  <input>
+		    <placement x="80" y="%input_file_manager_y%" w="800" h="64"/>
+			<background color="%nav_bg%"/>
+		    <text>%replaceText%</text>
+		    <data name="replaceText"/>
+		    <restrict minlen="1" maxlen="128"/>
+		    <action function="txtEditor">%c_para%</action>
+		  </input>
+		  <template name="keyboardtemplate"/>
+		  <action>
+		    <touch key="back"/>
+		    <action function="set">c_file=0</action>
+		    <action function="set">canBeUnzip=0</action>
+		    <action function="set">c_para=0</action>
+		    <action function="set">replaceText=0</action>
+		    <action function="set">c_line_no=0</action>
+		    <action function="set">is_textFile=0</action>
+		    <action function="page">c_file_epicx</action>
+		  </action>
+		  <action>
+		    <touch key="power+voldown"/>
+		    <action function="screenshot"/>
+		  </action>
+		</page>
+
+
+
+		<!--ExperimentalEnd-->
 		<page name="c_file_delete">
 			<background color="%semi_transparent%"/>
 			<fill color="%c_white%">
@@ -7646,6 +8041,13 @@ cp /twres/c_rounded_res/type_3/*.png /twres/images/;
 				<placement x="130" y="%t_4th_radio_text_pos%"/>
 				<text>{@c_big=Big}</text>
 			</text>
+
+			<!--checkbox>
+			  <placement x="%c_hawk_base_column%" y="1575"/>
+			  <text>{@c_secondary=Secondary Text Color}</text>
+			  <data variable="c_scolor_status"/>
+			</checkbox-->
+
 			<button>
 				<condition var1="c_notch_mode" op="=" var2="0"/>
 				<placement x="%c_hawk_base_column%" y="1630"/>
@@ -7879,6 +8281,7 @@ cp /twres/c_dash_ico/aex/*.png /twres/images/;
 				<conditions>
 					<condition var1="c_temp3" op="!=" var2="78"/>
 					<condition var1="shrp_ab" op="=" var2="0"/>
+					<condition var1="av_express" op="=" var2="0"/>
 				</conditions>
 				<image resource="c_theme_init_s" highlightresource="c_theme_init_s_hr"/>
 				<actions>
@@ -7897,6 +8300,7 @@ sh /twres/scripts/create_env.sh;
 				<conditions>
 					<condition var1="c_temp3" op="!=" var2="78"/>
 					<condition var1="shrp_ab" op="=" var2="1"/>
+					<condition var1="av_express" op="=" var2="0"/>
 				</conditions>
 				<image resource="c_theme_init_s" highlightresource="c_theme_init_s_hr"/>
 				<actions>
@@ -7905,6 +8309,22 @@ sh /twres/scripts/create_env.sh;
 					<action function="cmd">
 cp -r /twres /tmp/bak/;
 sh /twres/scripts/create_envAB.sh;
+					</action>
+					<action function="page">c_new_shrp_theme_dashboard</action>
+				</actions>
+			</button>
+			<button>
+				<placement x="379" y="1620"/>
+				<conditions>
+					<condition var1="c_temp3" op="!=" var2="78"/>
+					<condition var1="av_express" op="=" var2="1"/>
+				</conditions>
+				<image resource="c_theme_init_s" highlightresource="c_theme_init_s_hr"/>
+				<actions>
+					<action function="set">c_status={@c_init=Initializing}</action>
+					<action function="set">c_temp3=78</action>
+					<action function="cmd">
+cp -r /twres /tmp/bak/;
 					</action>
 					<action function="page">c_new_shrp_theme_dashboard</action>
 				</actions>
@@ -7994,6 +8414,17 @@ sh /twres/scripts/create_envAB.sh;
 			</text>
 
 			<button>
+				<placement x="860" y="1450"/>
+				<condition var1="av_express" var2="1"/>
+				<image resource="c_restoreDefault"/>
+				<action function="restoredefaultsettings">theme</action>
+				<action function="set">tw_action=reboot</action>
+				<action function="set">tw_action_param=recovery</action>
+				<action function="set">tw_reboot_param=recovery</action>
+				<action function="reboot">%tw_reboot_param%</action>
+			</button>
+
+			<button>
 				<placement x="860" y="1628"/>
 				<text></text>
 				<image resource="c_apply_theme"/>
@@ -8018,15 +8449,24 @@ export ctc=%c_text_color%
 export cac=%c_acc_color%
 export cacv=%c_acc_color_val%
 export cnm=%c_notch_mode%
+export scolor=%c_scolor_status%
 cd /twres/scripts
 sh statusbar_trigger_scripts.sh
-					</action>
-					<action function="cmd">
-rm /twres/c_status_bar_h.xml
-cp /twres/cache/c_status_bar_h.xml /twres/
-					</action>
+</action>
 					<action function="set">c_status={@c_file_busy_info=Processing} : 6%</action>
+					<action function="set">c_target_destination=main2</action>
+					<action function="c_scolorHandler"/>
+					<action function="c_scolorExec">
+export x=%c_white%;
+export y=%c_scolor%;
+export z=%nav_bg%;
+sh /twres/scripts/scolorHandle.sh
+</action>
 					<action function="c_repack"/>
+					<action function="cmd">
+rm -r /tmp/work;
+rm -r /tmp/bak;
+					</action>
 					<action function="set">c_status={@c_flashing=Flashing} {@recovery=Recovery}</action>
 					<action function="set">c_status={@c_rm_o_files=Removing Old files}</action>
 					<action function="set">c_status={@done=Done}</action>
@@ -8224,6 +8664,77 @@ rm -r /tmp/bak;
 				<actions>
 					<action function="page">c_refresh</action>
 				</actions>
+			</action>
+		</page>
+		<page name="c_customThemeApply">
+			<template name="c_page"/>
+			<template name="c_status_bar"/>
+			<text style="c_main_text_header">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
+				<text>{@c_confirm=Confirm}</text>
+			</text>
+			<text style="c_text_dashboard">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
+				<text>{@c_action_cancel=Press back button to cancel.}</text>
+			</text>
+			<button>
+			  <placement x="860" y="1628"/>
+			  <text></text>
+			  <image resource="c_apply_theme"/>
+			  <actions>
+					<action function="set">c_file=0</action>
+					<action function="set">canBeUnzip=0</action>
+			    <action function="set">c_busy=1</action>
+					<action function="execSTheme">%tw_filename1%</action>
+			    <action function="cmd">
+mkdir -p /data/local/tmp
+export battery_bar=%c_battery_bar_triger%
+export statusbar=%c_status_bar_triger%
+export b_icon=%c_battery_icon_triger%
+export bp_icon=%c_battery_portrait_icon_triger%
+export bc_icon=%c_battery_circle_icon_triger%
+export battery_txt=%c_battery_txt_triger%
+export time_txt=%c_time_txt_triger%
+export r_c=%c_rounded_corner_trigger%
+export r_c_type=%c_rounded_corner_type%
+export d_i=%c_dash_ico%
+export cnt=%c_nav_type%
+export cnb=%c_nav_bg%
+export cb_w=%c_bgc%
+export ctc=%c_text_color%
+export cac=%c_acc_color%
+export cacv=%c_acc_color_val%
+export cnm=%c_notch_mode%
+export scolor=%c_scolor_status%
+export bgSColor=%c_white%
+export navBgColor=%nav_bg%
+export txtSColor=%c_black%
+cd /twres/scripts
+sh statusbar_trigger_scripts.sh
+sh cthemeHelper.sh
+</action>
+					<action function="set">c_target_destination=main2</action>
+			    <action function="set">c_status={@c_file_busy_info=Processing} : 6%</action>
+			    <action function="c_repack"/>
+			    <action function="set">c_status={@c_flashing=Flashing} {@recovery=Recovery}</action>
+			    <action function="set">c_status={@c_rm_o_files=Removing Old files}</action>
+			    <action function="set">c_status={@done=Done}</action>
+			    <action function="set">c_busy=0</action>
+			    <action function="reload"/>
+			  </actions>
+			</button>
+			<template name="c_busy_status"/>
+			<action>
+				<touch key="back"/>
+				<action function="set">c_file=0</action>
+				<action function="set">canBeUnzip=0</action>
+				<action function="page">c_file_epicx</action>
+			</action>
+			<action>
+				<touch key="home"/>
+				<action function="set">c_file=0</action>
+				<action function="set">canBeUnzip=0</action>
+				<action function="page">c_refresh</action>
 			</action>
 		</page>
 	</pages>

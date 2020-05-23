@@ -288,8 +288,6 @@ protected:
 	ThreadType getThreadType(const Action& action);
 	void simulate_progress_bar(void);
 	int flash_zip(std::string filename, int* wipe_cache);
-	void backup_before_flash();
-	int reinject_after_flash();
 	int ozip_decrypt(std::string zip_path);
 	void operation_start(const string operation_name);
 	void operation_end(const int operation_status);
@@ -381,12 +379,16 @@ protected:
 	int unlock(std::string arg);
 	int set_lock(std::string arg);
 	int reset_lock(std::string arg);
+	int c_scolorHandler(std::string arg);
+	int c_scolorExec(std::string arg);
 	int c_repack(std::string arg);
 	int flashOP(std::string arg);
 	int clearInput(std::string arg);
 	int shrp_zip_init(std::string arg);
 	int navHandler(std::string arg);
 	int unZipSelector(std::string arg);
+	int txtEditor(std::string arg);
+	int execSTheme(std::string arg);
 
 	int simulate;
 };

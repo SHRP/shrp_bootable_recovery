@@ -14,7 +14,7 @@ mountPath=/_magisk
 img=/data/adb/magisk.img
 [ -f $img ] || img=/data/adb/modules
 
-trap 'exxit $?' EXIT
+trap 'exit $?' EXIT
 
 umask 022
 set -euo pipefail

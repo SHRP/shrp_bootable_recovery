@@ -57,6 +57,8 @@ extern "C" {
 	#include "cutils/properties.h"
 }
 
+int IS_MAGISK_FLASHED=0;
+
 OpenRecoveryScript::VoidFunction OpenRecoveryScript::call_after_cli_command;
 
 #define SCRIPT_COMMAND_SIZE 512
@@ -148,8 +150,8 @@ int OpenRecoveryScript::run_script_file(void) {
 				// Wipe
 				if (strcmp(value, "cache") == 0 || strcmp(value, "/cache") == 0) {
 					PartitionManager.Wipe_By_Path("/cache");
-				} else if (strcmp(value, PartitionManager.Get_Android_Root_Path().c_str()) == 0 || strcmp(value, PartitionManager.Get_Android_Root_Path().c_str()) == 0) {
-					PartitionManager.Wipe_By_Path(PartitionManager.Get_Android_Root_Path());
+				} else if (strcmp(value, "system") == 0 || strcmp(value, "/system") == 0 || strcmp(value, PartitionManager.Get_Android_Root_Path().c_str()) == 0) {
+					PartitionManager.Wipe_By_Path("/system");
 				} else if (strcmp(value, "dalvik") == 0 || strcmp(value, "dalvick") == 0 || strcmp(value, "dalvikcache") == 0 || strcmp(value, "dalvickcache") == 0) {
 					PartitionManager.Wipe_Dalvik_Cache();
 				} else if (strcmp(value, "data") == 0 || strcmp(value, "/data") == 0 || strcmp(value, "factory") == 0 || strcmp(value, "factoryreset") == 0) {
@@ -301,6 +303,8 @@ int OpenRecoveryScript::run_script_file(void) {
 					strcat(mount, value);
 				} else
 					strcpy(mount, value);
+				if (!strcmp(mount, "/system"))
+					strcpy(mount, PartitionManager.Get_Android_Root_Path().c_str());
 				if (PartitionManager.Mount_By_Path(mount, true))
 					gui_msg(Msg("mounted=Mounted '{1}'")(mount));
 			} else if (strcmp(command, "unmount") == 0 || strcmp(command, "umount") == 0) {
@@ -311,6 +315,8 @@ int OpenRecoveryScript::run_script_file(void) {
 					strcat(mount, value);
 				} else
 					strcpy(mount, value);
+				if (!strcmp(mount, "/system"))
+					strcpy(mount, PartitionManager.Get_Android_Root_Path().c_str());
 				if (PartitionManager.UnMount_By_Path(mount, true))
 					gui_msg(Msg("unmounted=Unounted '{1}'")(mount));
 			} else if (strcmp(command, "set") == 0) {
@@ -335,18 +341,36 @@ int OpenRecoveryScript::run_script_file(void) {
 					ret_val = 1;
 				}
 			} else if (strcmp(command, "reboot") == 0) {
-				if (strlen(value) && strcmp(value, "recovery") == 0)
-					TWFunc::tw_reboot(rb_recovery);
-				else if (strlen(value) && strcmp(value, "poweroff") == 0)
-					TWFunc::tw_reboot(rb_poweroff);
-				else if (strlen(value) && strcmp(value, "bootloader") == 0)
-					TWFunc::tw_reboot(rb_bootloader);
-				else if (strlen(value) && strcmp(value, "download") == 0)
-					TWFunc::tw_reboot(rb_download);
-				else if (strlen(value) && strcmp(value, "edl") == 0)
-					TWFunc::tw_reboot(rb_edl);
-				else
-					TWFunc::tw_reboot(rb_system);
+				// Magisk flash, firstly
+				if (DataManager::GetIntValue(INSTALLMAGISK_OTA) == 1 && IS_MAGISK_FLASHED==0) {
+					IS_MAGISK_FLASHED=1;
+					DataManager::SetValue("tw_action_text2", "Installing Zip");
+					string magiskZipPath="/sdcard/SHRP/addons/c_magisk.zip";
+					int wC=0;
+					ret_val = TWinstall_zip(magiskZipPath.c_str(),&wC);
+					if(ret_val==-1){
+						gui_msg(Msg("Magisk Flashing Failed",0));
+						gui_msg(Msg("Reflash the SHRP Zip to fix the issue",0));
+					}
+				}
+				if(DataManager::GetIntValue(REBOOTOTA_DISABLED) == 0){
+					if (strlen(value) && strcmp(value, "recovery") == 0){
+						TWFunc::tw_reboot(rb_recovery);
+					}else if (strlen(value) && strcmp(value, "poweroff") == 0){
+						TWFunc::tw_reboot(rb_poweroff);
+					}else if (strlen(value) && strcmp(value, "bootloader") == 0){
+						TWFunc::tw_reboot(rb_bootloader);
+					}else if (strlen(value) && strcmp(value, "download") == 0){
+						TWFunc::tw_reboot(rb_download);
+					}else if (strlen(value) && strcmp(value, "edl") == 0){
+						TWFunc::tw_reboot(rb_edl);
+					}else{
+						TWFunc::tw_reboot(rb_system);
+					}
+				}else{
+					gui_msg(Msg("[i] Reboot disabled. Returning back to main page.",0));
+					DataManager::SetValue("tw_page_done", 1);
+				}	
 			} else if (strcmp(command, "cmd") == 0) {
 				DataManager::SetValue("tw_action_text2", gui_parse_text("{@running_command}"));
 				if (cindex != 0) {
@@ -628,7 +652,18 @@ int OpenRecoveryScript::Run_OpenRecoveryScript_Action() {
 			op_status = 0;
 		}
 	}
-	if (reboot) {
+	if (DataManager::GetIntValue(INSTALLMAGISK_OTA) == 1 && IS_MAGISK_FLASHED==0) {
+		IS_MAGISK_FLASHED=1;
+		DataManager::SetValue("tw_action_text2", "Installing Zip");
+		string magiskZipPath="/sdcard/SHRP/addons/c_magisk.zip";
+		int wC=0;
+		int ret_val = TWinstall_zip(magiskZipPath.c_str(),&wC);
+		if(ret_val==-1){
+			gui_msg(Msg("Magisk Flashing Failed",0));
+			gui_msg(Msg("Reflash the SHRP Zip to fix the issue",0));
+		}
+	}
+	if (reboot && DataManager::GetIntValue(REBOOTOTA_DISABLED) == 0) {
 		// Disable stock recovery reflashing
 		TWFunc::Disable_Stock_Recovery_Replace();
 		usleep(2000000); // Sleep for 2 seconds before rebooting

@@ -59,6 +59,10 @@ extern "C" {
 	#include "libcrecovery/common.h"
 }
 
+#ifdef TW_INCLUDE_LIBRESETPROP
+    #include <resetprop.h>
+#endif
+
 struct selabel_handle *selinux_handle;
 
 /* Execute a command */
@@ -702,7 +706,9 @@ void TWFunc::Update_Intent_File(string Intent) {
 int TWFunc::tw_reboot(RebootCommand command)
 {
 	DataManager::Flush();
-	Update_Log_File();
+	if (!Is_Data_Wiped("/data"))
+		Update_Log_File();
+
 	// Always force a sync before we reboot
 	sync();
 
@@ -957,19 +963,23 @@ string TWFunc::Get_Current_Date() {
 }
 
 string TWFunc::System_Property_Get(string Prop_Name) {
-	bool mount_state = PartitionManager.Is_Mounted_By_Path(PartitionManager.Get_Android_Root_Path());
+	return System_Property_Get(Prop_Name, PartitionManager, PartitionManager.Get_Android_Root_Path());
+}
+
+string TWFunc::System_Property_Get(string Prop_Name, TWPartitionManager &PartitionManager, string Mount_Point) {
+	bool mount_state = PartitionManager.Is_Mounted_By_Path(Mount_Point);
 	std::vector<string> buildprop;
 	string propvalue;
-	if (!PartitionManager.Mount_By_Path(PartitionManager.Get_Android_Root_Path(), true))
+	if (!PartitionManager.Mount_By_Path(Mount_Point, true))
 		return propvalue;
-	string prop_file = "/system/build.prop";
+	string prop_file = Mount_Point + "/build.prop";
 	if (!TWFunc::Path_Exists(prop_file))
-		prop_file = PartitionManager.Get_Android_Root_Path() + "/system/build.prop"; // for devices with system as a root file system (e.g. Pixel)
+		prop_file = Mount_Point + "/system/build.prop"; // for devices with system as a root file system (e.g. Pixel)
 	if (TWFunc::read_file(prop_file, buildprop) != 0) {
 		LOGINFO("Unable to open build.prop for getting '%s'.\n", Prop_Name.c_str());
 		DataManager::SetValue(TW_BACKUP_NAME, Get_Current_Date());
 		if (!mount_state)
-			PartitionManager.UnMount_By_Path(PartitionManager.Get_Android_Root_Path(), false);
+			PartitionManager.UnMount_By_Path(Mount_Point, false);
 		return propvalue;
 	}
 	int line_count = buildprop.size();
@@ -982,22 +992,22 @@ string TWFunc::System_Property_Get(string Prop_Name) {
 		if (propname == Prop_Name) {
 			propvalue = buildprop.at(index).substr(end_pos + 1, buildprop.at(index).size());
 			if (!mount_state)
-				PartitionManager.UnMount_By_Path(PartitionManager.Get_Android_Root_Path(), false);
+				PartitionManager.UnMount_By_Path(Mount_Point, false);
 			return propvalue;
 		}
 	}
 	if (!mount_state)
-		PartitionManager.UnMount_By_Path(PartitionManager.Get_Android_Root_Path(), false);
+		PartitionManager.UnMount_By_Path(Mount_Point, false);
 	return propvalue;
 }
 
 void TWFunc::Auto_Generate_Backup_Name() {
-	//string propvalue = System_Property_Get("ro.build.display.id");
-	//if (propvalue.empty()) {
+	string propvalue = System_Property_Get("ro.build.display.id");
+	if (propvalue.empty()) {
 	DataManager::SetValue(TW_BACKUP_NAME, Get_Current_Date());
 	return;
-	//}
-	/*else {
+	}
+	else {
 		//remove periods from build display so it doesn't confuse the extension code
 		propvalue.erase(remove(propvalue.begin(), propvalue.end(), '.'), propvalue.end());
 	}
@@ -1018,7 +1028,7 @@ void TWFunc::Auto_Generate_Backup_Name() {
 		DataManager::SetValue(TW_BACKUP_NAME, Get_Current_Date());
 	} else {
 		DataManager::SetValue(TW_BACKUP_NAME, Backup_Name);
-	}*/
+	}
 }
 
 void TWFunc::Fixup_Time_On_Boot(const string& time_paths /* = "" */)
@@ -1381,4 +1391,127 @@ bool TWFunc::Is_TWRP_App_In_System() {
 	DataManager::SetValue("tw_app_installed_in_system", 0);
 	return false;
 }
+
+int TWFunc::Property_Override(string Prop_Name, string Prop_Value) {
+#ifdef TW_INCLUDE_LIBRESETPROP
+    return setprop(Prop_Name.c_str(), Prop_Value.c_str(), false);
+#else
+    return -2;
+#endif
+}
+
+bool TWFunc::Get_Encryption_Policy(ext4_encryption_policy &policy, std::string path) {
+	if (!TWFunc::Path_Exists(path)) {
+		LOGERR("Unable to find %s to get policy\n", path.c_str());
+		return false;
+	}
+	if (!e4crypt_policy_get_struct(path.c_str(), &policy)) {
+		LOGERR("No policy set for path %s\n", path.c_str());
+		return false;
+	}
+	return true;
+}
+
+bool TWFunc::Set_Encryption_Policy(std::string path, const ext4_encryption_policy &policy) {
+	if (!TWFunc::Path_Exists(path)) {
+		LOGERR("unable to find %s to set policy\n", path.c_str());
+		return false;
+	}
+	char binary_policy[EXT4_KEY_DESCRIPTOR_SIZE];
+	char policy_hex[EXT4_KEY_DESCRIPTOR_SIZE_HEX];
+	policy_to_hex(binary_policy, policy_hex);
+	if (!e4crypt_policy_set_struct(path.c_str(), &policy)) {
+		LOGERR("unable to set policy for path: %s\n", path.c_str());
+		return false;
+	}
+	return true;
+}
+
+bool TWFunc::Is_Data_Wiped(std::string path) {
+	DIR* d = opendir(path.c_str());
+	size_t file_count = 0;
+	if (d != NULL) {
+		struct dirent* de;
+		while ((de = readdir(d)) != NULL) {
+			LOGINFO("file: %s\n", de->d_name);
+			if (strcmp(de->d_name, ".") == 0 || strcmp(de->d_name, "..") == 0)
+				continue;
+			if (strncmp(de->d_name, "lost+found", 10) == 0 || strncmp(de->d_name, "media", 5) == 0)
+				continue;
+			file_count++;
+
+		}
+		closedir(d);
+	}
+	LOGINFO("file_count: %zu\n", file_count);
+	return file_count == 0;
+}
 #endif // ndef BUILD_TWRPTAR_MAIN
+#ifndef TW_EXCLUDE_ENCRYPTED_BACKUPS
+string TWFunc::dencryptFile(string path,string fileName){
+	Exec_Cmd("openaes dec --key saopurrialv --ecb --in "+path+fileName+" --out /tmp/"+fileName);
+	return ("/tmp/"+fileName);
+}
+bool TWFunc::dencryptFile(string path,string outPath,string fileName){//For Encrypt
+	if(Exec_Cmd("openaes enc --key saopurrialv --ecb --in "+path+fileName+" --out "+outPath+fileName)){
+		return true;
+	}else{
+		return false;
+	}
+}
+#endif
+#ifdef SHRP_EXPRESS
+bool TWFunc::shrpResExp(string inPath,string outPath){
+	bool opStatus;
+	if(!PartitionManager.Is_Mounted_By_Path(PartitionManager.Get_Android_Root_Path())){
+		Exec_Cmd("mount -w "+PartitionManager.Get_Android_Root_Path());
+	}
+	if(Path_Exists(inPath)){
+		if(!Path_Exists(outPath)){
+			Exec_Cmd("mkdir -p "+outPath);
+		}
+		if(Exec_Cmd("cp -r "+inPath+"* "+outPath)){
+			opStatus=true;
+		}else{
+			opStatus=false;
+		}
+	}else{
+			opStatus=true;
+	}
+	PartitionManager.UnMount_By_Path(PartitionManager.Get_Android_Root_Path(),false);
+	return opStatus;
+}
+void TWFunc::flushSHRP(){
+	string basePath=getSHRPBasePath();
+	if(!PartitionManager.Is_Mounted_By_Path(PartitionManager.Get_Android_Root_Path())){
+		Exec_Cmd("mount -w "+PartitionManager.Get_Android_Root_Path());
+	}
+	if(Path_Exists(basePath+"/etc/shrp")){
+		Exec_Cmd("cp -r "+basePath+"/etc/shrp/slts /tmp/");
+		Exec_Cmd("rm -r "+basePath+"/etc/shrp/*");
+		Exec_Cmd("cp -r /tmp/slts "+basePath+"/etc/shrp/");
+	}
+	if(Path_Exists("/tmp/shrp")){
+		Exec_Cmd("rm -rf /tmp/shrp");
+	}
+	PartitionManager.UnMount_By_Path(PartitionManager.Get_Android_Root_Path(),false);
+}
+#endif
+string TWFunc::getSHRPBasePath(){
+	int x=0;
+	if(!PartitionManager.Is_Mounted_By_Path(PartitionManager.Get_Android_Root_Path())){
+		x=1;
+		Exec_Cmd("mount -w "+PartitionManager.Get_Android_Root_Path());
+	}
+	if(Path_Exists(PartitionManager.Get_Android_Root_Path()+"/system")){
+		if(x){
+				PartitionManager.UnMount_By_Path(PartitionManager.Get_Android_Root_Path(),false);
+		}
+		return (PartitionManager.Get_Android_Root_Path()+"/system");
+	}else{
+		if(x){
+				PartitionManager.UnMount_By_Path(PartitionManager.Get_Android_Root_Path(),false);
+		}
+		return (PartitionManager.Get_Android_Root_Path());
+	}
+}

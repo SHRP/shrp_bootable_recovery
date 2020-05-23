@@ -44,6 +44,15 @@ else
     LOCAL_SHARED_LIBRARIES += libminzip
     LOCAL_CFLAGS += -DUSE_MINZIP
 endif
+ifeq ($(TARGET_USERIMAGES_USE_EXT4), true)
+    ifeq ($(shell test $(PLATFORM_SDK_VERSION) -le 28; echo $$?),0)
+        LOCAL_C_INCLUDES += system/extras/ext4_utils \
+            system/extras/ext4_utils/include \
+            bootable/recovery/crypto/ext4crypt
+        LOCAL_SHARED_LIBRARIES += libext4_utils
+    endif
+endif
+
 LOCAL_MODULE := libguitwrp
 
 #TWRP_EVENT_LOGGING := true
@@ -98,11 +107,18 @@ endif
 ifeq ($(SHRP_AB),true)
     LOCAL_CFLAGS += -DSHRP_AB
 endif
+ifeq ($(SHRP_EXPRESS),true)
+	LOCAL_CFLAGS += -DSHRP_EXPRESS
+endif
+ifeq ($(TW_EXCLUDE_ENCRYPTED_BACKUPS), true)
+    LOCAL_CFLAGS += -DTW_EXCLUDE_ENCRYPTED_BACKUPS
+endif
 
 LOCAL_C_INCLUDES += \
     bionic \
     system/core/include \
-    system/core/libpixelflinger/include
+    system/core/libpixelflinger/include \
+    external/boringssl/src/include
 
 ifeq ($(shell test $(PLATFORM_SDK_VERSION) -lt 23; echo $$?),0)
     LOCAL_C_INCLUDES += external/stlport/stlport
@@ -147,7 +163,10 @@ ifeq ($(TW_EXTRA_LANGUAGES),true)
     TWRP_RES += $(LOCAL_PATH)/theme/extra-languages/fonts
     TWRP_RES += $(LOCAL_PATH)/theme/extra-languages/languages
 endif
+
+
 TW_THEME := shrp_portrait_hdpi
+
 
 TWRP_THEME_LOC := $(LOCAL_PATH)/theme/$(TW_THEME)
 

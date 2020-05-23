@@ -43,6 +43,11 @@ extern "C" {
 #include "twrp-functions.hpp"
 #include "data.hpp"
 #include "partitions.hpp"
+#ifdef __ANDROID_API_N__
+#include <android-base/strings.h>
+#else
+#include <base/strings.h>
+#endif
 #include "openrecoveryscript.hpp"
 #include "variables.h"
 #include "twrpAdbBuFifo.hpp"
@@ -82,6 +87,7 @@ void lockCheck(){
 			DataManager::SetValue("patt_lock_enabled",0);
 			DataManager::SetValue("c_new",0);
 			DataManager::SetValue("c_new_pattern",0);
+			property_set("shrp.lock","1");
 			PartitionManager.Disable_MTP();
 		}else if(hello[0]=='2'){
 			//Pattern Protected Recovery
@@ -90,6 +96,7 @@ void lockCheck(){
 			DataManager::SetValue("patt_lock_enabled",1);
 			DataManager::SetValue("c_new",0);
 			DataManager::SetValue("c_new_pattern",0);
+			property_set("shrp.lock","1");
 			//DataManager::SetValue("main_pass",1);
 			PartitionManager.Disable_MTP();
 		}else{
@@ -99,14 +106,13 @@ void lockCheck(){
 			DataManager::SetValue("patt_lock_enabled",0);
 			DataManager::SetValue("c_new",1);
 			DataManager::SetValue("c_new_pattern",1);
+			property_set("shrp.lock","0");
 		}
 	}else{
-		//Unprotected Recovery
-		DataManager::SetValue("c_target_destination","main2");
-		DataManager::SetValue("lock_enabled",0);
-		DataManager::SetValue("patt_lock_enabled",0);
-		DataManager::SetValue("c_new",1);
-		DataManager::SetValue("c_new_pattern",1);
+		DataManager::SetValue("c_target_destination","c_recBlocked");
+		DataManager::SetValue("lock_enabled",1);
+		property_set("shrp.lock","1");
+		PartitionManager.Disable_MTP();
 	}
 }
 void shrp_lockscreen_date(){//SHRP Buutiful Lockscreen Date View
@@ -186,15 +192,24 @@ void disp_info(){
 	DataManager::GetValue("shrp_ver",tmp);
 	tmp="|Version - "+tmp;
 	gui_msg(Msg(tmp.c_str(),0));
+#ifdef SHRP_OFFICIAL
 	if(checkOffical(DataManager::GetStrValue("device_code_name"))){
 		tmp="|Status - Official";
-	}else{
+	}else
+#endif
+	{
 		tmp="|Status - Unofficial";
 	}
 	gui_msg(Msg(tmp.c_str(),0));
 	DataManager::GetValue("device_code_name",tmp);
 	tmp="|Device - "+tmp;
 	gui_msg(Msg(tmp.c_str(),0));
+#ifdef SHRP_BUILD_DATE
+	stringstream date(EXPAND(SHRP_BUILD_DATE));
+	date>>tmp;
+	tmp="|Build - "+tmp;
+	gui_msg(Msg(tmp.c_str(),0));
+#endif
 }
 
 int main(int argc, char **argv) {
@@ -242,21 +257,95 @@ int main(int argc, char **argv) {
 
 	// Load default values to set DataManager constants and handle ifdefs
 	DataManager::SetDefaultValues();
-	printf("Starting the UI...\n");
-	gui_init();
-	disp_info();
 	printf("=> Linking mtab\n");
 	symlink("/proc/mounts", "/etc/mtab");
 	std::string fstab_filename = "/etc/twrp.fstab";
 	if (!TWFunc::Path_Exists(fstab_filename)) {
 		fstab_filename = "/etc/recovery.fstab";
 	}
+
+	// Begin SAR detection
+	{
+		TWPartitionManager SarPartitionManager;
+		printf("=> Processing %s for SAR-detection\n", fstab_filename.c_str());
+		if (!SarPartitionManager.Process_Fstab(fstab_filename, 1, 1)) {
+			LOGERR("Failing out of recovery due to problem with fstab.\n");
+			return -1;
+		}
+
+		mkdir("/s", 0755);
+
+#if defined(AB_OTA_UPDATER) || defined(__ANDROID_API_Q__)
+		bool fallback_sar = true;
+#else
+		bool fallback_sar = property_get_bool("ro.build.system_root_image", false);
+#endif
+
+		if(SarPartitionManager.Mount_By_Path("/s", false)) {
+			if (TWFunc::Path_Exists("/s/build.prop")) {
+				LOGINFO("SAR-DETECT: Non-SAR System detected\n");
+				property_set("ro.twrp.sar", "false");
+				rmdir("/system_root");
+			} else if (TWFunc::Path_Exists("/s/system/build.prop")) {
+				LOGINFO("SAR-DETECT: SAR System detected\n");
+				property_set("ro.twrp.sar", "true");
+			} else {
+				LOGINFO("SAR-DETECT: No build.prop found, falling back to %s\n", fallback_sar ? "SAR" : "Non-SAR");
+				property_set("ro.twrp.sar", fallback_sar ? "true" : "false");
+			}
+
+// We are doing this here during SAR-detection, since we are mounting the system-partition anyway
+// This way we don't need to remount it later, just for overriding properties
+#if defined(TW_INCLUDE_LIBRESETPROP) && defined(TW_OVERRIDE_SYSTEM_PROPS)
+			stringstream override_props(EXPAND(TW_OVERRIDE_SYSTEM_PROPS));
+			string current_prop;
+			while (getline(override_props, current_prop, ';')) {
+				string other_prop;
+				if (current_prop.find("=") != string::npos) {
+					other_prop = current_prop.substr(current_prop.find("=") + 1);
+					current_prop = current_prop.substr(0, current_prop.find("="));
+				} else {
+					other_prop = current_prop;
+				}
+				other_prop = android::base::Trim(other_prop);
+				current_prop = android::base::Trim(current_prop);
+				string sys_val = TWFunc::System_Property_Get(other_prop, SarPartitionManager, "/s");
+				if (!sys_val.empty()) {
+					LOGINFO("Overriding %s with value: \"%s\" from system property %s\n", current_prop.c_str(), sys_val.c_str(), other_prop.c_str());
+					int error = TWFunc::Property_Override(current_prop, sys_val);
+					if (error) {
+						LOGERR("Failed overriding property %s, error_code: %d\n", current_prop.c_str(), error);
+					}
+				} else {
+					LOGINFO("Not overriding %s with empty value from system property %s\n", current_prop.c_str(), other_prop.c_str());
+				}
+			}
+#endif
+			SarPartitionManager.UnMount_By_Path("/s", false);
+		} else {
+			LOGINFO("SAR-DETECT: Could not mount system partition, falling back to %s\n", fallback_sar ? "SAR":"Non-SAR");
+			property_set("ro.twrp.sar", fallback_sar ? "true" : "false");
+		}
+
+		rmdir("/s");
+
+		TWFunc::check_and_run_script("/sbin/sarsetup.sh", "boot");
+	}
+	// End SAR detection
+
 	printf("=> Processing %s\n", fstab_filename.c_str());
-	if (!PartitionManager.Process_Fstab(fstab_filename, 1)) {
+	if (!PartitionManager.Process_Fstab(fstab_filename, 1, 0)) {
 		LOGERR("Failing out of recovery due to problem with fstab.\n");
 		return -1;
 	}
 	PartitionManager.Output_Partition_Logging();
+	string basePath=TWFunc::getSHRPBasePath();
+#ifdef SHRP_EXPRESS
+	TWFunc::shrpResExp(basePath+"/etc/shrp/","/twres/");
+#endif
+	printf("Starting the UI...\n");
+	gui_init();
+	disp_info();
 	// Load up all the resources
 	gui_loadResources();
 	//SHRP_initial_funcs
@@ -264,7 +353,6 @@ int main(int argc, char **argv) {
 	lockCheck();
 
 	bool Shutdown = false;
-	bool SkipDecryption = false;
 	string Send_Intent = "";
 	{
 		TWPartition* misc = PartitionManager.Find_Partition_By_Path("/misc");
@@ -298,9 +386,6 @@ int main(int argc, char **argv) {
 				if (*ptr) {
 					string ORSCommand = "install ";
 					ORSCommand.append(ptr);
-
-					// If we have a map of blocks we don't need to mount data.
-					SkipDecryption = *ptr == '@';
 
 					if (!OpenRecoveryScript::Insert_ORS_Command(ORSCommand))
 						break;
@@ -366,20 +451,60 @@ int main(int argc, char **argv) {
 	LOGINFO("Backup of TWRP ramdisk done.\n");
 #endif
 */
+#ifdef SHRP_EXPRESS
+	TWFunc::shrpResExp(basePath+"/etc/shrp/","/twres/");
+#endif
 	// Offer to decrypt if the device is encrypted
 	if (DataManager::GetIntValue(TW_IS_ENCRYPTED) != 0) {
-		if (SkipDecryption) {
-			LOGINFO("Skipping decryption\n");
-		} else {
+			// Start SHRP Decryption firstly
+	    std::string Password;
+	    TWFunc::Exec_Cmd("mount -w "+PartitionManager.Get_Android_Root_Path());
+	    LOGINFO("SHRP Decrypt: Seaching for decryption key\n");
+	    if(TWFunc::Path_Exists(basePath+"/etc/cryptPass")){
+	      LOGINFO("SHRP Decrypt: Decryption key found\n");
+#ifndef TW_EXCLUDE_ENCRYPTED_BACKUPS
+	      TWFunc::read_file(TWFunc::dencryptFile(basePath+"/etc/","cryptPass"),Password);
+				TWFunc::Exec_Cmd("rm -r /tmp/cryptPass");
+#else
+				TWFunc::read_file(basePath+"/etc/cryptPass",Password);
+#endif
+	      if(PartitionManager.Decrypt_Device(Password)!=0){
+	        LOGINFO("SHRP Decrypt: Decryption key not matched with the original key\n");
+	        TWFunc::Exec_Cmd("rm -r "+basePath+"/etc/cryptPass");
+					LOGINFO("SHRP Decrypt: Removed incorrect key which are already saved in system\n");
+	        if (gui_startPage("decrypt", 1, 1) != 0) {
+	          LOGERR("Failed to start decrypt GUI page.\n");
+	        } else {
+	          // Check for and load custom theme if present
+	          TWFunc::check_selinux_support();
+	          gui_loadCustomResources();
+	        }
+	      }else{
+	        LOGINFO("SHRP Decrypt: Successfully decrypted by saved key.\n");
+			DataManager::SetValue(TW_IS_ENCRYPTED, 0);
+			int has_datamedia;
+			// Check for a custom theme and load it if exists
+			DataManager::GetValue(TW_HAS_DATA_MEDIA, has_datamedia);
+			if (has_datamedia != 0) {
+				if (tw_get_default_metadata(DataManager::GetSettingsStoragePath().c_str()) != 0) {
+					LOGINFO("Failed to get default contexts and file mode for storage files.\n");
+				} else {
+					LOGINFO("Got default contexts and file mode for storage files.\n");
+				}
+			}
+			PartitionManager.Decrypt_Adopted();
+	      }
+	    } else {
+				LOGINFO("SHRP Decrypt: Decryption key not found.\n");
+	    }
 			LOGINFO("Is encrypted, do decrypt page first\n");
 			if (gui_startPage("decrypt", 1, 1) != 0) {
 				LOGERR("Failed to start decrypt GUI page.\n");
 			} else {
-				// Check for and load custom theme if present
-				TWFunc::check_selinux_support();
-				gui_loadCustomResources();
-			}
-		}
+	        // Check for and load custom theme if present
+	        TWFunc::check_selinux_support();
+	        gui_loadCustomResources();
+	    }
 	} else if (datamedia) {
 		TWFunc::check_selinux_support();
 		if (tw_get_default_metadata(DataManager::GetSettingsStoragePath().c_str()) != 0) {
@@ -402,14 +527,17 @@ int main(int argc, char **argv) {
 	// Run any outstanding OpenRecoveryScript
 	std::string cacheDir = TWFunc::get_cache_dir();
 	std::string orsFile = cacheDir + "/recovery/openrecoveryscript";
-	if ((DataManager::GetIntValue(TW_IS_ENCRYPTED) == 0 || SkipDecryption) && (TWFunc::Path_Exists(SCRIPT_FILE_TMP) || TWFunc::Path_Exists(orsFile))) {
+
+	if (TWFunc::Path_Exists(SCRIPT_FILE_TMP) || (DataManager::GetIntValue(TW_IS_ENCRYPTED) == 0 && TWFunc::Path_Exists(orsFile))) {
 		OpenRecoveryScript::Run_OpenRecoveryScript();
 	}
 
 #ifdef TW_HAS_MTP
-	char mtp_crash_check[PROPERTY_VALUE_MAX];
-	property_get("mtp.crash_check", mtp_crash_check, "0");
-	if (DataManager::GetIntValue("tw_mtp_enabled")
+	if(DataManager::GetIntValue("lock_enabled") == 0) {
+	    LOGINFO("SHRP is unlocked; processing MTP now.\n");
+	    char mtp_crash_check[PROPERTY_VALUE_MAX];
+	    property_get("mtp.crash_check", mtp_crash_check, "0");
+	    if (DataManager::GetIntValue("tw_mtp_enabled")
 			&& !strcmp(mtp_crash_check, "0") && !crash_counter
 			&& (!DataManager::GetIntValue(TW_IS_ENCRYPTED) || DataManager::GetIntValue(TW_IS_DECRYPTED))) {
 		property_set("mtp.crash_check", "1");
@@ -419,13 +547,16 @@ int main(int argc, char **argv) {
 		else
 			gui_msg("mtp_enabled=MTP Enabled");
 		property_set("mtp.crash_check", "0");
-	} else if (strcmp(mtp_crash_check, "0")) {
+	    } else if (strcmp(mtp_crash_check, "0")) {
 		gui_warn("mtp_crash=MTP Crashed, not starting MTP on boot.");
 		DataManager::SetValue("tw_mtp_enabled", 0);
 		PartitionManager.Disable_MTP();
-	} else if (crash_counter == 1) {
+	    } else if (crash_counter == 1) {
 		LOGINFO("TWRP crashed; disabling MTP as a precaution.\n");
 		PartitionManager.Disable_MTP();
+	    }
+	}else{
+	    LOGINFO("SHRP is locked; MTP is not allowing to start.\n");
 	}
 #endif
 
@@ -469,7 +600,8 @@ int main(int argc, char **argv) {
 	// Reboot
 	TWFunc::Update_Intent_File(Send_Intent);
 	delete adb_bu_fifo;
-	TWFunc::Update_Log_File();
+	if (!TWFunc::Is_Data_Wiped("/data"))
+		TWFunc::Update_Log_File();
 	gui_msg(Msg("rebooting=Rebooting..."));
 	string Reboot_Arg;
 	DataManager::GetValue("tw_reboot_arg", Reboot_Arg);
