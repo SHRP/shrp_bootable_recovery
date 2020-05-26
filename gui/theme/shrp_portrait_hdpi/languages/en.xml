@@ -490,6 +490,15 @@
 		<string name="install_cancel">Do Not Install</string>
 		<string name="sel_storage_list">Select Storage</string>
 		<string name="ok_btn">OK</string>
+		<string name="decrypt_users">Decrypt Users</string>
+		<string name="decrypt_users_selection">Select a user ID to decrypt</string>
+		<string name="select_user">Select User</string>
+		<string name="backup_storage_undecrypt_warning">Backup not include some files of user {1}, because the user is not decrypted.</string>
+		<string name="decrypting_user_fbe">Attempting to decrypt FBE for user {1}...</string>
+		<string name="decrypt_user_success_fbe">User {1} Decrypted Successfully</string>
+		<string name="decrypt_user_fail_fbe">Failed to decrypt user {1}</string>
+		<string name="decrypt_data_enter_pass_fbe">Enter Password for User [%tw_crypto_user_id%]</string>
+		<string name="decrypt_data_enter_pattern_fbe">Enter Pattern for User [%tw_crypto_user_id%]</string>
 
 		<!-- Various console messages - these consist of user displayed messages, oftentimes errors -->
 		<string name="no_kernel_selinux">Kernel does not have support for reading SELinux contexts.</string>
@@ -665,7 +674,7 @@
 		<!-- These 2 items are saved in the data manager instead of resource manager, so %llu, etc is correct instead of {1} -->
 		<string name="file_progress">%llu of %llu files, %i%%</string>
 		<string name="size_progress">%lluMB of %lluMB, %i%%</string>
-		<string name="decrypt_cmd">Attempting to decrypt data partition via command line.</string>
+		<string name="decrypt_cmd" version="2">Attempting to decrypt data partition via command line.</string>
 		<string name="base_pkg_err">Failed to load base packages.</string>
 		<string name="simulating">Simulating actions...</string>
 		<string name="backup_cancel">Backup Cancelled</string>

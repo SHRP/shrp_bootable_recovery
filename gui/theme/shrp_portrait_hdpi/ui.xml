@@ -223,6 +223,9 @@
 		<image name="c_removeLine" filename="c_removeLine" retainaspect="1"/>
 		<image name="c_applyCustomTheme" filename="c_applyCustomTheme" retainaspect="1"/>
 		<image name="c_restoreDefault" filename="c_restoreDefault" retainaspect="1"/>
+		<image name="c_dashboard_userFbe" filename="c_dashboard_userFbe" retainaspect="1"/>
+		<image name="c_usersRadioOn" filename="c_usersRadioOn" retainaspect="1"/>
+		<image name="c_usersRadioOff" filename="c_usersRadioOff" retainaspect="1"/>
 	</resources>
 
 	<variables>

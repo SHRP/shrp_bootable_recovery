@@ -146,6 +146,8 @@ magiskboot cpio ramdisk.cpio \
 "add 750 twres/images/c_reload.png /twres/images/c_reload.png" \
 "add 750 twres/images/radio_false.png /twres/images/radio_false.png" \
 "add 750 twres/images/radio_true.png /twres/images/radio_true.png" \
+"add 750 twres/images/c_usersRadioOn.png /twres/images/c_usersRadioOn.png" \
+"add 750 twres/images/c_usersRadioOff.png /twres/images/c_usersRadioOff.png" \
 "add 750 twres/images/kb_show.png /twres/images/kb_show.png" \
 "add 750 twres/images/back.png /twres/images/back.png" \
 "add 750 twres/images/console.png /twres/images/console.png" \
@@ -166,6 +168,7 @@ magiskboot cpio ramdisk.cpio \
 "add 750 twres/images/c_dashboard_settings.png /twres/images/c_dashboard_settings.png" \
 "add 750 twres/images/c_dashboard_terminal.png /twres/images/c_dashboard_terminal.png" \
 "add 750 twres/images/c_dashboard_wipe.png /twres/images/c_dashboard_wipe.png" \
+"add 750 twres/images/c_dashboard_userFbe.png /twres/images/c_dashboard_userFbe.png" \
 "add 750 twres/images/c_log.png /twres/images/c_log.png" \
 "add 750 twres/images/c_mod.png /twres/images/c_mod.png" \
 "add 750 twres/images/c_sd_part.png /twres/images/c_sd_part.png" \

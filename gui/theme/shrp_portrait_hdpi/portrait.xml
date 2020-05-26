@@ -966,6 +966,7 @@
 				<action function="set">tw_cancel_param=</action>
 				<action function="set">tw_show_exclamation=0</action>
 				<action function="set">tw_show_reboot=0</action>
+				<action function="set">tw_crypto_user_id=</action>
 				<action function="page">main2</action>
 			</action>
 		</page>
@@ -988,6 +989,7 @@
 				<action function="set">tw_cancel_param=</action>
 				<action function="set">tw_show_exclamation=0</action>
 				<action function="set">tw_show_reboot=0</action>
+				<action function="set">tw_crypto_user_id=</action>
 				<action function="page">%tw_clear_destination%</action>
 			</action>
 		</page>
@@ -2501,6 +2503,23 @@
 					<action function="page">system_readonly_check</action>
 				</actions>
 			</button>
+
+			<button>
+			  <placement x="860" y="1090"/>
+				<conditions>
+					<condition var1="tw_is_encrypted" var2="1"/>
+					<condition var1="tw_is_decrypted" var2="0"/>
+				</conditions>
+			  <image resource="c_backup_encryption"/>
+			  <actions>
+			    <action function="set">tw_crypto_user_id=0</action>
+				<action function="set">tw_crypto_password=</action>
+				<action function="set">tw_password_fail=0</action>
+				<action function="set">tw_crypto_pwtype=%tw_crypto_pwtype_0%</action>
+				<action function="page">decrypt</action>
+			  </actions>
+			</button>
+
 			<button>
 				<condition var1="tw_has_usb_storage" var2="1"/>
 				<placement x="860" y="1270"/>
@@ -3129,6 +3148,32 @@
 				</actions>
 			</button>
 
+
+			<button>
+				<placement x="99" y="%dash_ico_2nd_row%"/>
+				<conditions>
+					<condition var1="tw_is_fbe" var2="1"/>
+					<condition var1="tw_all_users_decrypted" var2="0"/>
+				</conditions>
+				<image resource="c_dashboard_userFbe"/>
+				<actions>
+					<action function="set">tw_crypto_user_id=</action>
+					<action function="page">decrypt_users</action>
+				</actions>
+			</button>
+			<button style="c_dash_text_grid">
+				<placement x="69" y="%dash_txt_2nd_row%"/>
+				<conditions>
+					<condition var1="tw_is_fbe" var2="1"/>
+					<condition var1="tw_all_users_decrypted" var2="0"/>
+				</conditions>
+				<text>{@decrypt_users=Decrypt Users}</text>
+				<actions>
+					<action function="set">tw_crypto_user_id=</action>
+					<action function="page">decrypt_users</action>
+				</actions>
+			</button>
+
 			<action>
 				<touch key="home"/>
 				<action function="page">c_refresh</action>
@@ -3543,8 +3588,26 @@
 			</action>
 			<text style="c_sub">
 				<placement x="%c_hawk_base_column%" y="%c_text_sub_y%"/>
-				<condition var1="tw_password_fail" op="!=" var2="1"/>
+				<conditions>
+					<condition var1="tw_password_fail" op="!=" var2="1"/>
+					<condition var1="tw_is_fbe" op="!=" var2="1"/>
+				</conditions>
 				<text>{@enter_pass=Enter Password:}</text>
+			</text>
+
+			<text style="c_sub">
+				<placement x="%c_hawk_base_column%" y="%c_text_sub_y%"/>
+				<conditions>
+					<condition var1="tw_password_fail" op="!=" var2="1"/>
+					<condition var1="tw_is_fbe" op="=" var2="1"/>
+				</conditions>
+				<text>{@decrypt_data_enter_pass_fbe=Enter Password for User [%tw_crypto_user_id%]}</text>
+			</text>
+
+			<text style="c_sub">
+				<placement x="%c_hawk_base_column%" y="%c_text_sub_y%"/>
+				<condition var1="tw_password_fail" op="=" var2="1"/>
+				<text>{@restore_dec_fail=Password failed, please try again!}</text>
 			</text>
 
 			<fill color="nav_bg">
@@ -3559,11 +3622,6 @@
 				<restrict minlen="1" maxlen="254"/>
 				<action function="page">trydecrypt</action>
 			</input>
-			<text style="c_sub">
-				<placement x="%c_hawk_base_column%" y="%c_text_sub_y%"/>
-				<condition var1="tw_password_fail" op="=" var2="1"/>
-				<text>{@restore_dec_fail=Password failed, please try again!}</text>
-			</text>
 
 			<button>
 				<placement x="860" y="915"/>
@@ -3588,8 +3646,15 @@
 				<text>{@decrypt_data_btn=Decrypt Data}</text>
 			</text>
 			<text style="c_sub">
+				<condition var1="tw_is_fbe" op="!=" var2="1"/>
 				<placement x="%c_hawk_base_column%" y="%c_text_sub_y%"/>
 				<text>{@decrypt_data_enter_pattern=Enter Pattern.}</text>
+			</text>
+
+			<text style="c_sub">
+				<condition var1="tw_is_fbe" var2="1"/>
+				<placement x="%c_hawk_base_column%" y="%c_text_sub_y%"/>
+				<text>{@decrypt_data_enter_pattern_fbe=Enter Pattern for User [%tw_crypto_user_id%]}</text>
 			</text>
 
 			<text style="c_sub">
@@ -8734,6 +8799,44 @@ sh cthemeHelper.sh
 				<touch key="home"/>
 				<action function="set">c_file=0</action>
 				<action function="set">canBeUnzip=0</action>
+				<action function="page">c_refresh</action>
+			</action>
+		</page>
+		<!--MultiUserDecryptPage-->
+		<page name="decrypt_users">
+			<template name="c_page"/>
+			<template name="c_status_bar"/>
+			<text style="c_main_text_header">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
+				<text>{@decrypt_users=Decrypt Users}</text>
+			</text>
+			<text style="c_text_dashboard">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
+				<text>{@decrypt_users_selection=Select a user ID to decrypt}</text>
+			</text>
+
+			<listbox>
+				<placement x="%c_hawk_base_column%" y="%file_selector_default_y%" w="%file_selector_default_w%" h="%file_selector_default_h%"/>
+				<icon selected="c_usersRadioOn" unselected="c_usersRadioOff" />
+				<data name="tw_crypto_user_id" />
+			</listbox>
+
+			<button>
+				<placement x="860" y="1628"/>
+				<image resource="c_ok"/>
+				<actions>
+					<action function="set">tw_crypto_password=</action>
+					<action function="set">tw_password_fail=0</action>
+					<action function="page">decrypt</action>
+				</actions>
+			</button>
+			
+			<action>
+				<touch key="back"/>
+				<action function="page">advanced</action>
+			</action>
+			<action>
+				<touch key="home"/>
 				<action function="page">c_refresh</action>
 			</action>
 		</page>
