@@ -468,6 +468,7 @@ int main(int argc, char **argv) {
 #else
 				TWFunc::read_file(basePath+"/etc/cryptPass",Password);
 #endif
+		  //PendingWork
 	      if(PartitionManager.Decrypt_Device(Password)!=0){
 	        LOGINFO("SHRP Decrypt: Decryption key not matched with the original key\n");
 	        TWFunc::Exec_Cmd("rm -r "+basePath+"/etc/cryptPass");
@@ -495,15 +496,15 @@ int main(int argc, char **argv) {
 			PartitionManager.Decrypt_Adopted();
 	      }
 	    } else {
-				LOGINFO("SHRP Decrypt: Decryption key not found.\n");
-	    }
+			LOGINFO("SHRP Decrypt: Decryption key not found.\n");
 			LOGINFO("Is encrypted, do decrypt page first\n");
 			if (gui_startPage("decrypt", 1, 1) != 0) {
 				LOGERR("Failed to start decrypt GUI page.\n");
 			} else {
-	        // Check for and load custom theme if present
-	        TWFunc::check_selinux_support();
-	        gui_loadCustomResources();
+	        	// Check for and load custom theme if present
+	        	TWFunc::check_selinux_support();
+	        	gui_loadCustomResources();
+	    	}
 	    }
 	} else if (datamedia) {
 		TWFunc::check_selinux_support();
