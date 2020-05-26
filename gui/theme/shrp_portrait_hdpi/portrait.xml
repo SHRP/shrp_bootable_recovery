@@ -4128,7 +4128,10 @@
 
 			<checkbox>
 				<placement x="%c_hawk_base_column%" y="%c_text_sub_y%"/>
-				<condition var1="isShrpZip" op="=" var2="1"/>
+				<conditions>
+					<condition var1="isShrpZip" op="=" var2="1"/>
+					<condition var1="av_express" op="=" var2="1"/>
+				</conditions>
 				<text>{@c_update_shrp=Update SHRP}</text>
 				<data variable="c_shrpUpdate"/>
 			</checkbox>
