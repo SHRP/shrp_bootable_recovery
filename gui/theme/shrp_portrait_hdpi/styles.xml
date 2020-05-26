@@ -42,7 +42,7 @@
 			<font resource="c_dashboard_text_sort" color="%c_black%"/>
 		</style>
 		<style name="c_sub_slot">
-			<font resource="c_dashboard_text_sort" color="%c_black%"/>
+			<font resource="c_dashboard_text_sort" color="#FFFFFF"/>
 		</style>
 		<style name="c_sub_failed">
 			<font resource="c_dashboard_text_sort" color="#FF0000"/>
