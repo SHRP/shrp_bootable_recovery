@@ -452,9 +452,6 @@ int main(int argc, char **argv) {
 	LOGINFO("Backup of TWRP ramdisk done.\n");
 #endif
 */
-#ifdef SHRP_EXPRESS
-	TWFunc::shrpResExp(basePath+"/etc/shrp/","/twres/");
-#endif
 	// Offer to decrypt if the device is encrypted
 	if (DataManager::GetIntValue(TW_IS_ENCRYPTED) != 0) {
 		// Start SHRP Decryption firstly
