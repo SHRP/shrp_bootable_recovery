@@ -1865,7 +1865,6 @@ int GUIAction::decrypt(std::string arg __unused)
 	} else {
 		string Password;
 		string userID;
-		// Start FBE decryption firstly
 		DataManager::GetValue("tw_crypto_password", Password);
 		if (DataManager::GetIntValue(TW_IS_FBE)) {  // for FBE
 			DataManager::GetValue("tw_crypto_user_id", userID);
@@ -1885,20 +1884,19 @@ int GUIAction::decrypt(std::string arg __unused)
 		} else {  // for FDE
 			op_status = PartitionManager.Decrypt_Device(Password);
 		}
-
-		if (op_status != 0) {
+		if (op_status != 0){
 			op_status = 1;
-		} else {
+		}else{
 			//Saving the key in system/etc
 			string basePath=TWFunc::getSHRPBasePath();
 			LOGINFO("SHRP Decrypt: Storing the original key in /system/etc/\n");
 			TWFunc::Exec_Cmd("mount -w "+PartitionManager.Get_Android_Root_Path());
-			if(TWFunc::Path_Exists("/tmp/cryptPass")) {
+			if(TWFunc::Path_Exists("/tmp/cryptPass")){
 				TWFunc::Exec_Cmd("rm -r /tmp/cryptPass");
 			}
 			TWFunc::Exec_Cmd("touch /tmp/cryptPass");
 			TWFunc::write_to_file("/tmp/cryptPass",Password.c_str());
-			if(TWFunc::Path_Exists(basePath+"/etc/cryptPass")) {
+			if(TWFunc::Path_Exists(basePath+"/etc/cryptPass")){
 				TWFunc::Exec_Cmd("rm -r "+basePath+"/etc/cryptPass");
 			}
 #ifndef TW_EXCLUDE_ENCRYPTED_BACKUPS
@@ -1908,7 +1906,7 @@ int GUIAction::decrypt(std::string arg __unused)
 #endif
 				TWFunc::Exec_Cmd("rm -r /tmp/cryptPass");
 				LOGINFO("SHRP Decrypt: Original key successfully saved in system\n");
-			} else {
+			}else{
 				LOGINFO("SHRP Decrypt: Original key failed to save in system\n");
 			}
 			DataManager::SetValue(TW_IS_ENCRYPTED, 0);
