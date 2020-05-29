@@ -1891,32 +1891,37 @@ int GUIAction::decrypt(std::string arg __unused)
 		if (op_status != 0){
 			op_status = 1;
 		}else{
-			//Saving the key in system/etc
-			string basePath=DataManager::GetStrValue("shrpBasePath");
-			LOGINFO("SHRP Decrypt: Storing the original key in /system/etc/\n");
-			if(!PartitionManager.Is_Mounted_By_Path(PartitionManager.Get_Android_Root_Path())){
-				TWFunc::Exec_Cmd("mount -w "+PartitionManager.Get_Android_Root_Path(),true);
-			}else{
-				mountStatus=true;
-			}
-			if(TWFunc::Path_Exists("/tmp/cryptPass")){
-				TWFunc::Exec_Cmd("rm -r /tmp/cryptPass",true);
-			}
-			TWFunc::Exec_Cmd("touch /tmp/cryptPass");
-			TWFunc::write_to_file("/tmp/cryptPass",Password.c_str());
-			if(TWFunc::Path_Exists(basePath+"/etc/cryptPass")){
-				TWFunc::Exec_Cmd("rm -r "+basePath+"/etc/cryptPass",true);
-			}
+			if(DataManager::GetIntValue("c_userDecrypt")==0){
+				DataManager::SetValue("c_userDecrypt","1");
+				//Saving the key in system/etc
+				string basePath=DataManager::GetStrValue("shrpBasePath");
+				LOGINFO("SHRP Decrypt: Storing the original key in /system/etc/\n");
+				if(!PartitionManager.Is_Mounted_By_Path(PartitionManager.Get_Android_Root_Path())){
+					TWFunc::Exec_Cmd("mount -w "+PartitionManager.Get_Android_Root_Path(),true);
+				}else{
+					mountStatus=true;
+				}
+				if(TWFunc::Path_Exists("/tmp/cryptPass")){
+					TWFunc::Exec_Cmd("rm -r /tmp/cryptPass",true);
+				}
+				TWFunc::Exec_Cmd("touch /tmp/cryptPass");
+				TWFunc::write_to_file("/tmp/cryptPass",Password.c_str());
+				if(TWFunc::Path_Exists(basePath+"/etc/cryptPass")){
+					TWFunc::Exec_Cmd("rm -r "+basePath+"/etc/cryptPass",true);
+				}
 #ifndef TW_EXCLUDE_ENCRYPTED_BACKUPS
-			if(TWFunc::dencryptFile("/tmp/",basePath+"/etc/","cryptPass")){
+				if(TWFunc::dencryptFile("/tmp/",basePath+"/etc/","cryptPass")){
 #else
-			if(TWFunc::Exec_Cmd("cp -r /tmp/cryptPass "+basePath+"/etc/")){
+				if(TWFunc::Exec_Cmd("cp -r /tmp/cryptPass "+basePath+"/etc/")){
 #endif
-				TWFunc::Exec_Cmd("rm -r /tmp/cryptPass");
-				LOGINFO("SHRP Decrypt: Original key successfully saved in system\n");
-			}else{
-				LOGINFO("SHRP Decrypt: Original key failed to save in system\n");
+					TWFunc::Exec_Cmd("rm -r /tmp/cryptPass");
+					LOGINFO("SHRP Decrypt: Original key successfully saved in system\n");
+				}else{
+					LOGINFO("SHRP Decrypt: Original key failed to save in system\n");
+				}
+
 			}
+			
 			DataManager::SetValue(TW_IS_ENCRYPTED, 0);
 
 			int has_datamedia;

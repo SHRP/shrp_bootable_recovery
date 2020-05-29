@@ -2516,6 +2516,7 @@
 				<action function="set">tw_crypto_password=</action>
 				<action function="set">tw_password_fail=0</action>
 				<action function="set">tw_crypto_pwtype=%tw_crypto_pwtype_0%</action>
+				<action function="set">c_userDecrypt=0</action>
 				<action function="page">decrypt</action>
 			  </actions>
 			</button>
@@ -8830,6 +8831,7 @@ sh cthemeHelper.sh
 				<actions>
 					<action function="set">tw_crypto_password=</action>
 					<action function="set">tw_password_fail=0</action>
+					<action function="set">c_userDecrypt=1</action>
 					<action function="page">decrypt</action>
 				</actions>
 			</button>
