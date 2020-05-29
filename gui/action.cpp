@@ -1862,7 +1862,9 @@ int GUIAction::checkbackupname(std::string arg __unused)
 int GUIAction::decrypt(std::string arg __unused)
 {
 	int op_status = 0;
+#ifndef SHRP_EXCLUDE_AUTO_DECRYPT
 	bool mountStatus=false;
+#endif
 	operation_start("Decrypt");
 	if (simulate) {
 		simulate_progress_bar();
@@ -1891,6 +1893,7 @@ int GUIAction::decrypt(std::string arg __unused)
 		if (op_status != 0){
 			op_status = 1;
 		}else{
+#ifndef SHRP_EXCLUDE_AUTO_DECRYPT
 			if(DataManager::GetIntValue("c_userDecrypt")==0){
 				DataManager::SetValue("c_userDecrypt","1");
 				//Saving the key in system/etc
@@ -1921,7 +1924,7 @@ int GUIAction::decrypt(std::string arg __unused)
 				}
 
 			}
-			
+#endif
 			DataManager::SetValue(TW_IS_ENCRYPTED, 0);
 
 			int has_datamedia;
@@ -1938,9 +1941,11 @@ int GUIAction::decrypt(std::string arg __unused)
 			PartitionManager.Decrypt_Adopted();
 		}
 	}
+#ifndef SHRP_EXCLUDE_AUTO_DECRYPT
 	if(!mountStatus){
 		PartitionManager.UnMount_By_Path(PartitionManager.Get_Android_Root_Path(),false);
 	}
+#endif
 	operation_end(op_status);
 	return 0;
 }

@@ -455,6 +455,7 @@ int main(int argc, char **argv) {
 */
 	// Offer to decrypt if the device is encrypted
 	if (DataManager::GetIntValue(TW_IS_ENCRYPTED) != 0) {
+#ifndef SHRP_EXCLUDE_AUTO_DECRYPT
 		// Start SHRP Decryption firstly
 		int autoDecryptRet=1;
 	    std::string Password;
@@ -517,6 +518,18 @@ int main(int argc, char **argv) {
 	        	gui_loadCustomResources();
 	    	}
 	    }
+#else
+		LOGINFO("Is encrypted, do decrypt page first\n");
+		if (DataManager::GetIntValue(TW_IS_FBE))
+			DataManager::SetValue("tw_crypto_user_id", "0");
+		if (gui_startPage("decrypt", 1, 1) != 0) {
+			LOGERR("Failed to start decrypt GUI page.\n");
+		} else {
+			// Check for and load custom theme if present
+			TWFunc::check_selinux_support();
+			gui_loadCustomResources();
+		}
+#endif
 	} else if (datamedia) {
 		TWFunc::check_selinux_support();
 		if (tw_get_default_metadata(DataManager::GetSettingsStoragePath().c_str()) != 0) {
