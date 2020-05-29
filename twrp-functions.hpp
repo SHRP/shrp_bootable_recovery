@@ -89,7 +89,7 @@ public:
 	static bool shrpResExp(string inPath,string outpath);
 	static void flushSHRP();
 #endif
-	static string getSHRPBasePath();
+	static void updateSHRPBasePath();
 
 #ifndef BUILD_TWRPTAR_MAIN
 	static void install_htc_dumlock(void);                                      // Installs HTC Dumlock

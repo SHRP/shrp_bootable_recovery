@@ -1320,7 +1320,7 @@ int GUIAction::flash(std::string arg){
 	// We're going to jump to this page first, like a loading page
 	gui_changePage(arg);
 	//SHRP Start
-	#ifdef SHRP_AB
+#ifdef SHRP_AB
 	int inject_shrp = 0;
 	int active_slot = 0;
 	if (DataManager::GetIntValue(TW_HAS_DEVICEAB) == 1 && DataManager::GetIntValue(TW_ACTIVE_SLOT_INSTALL) == 1) {
@@ -1337,7 +1337,7 @@ int GUIAction::flash(std::string arg){
 			inject_shrp = 0;
 		}
 	}
-	#endif
+#endif
 	if (DataManager::GetIntValue(TW_MKINJECT_AFTER_ZIP) == 1) {
 	    TWFunc::Exec_Cmd("setprop tw_mkinject_after_zip 1");
 	    mkinject_zip = 1;
@@ -1348,7 +1348,7 @@ int GUIAction::flash(std::string arg){
 		TWFunc::flushSHRP();
 		LOGINFO("SHRP FLUSH: Ended\n");
 	}
-	TWFunc::shrpResExp(TWFunc::getSHRPBasePath()+"/etc/shrp/","/tmp/shrp/");
+	TWFunc::shrpResExp(DataManager::GetStrValue("shrpBasePath")+"/etc/shrp/","/tmp/shrp/");
 #endif
 	//SHRP END
 	for (i=0; i<zip_queue_index; i++) {
@@ -1424,10 +1424,11 @@ int GUIAction::flash(std::string arg){
 		//Re-inject system again, just in case
 		remountSystem();
   }
-#ifdef SHRP_EXPRESS
-	TWFunc::shrpResExp("/tmp/shrp/",TWFunc::getSHRPBasePath()+"/etc/shrp/");
-#endif
 	PartitionManager.Update_System_Details();
+	TWFunc::updateSHRPBasePath();
+#ifdef SHRP_EXPRESS
+	TWFunc::shrpResExp("/tmp/shrp/",DataManager::GetStrValue("shrpBasePath")+"/etc/shrp/");
+#endif
 	operation_end(ret_val);
 	return 0;
 }
@@ -1438,7 +1439,7 @@ int GUIAction::wipe(std::string arg)
 	DataManager::SetValue("tw_partition", arg);
 	int ret_val = false;
 #ifdef SHRP_EXPRESS
-	TWFunc::shrpResExp(TWFunc::getSHRPBasePath()+"/etc/shrp/","/tmp/shrp/");
+	TWFunc::shrpResExp(DataManager::GetStrValue("shrpBasePath")+"/etc/shrp/","/tmp/shrp/");
 	TWFunc::shrpResExp("/sdcard/SHRP/","/tmp/SDATA/");
 #endif
 	if (simulate) {
@@ -1539,15 +1540,17 @@ int GUIAction::wipe(std::string arg)
 		}
 #endif
 	}
-#ifdef SHRP_EXPRESS
-	TWFunc::shrpResExp("/tmp/shrp/",TWFunc::getSHRPBasePath()+"/etc/shrp/");
-	TWFunc::shrpResExp("/tmp/SDATA/","/sdcard/SHRP/");
-#endif
 	PartitionManager.Update_System_Details();
 	if (ret_val)
 		ret_val = 0; // 0 is success
 	else
 		ret_val = 1; // 1 is failure
+	
+	TWFunc::updateSHRPBasePath();
+#ifdef SHRP_EXPRESS
+	TWFunc::shrpResExp("/tmp/shrp/",DataManager::GetStrValue("shrpBasePath")+"/etc/shrp/");
+	TWFunc::shrpResExp("/tmp/SDATA/","/sdcard/SHRP/");
+#endif
 	operation_end(ret_val);
 	return 0;
 }
@@ -1599,7 +1602,7 @@ int GUIAction::nandroid(std::string arg)
 			DataManager::SetValue(TW_BACKUP_NAME, auto_gen);
 		} else if (arg == "restore") {
 #ifdef SHRP_EXPRESS
-			TWFunc::shrpResExp(TWFunc::getSHRPBasePath()+"/etc/shrp/","/tmp/shrp/");
+			TWFunc::shrpResExp(DataManager::GetStrValue("shrpBasePath")+"/etc/shrp/","/tmp/shrp/");
 #endif
 			string Restore_Name;
 			int gui_adb_backup;
@@ -1620,8 +1623,9 @@ int GUIAction::nandroid(std::string arg)
 				else
 					ret = 1; // failure
 			}
+			TWFunc::updateSHRPBasePath();
 #ifdef SHRP_EXPRESS
-			TWFunc::shrpResExp("/tmp/shrp/",TWFunc::getSHRPBasePath()+"/etc/shrp/");
+			TWFunc::shrpResExp("/tmp/shrp/",DataManager::GetStrValue("shrpBasePath")+"/etc/shrp/");
 #endif
 		} else {
 			operation_end(1); // invalid arg specified, fail
@@ -1858,7 +1862,7 @@ int GUIAction::checkbackupname(std::string arg __unused)
 int GUIAction::decrypt(std::string arg __unused)
 {
 	int op_status = 0;
-
+	bool mountStatus=false;
 	operation_start("Decrypt");
 	if (simulate) {
 		simulate_progress_bar();
@@ -1888,16 +1892,20 @@ int GUIAction::decrypt(std::string arg __unused)
 			op_status = 1;
 		}else{
 			//Saving the key in system/etc
-			string basePath=TWFunc::getSHRPBasePath();
+			string basePath=DataManager::GetStrValue("shrpBasePath");
 			LOGINFO("SHRP Decrypt: Storing the original key in /system/etc/\n");
-			TWFunc::Exec_Cmd("mount -w "+PartitionManager.Get_Android_Root_Path());
+			if(!PartitionManager.Is_Mounted_By_Path(PartitionManager.Get_Android_Root_Path())){
+				TWFunc::Exec_Cmd("mount -w "+PartitionManager.Get_Android_Root_Path(),true);
+			}else{
+				mountStatus=true;
+			}
 			if(TWFunc::Path_Exists("/tmp/cryptPass")){
-				TWFunc::Exec_Cmd("rm -r /tmp/cryptPass");
+				TWFunc::Exec_Cmd("rm -r /tmp/cryptPass",true);
 			}
 			TWFunc::Exec_Cmd("touch /tmp/cryptPass");
 			TWFunc::write_to_file("/tmp/cryptPass",Password.c_str());
 			if(TWFunc::Path_Exists(basePath+"/etc/cryptPass")){
-				TWFunc::Exec_Cmd("rm -r "+basePath+"/etc/cryptPass");
+				TWFunc::Exec_Cmd("rm -r "+basePath+"/etc/cryptPass",true);
 			}
 #ifndef TW_EXCLUDE_ENCRYPTED_BACKUPS
 			if(TWFunc::dencryptFile("/tmp/",basePath+"/etc/","cryptPass")){
@@ -1925,7 +1933,9 @@ int GUIAction::decrypt(std::string arg __unused)
 			PartitionManager.Decrypt_Adopted();
 		}
 	}
-
+	if(!mountStatus){
+		PartitionManager.UnMount_By_Path(PartitionManager.Get_Android_Root_Path(),false);
+	}
 	operation_end(op_status);
 	return 0;
 }
@@ -1938,7 +1948,7 @@ int GUIAction::adbsideload(std::string arg __unused)
 		operation_end(0);
 	} else {
 #ifdef SHRP_EXPRESS
-		TWFunc::shrpResExp(TWFunc::getSHRPBasePath()+"/etc/shrp/","/tmp/shrp/");
+		TWFunc::shrpResExp(DataManager::GetStrValue("shrpBasePath")+"/etc/shrp/","/tmp/shrp/");
 #endif
 		gui_msg("start_sideload=Starting ADB sideload feature...");
 		bool mtp_was_enabled = TWFunc::Toggle_MTP(false);
@@ -1985,7 +1995,7 @@ int GUIAction::adbsideload(std::string arg __unused)
 int GUIAction::adbsideloadcancel(std::string arg __unused)
 {
 #ifdef SHRP_EXPRESS
-	TWFunc::shrpResExp("/tmp/shrp/",TWFunc::getSHRPBasePath()+"/etc/shrp/");
+	TWFunc::shrpResExp("/tmp/shrp/",DataManager::GetStrValue("shrpBasePath")+"/etc/shrp/");
 #endif
 	struct stat st;
 	DataManager::SetValue("tw_has_cancel", 0); // Remove cancel button from gui
@@ -2194,15 +2204,17 @@ int GUIAction::flashimage(std::string arg __unused)
 	DataManager::GetValue("tw_flash_partition", test);
 	LOGINFO("Path = %s\nFile Name = %s\nPartition = %s",path.c_str(),filename.c_str(),test.c_str());
 #ifdef SHRP_EXPRESS
-	TWFunc::shrpResExp(TWFunc::getSHRPBasePath()+"/etc/shrp/","/tmp/shrp/");
+	TWFunc::shrpResExp(DataManager::GetStrValue("shrpBasePath")+"/etc/shrp/","/tmp/shrp/");
 #endif
 	//Exp End
 	if (PartitionManager.Flash_Image(path, filename))
 		op_status = 0; // success
 	else
 		op_status = 1; // fail
+	
+	TWFunc::updateSHRPBasePath();
 #ifdef SHRP_EXPRESS
-	TWFunc::shrpResExp("/tmp/shrp/",TWFunc::getSHRPBasePath()+"/etc/shrp/");
+	TWFunc::shrpResExp("/tmp/shrp/",DataManager::GetStrValue("shrpBasePath")+"/etc/shrp/");
 #endif
 	operation_end(op_status);
 	return 0;
@@ -3134,7 +3146,7 @@ int GUIAction::c_scolorExec(std::string arg){
 
 int GUIAction::c_repack(std::string arg __unused){
 #ifdef SHRP_EXPRESS
-	TWFunc::shrpResExp("/twres/",TWFunc::getSHRPBasePath()+"/etc/shrp/");
+	TWFunc::shrpResExp("/twres/",DataManager::GetStrValue("shrpBasePath")+"/etc/shrp/");
 #else
 	if(TWFunc::Path_Exists("/twres/fonts/")&&TWFunc::Path_Exists("/twres/images/")&&TWFunc::Path_Exists("/twres/languages/")&&TWFunc::Path_Exists("/twres/magisk/")&&TWFunc::Path_Exists("/twres/bg_res.xml")&&TWFunc::Path_Exists("/twres/c_page.xml")&&TWFunc::Path_Exists("/twres/c_status_bar_h.xml")&&TWFunc::Path_Exists("/twres/notch_handled_var.xml")&&TWFunc::Path_Exists("/twres/portrait.xml")&&TWFunc::Path_Exists("/twres/splash.xml")&&TWFunc::Path_Exists("/twres/styles.xml")&&TWFunc::Path_Exists("/twres/txt_res.xml")&&TWFunc::Path_Exists("/twres/ui.xml")){
 		LOGINFO("c_repack : ALL Required Files are found\n");
