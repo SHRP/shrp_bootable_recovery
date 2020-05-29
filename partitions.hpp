@@ -26,7 +26,7 @@
 #include "exclude.hpp"
 #include "tw_atomic.hpp"
 #include "progresstracking.hpp"
-#include "ext4crypt_tar.h"
+#include "crypto/ext4crypt/ext4crypt_tar.h"
 
 #define MAX_FSTAB_LINE_LENGTH 2048
 

@@ -25,7 +25,7 @@
 #ifdef USE_FSCRYPT
 #include <ext4_utils/ext4_crypt.h>
 #else
-#include "ext4crypt_tar.h"
+#include "crypto/ext4crypt/ext4crypt_tar.h"
 #endif
 
 #include "twrpDigest/twrpDigest.hpp"
