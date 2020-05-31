@@ -3154,7 +3154,6 @@
 				<placement x="99" y="%dash_ico_2nd_row%"/>
 				<conditions>
 					<condition var1="tw_is_fbe" var2="1"/>
-					<condition var1="tw_all_users_decrypted" var2="0"/>
 				</conditions>
 				<image resource="c_dashboard_userFbe"/>
 				<actions>
@@ -3166,7 +3165,6 @@
 				<placement x="69" y="%dash_txt_2nd_row%"/>
 				<conditions>
 					<condition var1="tw_is_fbe" var2="1"/>
-					<condition var1="tw_all_users_decrypted" var2="0"/>
 				</conditions>
 				<text>{@decrypt_users=Decrypt Users}</text>
 				<actions>
