@@ -283,6 +283,11 @@ int main(int argc, char **argv) {
 #endif
 
 		if(SarPartitionManager.Mount_By_Path("/s", false)) {
+#if defined(SHRP_NO_SAR_AUTOMOUNT) && !defined(BOARD_BUILD_SYSTEM_ROOT_IMAGE)
+            LOGINFO("SAR-DETECT: SAR detection disabled \n");
+            property_set("ro.twrp.sar", "false");
+            rmdir("/system_root");
+#else
 			if (TWFunc::Path_Exists("/s/build.prop")) {
 				LOGINFO("SAR-DETECT: Non-SAR System detected\n");
 				property_set("ro.twrp.sar", "false");
@@ -294,6 +299,7 @@ int main(int argc, char **argv) {
 				LOGINFO("SAR-DETECT: No build.prop found, falling back to %s\n", fallback_sar ? "SAR" : "Non-SAR");
 				property_set("ro.twrp.sar", fallback_sar ? "true" : "false");
 			}
+#endif
 
 // We are doing this here during SAR-detection, since we are mounting the system-partition anyway
 // This way we don't need to remount it later, just for overriding properties
