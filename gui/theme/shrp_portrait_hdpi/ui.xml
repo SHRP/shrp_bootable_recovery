@@ -296,7 +296,7 @@
 		<variable name="console_terminal_height" value="1040"/>
 		<variable name="dialog_button_x" value="696"/>
 		<variable name="pattern_x" value="235"/>
-		<variable name="pattern_dot_dia" value="15"/>
+		<variable name="pattern_dot_dia" value="20"/>
 		<variable name="pattern_line_w" value="8"/>
 		<variable name="pattern_size" value="600"/>
 		<variable name="c_file" value="0"/>
