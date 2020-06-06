@@ -168,7 +168,7 @@ string value_process(string main){
 	return main;
 }
 
-//SHRP 2.3 Beta Start
+//SHRP 2.3
 //Text Editor Class
 class textEditor{
 	private:
@@ -396,7 +396,18 @@ bool ThemeParser::verifyInformation(){
 		return false;
 	}
 }
-//SHRP 2.3 Beta End
+
+//helperFunctionForFind
+bool find(std::string str,std::string sub){
+	if(str.find(sub)>str.length()){
+		return false;
+	}else{
+		return true;
+	}
+}
+
+
+//SHRP 2.3
 
 GUIAction::GUIAction(xml_node<>* node)
 	: GUIObject(node)
@@ -1346,6 +1357,7 @@ int GUIAction::flash(std::string arg){
 	if(DataManager::GetIntValue("c_shrpUpdate")){
 		LOGINFO("SHRP FLUSH: Started\n");
 		TWFunc::flushSHRP();
+		DataManager::SetValue("c_shrpUpdate","0");
 		LOGINFO("SHRP FLUSH: Ended\n");
 	}
 	TWFunc::shrpResExp(DataManager::GetStrValue("shrpBasePath")+"/etc/shrp/","/tmp/shrp/");
@@ -3208,8 +3220,10 @@ int GUIAction::c_repack(std::string arg __unused){
 int GUIAction::flashOP(std::string arg){
 	int p,s=0;
 	char tmp[10];
-	int isSHRPZip=arg.find_last_of("SHRP");
-	int isSHRPZip2=arg.find_last_of("shrp");
+	bool isSHRPZip=find(arg.substr(arg.find_last_of("/"),arg.length()-arg.find_last_of("/")),"SHRP");
+	bool isSHRPZip2=find(arg.substr(arg.find_last_of("/"),arg.length()-arg.find_last_of("/")),"shrp");
+	bool isSHRPZip3=find(arg.substr(arg.find_last_of("/"),arg.length()-arg.find_last_of("/")),"Shrp");
+	LOGINFO("Zip Name - %s\nisSHRPZip - %d\nisSHRPZip2 - %d\nisSHRPZip3 - %d",arg.c_str(),isSHRPZip,isSHRPZip2,isSHRPZip3);
 	p=arg.find_last_of(".");
 	if(p!=-1){
 		p++;
@@ -3225,8 +3239,10 @@ int GUIAction::flashOP(std::string arg){
 #else
 	if(arg=="zip"){
 #endif
-		if(isSHRPZip!=-1||isSHRPZip2!=-1){
+		if(isSHRPZip||isSHRPZip2||isSHRPZip3){
 			DataManager::SetValue("isShrpZip","1");
+		}else{
+			DataManager::SetValue("isShrpZip","0");
 		}
 		GUIAction::queuezip("bappa");
 		DataManager::SetValue("c_queue_enabled","1");
