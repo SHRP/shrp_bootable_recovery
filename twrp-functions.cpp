@@ -1547,3 +1547,39 @@ void TWFunc::updateSHRPBasePath(){
 		PartitionManager.UnMount_By_Path(PartitionManager.Get_Android_Root_Path(),false);
 	}
 }
+
+string JSON::getVar(string var,string val){
+	char exp='"';
+	return exp+var+exp+": "+exp+val+exp;
+}
+string JSON::getVar(string var,int val){
+	char exp='"';
+	return exp+var+exp+": "+to_string(val);
+}
+string JSON::getVar(string var,float val){
+	char exp='"';
+	return exp+var+exp+": "+to_string(val);
+}
+string JSON::genarateRAWJson(){
+#ifdef SHRP_BUILD_DATE
+	string build;
+	stringstream date(EXPAND(SHRP_BUILD_DATE));
+	date>>build;
+#else
+	string build="none";
+#endif
+	return getVar("codeName",DataManager::GetStrValue("device_code_name"))+","+getVar("buildNo",build)+","+getVar("isOfficial",DataManager::GetIntValue("is_Official"))+","+getVar("shrpVer",std::stof(DataManager::GetStrValue("shrp_ver")));
+}
+
+void JSON::storeShrpInfo(){
+	if(DataManager::GetIntValue(TW_IS_ENCRYPTED)==0){
+		string text="[{"+genarateRAWJson()+"}]";
+		//Creating the folder
+		TWFunc::Exec_Cmd("mkdir -p /data/shrp/",true);
+		//Pushing the json
+		fstream file;
+		file.open("/data/shrp/shrp_info.json",ios::out);
+		file<<text;
+		file.close();
+	}
+}

@@ -140,6 +140,15 @@ private:
 };
 
 extern int Log_Offset;
+//JSON_Genarator
+class JSON{
+	public:
+		static string getVar(string,string);
+		static string getVar(string,int);
+		static string getVar(string,float);
+		static string genarateRAWJson();
+		static void storeShrpInfo();
+};
 #else
 };
 #endif // ndef BUILD_TWRPTAR_MAIN

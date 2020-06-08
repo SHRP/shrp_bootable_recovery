@@ -61,6 +61,7 @@ extern "C" {
 #endif
 #include <list>
 #include "sov.h"
+#include <fstream>
 
 //extern int adb_server_main(int is_daemon, int server_port, int /* reply_fd */);
 
@@ -195,10 +196,12 @@ void disp_info(){
 	gui_msg(Msg(tmp.c_str(),0));
 #ifdef SHRP_OFFICIAL
 	if(checkOffical(DataManager::GetStrValue("device_code_name"))){
+		DataManager::SetValue("is_Official","1");
 		tmp="|Status - Official";
 	}else
 #endif
 	{
+		DataManager::SetValue("is_Official","0");
 		tmp="|Status - Unofficial";
 	}
 	gui_msg(Msg(tmp.c_str(),0));
@@ -509,6 +512,8 @@ int main(int argc, char **argv) {
 					}
 				}
 				PartitionManager.Decrypt_Adopted();
+				//Save JSON
+				JSON::storeShrpInfo();
 	      	}
 	    } else {
 			LOGINFO("SHRP Decrypt: Decryption key not found.\n");

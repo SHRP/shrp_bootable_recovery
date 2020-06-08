@@ -41,7 +41,6 @@
 
 #include <string>
 #include <sstream>
-#include <fstream>
 #include "../partitions.hpp"
 #include "../twrp-functions.hpp"
 #include "../openrecoveryscript.hpp"
@@ -1951,6 +1950,8 @@ int GUIAction::decrypt(std::string arg __unused)
 				}
 			}
 			PartitionManager.Decrypt_Adopted();
+			//Save JSON
+			JSON::storeShrpInfo();
 		}
 	}
 #ifndef SHRP_EXCLUDE_AUTO_DECRYPT

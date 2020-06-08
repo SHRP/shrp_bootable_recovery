@@ -835,6 +835,7 @@ void DataManager::SetDefaultValues()
 	mConst.SetValue("c_magisk_stock_var", "20.3");
 
 	//SHRP SemiConstant variables
+	mData.SetValue("is_Official", "0");
 	mData.SetValue("c_userDecrypt", "0");
 	mData.SetValue("shrpBasePath", "/system");
 	mData.SetValue("c_magisk_status", "0");
