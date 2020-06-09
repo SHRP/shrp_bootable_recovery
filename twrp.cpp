@@ -196,12 +196,12 @@ void disp_info(){
 	gui_msg(Msg(tmp.c_str(),0));
 #ifdef SHRP_OFFICIAL
 	if(checkOffical(DataManager::GetStrValue("device_code_name"))){
-		DataManager::SetValue("is_Official","1");
+		DataManager::SetValue("is_Official","true");
 		tmp="|Status - Official";
 	}else
 #endif
 	{
-		DataManager::SetValue("is_Official","0");
+		DataManager::SetValue("is_Official","false");
 		tmp="|Status - Unofficial";
 	}
 	gui_msg(Msg(tmp.c_str(),0));

@@ -1550,7 +1550,11 @@ void TWFunc::updateSHRPBasePath(){
 
 string JSON::getVar(string var,string val){
 	char exp='"';
-	return exp+var+exp+": "+exp+val+exp;
+	if(val=="true"||val=="false"){
+		return exp+var+exp+": "+val;
+	}else{
+		return exp+var+exp+": "+exp+val+exp;
+	}
 }
 string JSON::getVar(string var,int val){
 	char exp='"';
@@ -1568,7 +1572,12 @@ string JSON::genarateRAWJson(){
 #else
 	string build="none";
 #endif
-	return getVar("codeName",DataManager::GetStrValue("device_code_name"))+","+getVar("buildNo",build)+","+getVar("isOfficial",DataManager::GetIntValue("is_Official"))+","+getVar("shrpVer",std::stof(DataManager::GetStrValue("shrp_ver")));
+#ifdef SHRP_EXPRESS
+	string express="true";
+#else
+	string express="false";
+#endif
+	return getVar("codeName",DataManager::GetStrValue("device_code_name"))+","+getVar("buildNo",build)+","+getVar("isOfficial",DataManager::GetStrValue("is_Official"))+","+getVar("has_express",express)+","+getVar("shrpVer",std::stof(DataManager::GetStrValue("shrp_ver")));
 }
 
 void JSON::storeShrpInfo(){
