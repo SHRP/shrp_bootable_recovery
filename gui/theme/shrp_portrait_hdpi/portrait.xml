@@ -374,10 +374,31 @@
 			<button style="c_text_dashboard">
 				<placement x="85" y="1445" w="241" h="170"/>
 				<fill color="%transparent%"/>
-				<text>{@Tcredit=None}</text>
+				<text>Corsicanu</text>
 			</button>
 			<button style="c_reboot_text">
 				<placement x="105" y="1575" w="221" h="50"/>
+				<fill color="%transparent%"/>
+				<text>SAR fixes</text>
+			</button>
+
+			<button style="c_text_dashboard">
+				<placement x="410" y="1445" w="261" h="170"/>
+				<fill color="%transparent%"/>
+				<text>Oddlyspaced</text>
+			</button>
+			<button style="c_reboot_text">
+				<placement x="430" y="1575" w="221" h="50"/>
+				<fill color="%transparent%"/>
+				<text>SHRP App</text>
+			</button>
+			<button style="c_text_dashboard">
+				<placement x="735" y="1445" w="261" h="170"/>
+				<fill color="%transparent%"/>
+				<text>{@Tcredit=None}</text>
+			</button>
+			<button style="c_reboot_text">
+				<placement x="755" y="1575" w="221" h="50"/>
 				<fill color="%transparent%"/>
 				<text>{@c_translation=Translation}</text>
 			</button>
