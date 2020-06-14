@@ -40,7 +40,6 @@
 #include <fstream>		// slts processing
 
 #include <string>
-#include <sstream>
 #include "../partitions.hpp"
 #include "../twrp-functions.hpp"
 #include "../openrecoveryscript.hpp"
@@ -62,6 +61,7 @@ extern "C" {
 #include "rapidxml.hpp"
 #include "objects.hpp"
 #include "../tw_atomic.hpp"
+#include "../SHRPMAIN.hpp"
 
 GUIAction::mapFunc GUIAction::mf;
 std::set<string> GUIAction::setActionsRunningInCallerThread;
@@ -150,263 +150,6 @@ void ActionThread::run(void *data)
 	pthread_mutex_unlock(&m_act_lock);
 	delete d;
 }
-
-string value_process(string main){
-	int i=0,j=0;
-	char value[50];
-	while(main[i]!='='){
-		i++;
-	}
-	while(main[i]!=0){
-		value[j]=main[++i];
-		j++;
-	}
-	main=value;
-	i=main.size();
-	main[--i]=0;
-	return main;
-}
-
-//SHRP 2.3
-//Text Editor Class
-class textEditor{
-	private:
-		void pushString(string,string);									//push the processed strings into the file
-	public:
-		void disp_file(string);													//displays the content of the file in the console
-		void replaceLine(string,string,int);						//replaces specific line into the file
-		void addLine(string,string,int);								//adds specific line into the file
-		void removeLine(string,int);										//removes specific line from the file
-		void getdString(string,string&,string&,int,int);//divides the file in two strings according to the parameter
-		void getReplacebleLine(string,int);							//finds the line which are going to be replace
-		string handleTab(string str);										//handles Tab character
-		int getLineNo(string path);											//process total line of text file
-};
-//Funcs()
-int textEditor::getLineNo(string path){
-	int line=1;
-	string tmp;
-	fstream file;
-	file.open(path.c_str(),ios::in);
-	if(file){
-		while(getline(file, tmp)){
-			line++;
-		}
-	}else{
-		return 0;
-	}
-	file.close();
-	return line-1;
-}
-
-string textEditor::handleTab(string str){
-	int tmp1=str.find_first_of('\t');
-	while(tmp1!=-1){
-		str[tmp1]=' ';
-		str.insert(tmp1,"  ");
-		tmp1=str.find_first_of('\t');
-	}
-	return str;
-}
-
-void textEditor::disp_file(string path){
-	fstream file;
-	string tmp;
-	int line_no=1;
-	file.open(path.c_str(),ios::in);
-	if(file){
-		tmp="Text File - "+path;
-		gui_msg(Msg(tmp.c_str(),0));
-		while(getline(file, tmp)){
-			{
-      	stringstream guun;
-        string t;
-        guun<<line_no;
-        guun>>t;
-				tmp=handleTab(tmp);
-        tmp=t+" "+tmp;
-				gui_msg(Msg(tmp.c_str(),0));
-      }
-      line_no++;
-    }
-	}
-	file.close();
-}
-
-void textEditor::getdString(string path,string &text1,string &text2,int line,int arg){
-	fstream file;
-	string tmp;
-	int line_no=1;
-	int fileLineNo=getLineNo(path);
-	int swt=1;
-	if(line>fileLineNo){
-		swt=0;
-	}else if(line<line_no){
-		line=1;
-	}
-	file.open(path.c_str(),ios::in);
-	if(file&&swt){
-		while(getline(file,tmp)){
-			if(line_no<line){
-				text1+=tmp+"\n";
-			}
-			if(arg==1&&line_no==line){
-				text2+=tmp+"\n";
-			}
-			if(line_no>line){
-				text2+=tmp+"\n";
-			}
-			line_no++;
-		}
-	}else if(file){
-		while(getline(file,tmp)){
-			text1+=tmp+"\n";
-		}
-
-	}
-	file.close();
-}
-
-void textEditor::getReplacebleLine(string path,int line){
-	fstream file;
-	string tmp;
-	int line_no=1;
-	if(line<=line_no){
-		line=1;
-	}
-	file.open(path.c_str(),ios::in);
-	if(file){
-		while(getline(file,tmp)){
-			if(line_no==line){
-				break;
-			}
-			line_no++;
-		}
-		if(line_no<line){
-				tmp=" ";
-		}else{
-				tmp=handleTab(tmp);
-		}
-		DataManager::SetValue("replaceText",tmp.c_str());
-	}
-	file.close();
-}
-
-void textEditor::pushString(string path,string text){
-	fstream file;
-	file.open(path.c_str(),ios::out);
-	file<<text;
-	file.close();
-}
-
-void textEditor::replaceLine(string path,string rtext,int line){
-	string up,down;
-	getdString(path,up,down,line,0);
-	rtext=up+rtext+"\n"+down;
-	pushString(path,rtext);
-}
-
-void textEditor::addLine(string path,string rtext,int line){
-	string up,down;
-	getdString(path,up,down,line,1);
-	rtext=up+rtext+"\n"+down;
-	pushString(path,rtext);
-}
-
-void textEditor::removeLine(string path,int line){
-	string up,down;
-	getdString(path,up,down,line,0);
-	up=up+down;
-	pushString(path,up);
-}
-
-class ThemeParser{
-	private:
-		string themeName;
-		string bgColor;
-		string navBgColor;
-		string accColor;
-		string textColor;
-		void processValue(string,int);
-		bool verifyColor(string);
-	public:
-		void fetchInformation(string);
-		bool verifyInformation();
-		void pushValues();
-};
-void ThemeParser::pushValues(){
-	DataManager::SetValue("c_white",bgColor.c_str());
-	DataManager::SetValue("nav_bg",navBgColor.c_str());
-	DataManager::SetValue("c_black",textColor.c_str());
-	DataManager::SetValue("c_acc_color_val",accColor.c_str());
-}
-void ThemeParser::processValue(string line,int arg){
-	line=line.substr(line.find_last_of("=")+1,line.length());
-	switch(arg){
-		case 0:themeName=line;
-		break;
-		case 1:bgColor=line;
-		break;
-		case 2:navBgColor=line;
-		break;
-		case 3:accColor=line;
-		break;
-		case 4:textColor=line;
-		break;
-	}
-	LOGINFO("SHRP THEME PARSHER: %s\t %s\t %s\t %s\t %s\n",themeName.c_str(),bgColor.c_str(),navBgColor.c_str(),accColor.c_str(),textColor.c_str());
-}
-void ThemeParser::fetchInformation(string path){
-	string tmp;
-	fstream file;
-	LOGINFO("SHRP THEME PARSHER: Theme Path %s\n",path.c_str());
-	file.open(path.c_str(),ios::in);
-	if(file){
-		int i=0;
-		while(getline(file,tmp)){
-			processValue(tmp,i++);
-		}
-	}
-}
-bool ThemeParser::verifyColor(string arg){
-	int tmp=arg.length();
-	if((tmp==7||tmp==9)&&arg[0]=='#'){
-	}else{
-		LOGINFO("SHRP THEME PARSHER: Incorrect Hex Format..(#)\n");
-		return false;
-	}
-	tmp--;
-	//tmp=-2;
-	while(tmp!=0){
-		if(!(arg[tmp]=='1'||arg[tmp]=='2'||arg[tmp]=='3'||arg[tmp]=='4'||arg[tmp]=='5'||arg[tmp]=='6'||arg[tmp]=='7'||arg[tmp]=='8'||arg[tmp]=='9'||arg[tmp]=='0'||arg[tmp]=='A'||arg[tmp]=='a'||arg[tmp]=='B'||arg[tmp]=='b'||arg[tmp]=='C'||arg[tmp]=='c'||arg[tmp]=='D'||arg[tmp]=='d'||arg[tmp]=='E'||arg[tmp]=='e'||arg[tmp]=='F'||arg[tmp]=='f')){
-			LOGINFO("SHRP THEME PARSHER: Incorrect Hex Format..(value)\n");
-			return false;
-		}
-		tmp--;
-	}
-	return true;
-}
-
-bool ThemeParser::verifyInformation(){
-	LOGINFO("SHRP THEME PARSHER: Verifing theme data..\n");
-	if(verifyColor(bgColor)&&verifyColor(accColor)&&verifyColor(textColor)){
-		return true;
-	}else{
-		return false;
-	}
-}
-
-//helperFunctionForFind
-bool find(std::string str,std::string sub){
-	if(str.find(sub)>str.length()){
-		return false;
-	}else{
-		return true;
-	}
-}
-
-
-//SHRP 2.3
 
 GUIAction::GUIAction(xml_node<>* node)
 	: GUIObject(node)
@@ -2741,9 +2484,9 @@ int GUIAction::shrp_magisk_mi(std::string arg __unused){//SHRP Magisk Module Inf
 			i++;
 		}
 		fclose(f);
-		name=value_process(name);
-		version=value_process(version);
-		author=value_process(author);
+		name=name.substr(name.find_first_of('=')+1,name.length());
+		version=version.substr(version.find_first_of('=')+1,version.length());
+		author=author.substr(author.find_first_of('=')+1,author.length());
 	}else{
 		name="N/A";
 		version="N/A";
@@ -3221,9 +2964,9 @@ int GUIAction::c_repack(std::string arg __unused){
 int GUIAction::flashOP(std::string arg){
 	int p,s=0;
 	char tmp[10];
-	bool isSHRPZip=find(arg.substr(arg.find_last_of("/"),arg.length()-arg.find_last_of("/")),"SHRP");
-	bool isSHRPZip2=find(arg.substr(arg.find_last_of("/"),arg.length()-arg.find_last_of("/")),"shrp");
-	bool isSHRPZip3=find(arg.substr(arg.find_last_of("/"),arg.length()-arg.find_last_of("/")),"Shrp");
+	bool isSHRPZip=minUtils::find(arg.substr(arg.find_last_of("/"),arg.length()-arg.find_last_of("/")),"SHRP");
+	bool isSHRPZip2=minUtils::find(arg.substr(arg.find_last_of("/"),arg.length()-arg.find_last_of("/")),"shrp");
+	bool isSHRPZip3=minUtils::find(arg.substr(arg.find_last_of("/"),arg.length()-arg.find_last_of("/")),"Shrp");
 	LOGINFO("Zip Name - %s\nisSHRPZip - %d\nisSHRPZip2 - %d\nisSHRPZip3 - %d",arg.c_str(),isSHRPZip,isSHRPZip2,isSHRPZip3);
 	p=arg.find_last_of(".");
 	if(p!=-1){
@@ -3236,9 +2979,9 @@ int GUIAction::flashOP(std::string arg){
 	}
 	DataManager::GetValue("c_queue_enabled",s);
 #ifdef SHRP_OZIP_DECRYPT
-	if(arg=="zip"||arg=="ozip"){
+	if(minUtils::compare(arg,"zip")||minUtils::compare(arg,"ozip")){
 #else
-	if(arg=="zip"){
+	if(minUtils::compare(arg,"zip")){
 #endif
 		if(isSHRPZip||isSHRPZip2||isSHRPZip3){
 			DataManager::SetValue("isShrpZip","1");
@@ -3248,9 +2991,11 @@ int GUIAction::flashOP(std::string arg){
 		GUIAction::queuezip("bappa");
 		DataManager::SetValue("c_queue_enabled","1");
 		PageManager::ChangePage("flash_confirm");
-	}else if(arg=="img"&&s==1){
+
+	}else if(minUtils::compare(arg,"img")&&s==1){
 		PageManager::ChangePage("flash_confirm");
-	}else if(arg=="img"&&s==0){
+
+	}else if(minUtils::compare(arg,"img")&&s==0){
 		PageManager::ChangePage("flashimage_confirm");
 	}
 	return 0;
@@ -3317,17 +3062,17 @@ int GUIAction::unZipSelector(std::string arg){
 		if(tmp!=-1){
 			DataManager::SetValue("shrpUnzipFolder",arg.substr(x,tmp-x));
 			string extn=arg.substr(tmp,arg.length()-tmp);
-			if(extn==".zip"){
+			if(minUtils::compare(extn,".zip")){
 				DataManager::SetValue("isThemeFile","0");
 				DataManager::SetValue("canBeUnzip","1");
 				DataManager::SetValue("is_textFile","0");
 				return 0;
-			}else if(extn==".txt"||extn==".TXT"||extn==".xml"||extn==".XML"||extn==".prop"||extn==".PROP"||extn==".sh"||extn==".SH"){
+			}else if(minUtils::isFileEditable(extn)){
 				DataManager::SetValue("isThemeFile","0");
 				DataManager::SetValue("is_textFile","1");
 				DataManager::SetValue("canBeUnzip","0");
 				return 0;
-			}else if(extn==".stheme"||extn==".STHEME"){
+			}else if(minUtils::compare(extn,".stheme")){
 				DataManager::SetValue("isThemeFile","1");
 				DataManager::SetValue("is_textFile","0");
 				DataManager::SetValue("canBeUnzip","0");
@@ -3400,8 +3145,6 @@ int GUIAction::txtEditor(std::string arg){
 
 int GUIAction::execSTheme(std::string arg){
 	ThemeParser tp;
-	//int x=arg.find_last_of("/")+1;
-	//string themeName=arg.substr(x,arg.find_last_of(".")-x);
 	TWFunc::Exec_Cmd("mkdir -p /tmp/theme");
 	TWFunc::Exec_Cmd("unzip "+arg+" -d /tmp/theme/");
 	tp.fetchInformation("/tmp/theme/st.prop");

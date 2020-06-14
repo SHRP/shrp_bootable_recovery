@@ -60,6 +60,7 @@ endif
 LOCAL_CFLAGS += -DPLATFORM_SDK_VERSION=$(PLATFORM_SDK_VERSION)
 
 LOCAL_SRC_FILES := \
+    SHRPMAIN.cpp \
     twrp.cpp \
     fixContexts.cpp \
     twrpTar.cpp \
