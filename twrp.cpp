@@ -549,7 +549,8 @@ int main(int argc, char **argv) {
 			LOGINFO("Got default contexts and file mode for storage files.\n");
 		}
 	}
-
+	//Save JSON
+	JSON::storeShrpInfo();
 	// Fixup the RTC clock on devices which require it
 	if (crash_counter == 0) TWFunc::Fixup_Time_On_Boot();
 
@@ -641,6 +642,8 @@ int main(int argc, char **argv) {
 	gui_msg(Msg("rebooting=Rebooting..."));
 	string Reboot_Arg;
 	DataManager::GetValue("tw_reboot_arg", Reboot_Arg);
+	//Save JSON
+	JSON::storeShrpInfo();
 	if (Reboot_Arg == "recovery")
 		TWFunc::tw_reboot(rb_recovery);
 	else if (Reboot_Arg == "poweroff")
