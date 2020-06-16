@@ -32,6 +32,14 @@ bool minUtils::find(std::string str,std::string sub){
 		return true;
 	}
 }
+bool minUtils::find(std::string str,std::string sub,int dummy){
+	transform(str.begin(),str.end(),str.begin(), ::tolower);
+	if(str.find(sub)>str.length()){
+		return false;
+	}else{
+		return true;
+	}
+}
 
 
 //Text Editor Funcs()
