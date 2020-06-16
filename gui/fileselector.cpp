@@ -31,6 +31,7 @@ extern "C" {
 #include "../data.hpp"
 #include "../twrp-functions.hpp"
 #include "../adbbu/libtwadbbu.hpp"
+#include "../SHRPMAIN.hpp"
 
 int GUIFileSelector::mSortOrder = 0;
 
@@ -285,7 +286,7 @@ int GUIFileSelector::GetFileList(const std::string folder)
 		} else if (data.fileType == DT_REG || data.fileType == DT_LNK || data.fileType == DT_BLK) {
 			if(mMode&&data.fileName.length()>4){
 				std::string tmp=data.fileName.substr(data.fileName.length() - 4);
-				if(tmp==".zip"||tmp==".img"||tmp=="ozip"){
+				if(minUtils::compare(tmp,".zip")||minUtils::compare(tmp,".img")||minUtils::compare(tmp,"ozip")){
 					mFileList.push_back(data);
 				}
 			}else if (mExtn.empty() || (data.fileName.length() > mExtn.length() && data.fileName.substr(data.fileName.length() - mExtn.length()) == mExtn)) {
