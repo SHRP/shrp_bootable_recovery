@@ -1052,10 +1052,13 @@ int reinject_after_flash(){
 void remountSystem(){
 	if(PartitionManager.Is_Mounted_By_Path(PartitionManager.Get_Android_Root_Path())){
 	  PartitionManager.UnMount_By_Path(PartitionManager.Get_Android_Root_Path(),false);
+          unlink("/system");
+          mkdir("/system", 0755);
 	}
-	TWFunc::Exec_Cmd("mount -w "+PartitionManager.Get_Android_Root_Path());
-	gui_msg("remount_system_rw=[i] Remounted system as R/W!");
+        TWFunc::Exec_Cmd("mount -w "+PartitionManager.Get_Android_Root_Path());
+        gui_msg("remount_system_rw=[i] Remounted system as R/W!");
 }
+
 int GUIAction::ozip_decrypt(string zip_path)
 {
 	if (!TWFunc::Path_Exists("/sbin/ozip_decrypt")) {
@@ -1114,15 +1117,15 @@ int GUIAction::flash(std::string arg){
 		{
 			if((ozip_decrypt(zip_path)) != 0)
 			{
-                LOGERR("Unable to find ozip_decrypt!");
+                                LOGERR("Unable to find ozip_decrypt!");
 				break;
 			}
 			zip_filename = (zip_filename.substr(0, zip_filename.size() - 4)).append("zip");
-            zip_path = (zip_path.substr(0, zip_path.size() - 4)).append("zip");
+                        zip_path = (zip_path.substr(0, zip_path.size() - 4)).append("zip");
 			if (!TWFunc::Path_Exists(zip_path)) {
 				LOGERR("Unable to find decrypted zip");
 				break;
-			}
+	 		}
 		}
 		DataManager::SetValue("tw_filename", zip_path);
 		DataManager::SetValue("tw_file", zip_filename);
@@ -1151,8 +1154,8 @@ int GUIAction::flash(std::string arg){
 	if (active_slot == 1) {
 		active_slot = 0;
 		TWFunc::Exec_Cmd("setprop tw_active_slot_install 0");
-  }
-  if (inject_shrp == 1) {
+        }
+        if (inject_shrp == 1) {
 		inject_shrp = 0;
 		if(reinject_after_flash()) {
 			gui_msg(Msg("[i] SHRP restored successfully!",0));
@@ -1160,24 +1163,24 @@ int GUIAction::flash(std::string arg){
 			gui_msg(Msg("[!!] Restore failed! Please flash manually a SHRP zip file.",0));
 		}
 		TWFunc::Exec_Cmd("setprop tw_inject_after_zip 0");
-  } else {
+        } else {
 		gui_msg(Msg("[!] Please flash a SHRP zip file manually.",0));
 		gui_msg(Msg("[!] SHRP injection aborted/failed.",0));
 	}
 #endif
-  // Remount system as R/W, just in case
+        // Remount system as R/W, just in case
 	remountSystem();
-  // Inject Magisk
-  if (mkinject_zip == 1) {
+        // Inject Magisk
+        if (mkinject_zip == 1) {
 		mkinject_zip = 0;
-    string cmdmk = "setprop tw_mkinject_after_zip 0";
+        string cmdmk = "setprop tw_mkinject_after_zip 0";
 		TWFunc::Exec_Cmd(cmdmk);
 		TWFunc::SetPerformanceMode(true);
 		ret_val = flash_zip("/sdcard/SHRP/addons/c_magisk.zip", &wipe_cache);
 		TWFunc::SetPerformanceMode(false);
 		//Re-inject system again, just in case
 		remountSystem();
-  }
+        }
 	PartitionManager.Update_System_Details();
 	TWFunc::updateSHRPBasePath();
 #ifdef SHRP_EXPRESS
