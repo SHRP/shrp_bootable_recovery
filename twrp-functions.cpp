@@ -40,6 +40,7 @@
 #include <selinux/label.h>
 #include "twrp-functions.hpp"
 #include "twcommon.h"
+#include "SHRPMAIN.hpp"
 #include "gui/gui.hpp"
 #ifndef BUILD_TWRPTAR_MAIN
 #include "data.hpp"
@@ -1467,28 +1468,30 @@ bool TWFunc::dencryptFile(string path,string outPath,string fileName){//For Encr
 }
 #endif
 #ifdef SHRP_EXPRESS
-bool TWFunc::shrpResExp(string inPath,string outPath){
-	LOGINFO("Express Processing Start\n");
+bool TWFunc::shrpResExp(string inPath,string outPath,bool display){
+	LOGINFO("------------\nExpress Processing Start\n");
 	bool opStatus;
+	//Assume that System is not mounted as default
 	bool mountStatus=false;
-	if(!PartitionManager.Is_Mounted_By_Path(PartitionManager.Get_Android_Root_Path())){
-		if(Exec_Cmd("mount -w "+PartitionManager.Get_Android_Root_Path(),true)){
-			LOGINFO("System Mounted as RW Successfully - \n");
-		}else{
-			LOGINFO("System Mount Failed - \n");
-		}
-	}else{
+
+	//To Check If the System is Mounted or not for a decision parameter which helpes us to back normal state of system mountation before Express call
+	if(PartitionManager.Is_Mounted_By_Path(PartitionManager.Get_Android_Root_Path())){
 		mountStatus=true;
+	}else{
+		mountStatus=false;
 	}
-	LOGINFO("EXPRSS PROCESSING (Args)\nInpath - %s \nOutpath - %s \nExistance Check - \n",inPath.c_str(),outPath.c_str());
+	//To decide should we remount the system as RW or not
+	if(!(mountStatus && minUtils::find(inPath,DataManager::GetStrValue("shrpBasePath")))){
+		minUtils::remountSystem(false);
+	}
+	LOGINFO("Inpath - %s \nOutpath - %s \n",inPath.c_str(),outPath.c_str());
 	if(Path_Exists(inPath)){
 		LOGINFO("Inpath - Exists\n");
 		if(!Path_Exists(outPath)){
 			LOGINFO("Outpath - Not Exists\nCreating new one\n");
-			Exec_Cmd("mkdir -p "+outPath,true);
+			Exec_Cmd("mkdir -p "+outPath,display);
 		}
-		LOGINFO("Execution - \n");
-		if(Exec_Cmd("cp -r "+inPath+"* "+outPath,true)==0){
+		if(Exec_Cmd("cp -r "+inPath+"* "+outPath,display)==0){
 			LOGINFO("Executed Successfully\n");
 			opStatus=true;
 		}else{
@@ -1501,23 +1504,26 @@ bool TWFunc::shrpResExp(string inPath,string outPath){
 	}
 
 	if(!mountStatus){
-		if(PartitionManager.UnMount_By_Path(PartitionManager.Get_Android_Root_Path(),true)){
-			LOGINFO("System Unmounted Successfully - \n");
+		if(PartitionManager.UnMount_By_Path(PartitionManager.Get_Android_Root_Path(),display)){
+			LOGINFO("System Unmounted\n");
 		}else{
-			LOGINFO("System Unmount Failed - \n");
+			LOGINFO("System Unmount Failed \n");
 		}
 	}
-	LOGINFO("Express Processing End\n");
+	LOGINFO("Express Processing End\n------------\n");
 	return opStatus;
 }
 void TWFunc::flushSHRP(){
 	bool mountStatus=false;
 	string basePath=DataManager::GetStrValue("shrpBasePath");
-	if(!PartitionManager.Is_Mounted_By_Path(PartitionManager.Get_Android_Root_Path())){
-		Exec_Cmd("mount -w "+PartitionManager.Get_Android_Root_Path(),true);
-	}else{
+
+	if(PartitionManager.Is_Mounted_By_Path(PartitionManager.Get_Android_Root_Path())){
 		mountStatus=true;
+	}else{
+		mountStatus=false;
 	}
+	minUtils::remountSystem(false);
+
 	if(Path_Exists(basePath+"/etc/shrp")){
 		Exec_Cmd("cp -r "+basePath+"/etc/shrp/slts /tmp/",true);
 		Exec_Cmd("rm -r "+basePath+"/etc/shrp/*",true);

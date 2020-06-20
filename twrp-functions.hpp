@@ -86,7 +86,7 @@ public:
 	static bool dencryptFile(string path,string outPath,string fileName);
 #endif
 #ifdef SHRP_EXPRESS
-	static bool shrpResExp(string inPath,string outpath);
+	static bool shrpResExp(string inPath,string outpath,bool display = true);
 	static void flushSHRP();
 #endif
 	static void updateSHRPBasePath();
