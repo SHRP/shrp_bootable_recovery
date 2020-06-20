@@ -116,6 +116,9 @@ endif
 ifeq ($(TW_EXCLUDE_ENCRYPTED_BACKUPS), true)
     LOCAL_CFLAGS += -DTW_EXCLUDE_ENCRYPTED_BACKUPS
 endif
+ifeq ($(TW_USE_TOOLBOX), true)
+    LOCAL_CFLAGS += -DTW_USE_TOOLBOX
+endif
 
 LOCAL_C_INCLUDES += \
     bionic \

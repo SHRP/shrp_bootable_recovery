@@ -1092,7 +1092,9 @@ int GUIAction::flash(std::string arg){
 	}
 #endif
 	if (DataManager::GetIntValue(TW_MKINJECT_AFTER_ZIP) == 1) {
+#ifdef TW_USE_TOOLBOX
 	    TWFunc::Exec_Cmd("setprop tw_mkinject_after_zip 1");
+#endif
 	    mkinject_zip = 1;
 	}
 #ifdef SHRP_EXPRESS
@@ -1170,8 +1172,9 @@ int GUIAction::flash(std::string arg){
   // Inject Magisk
   if (mkinject_zip == 1) {
 		mkinject_zip = 0;
-    string cmdmk = "setprop tw_mkinject_after_zip 0";
-		TWFunc::Exec_Cmd(cmdmk);
+#ifdef TW_USE_TOOLBOX
+		TWFunc::Exec_Cmd("setprop tw_mkinject_after_zip 0");
+#endif
 		TWFunc::SetPerformanceMode(true);
 		ret_val = flash_zip("/sdcard/SHRP/addons/c_magisk.zip", &wipe_cache);
 		TWFunc::SetPerformanceMode(false);
