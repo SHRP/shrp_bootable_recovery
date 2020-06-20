@@ -3,6 +3,7 @@
 #include <sstream>
 #include <fstream>
 #include "twcommon.h"
+#include "twrp-functions.hpp"
 #include "SHRPMAIN.hpp"
 #include "data.hpp"
 #include "gui/gui.hpp"
@@ -38,6 +39,16 @@ bool minUtils::find(std::string str,std::string sub,int dummy){
 		return false;
 	}else{
 		return true;
+	}
+}
+
+void minUtils::remountSystem(bool display){
+	if(PartitionManager.Is_Mounted_By_Path(PartitionManager.Get_Android_Root_Path())){
+	  PartitionManager.UnMount_By_Path(PartitionManager.Get_Android_Root_Path(),false);
+	}
+	TWFunc::Exec_Cmd("mount -w "+PartitionManager.Get_Android_Root_Path(),display);
+	if(display){
+		gui_msg("remount_system_rw=[i] Remounted system as R/W!");
 	}
 }
 

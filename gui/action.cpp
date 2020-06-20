@@ -1049,13 +1049,6 @@ int reinject_after_flash(){
 }
 #endif
 
-void remountSystem(){
-	if(PartitionManager.Is_Mounted_By_Path(PartitionManager.Get_Android_Root_Path())){
-	  PartitionManager.UnMount_By_Path(PartitionManager.Get_Android_Root_Path(),false);
-	}
-	TWFunc::Exec_Cmd("mount -w "+PartitionManager.Get_Android_Root_Path());
-	gui_msg("remount_system_rw=[i] Remounted system as R/W!");
-}
 int GUIAction::ozip_decrypt(string zip_path)
 {
 	if (!TWFunc::Path_Exists("/sbin/ozip_decrypt")) {
@@ -1168,7 +1161,7 @@ int GUIAction::flash(std::string arg){
 	}
 #endif
   // Remount system as R/W, just in case
-	remountSystem();
+	minUtils::remountSystem(true);
   // Inject Magisk
   if (mkinject_zip == 1) {
 		mkinject_zip = 0;
@@ -1179,7 +1172,7 @@ int GUIAction::flash(std::string arg){
 		ret_val = flash_zip("/sdcard/SHRP/addons/c_magisk.zip", &wipe_cache);
 		TWFunc::SetPerformanceMode(false);
 		//Re-inject system again, just in case
-		remountSystem();
+		minUtils::remountSystem(false);
   }
 	PartitionManager.Update_System_Details();
 	TWFunc::updateSHRPBasePath();
