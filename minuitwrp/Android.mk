@@ -10,10 +10,17 @@ LOCAL_SRC_FILES := \
     graphics_utils.cpp \
     events.cpp
 
+ifeq ($(TW_SUPPORT_INPUT_1_0_HAPTICS),true)
+    ifeq ($(shell test $(PLATFORM_SDK_VERSION) -ge 28; echo $$?),0)
+        LOCAL_SHARED_LIBRARIES += android.hardware.vibrator@1.0 libhidlbase
+        LOCAL_CFLAGS += -DUSE_QTI_HAPTICS_1_0
+    endif
+endif
+
 ifeq ($(TW_SUPPORT_INPUT_1_2_HAPTICS),true)
     ifeq ($(shell test $(PLATFORM_SDK_VERSION) -ge 28; echo $$?),0)
         LOCAL_SHARED_LIBRARIES += android.hardware.vibrator@1.2 libhidlbase
-        LOCAL_CFLAGS += -DUSE_QTI_HAPTICS
+        LOCAL_CFLAGS += -DUSE_QTI_HAPTICS_1_2
     endif
 endif
 

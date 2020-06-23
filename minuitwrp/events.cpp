@@ -28,7 +28,11 @@
 #include <string.h>
 #include <fstream>
 
-#ifdef USE_QTI_HAPTICS
+#ifdef USE_QTI_HAPTICS_1_0
+#include <android/hardware/vibrator/1.0/IVibrator.h>
+#endif
+
+#ifdef USE_QTI_HAPTICS_1_2
 #include <android/hardware/vibrator/1.2/IVibrator.h>
 #endif
 
@@ -135,8 +139,13 @@ int vibrate(int timeout_ms)
     char tout[6];
     sprintf(tout, "%i", timeout_ms);
 
-#ifdef USE_QTI_HAPTICS
-    android::sp<android::hardware::vibrator::V1_2::IVibrator> vib = android::hardware::vibrator::V1_2::IVibrator::getService();
+#ifdef USE_QTI_HAPTICS_1_0
+    android::sp<android::hardware::vibrator::V1_0::IVibrator> vib = android::hardware::vibrator::V1_0::IVibrator::getService();
+    if (vib != nullptr) {
+        vib->on((uint32_t)timeout_ms);
+    }
+#elif USE_QTI_HAPTICS_1_2
+        android::sp<android::hardware::vibrator::V1_2::IVibrator> vib = android::hardware::vibrator::V1_2::IVibrator::getService();
     if (vib != nullptr) {
         vib->on((uint32_t)timeout_ms);
     }
