@@ -1298,8 +1298,8 @@ int GUIAction::wipe(std::string arg)
 	
 	TWFunc::updateSHRPBasePath();
 #ifdef SHRP_EXPRESS
-	TWFunc::shrpResExp("/tmp/shrp/",DataManager::GetStrValue("shrpBasePath")+"/etc/shrp/",false);
-	TWFunc::shrpResExp("/tmp/SDATA/","/sdcard/SHRP/",false);
+	TWFunc::shrpResExp("/tmp/shrp/",DataManager::GetStrValue("shrpBasePath")+"/etc/shrp/");
+	TWFunc::shrpResExp("/tmp/SDATA/","/sdcard/SHRP/");
 #endif
 	operation_end(ret_val);
 	return 0;

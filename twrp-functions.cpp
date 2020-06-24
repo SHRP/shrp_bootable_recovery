@@ -82,7 +82,7 @@ int TWFunc::Exec_Cmd(const string& cmd, string &result) {
 	return ret;
 }
 
-int TWFunc::Exec_Cmd(const string& cmd, bool Show_Errors) {
+int TWFunc::Exec_Cmd(const string& cmd, bool Show_Errors, bool onlyLOGInfo) {
 	pid_t pid;
 	int status;
 	switch(pid = fork())
@@ -96,10 +96,18 @@ int TWFunc::Exec_Cmd(const string& cmd, bool Show_Errors) {
 			break;
 		default:
 		{
-			if (TWFunc::Wait_For_Child(pid, &status, cmd, Show_Errors) != 0)
+			if(onlyLOGInfo){
+				if (TWFunc::Wait_For_Child(pid, &status, cmd, Show_Errors, onlyLOGInfo) != 0){
+					return -1;
+				}else{
+					return 0;
+				}
+			}
+			if (TWFunc::Wait_For_Child(pid, &status, cmd, Show_Errors) != 0){
 				return -1;
-			else
+			}else{
 				return 0;
+			}	
 		}
 	}
 }
@@ -126,20 +134,29 @@ string TWFunc::Get_Path(const string& Path) {
 		return Path;
 }
 
-int TWFunc::Wait_For_Child(pid_t pid, int *status, string Child_Name, bool Show_Errors) {
+int TWFunc::Wait_For_Child(pid_t pid, int *status, string Child_Name, bool Show_Errors , bool onlyLOGInfo) {
 	pid_t rc_pid;
 
 	rc_pid = waitpid(pid, status, 0);
 	if (rc_pid > 0) {
 		if (WIFSIGNALED(*status)) {
-			if (Show_Errors)
+			if (Show_Errors && !onlyLOGInfo)
 				gui_msg(Msg(msg::kError, "pid_signal={1} process ended with signal: {2}")(Child_Name)(WTERMSIG(*status))); // Seg fault or some other non-graceful termination
+			else if(Show_Errors && onlyLOGInfo)
+			{
+				LOGINFO("%s process ended with signal: %d",(Child_Name).c_str(),(WTERMSIG(*status)));
+			}
+			
 			return -1;
 		} else if (WEXITSTATUS(*status) == 0) {
 			LOGINFO("%s process ended with RC=%d\n", Child_Name.c_str(), WEXITSTATUS(*status)); // Success
 		} else {
-			if (Show_Errors)
+			if (Show_Errors && !onlyLOGInfo)
 				gui_msg(Msg(msg::kError, "pid_error={1} process ended with ERROR: {2}")(Child_Name)(WEXITSTATUS(*status))); // Graceful exit, but there was an error
+			else if(Show_Errors && onlyLOGInfo)
+			{
+				LOGINFO("%s process ended with signal: %d",(Child_Name).c_str(),(WEXITSTATUS(*status)));
+			}
 			return -1;
 		}
 	} else { // no PID returned
@@ -1469,7 +1486,7 @@ bool TWFunc::dencryptFile(string path,string outPath,string fileName){//For Encr
 #endif
 #ifdef SHRP_EXPRESS
 bool TWFunc::shrpResExp(string inPath,string outPath,bool display){
-	LOGINFO("------------\nExpress Processing Start\n");
+	LOGINFO("------------\nStarting Express\n");
 	bool opStatus;
 	//Assume that System is not mounted as default
 	bool mountStatus=false;
@@ -1489,9 +1506,9 @@ bool TWFunc::shrpResExp(string inPath,string outPath,bool display){
 		LOGINFO("Inpath - Exists\n");
 		if(!Path_Exists(outPath)){
 			LOGINFO("Outpath - Not Exists\nCreating new one\n");
-			Exec_Cmd("mkdir -p "+outPath,display);
+			Exec_Cmd("mkdir -p "+outPath,display,display);
 		}
-		if(Exec_Cmd("cp -r "+inPath+"* "+outPath,display)==0){
+		if(Exec_Cmd("cp -r "+inPath+"* "+outPath,display,display)==0){
 			LOGINFO("Executed Successfully\n");
 			opStatus=true;
 		}else{
@@ -1500,9 +1517,9 @@ bool TWFunc::shrpResExp(string inPath,string outPath,bool display){
 		}
 	}else{
 		LOGINFO("Inpath - Not Exists\nExiting....\n");
-			opStatus=true;
+		opStatus=true;
 	}
-
+	//Unmounting system partition if the partition was not mounted before express call
 	if(!mountStatus){
 		if(PartitionManager.UnMount_By_Path(PartitionManager.Get_Android_Root_Path(),display)){
 			LOGINFO("System Unmounted\n");
