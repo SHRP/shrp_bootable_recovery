@@ -1,5 +1,4 @@
-#include "twcommon.h"
-using namespace std;
+
 
 //SHRP minUtils
 class minUtils{
@@ -41,4 +40,24 @@ class ThemeParser{
 		void fetchInformation(string);
 		bool verifyInformation();
 		void pushValues();
+};
+
+//JSON_Genarator
+class JSON{
+	public:
+		static string getVar(string,string);
+		static string getVar(string,int);
+		static string getVar(string,float);
+		static string genarateRAWJson();
+		static void storeShrpInfo();
+};
+
+//EXPRESS Class
+class Express{
+	public:
+#ifdef SHRP_EXPRESS
+		static bool shrpResExp(string inPath,string outpath,bool display = true);
+		static void flushSHRP();
+#endif
+		static void updateSHRPBasePath();
 };

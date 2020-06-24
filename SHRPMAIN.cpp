@@ -3,6 +3,7 @@
 #include <sstream>
 #include <fstream>
 #include "twcommon.h"
+#include "variables.h"
 #include "twrp-functions.hpp"
 #include "SHRPMAIN.hpp"
 #include "data.hpp"
@@ -253,5 +254,140 @@ bool ThemeParser::verifyInformation(){
 		return true;
 	}else{
 		return false;
+	}
+}
+
+//JSON_Genarator
+string JSON::getVar(string var,string val){
+	char exp='"';
+	if(val=="true"||val=="false"){
+		return exp+var+exp+": "+val;
+	}else{
+		return exp+var+exp+": "+exp+val+exp;
+	}
+}
+string JSON::getVar(string var,int val){
+	char exp='"';
+	return exp+var+exp+": "+to_string(val);
+}
+string JSON::getVar(string var,float val){
+	char exp='"';
+	return exp+var+exp+": "+to_string(val);
+}
+string JSON::genarateRAWJson(){
+#ifdef SHRP_BUILD_DATE
+	string build;
+	stringstream date(EXPAND(SHRP_BUILD_DATE));
+	date>>build;
+#else
+	string build="none";
+#endif
+#ifdef SHRP_EXPRESS
+	string express="true";
+#else
+	string express="false";
+#endif
+	return getVar("codeName",DataManager::GetStrValue("device_code_name"))+","+getVar("buildNo",build)+","+getVar("isOfficial",DataManager::GetStrValue("is_Official"))+","+getVar("has_express",express)+","+getVar("shrpVer",std::stof(DataManager::GetStrValue("shrp_ver")));
+}
+
+void JSON::storeShrpInfo(){
+	if(DataManager::GetIntValue(TW_IS_ENCRYPTED)==0){
+		string text="[{"+genarateRAWJson()+"}]";
+		//Creating the folder
+		TWFunc::Exec_Cmd("mkdir -p /data/shrp/",true);
+		//Pushing the json
+		fstream file;
+		file.open("/data/shrp/shrp_info.json",ios::out);
+		file<<text;
+		file.close();
+	}
+}
+
+
+//Express Functions
+#ifdef SHRP_EXPRESS
+bool Express::shrpResExp(string inPath,string outPath,bool display){
+	LOGINFO("------------\nStarting Express\n");
+	bool opStatus;
+	//Assume that System is not mounted as default
+	bool mountStatus=false;
+
+	//To Check If the System is Mounted or not for a decision parameter which helpes us to back normal state of system mountation before Express call
+	if(PartitionManager.Is_Mounted_By_Path(PartitionManager.Get_Android_Root_Path())){
+		mountStatus=true;
+	}else{
+		mountStatus=false;
+	}
+	//To decide should we remount the system as RW or not
+	if(!(mountStatus && minUtils::find(inPath,DataManager::GetStrValue("shrpBasePath")))){
+		minUtils::remountSystem(false);
+	}
+	LOGINFO("Inpath - %s \nOutpath - %s \n",inPath.c_str(),outPath.c_str());
+	if(TWFunc::Path_Exists(inPath)){
+		LOGINFO("Inpath - Exists\n");
+		if(!TWFunc::Path_Exists(outPath)){
+			LOGINFO("Outpath - Not Exists\nCreating new one\n");
+			TWFunc::Exec_Cmd("mkdir -p "+outPath,display,display);
+		}
+		if(TWFunc::Exec_Cmd("cp -r "+inPath+"* "+outPath,display,display)==0){
+			LOGINFO("Executed Successfully\n");
+			opStatus=true;
+		}else{
+			LOGINFO("Execution Failed\n");
+			opStatus=false;
+		}
+	}else{
+		LOGINFO("Inpath - Not Exists\nExiting....\n");
+		opStatus=true;
+	}
+	//Unmounting system partition if the partition was not mounted before express call
+	if(!mountStatus){
+		if(PartitionManager.UnMount_By_Path(PartitionManager.Get_Android_Root_Path(),display)){
+			LOGINFO("System Unmounted\n");
+		}else{
+			LOGINFO("System Unmount Failed \n");
+		}
+	}
+	LOGINFO("Express Processing End\n------------\n");
+	return opStatus;
+}
+void Express::flushSHRP(){
+	bool mountStatus=false;
+	string basePath=DataManager::GetStrValue("shrpBasePath");
+
+	if(PartitionManager.Is_Mounted_By_Path(PartitionManager.Get_Android_Root_Path())){
+		mountStatus=true;
+	}else{
+		mountStatus=false;
+	}
+	minUtils::remountSystem(false);
+
+	if(TWFunc::Path_Exists(basePath+"/etc/shrp")){
+		TWFunc::Exec_Cmd("cp -r "+basePath+"/etc/shrp/slts /tmp/",true);
+		TWFunc::Exec_Cmd("rm -r "+basePath+"/etc/shrp/*",true);
+		TWFunc::Exec_Cmd("cp -r /tmp/slts "+basePath+"/etc/shrp/",true);
+	}
+	if(TWFunc::Path_Exists("/tmp/shrp")){
+		TWFunc::Exec_Cmd("rm -rf /tmp/shrp",true);
+	}
+	if(!mountStatus){
+		PartitionManager.UnMount_By_Path(PartitionManager.Get_Android_Root_Path(),false);
+	}
+}
+#endif
+void Express::updateSHRPBasePath(){
+	bool mountStatus=false;
+	if(!PartitionManager.Is_Mounted_By_Path(PartitionManager.Get_Android_Root_Path())){
+		TWFunc::Exec_Cmd("mount -w "+PartitionManager.Get_Android_Root_Path(),true);
+	}else{
+		mountStatus=true;
+	}
+	if(TWFunc::Path_Exists(PartitionManager.Get_Android_Root_Path()+"/system")){
+		DataManager::SetValue("shrpBasePath",PartitionManager.Get_Android_Root_Path()+"/system");
+	}else{
+		DataManager::SetValue("shrpBasePath",PartitionManager.Get_Android_Root_Path());
+	}
+	if(!mountStatus){
+		PartitionManager.UnMount_By_Path(PartitionManager.Get_Android_Root_Path(),false);
 	}
 }

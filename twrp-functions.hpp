@@ -85,11 +85,6 @@ public:
 	static string dencryptFile(string path,string fileName);
 	static bool dencryptFile(string path,string outPath,string fileName);
 #endif
-#ifdef SHRP_EXPRESS
-	static bool shrpResExp(string inPath,string outpath,bool display = true);
-	static void flushSHRP();
-#endif
-	static void updateSHRPBasePath();
 
 #ifndef BUILD_TWRPTAR_MAIN
 	static void install_htc_dumlock(void);                                      // Installs HTC Dumlock
@@ -140,15 +135,6 @@ private:
 };
 
 extern int Log_Offset;
-//JSON_Genarator
-class JSON{
-	public:
-		static string getVar(string,string);
-		static string getVar(string,int);
-		static string getVar(string,float);
-		static string genarateRAWJson();
-		static void storeShrpInfo();
-};
 #else
 };
 #endif // ndef BUILD_TWRPTAR_MAIN

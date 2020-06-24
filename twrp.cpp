@@ -41,6 +41,7 @@ extern "C" {
 #include "gui/objects.hpp"
 #include "twcommon.h"
 #include "twrp-functions.hpp"
+#include "SHRPMAIN.hpp"
 #include "data.hpp"
 #include "partitions.hpp"
 
@@ -349,10 +350,10 @@ int main(int argc, char **argv) {
 		return -1;
 	}
 	PartitionManager.Output_Partition_Logging();
-	TWFunc::updateSHRPBasePath();
+	Express::updateSHRPBasePath();
 	string basePath=DataManager::GetStrValue("shrpBasePath");
 #ifdef SHRP_EXPRESS
-	TWFunc::shrpResExp(basePath+"/etc/shrp/","/twres/");
+	Express::shrpResExp(basePath+"/etc/shrp/","/twres/");
 #endif
 	printf("Starting the UI...\n");
 	gui_init();
