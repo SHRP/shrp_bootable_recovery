@@ -1091,12 +1091,6 @@ int GUIAction::flash(std::string arg){
 	    mkinject_zip = 1;
 	}
 #ifdef SHRP_EXPRESS
-	if(DataManager::GetIntValue("c_shrpUpdate")){
-		LOGINFO("SHRP FLUSH: Started\n");
-		Express::flushSHRP();
-		DataManager::SetValue("c_shrpUpdate","0");
-		LOGINFO("SHRP FLUSH: Ended\n");
-	}
 	Express::shrpResExp(DataManager::GetStrValue("shrpBasePath")+"/etc/shrp/","/tmp/shrp/");
 #endif
 	//SHRP END
@@ -2960,10 +2954,6 @@ int GUIAction::c_repack(std::string arg __unused){
 int GUIAction::flashOP(std::string arg){
 	int p,s=0;
 	char tmp[10];
-	bool isSHRPZip=minUtils::find(arg.substr(arg.find_last_of("/"),arg.length()-arg.find_last_of("/")),"SHRP");
-	bool isSHRPZip2=minUtils::find(arg.substr(arg.find_last_of("/"),arg.length()-arg.find_last_of("/")),"shrp");
-	bool isSHRPZip3=minUtils::find(arg.substr(arg.find_last_of("/"),arg.length()-arg.find_last_of("/")),"Shrp");
-	LOGINFO("Zip Name - %s\nisSHRPZip - %d\nisSHRPZip2 - %d\nisSHRPZip3 - %d",arg.c_str(),isSHRPZip,isSHRPZip2,isSHRPZip3);
 	p=arg.find_last_of(".");
 	if(p!=-1){
 		p++;
@@ -2979,11 +2969,6 @@ int GUIAction::flashOP(std::string arg){
 #else
 	if(minUtils::compare(arg,"zip")){
 #endif
-		if(isSHRPZip||isSHRPZip2||isSHRPZip3){
-			DataManager::SetValue("isShrpZip","1");
-		}else{
-			DataManager::SetValue("isShrpZip","0");
-		}
 		GUIAction::queuezip("bappa");
 		DataManager::SetValue("c_queue_enabled","1");
 		PageManager::ChangePage("flash_confirm");

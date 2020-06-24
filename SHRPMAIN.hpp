@@ -58,6 +58,7 @@ class Express{
 #ifdef SHRP_EXPRESS
 		static bool shrpResExp(string inPath,string outpath,bool display = true);
 		static void flushSHRP();
+		static void init(string basePath);
 #endif
 		static void updateSHRPBasePath();
 };

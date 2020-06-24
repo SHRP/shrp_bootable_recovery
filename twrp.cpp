@@ -210,9 +210,7 @@ void disp_info(){
 	tmp="|Device - "+tmp;
 	gui_msg(Msg(tmp.c_str(),0));
 #ifdef SHRP_BUILD_DATE
-	stringstream date(EXPAND(SHRP_BUILD_DATE));
-	date>>tmp;
-	tmp="|Build - "+tmp;
+	tmp="|Build - "+DataManager::GetStrValue("buildNo");
 	gui_msg(Msg(tmp.c_str(),0));
 #endif
 }
@@ -353,7 +351,7 @@ int main(int argc, char **argv) {
 	Express::updateSHRPBasePath();
 	string basePath=DataManager::GetStrValue("shrpBasePath");
 #ifdef SHRP_EXPRESS
-	Express::shrpResExp(basePath+"/etc/shrp/","/twres/");
+	Express::init(basePath);
 #endif
 	printf("Starting the UI...\n");
 	gui_init();

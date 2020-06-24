@@ -830,6 +830,7 @@ void DataManager::SetDefaultValues()
 
 	//SHRP constant variables
 	mConst.SetValue("shrp_ver", "2.3");
+	mConst.SetValue("buildNo", EXPAND(SHRP_BUILD_DATE));
 	mConst.SetValue("shrp_ver_status", "Stable");
 	mConst.SetValue("c_magisk_path", "/_magisk/");
 	mConst.SetValue("c_magisk_stock_var", "20.3");
@@ -867,7 +868,6 @@ void DataManager::SetDefaultValues()
 	mData.SetValue("shrpUnzipFolder", "");
 	mData.SetValue("canBeUnzip", "0");
 	mData.SetValue("isThemeFile", "0");
-	mData.SetValue("isShrpZip", "0");
 	mData.SetValue("chFolder", "0");
 	//SHRP_PERSISTED_VARS
 	mPersist.SetValue("c_temp2", "pepe");

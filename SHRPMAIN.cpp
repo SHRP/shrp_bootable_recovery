@@ -363,15 +363,68 @@ void Express::flushSHRP(){
 	minUtils::remountSystem(false);
 
 	if(TWFunc::Path_Exists(basePath+"/etc/shrp")){
-		TWFunc::Exec_Cmd("cp -r "+basePath+"/etc/shrp/slts /tmp/",true);
-		TWFunc::Exec_Cmd("rm -r "+basePath+"/etc/shrp/*",true);
-		TWFunc::Exec_Cmd("cp -r /tmp/slts "+basePath+"/etc/shrp/",true);
+		TWFunc::Exec_Cmd("cp -r "+basePath+"/etc/shrp/slts /tmp/",true,true);
+		TWFunc::Exec_Cmd("rm -r "+basePath+"/etc/shrp/*",true,true);
+		TWFunc::Exec_Cmd("cp -r /tmp/slts "+basePath+"/etc/shrp/",true,true);
 	}
 	if(TWFunc::Path_Exists("/tmp/shrp")){
-		TWFunc::Exec_Cmd("rm -rf /tmp/shrp",true);
+		TWFunc::Exec_Cmd("rm -rf /tmp/shrp",true,true);
 	}
 	if(!mountStatus){
 		PartitionManager.UnMount_By_Path(PartitionManager.Get_Android_Root_Path(),false);
+	}
+}
+
+void Express::init(string basePath){
+	bool mountStatus=false;
+	uint64_t version=0;
+	unsigned long long buildNo=1;
+	DataManager::GetValue("buildNo",buildNo);
+	LOGINFO("Welcome to SHRP -----------\n");
+	if(PartitionManager.Is_Mounted_By_Path(basePath)){
+		mountStatus=true;
+	}else{
+		mountStatus=false;
+	}
+	if(mountStatus==true){
+		LOGINFO("System is already mounted\n");
+		if(TWFunc::Path_Exists(basePath+"/etc/shrp/version")){
+			TWFunc::read_file(basePath+"/etc/shrp/version", version);
+		}
+		if(version!=(uint64_t)buildNo){
+			LOGINFO("Resource Version Not Matched. Mounting System as RW for further modification\n");
+			minUtils::remountSystem(false);
+		}
+	}else{
+		LOGINFO("System is not mounted\nMounting....\n");
+		minUtils::remountSystem(false);
+		if(TWFunc::Path_Exists(basePath+"/etc/shrp/version")){
+			TWFunc::read_file(basePath+"/etc/shrp/version", version);
+		}
+	}
+
+	if(version!=(uint64_t)buildNo){
+		//Cloned Flush Func()
+		if(TWFunc::Path_Exists(basePath+"/etc/shrp")){
+			LOGINFO("Deleting Old Resources\n");
+			TWFunc::Exec_Cmd("cp -r "+basePath+"/etc/shrp/slts /tmp/",true,true);
+			TWFunc::Exec_Cmd("rm -r "+basePath+"/etc/shrp/*",true,true);
+			TWFunc::Exec_Cmd("cp -r /tmp/slts "+basePath+"/etc/shrp/",true,true);
+			TWFunc::Exec_Cmd("cp -r /twres/version "+basePath+"/etc/shrp/",true,true);
+		}
+		if(TWFunc::Path_Exists("/tmp/shrp")){
+			TWFunc::Exec_Cmd("rm -rf /tmp/shrp",true,true);
+		}
+	}
+	//Fetching the saved resources if available
+	if(TWFunc::Path_Exists(basePath+"/etc/shrp")){
+		LOGINFO("Fetching Saved Resources\n");
+		TWFunc::Exec_Cmd("cp -r "+basePath+"/etc/shrp/"+"* "+"/twres/",true,true);
+	}
+
+	if(!mountStatus){
+		PartitionManager.UnMount_By_Path(PartitionManager.Get_Android_Root_Path(),false);
+		LOGINFO("System unmounted\n");
 	}
 }
 #endif
