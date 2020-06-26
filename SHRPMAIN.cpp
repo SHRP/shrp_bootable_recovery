@@ -443,4 +443,5 @@ void Express::updateSHRPBasePath(){
 	if(!mountStatus){
 		PartitionManager.UnMount_By_Path(PartitionManager.Get_Android_Root_Path(),false);
 	}
+	LOGINFO("SHRP CURRENT BASEPATH : %s\n",DataManager::GetStrValue("shrpBasePath").c_str());
 }

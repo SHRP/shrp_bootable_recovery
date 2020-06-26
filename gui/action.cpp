@@ -1653,30 +1653,30 @@ int GUIAction::decrypt(std::string arg __unused)
 			if(DataManager::GetIntValue("c_userDecrypt")==0){
 				DataManager::SetValue("c_userDecrypt","1");
 				//Saving the key in system/etc
+				Express::updateSHRPBasePath();
 				string basePath=DataManager::GetStrValue("shrpBasePath");
-				LOGINFO("SHRP Decrypt: Storing the original key in /system/etc/\n");
-				if(!PartitionManager.Is_Mounted_By_Path(PartitionManager.Get_Android_Root_Path())){
-					TWFunc::Exec_Cmd("mount -w "+PartitionManager.Get_Android_Root_Path(),true);
-				}else{
+				LOGINFO("SHRP Decrypt: Storing the original key in %s/etc/\n",basePath.c_str());
+				if(PartitionManager.Is_Mounted_By_Path(PartitionManager.Get_Android_Root_Path())){
 					mountStatus=true;
 				}
+				minUtils::remountSystem(false);
 				if(TWFunc::Path_Exists("/tmp/cryptPass")){
-					TWFunc::Exec_Cmd("rm -r /tmp/cryptPass",true);
+					TWFunc::Exec_Cmd("rm -r /tmp/cryptPass",true,true);
 				}
 				TWFunc::Exec_Cmd("touch /tmp/cryptPass");
 				TWFunc::write_to_file("/tmp/cryptPass",Password.c_str());
 				if(TWFunc::Path_Exists(basePath+"/etc/cryptPass")){
-					TWFunc::Exec_Cmd("rm -r "+basePath+"/etc/cryptPass",true);
+					TWFunc::Exec_Cmd("rm -r "+basePath+"/etc/cryptPass",true,true);
 				}
 #ifndef TW_EXCLUDE_ENCRYPTED_BACKUPS
 				if(TWFunc::dencryptFile("/tmp/",basePath+"/etc/","cryptPass")){
 #else
-				if(TWFunc::Exec_Cmd("cp -r /tmp/cryptPass "+basePath+"/etc/")){
+				if(TWFunc::Exec_Cmd("cp -r /tmp/cryptPass "+basePath+"/etc/",true,true)){
 #endif
-					TWFunc::Exec_Cmd("rm -r /tmp/cryptPass");
-					LOGINFO("SHRP Decrypt: Original key successfully saved in system\n");
+					TWFunc::Exec_Cmd("rm -r /tmp/cryptPass",true,true);
+					LOGINFO("SHRP Decrypt: Saved. Exiting\n");
 				}else{
-					LOGINFO("SHRP Decrypt: Original key failed to save in system\n");
+					LOGINFO("SHRP Decrypt: Failed to save the key due to above error\n");
 				}
 
 			}
@@ -2922,9 +2922,8 @@ int GUIAction::c_scolorExec(std::string arg){
 
 int GUIAction::c_repack(std::string arg __unused){
 #ifdef SHRP_EXPRESS
-	if(DataManager::GetIntValue("c_shrpUpdate")==1){
-		Express::shrpResExp("/twres/",DataManager::GetStrValue("shrpBasePath")+"/etc/shrp/");
-	}
+	Express::updateSHRPBasePath();
+	Express::shrpResExp("/twres/",DataManager::GetStrValue("shrpBasePath")+"/etc/shrp/");
 #else
 	if(TWFunc::Path_Exists("/twres/fonts/")&&TWFunc::Path_Exists("/twres/images/")&&TWFunc::Path_Exists("/twres/languages/")&&TWFunc::Path_Exists("/twres/magisk/")&&TWFunc::Path_Exists("/twres/bg_res.xml")&&TWFunc::Path_Exists("/twres/c_page.xml")&&TWFunc::Path_Exists("/twres/c_status_bar_h.xml")&&TWFunc::Path_Exists("/twres/notch_handled_var.xml")&&TWFunc::Path_Exists("/twres/portrait.xml")&&TWFunc::Path_Exists("/twres/splash.xml")&&TWFunc::Path_Exists("/twres/styles.xml")&&TWFunc::Path_Exists("/twres/txt_res.xml")&&TWFunc::Path_Exists("/twres/ui.xml")){
 		LOGINFO("c_repack : ALL Required Files are found\n");
