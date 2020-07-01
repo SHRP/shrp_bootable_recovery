@@ -829,7 +829,7 @@ void DataManager::SetDefaultValues()
 	mPersist.SetValue(TW_HAS_DEVICEAB, "0");
 
 	//SHRP constant variables
-	mConst.SetValue("shrp_ver", "2.3");
+	mConst.SetValue("shrp_ver", "2.3.1");
 	mConst.SetValue("buildNo", EXPAND(SHRP_BUILD_DATE));
 	mConst.SetValue("shrp_ver_status", "Stable");
 	mConst.SetValue("c_magisk_path", "/_magisk/");
