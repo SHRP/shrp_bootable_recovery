@@ -287,7 +287,7 @@ string JSON::genarateRAWJson(){
 #else
 	string express="false";
 #endif
-	return getVar("codeName",DataManager::GetStrValue("device_code_name"))+","+getVar("buildNo",build)+","+getVar("isOfficial",DataManager::GetStrValue("is_Official"))+","+getVar("has_express",express)+","+getVar("shrpVer",std::stof(DataManager::GetStrValue("shrp_ver")));
+	return getVar("codeName",DataManager::GetStrValue("device_code_name"))+","+getVar("buildNo",build)+","+getVar("isOfficial",DataManager::GetStrValue("is_Official"))+","+getVar("has_express",express)+","+getVar("shrpVer",DataManager::GetStrValue("shrp_ver"));
 }
 
 void JSON::storeShrpInfo(){
