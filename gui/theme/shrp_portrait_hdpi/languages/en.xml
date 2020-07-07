@@ -952,5 +952,11 @@
 		<string name="unmount_sys_install">Unmount System before installing a ZIP</string>
 		<string name="unmount_system">Unmounting System...</string>
 		<string name="unmount_system_err">Failed unmounting System</string>
+
+		<string name="c_autoDecryptWarn1">If your phone is stolen or lost,</string>
+		<string name="c_autoDecryptWarn2">anyone can access your personal data</string>
+		<string name="c_autoDecryptWarn3">without knowing your password!</string>
+		<string name="c_warning">Warning</string>
+		<string name="c_auto_decrypt">Auto Decrypt</string>
 	</resources>
 </language>

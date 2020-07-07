@@ -463,13 +463,14 @@ int main(int argc, char **argv) {
 */
 	// Offer to decrypt if the device is encrypted
 	if (DataManager::GetIntValue(TW_IS_ENCRYPTED) != 0) {
-#ifndef SHRP_EXCLUDE_AUTO_DECRYPT
+#ifdef SHRP_AUTO_DECRYPT
 		// Start SHRP Decryption firstly
 		int autoDecryptRet=1;
 	    std::string Password;
 	    TWFunc::Exec_Cmd("mount -w "+PartitionManager.Get_Android_Root_Path());
 	    LOGINFO("SHRP Decrypt: Seaching for decryption key\n");
-	    if(TWFunc::Path_Exists(basePath+"/etc/cryptPass")){
+	    if(TWFunc::Path_Exists(basePath+"/etc/cryptPass")&&TWFunc::Path_Exists(basePath+"/etc/enabledPass")){
+			DataManager::SetValue("shrp_auto_decrypt","1");
 	      	LOGINFO("SHRP Decrypt: Decryption key found\n");
 #ifndef TW_EXCLUDE_ENCRYPTED_BACKUPS
 	      	TWFunc::read_file(TWFunc::dencryptFile(basePath+"/etc/","cryptPass"),Password);
@@ -517,6 +518,7 @@ int main(int argc, char **argv) {
 	    } else {
 			LOGINFO("SHRP Decrypt: Decryption key not found.\n");
 			LOGINFO("Is encrypted, do decrypt page first\n");
+			DataManager::SetValue("shrp_auto_decrypt","0");
 			if (DataManager::GetIntValue(TW_IS_FBE)){
 				DataManager::SetValue("tw_crypto_user_id", "0");
 			}

@@ -259,6 +259,7 @@ GUIAction::GUIAction(xml_node<>* node)
 		ADD_ACTION(unZipSelector);
 		ADD_ACTION(txtEditor);
 		ADD_ACTION(execSTheme);
+		ADD_ACTION(cryptPass);
 	}
 
 	// First, get the action
@@ -1618,7 +1619,7 @@ int GUIAction::checkbackupname(std::string arg __unused)
 int GUIAction::decrypt(std::string arg __unused)
 {
 	int op_status = 0;
-#ifndef SHRP_EXCLUDE_AUTO_DECRYPT
+#ifdef SHRP_AUTO_DECRYPT
 	bool mountStatus=false;
 #endif
 	operation_start("Decrypt");
@@ -1649,7 +1650,7 @@ int GUIAction::decrypt(std::string arg __unused)
 		if (op_status != 0){
 			op_status = 1;
 		}else{
-#ifndef SHRP_EXCLUDE_AUTO_DECRYPT
+#ifdef SHRP_AUTO_DECRYPT
 			if(DataManager::GetIntValue("c_userDecrypt")==0){
 				DataManager::SetValue("c_userDecrypt","1");
 				//Saving the key in system/etc
@@ -1660,23 +1661,26 @@ int GUIAction::decrypt(std::string arg __unused)
 					mountStatus=true;
 				}
 				minUtils::remountSystem(false);
-				if(TWFunc::Path_Exists("/tmp/cryptPass")){
-					TWFunc::Exec_Cmd("rm -r /tmp/cryptPass",true,true);
-				}
-				TWFunc::Exec_Cmd("touch /tmp/cryptPass");
-				TWFunc::write_to_file("/tmp/cryptPass",Password.c_str());
-				if(TWFunc::Path_Exists(basePath+"/etc/cryptPass")){
-					TWFunc::Exec_Cmd("rm -r "+basePath+"/etc/cryptPass",true,true);
-				}
+				if(TWFunc::Path_Exists(basePath+"/etc/enabledPass")){
+					if(TWFunc::Path_Exists("/tmp/cryptPass")){
+						TWFunc::Exec_Cmd("rm -r /tmp/cryptPass",true,true);
+					}
+					TWFunc::Exec_Cmd("touch /tmp/cryptPass");
+					TWFunc::write_to_file("/tmp/cryptPass",Password.c_str());
+					if(TWFunc::Path_Exists(basePath+"/etc/cryptPass")){
+						TWFunc::Exec_Cmd("rm -r "+basePath+"/etc/cryptPass",true,true);
+					}
 #ifndef TW_EXCLUDE_ENCRYPTED_BACKUPS
-				if(TWFunc::dencryptFile("/tmp/",basePath+"/etc/","cryptPass")){
+					if(TWFunc::dencryptFile("/tmp/",basePath+"/etc/","cryptPass")){
 #else
-				if(TWFunc::Exec_Cmd("cp -r /tmp/cryptPass "+basePath+"/etc/",true,true)){
+					if(TWFunc::Exec_Cmd("cp -r /tmp/cryptPass "+basePath+"/etc/",true,true)){
 #endif
-					TWFunc::Exec_Cmd("rm -r /tmp/cryptPass",true,true);
-					LOGINFO("SHRP Decrypt: Saved. Exiting\n");
-				}else{
-					LOGINFO("SHRP Decrypt: Failed to save the key due to above error\n");
+						TWFunc::Exec_Cmd("rm -r /tmp/cryptPass",true,true);
+						LOGINFO("SHRP Decrypt: Saved. Exiting\n");
+					}else{
+						LOGINFO("SHRP Decrypt: Failed to save the key due to above error\n");
+					}
+					
 				}
 
 			}
@@ -1699,7 +1703,7 @@ int GUIAction::decrypt(std::string arg __unused)
 			JSON::storeShrpInfo();
 		}
 	}
-#ifndef SHRP_EXCLUDE_AUTO_DECRYPT
+#ifdef SHRP_AUTO_DECRYPT
 	if(!mountStatus){
 		PartitionManager.UnMount_By_Path(PartitionManager.Get_Android_Root_Path(),false);
 	}
@@ -3158,5 +3162,25 @@ int GUIAction::execSTheme(std::string arg){
 		LOGINFO("SHRP Function execSTheme : Operation Failed\n");
 	}
 	TWFunc::Exec_Cmd("rm -rf /tmp/theme");
+	return 0;
+}
+
+int GUIAction::cryptPass(std::string arg){
+	minUtils::remountSystem(false);
+	string basePath=DataManager::GetStrValue("shrpBasePath");
+	if(arg=="67"){
+		TWFunc::Exec_Cmd("touch "+basePath+"/etc/enabledPass",true,true);
+		return 0;
+	}
+	if(DataManager::GetIntValue("shrp_auto_decrypt")==0){
+		if(TWFunc::Path_Exists(basePath+"/etc/enabledPass")){
+			TWFunc::Exec_Cmd("rm -rf "+basePath+"/etc/enabledPass",true,true);
+		}
+		if(TWFunc::Path_Exists(basePath+"/etc/cryptPass")){
+			TWFunc::Exec_Cmd("rm -rf "+basePath+"/etc/cryptPass",true,true);
+		}
+	}else{
+		PageManager::ChangePage("c_autoDecryptConfirm");
+	}
 	return 0;
 }

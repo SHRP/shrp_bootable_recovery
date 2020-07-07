@@ -834,6 +834,11 @@ void DataManager::SetDefaultValues()
 	mConst.SetValue("shrp_ver_status", "Stable");
 	mConst.SetValue("c_magisk_path", "/_magisk/");
 	mConst.SetValue("c_magisk_stock_var", "20.3");
+#ifdef SHRP_AUTO_DECRYPT
+	mConst.SetValue("isAutoDecrypt", "1");
+#else
+	mConst.SetValue("isAutoDecrypt", "0");
+#endif
 
 	//SHRP SemiConstant variables
 	mData.SetValue("is_Official", "0");
@@ -874,6 +879,7 @@ void DataManager::SetDefaultValues()
 	mPersist.SetValue("c_dateview", "0");
 	mPersist.SetValue("c_devMode", "0");
 	mPersist.SetValue("c_shrpUpdate", "0");
+	mPersist.SetValue("shrp_auto_decrypt", "0");
 	mPersist.SetValue(REBOOTOTA_DISABLED, "1");
 	mPersist.SetValue(INSTALLMAGISK_OTA, "1");
 	//SHRP_LOCK_VARS
