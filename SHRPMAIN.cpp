@@ -9,6 +9,10 @@
 #include "data.hpp"
 #include "gui/gui.hpp"
 
+#include <openssl/sha.h>	// sha hashing
+#include <iomanip>		// setw for hashing
+#include <random>		// salting
+
 //SHRP minUtils
 bool minUtils::compare(string str1,string str2){
     transform(str1.begin(),str1.end(),str1.begin(), ::tolower);
@@ -444,4 +448,77 @@ void Express::updateSHRPBasePath(){
 		PartitionManager.UnMount_By_Path(PartitionManager.Get_Android_Root_Path(),false);
 	}
 	LOGINFO("SHRP CURRENT BASEPATH : %s\n",DataManager::GetStrValue("shrpBasePath").c_str());
+}
+
+
+//Hasher Class
+bool Hasher::LockPassInit(string str){
+	std::ifstream f;
+	arg=str;
+	if(TWFunc::Path_Exists("/sdcard/SHRP/data/slts")){
+		f.open("/sdcard/SHRP/data/slts", ios::in);
+	}else{
+		f.open("/twres/slts", ios::in);
+	}
+	if(!f){
+		return false;
+	}
+	f.read(getlp,1);
+	lock_pass.append(getlp,1);
+
+	f.seekg(1,ios::beg);
+	f.read(getfs,BUFFER_SIZE_SLT);
+	fsalt.append(getfs,BUFFER_SIZE_SLT);
+
+	f.seekg(BUFFER_SIZE_SLT+1,ios::beg);
+	f.read(gethp,BUFFER_SIZE_PW);
+	fhash.append(gethp,BUFFER_SIZE_PW);
+  	f.close();
+	return true;
+}
+
+bool Hasher::isPassCorrect(){
+	chash = create_sha256(arg.c_str() + fsalt);
+	std::string givpw=lock_pass+fsalt+chash; // reconstructed type + reconstructed salt + generated hash
+	std::string recpw=lock_pass+fsalt+fhash; // reconstructed type + reconstructed salt + reconstructed hash
+	return givpw==recpw ? true : false;
+}
+
+string Hasher::doHash(string str){
+	string salt = create_salt(BUFFER_SIZE_SLT);
+	return (salt + create_sha256(str + salt));
+}
+
+
+string Hasher::create_sha256(const string str)
+{
+    unsigned char hash[SHA256_DIGEST_LENGTH];
+    SHA256_CTX sha256;
+    SHA256_Init(&sha256);
+    SHA256_Update(&sha256, str.c_str(), str.size());
+    SHA256_Final(hash, &sha256);
+    stringstream ss;
+    for(int i = 0; i < SHA256_DIGEST_LENGTH; i++)
+    {
+        ss << hex << setw(2) << setfill('0') << (int)hash[i];
+    }
+    return ss.str();
+}
+
+string Hasher::create_salt( size_t length ){
+    static std::string chrs = "0123456789"
+        "abcdefghijklmnopqrstuvwxyz"
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+    thread_local static std::mt19937 rg{std::random_device{}()};
+    thread_local static std::uniform_int_distribution<std::string::size_type> pick(0, sizeof(chrs) - 2);
+
+    std::string s;
+
+    s.reserve(length);
+
+    while(length--)
+        s += chrs[pick(rg)];
+
+    return s;
 }

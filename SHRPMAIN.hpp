@@ -62,3 +62,22 @@ class Express{
 #endif
 		static void updateSHRPBasePath();
 };
+
+#define BUFFER_SIZE_SLT 16
+#define BUFFER_SIZE_PW 64
+
+//Hasher Class
+class Hasher{
+	private:
+		std::string arg,fsalt,fhash,chash;
+		char getlp[1];
+		char getfs[BUFFER_SIZE_SLT];
+		char gethp[BUFFER_SIZE_PW];
+	public:
+		string lock_pass;
+		static string create_sha256(const string str);
+		static string create_salt( size_t length );
+		bool LockPassInit(string str);
+		bool isPassCorrect();
+		static string doHash(string str);
+};

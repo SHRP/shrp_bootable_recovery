@@ -2537,7 +2537,6 @@
 				<action function="set">tw_crypto_password=</action>
 				<action function="set">tw_password_fail=0</action>
 				<action function="set">tw_crypto_pwtype=%tw_crypto_pwtype_0%</action>
-				<action function="set">c_userDecrypt=0</action>
 				<action function="page">decrypt</action>
 			  </actions>
 			</button>
@@ -4200,51 +4199,7 @@
 				<action function="page">c_refresh</action>
 			</action>
 		</page>
-		<page name="c_autoDecryptConfirm">
-			<template name="c_page"/>
-			<template name="c_status_bar"/>
-			<text style="c_main_text_header_failed">
-				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
-				<text>{@c_warning=Warning}</text>
-			</text>
-			<text style="c_text_dashboard">
-				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
-				<text>{@c_autoDecryptWarn1=If your phone is stolen or lost,}</text>
-			</text>
-			<text style="c_sub">
-				<placement x="%c_hawk_base_column%" y="%c_text_sub_y%"/>
-				<text>{@c_autoDecryptWarn2=anyone can access your personal data}</text>
-			</text>
-			<text style="c_sub">
-				<placement x="%c_hawk_base_column%" y="%c_text_sub_y2%"/>
-				<condition var1="tw_has_data_media" var2="1"/>
-				<text>{@c_autoDecryptWarn3=without knowing your password!}</text>
-			</text>
-			<text style="c_sub">
-				<placement x="%c_hawk_base_column%" y="%c_text_sub_y3%"/>
-				<text>{@back_cancel=Press back button to cancel.}</text>
-			</text>
-
-			<button>
-				<placement x="860" y="1628"/>
-				<image resource="c_ok"/>
-				<action function="cryptPass">67</action>
-				<action function="page">c_lock_ui</action>
-			</button>
-			
-
-			<action>
-				<touch key="back"/>
-				<action function="set">shrp_auto_decrypt=0</action>
-				<action function="page">c_lock_ui</action>
-			</action>
-
-			<action>
-				<touch key="home"/>
-				<action function="set">shrp_auto_decrypt=0</action>
-				<action function="page">c_lock_ui</action>
-			</action>
-		</page>
+		
 		<page name="c_lock_ui">
 			<template name="c_page"/>
 			<template name="c_status_bar"/>
@@ -4276,16 +4231,6 @@
 				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
 				<text>{@c_lock_status=Lock status - }{@c_none=None}</text>
 			</text>
-			<listbox style="scrolllist">
-				<placement x="%c_hawk_base_column%" y="%c_text_sub_y%" w="%file_selector_default_w%" h="%settings_main_list_h%"/>
-				<icon selected="checkbox_true" unselected="checkbox_false"/>
-				<listitem name="{@c_auto_decrypt=Auto Decrypt}">
-					<condition var1="isAutoDecrypt" op="=" var2="1"/>
-					<data variable="shrp_auto_decrypt"/>
-					<action function="cryptPass"/>
-				</listitem>
-			</listbox>
-
 
 			<button>
 				<conditions>
@@ -8899,7 +8844,6 @@ sh cthemeHelper.sh
 				<actions>
 					<action function="set">tw_crypto_password=</action>
 					<action function="set">tw_password_fail=0</action>
-					<action function="set">c_userDecrypt=1</action>
 					<action function="page">decrypt</action>
 				</actions>
 			</button>

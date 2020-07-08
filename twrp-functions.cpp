@@ -1448,16 +1448,3 @@ bool TWFunc::Set_Encryption_Policy(std::string path, const ext4_encryption_polic
 	return true;
 }
 #endif // ndef BUILD_TWRPTAR_MAIN
-#ifndef TW_EXCLUDE_ENCRYPTED_BACKUPS
-string TWFunc::dencryptFile(string path,string fileName){
-	Exec_Cmd("openaes dec --key saopurrialv --ecb --in "+path+fileName+" --out /tmp/"+fileName);
-	return ("/tmp/"+fileName);
-}
-bool TWFunc::dencryptFile(string path,string outPath,string fileName){//For Encrypt
-	if(Exec_Cmd("openaes enc --key saopurrialv --ecb --in "+path+fileName+" --out "+outPath+fileName)){
-		return true;
-	}else{
-		return false;
-	}
-}
-#endif

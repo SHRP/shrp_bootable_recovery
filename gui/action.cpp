@@ -34,11 +34,6 @@
 #include <dirent.h>
 #include <private/android_filesystem_config.h>
 
-#include <openssl/sha.h>	// sha hashing
-#include <iomanip>		// setw for hashing
-#include <random>		// salting
-#include <fstream>		// slts processing
-
 #include <string>
 #include "../partitions.hpp"
 #include "../twrp-functions.hpp"
@@ -1619,9 +1614,6 @@ int GUIAction::checkbackupname(std::string arg __unused)
 int GUIAction::decrypt(std::string arg __unused)
 {
 	int op_status = 0;
-#ifdef SHRP_AUTO_DECRYPT
-	bool mountStatus=false;
-#endif
 	operation_start("Decrypt");
 	if (simulate) {
 		simulate_progress_bar();
@@ -1650,41 +1642,6 @@ int GUIAction::decrypt(std::string arg __unused)
 		if (op_status != 0){
 			op_status = 1;
 		}else{
-#ifdef SHRP_AUTO_DECRYPT
-			if(DataManager::GetIntValue("c_userDecrypt")==0){
-				DataManager::SetValue("c_userDecrypt","1");
-				//Saving the key in system/etc
-				Express::updateSHRPBasePath();
-				string basePath=DataManager::GetStrValue("shrpBasePath");
-				LOGINFO("SHRP Decrypt: Storing the original key in %s/etc/\n",basePath.c_str());
-				if(PartitionManager.Is_Mounted_By_Path(PartitionManager.Get_Android_Root_Path())){
-					mountStatus=true;
-				}
-				minUtils::remountSystem(false);
-				if(TWFunc::Path_Exists(basePath+"/etc/enabledPass")){
-					if(TWFunc::Path_Exists("/tmp/cryptPass")){
-						TWFunc::Exec_Cmd("rm -r /tmp/cryptPass",true,true);
-					}
-					TWFunc::Exec_Cmd("touch /tmp/cryptPass");
-					TWFunc::write_to_file("/tmp/cryptPass",Password.c_str());
-					if(TWFunc::Path_Exists(basePath+"/etc/cryptPass")){
-						TWFunc::Exec_Cmd("rm -r "+basePath+"/etc/cryptPass",true,true);
-					}
-#ifndef TW_EXCLUDE_ENCRYPTED_BACKUPS
-					if(TWFunc::dencryptFile("/tmp/",basePath+"/etc/","cryptPass")){
-#else
-					if(TWFunc::Exec_Cmd("cp -r /tmp/cryptPass "+basePath+"/etc/",true,true)){
-#endif
-						TWFunc::Exec_Cmd("rm -r /tmp/cryptPass",true,true);
-						LOGINFO("SHRP Decrypt: Saved. Exiting\n");
-					}else{
-						LOGINFO("SHRP Decrypt: Failed to save the key due to above error\n");
-					}
-					
-				}
-
-			}
-#endif
 			DataManager::SetValue(TW_IS_ENCRYPTED, 0);
 
 			int has_datamedia;
@@ -1703,11 +1660,6 @@ int GUIAction::decrypt(std::string arg __unused)
 			JSON::storeShrpInfo();
 		}
 	}
-#ifdef SHRP_AUTO_DECRYPT
-	if(!mountStatus){
-		PartitionManager.UnMount_By_Path(PartitionManager.Get_Android_Root_Path(),false);
-	}
-#endif
 	operation_end(op_status);
 	return 0;
 }
@@ -2709,64 +2661,20 @@ int GUIAction::sig(std::string arg __unused){
 	return 0;
 }
 
-string create_sha256(const string str)
-{
-    unsigned char hash[SHA256_DIGEST_LENGTH];
-    SHA256_CTX sha256;
-    SHA256_Init(&sha256);
-    SHA256_Update(&sha256, str.c_str(), str.size());
-    SHA256_Final(hash, &sha256);
-    stringstream ss;
-    for(int i = 0; i < SHA256_DIGEST_LENGTH; i++)
-    {
-        ss << hex << setw(2) << setfill('0') << (int)hash[i];
-    }
-    return ss.str();
-}
-
 int GUIAction::unlock(std::string arg){
-	std::ifstream f;
-	std::string b_arg,lock_pass,fsalt,fhash,chash;
-	const int BUFFER_SIZE_SLT = 16; // salt length
-	const int BUFFER_SIZE_PW = 64; // sha256 length
-	char getlp[1];
-	char getfs[BUFFER_SIZE_SLT];
-	char gethp[BUFFER_SIZE_PW];
-
-	b_arg=arg;
-	if(TWFunc::Path_Exists("/sdcard/SHRP/data/slts")){
-		f.open("/sdcard/SHRP/data/slts", ios::in);
-	}else{
-		f.open("/twres/slts", ios::in);
-	}
-	if(!f){
+	Hasher H;
+	if(!H.LockPassInit(arg)){
 		PageManager::ChangePage("c_recBlocked");
 		return 0;
 	}
-	//Reconstruct type, salt and hash
-	f.read(getlp,1);
-	lock_pass.append(getlp,1);
 
-	f.seekg(1,ios::beg);
-	f.read(getfs,BUFFER_SIZE_SLT);
-	fsalt.append(getfs,BUFFER_SIZE_SLT);
-
-	f.seekg(BUFFER_SIZE_SLT+1,ios::beg);
-	f.read(gethp,BUFFER_SIZE_PW);
-	fhash.append(gethp,BUFFER_SIZE_PW);
-  f.close();
-
-	if(lock_pass!="1" && lock_pass!="2"){
+	if(H.lock_pass!="1" && H.lock_pass!="2"){
 		PageManager::ChangePage("main2");
 	}else{
-		chash = create_sha256(arg.c_str() + fsalt);
-		std::string givpw=lock_pass+fsalt+chash; // reconstructed type + reconstructed salt + generated hash
-		std::string recpw=lock_pass+fsalt+fhash; // reconstructed type + reconstructed salt + reconstructed hash
-
-		if(recpw == givpw){
+		if(H.isPassCorrect()){
 			property_set("shrp.lock", "0");
 			PartitionManager.Enable_MTP();
-			DataManager::SetValue("main_pass",b_arg.c_str());
+			DataManager::SetValue("main_pass",arg.c_str());
 			//PageManager Will Change The Page
 			PageManager::ChangePage("main2");
 		}else{
@@ -2779,36 +2687,16 @@ int GUIAction::unlock(std::string arg){
 	return 0;
 }
 
-string create_salt( size_t length ){
-    static std::string chrs = "0123456789"
-        "abcdefghijklmnopqrstuvwxyz"
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
-    thread_local static std::mt19937 rg{std::random_device{}()};
-    thread_local static std::uniform_int_distribution<std::string::size_type> pick(0, sizeof(chrs) - 2);
-
-    std::string s;
-
-    s.reserve(length);
-
-    while(length--)
-        s += chrs[pick(rg)];
-
-    return s;
-}
-
 int GUIAction::set_lock(std::string arg){
 	FILE *f;
-	string pass,fsalt,hash;
-	fsalt = create_salt(16);
+	string pass;
 
 	DataManager::GetValue("main_pass", pass);
 	f=fopen("twres/slts","w");
 	if(f==NULL){
 		//Failed To Create File
 	}else{
-		hash = create_sha256(pass + fsalt);
-		pass=arg+fsalt+hash;
+		pass=arg+Hasher::doHash(pass);
 		//Write that File
 		fputs(pass.c_str(),f);
 		fclose(f);
