@@ -1,4 +1,6 @@
 #include <algorithm>
+#include <unistd.h>
+#include <sys/stat.h>
 #include <string>
 #include <sstream>
 #include <fstream>
@@ -49,7 +51,9 @@ bool minUtils::find(std::string str,std::string sub,int dummy){
 
 void minUtils::remountSystem(bool display){
 	if(PartitionManager.Is_Mounted_By_Path(PartitionManager.Get_Android_Root_Path())){
-	  PartitionManager.UnMount_By_Path(PartitionManager.Get_Android_Root_Path(),false);
+	  	PartitionManager.UnMount_By_Path(PartitionManager.Get_Android_Root_Path(),false);
+	  	unlink("/system");
+		mkdir("/system", 0755);
 	}
 	TWFunc::Exec_Cmd("mount -w "+PartitionManager.Get_Android_Root_Path(),display);
 	if(display){
@@ -351,6 +355,8 @@ bool Express::shrpResExp(string inPath,string outPath,bool display){
 		}else{
 			LOGINFO("System Unmount Failed \n");
 		}
+		unlink("/system");
+		mkdir("/system", 0755);
 	}
 	LOGINFO("Express Processing End\n------------\n");
 	return opStatus;
@@ -376,6 +382,8 @@ void Express::flushSHRP(){
 	}
 	if(!mountStatus){
 		PartitionManager.UnMount_By_Path(PartitionManager.Get_Android_Root_Path(),false);
+		unlink("/system");
+		mkdir("/system", 0755);
 	}
 }
 
@@ -429,6 +437,8 @@ void Express::init(string basePath){
 	if(!mountStatus){
 		PartitionManager.UnMount_By_Path(PartitionManager.Get_Android_Root_Path(),false);
 		LOGINFO("System unmounted\n");
+		unlink("/system");
+		mkdir("/system", 0755);
 	}
 }
 #endif
@@ -446,6 +456,8 @@ void Express::updateSHRPBasePath(){
 	}
 	if(!mountStatus){
 		PartitionManager.UnMount_By_Path(PartitionManager.Get_Android_Root_Path(),false);
+		unlink("/system");
+		mkdir("/system", 0755);
 	}
 	LOGINFO("SHRP CURRENT BASEPATH : %s\n",DataManager::GetStrValue("shrpBasePath").c_str());
 }
