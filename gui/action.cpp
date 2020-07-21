@@ -1139,18 +1139,18 @@ int GUIAction::flash(std::string arg){
 		active_slot = 0;
 		TWFunc::Exec_Cmd("setprop tw_active_slot_install 0");
   }
-  if (inject_shrp == 1) {
+	if (inject_shrp == 1) {
 		inject_shrp = 0;
 		if(reinject_after_flash()) {
-			gui_msg(Msg("[i] SHRP restored successfully!",0));
-		} else {
 			gui_msg(Msg("[!!] Restore failed! Please flash manually a SHRP zip file.",0));
+		} else {
+			gui_msg(Msg("[i] SHRP restored successfully!",0));
 		}
 		TWFunc::Exec_Cmd("setprop tw_inject_after_zip 0");
-  } else {
-		gui_msg(Msg("[!] Please flash a SHRP zip file manually.",0));
-		gui_msg(Msg("[!] SHRP injection aborted/failed.",0));
-	}
+  		} else {
+			gui_msg(Msg("[!] Please flash a SHRP zip file manually.",0));
+			gui_msg(Msg("[!] SHRP injection aborted/failed.",0));
+}
 #endif
   // Remount system as R/W, just in case
 	minUtils::remountSystem(true);
