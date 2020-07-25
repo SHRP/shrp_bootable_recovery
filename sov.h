@@ -7,7 +7,6 @@ list<string> devices={
   "mblu2",
   "grus",
   "rolex",
-  "RMX1851",
   "davinci",
   "xmsirius",
   "a5y17lte",
