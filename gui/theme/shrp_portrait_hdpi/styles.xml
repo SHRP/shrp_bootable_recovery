@@ -110,6 +110,8 @@
 		<style name="fileselector">
 			<background color="%c_white%"/>
 			<fastscroll rectcolor="%c_acc_color_val%" w="%fastscroll_w%" linew="%fastscroll_linew%" rectw="%fastscroll_rectw%" recth="%fastscroll_recth%"/>
+			<ico type=".." icon="c_usersRadioOn" />
+			<ico type=".zip" icon="c_usersRadioOff" />
 			<icon folder="folder" file="file" />
 			<font resource="font_s" color="%c_black%" />
 		</style>
