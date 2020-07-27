@@ -602,6 +602,7 @@ public:
 	virtual size_t GetItemCount();
 	virtual void RenderItem(size_t itemindex, int yPos, bool selected);
 	virtual void NotifySelect(size_t item_selected);
+	void fetchIcon(ImageResource** Image,string str); //Fetch Actual icon from vector<IcoData> Icons;
 
 protected:
 	struct FileData {
@@ -614,6 +615,10 @@ protected:
 		time_t lastAccess;		  // Uses time_t format from stat
 		time_t lastModified;		// Uses time_t format from stat
 		time_t lastStatChange;	  // Uses time_t format from stat
+	};
+	struct IcoData{
+		std::string extn;//Extension type of the icon
+		ImageResource* icon;//ImageResource Pointer
 	};
 
 protected:
@@ -633,6 +638,7 @@ protected:
 	int mShowFolders, mShowFiles; // indicates if the list should show folders and/or files
 	int mShowNavFolders; // indicates if the list should include the "up a level" item and allow you to traverse folders (nav folders are disabled for the restore list, for instance)
 	static int mSortOrder; // must be static because it is used by the static function fileSort
+	vector<IcoData> Icons;//List of icon data [Multiple image support]
 	ImageResource* mFolderIcon;
 	ImageResource* mFileIcon;
 	bool updateFileList;

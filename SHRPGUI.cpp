@@ -48,9 +48,9 @@ vector<string> fetchExtn(string str){
 bool isExtnMatched(vector<string> extn,string fileName){
     vector<string>::iterator ptr;
     string fileExtn=getExtension(fileName);
-    LOGINFO("File Extension : %s\n",fileExtn.c_str());
+    //LOGINFO("File Extension : %s\n",fileExtn.c_str());
     for(ptr=extn.begin();ptr<extn.end();ptr++){
-        LOGINFO("Comparing %s with %c\n",fileExtn.c_str(),*ptr->c_str());
+        //LOGINFO("Comparing %s with %c\n",fileExtn.c_str(),*ptr->c_str());
         if(minUtils::compare(fileExtn,*ptr)){
             return true;
         }

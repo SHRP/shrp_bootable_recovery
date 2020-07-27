@@ -31,6 +31,7 @@ extern "C" {
 #include "../data.hpp"
 #include "../twrp-functions.hpp"
 #include "../adbbu/libtwadbbu.hpp"
+#include "../SHRPTOOLS.hpp"
 #include "../SHRPGUI.hpp"
 
 int GUIFileSelector::mSortOrder = 0;
@@ -107,6 +108,24 @@ GUIFileSelector::GUIFileSelector(xml_node<>* node) : GUIScrollList(node)
 	else
 		mSelection = "0";
 
+/*
+XML Template of multiple extension implementation.
+<ico type=".zip" icon="IconName" />
+<ico type=".img" icon="IconName" />
+*/
+	//Fetching icons from the xml node to vector<IcoData>Icons
+	child = FindNode(node, "ico");
+	while (child) {
+		xml_attribute<>* tmp;
+		IcoData I;
+		tmp=child->first_attribute("type");
+		LOGINFO("FileSelector: type %s\n",tmp->value());
+		I.extn=tmp->value();
+		I.icon=LoadAttrImage(child, "icon");
+		Icons.push_back(I);
+
+		child = child->next_sibling("ico");
+	}
 	// Get folder and file icons if present
 	child = FindNode(node, "icon");
 	if (child) {
@@ -333,11 +352,14 @@ void GUIFileSelector::RenderItem(size_t itemindex, int yPos, bool selected)
 	if (itemindex < folderSize) {
 		text = mFolderList.at(itemindex).fileName;
 		icon = mFolderIcon;
-		if (text == "..")
+		if (text == ".."){
+			fetchIcon(&icon,text);
 			text = gui_lookup("up_a_level", "(Up A Level)");
+		}
 	} else {
 		text = mFileList.at(itemindex - folderSize).fileName;
 		icon = mFileIcon;
+		fetchIcon(&icon,getExtension(text));
 	}
 
 	RenderStdItem(yPos, selected, icon, text.c_str());
@@ -395,4 +417,12 @@ void GUIFileSelector::NotifySelect(size_t item_selected)
 		}
 	}
 	mUpdate = 1;
+}
+
+void GUIFileSelector::fetchIcon(ImageResource** Image,string str){
+	for(vector<IcoData>::iterator ptr=Icons.begin();ptr<Icons.end();ptr++){
+		if(minUtils::compare(ptr->extn,str)){
+			*Image=ptr->icon;
+		}
+	}
 }
