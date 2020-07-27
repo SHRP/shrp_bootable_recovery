@@ -31,7 +31,7 @@ extern "C" {
 #include "../data.hpp"
 #include "../twrp-functions.hpp"
 #include "../adbbu/libtwadbbu.hpp"
-#include "../SHRPMAIN.hpp"
+#include "../SHRPGUI.hpp"
 
 int GUIFileSelector::mSortOrder = 0;
 
@@ -42,7 +42,6 @@ GUIFileSelector::GUIFileSelector(xml_node<>* node) : GUIScrollList(node)
 
 	mFolderIcon = mFileIcon = NULL;
 	mShowFolders = mShowFiles = mShowNavFolders = 1;
-	mMode=0;
 	mUpdate = 0;
 	mPathVar = "cwd";
 	updateFileList = false;
@@ -52,7 +51,7 @@ GUIFileSelector::GUIFileSelector(xml_node<>* node) : GUIScrollList(node)
 	if (child) {
 		attr = child->first_attribute("extn");
 		if (attr)
-			mExtn = attr->value();
+			mExtn = fetchExtn(attr->value());
 		attr = child->first_attribute("folders");
 		if (attr)
 			mShowFolders = atoi(attr->value());
@@ -62,9 +61,6 @@ GUIFileSelector::GUIFileSelector(xml_node<>* node) : GUIScrollList(node)
 		attr = child->first_attribute("nav");
 		if (attr)
 			mShowNavFolders = atoi(attr->value());
-		attr = child->first_attribute("mode");
-		if (attr)
-			mMode = atoi(attr->value());
 	}
 
 	// Handle the path variable
@@ -284,13 +280,14 @@ int GUIFileSelector::GetFileList(const std::string folder)
 			if (mShowNavFolders || (data.fileName != "." && data.fileName != ".."))
 				mFolderList.push_back(data);
 		} else if (data.fileType == DT_REG || data.fileType == DT_LNK || data.fileType == DT_BLK) {
-			if(mMode&&data.fileName.length()>4){
-				std::string tmp=data.fileName.substr(data.fileName.length() - 4);
-				if(minUtils::compare(tmp,".zip")||minUtils::compare(tmp,".img")||minUtils::compare(tmp,"ozip")){
-					mFileList.push_back(data);
-				}
-			}else if (mExtn.empty() || (data.fileName.length() > mExtn.length() && data.fileName.substr(data.fileName.length() - mExtn.length()) == mExtn)) {
-				if (mExtn == ".ab" && twadbbu::Check_ADB_Backup_File(path)){
+			// if(mMode&&data.fileName.length()>4){
+			// 	std::string tmp=data.fileName.substr(data.fileName.length() - 4);
+			// 	if(minUtils::compare(tmp,".zip")||minUtils::compare(tmp,".img")||minUtils::compare(tmp,"ozip")){
+			// 		mFileList.push_back(data);
+			// 	}
+			//}else if (mExtn.empty() || (data.fileName.length() > mExtn.length() && data.fileName.substr(data.fileName.length() - mExtn.length()) == mExtn)) {
+			if (mExtn.empty() || isExtnMatched(mExtn,data.fileName)) {	
+				if (isExtnMatched(mExtn,".ab") && twadbbu::Check_ADB_Backup_File(path)){
 					mFolderList.push_back(data);
 				}else{
 					mFileList.push_back(data);
@@ -378,7 +375,7 @@ void GUIFileSelector::NotifySelect(size_t item_selected)
 				cwd += str;
 			}
 
-			if (mShowNavFolders == 0 && (mShowFiles == 0 || mExtn == ".ab")) {
+			if (mShowNavFolders == 0 && (mShowFiles == 0 || isExtnMatched(mExtn,".ab") )) {
 				// this is probably the restore list and we need to save chosen location to mVariable instead of mPathVar
 				DataManager::SetValue(mVariable, cwd);
 			} else {
