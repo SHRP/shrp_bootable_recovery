@@ -31,7 +31,7 @@
 #include "twrpDigest/twrpDigest.hpp"
 #include "twrpDigest/twrpMD5.hpp"
 #include "twrpDigest/twrpSHA.hpp"
-#include "SHRPMAIN.hpp"
+#include "SHRPTOOLS.hpp"
 
 
 bool twrpDigestDriver::Check_File_Digest(const string& Filename) {

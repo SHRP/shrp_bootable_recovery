@@ -57,6 +57,7 @@ extern "C" {
 #include "objects.hpp"
 #include "../tw_atomic.hpp"
 #include "../SHRPMAIN.hpp"
+#include "../SHRPTOOLS.hpp"
 
 GUIAction::mapFunc GUIAction::mf;
 std::set<string> GUIAction::setActionsRunningInCallerThread;

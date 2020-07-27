@@ -61,6 +61,8 @@ LOCAL_CFLAGS += -DPLATFORM_SDK_VERSION=$(PLATFORM_SDK_VERSION)
 
 LOCAL_SRC_FILES := \
     SHRPMAIN.cpp \
+    SHRPTOOLS.cpp \
+    SHRPGUI.cpp \
     twrp.cpp \
     fixContexts.cpp \
     twrpTar.cpp \
