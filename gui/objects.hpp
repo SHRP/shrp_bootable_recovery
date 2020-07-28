@@ -670,6 +670,7 @@ protected:
 		std::string displayName;
 		std::string variableName;
 		std::string variableValue;
+		ImageResource* icon; //For MultipleIcon Implementation. template: <icon resource="resourceName"/> <SHRP>
 		unsigned int selected;
 		GUIAction* action;
 		std::vector<Condition> mConditions;

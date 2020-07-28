@@ -136,6 +136,15 @@ GUIListBox::GUIListBox(xml_node<>* node) : GUIScrollList(node)
 			}
 		}
 
+		//Fetching icon from xml <SHRP>
+		xml_node<>* tmp;
+		tmp = FindNode(child, "icon");
+		if (tmp){
+			item.icon = LoadAttrImage(tmp, "resource");
+		}else{
+			item.icon = NULL;
+		}
+		//<SHRP>
 		LoadConditions(child, item.mConditions);
 
 		mListItems.push_back(item);
@@ -269,7 +278,15 @@ void GUIListBox::RenderItem(size_t itemindex, int yPos, bool selected)
 	// note: the "selected" parameter above is for the currently touched item
 	// don't confuse it with the more persistent "selected" flag per list item used below
 	ListItem& item = mListItems[mVisibleItems[itemindex]];
-	ImageResource* icon = item.selected ? mIconSelected : mIconUnselected;
+	//ImageResource* icon = item.selected ? mIconSelected : mIconUnselected; <Commented>
+	//Get Icon Resource if available <SHRP>
+	ImageResource* icon;
+	if(item.icon != NULL){
+		icon = item.icon;
+	}else{
+		icon = item.selected ? mIconSelected : mIconUnselected;
+	}
+	//<SHRP>
 	const std::string& text = item.displayName;
 
 	RenderStdItem(yPos, selected, icon, text.c_str());
