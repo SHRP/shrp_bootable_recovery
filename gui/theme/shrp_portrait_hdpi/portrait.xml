@@ -8130,53 +8130,6 @@ cp /twres/c_rounded_res/type_3/*.png /twres/images/;
 			  <data variable="c_scolor_status"/>
 			</checkbox-->
 
-			<button>
-				<condition var1="c_notch_mode" op="=" var2="0"/>
-				<placement x="%c_hawk_base_column%" y="1630"/>
-				<image resource="checkbox_false"/>
-				<actions>
-					<action function="set">c_notch_mode=1</action>
-					<action function="cmd">
-rm /twres/notch_handled_var.xml
-cp /twres/cache/notch_mode/notch_handled_var.xml /twres/
-					</action>
-				</actions>
-			</button>
-			<button>
-				<conditions>
-					<condition var1="c_notch_mode" op="=" var2="1"/>
-					<condition var1="c_status_bar_triger" op="=" var2="1"/>
-				</conditions>
-				<placement x="%c_hawk_base_column%" y="1630"/>
-				<image resource="checkbox_true"/>
-				<actions>
-					<action function="set">c_notch_mode=0</action>
-					<action function="cmd">
-rm /twres/notch_handled_var.xml
-cp /twres/cache/notch_handled_var.xml /twres/
-					</action>
-				</actions>
-			</button>
-			<button>
-				<conditions>
-					<condition var1="c_notch_mode" op="=" var2="1"/>
-					<condition var1="c_status_bar_triger" op="=" var2="0"/>
-				</conditions>
-				<placement x="%c_hawk_base_column%" y="1630"/>
-				<image resource="checkbox_true"/>
-				<actions>
-					<action function="set">c_notch_mode=0</action>
-					<action function="cmd">
-rm /twres/notch_handled_var.xml
-cp /twres/cache/default/notch_handled_var.xml /twres/
-					</action>
-				</actions>
-			</button>
-
-			<text style="c_sub">
-				<placement x="130" y="1650"/>
-				<text>{@c_notch=Notch mode}</text>
-			</text>
 			<action>
 				<touch key="back"/>
 				<actions>
