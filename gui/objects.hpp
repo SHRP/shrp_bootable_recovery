@@ -603,6 +603,9 @@ public:
 	virtual void RenderItem(size_t itemindex, int yPos, bool selected);
 	virtual void NotifySelect(size_t item_selected);
 	void fetchIcon(ImageResource** Image,string str); //Fetch Actual icon from vector<IcoData> Icons;
+	void fetchIcon(ImageResource** Image,string str,int mode); //Fetch Actual icon for select unselect;
+	void actionSelect(string str); //Handle Select Unselect
+	void updateList(); //Update the multiselectedList
 
 protected:
 	struct FileData {
@@ -632,6 +635,8 @@ protected:
 	std::string mPathDefault; // default value for the path if none is set in mPathVar
 	//std::string mExtn; // used for filtering the file list, for example, *.zip
 	vector<string> mExtn; // used for filtering the file list, for example, *.zip
+	vector<string> mSelectedPaths;//Store the selected paths.
+	int mSelectable;//To check if the fileselector 
 	std::string mVariable; // set when the user selects an item, pull path like /path/to/foo
 	std::string mSortVariable; // data manager variable used to change the sorting of files
 	std::string mSelection; // set when the user selects an item without the full path like selecting /path/to/foo would just be set to foo
@@ -639,6 +644,10 @@ protected:
 	int mShowNavFolders; // indicates if the list should include the "up a level" item and allow you to traverse folders (nav folders are disabled for the restore list, for instance)
 	static int mSortOrder; // must be static because it is used by the static function fileSort
 	vector<IcoData> Icons;//List of icon data [Multiple image support]
+	ImageResource* mFolderSelected;
+	ImageResource* mFolderUnselected;
+	ImageResource* mFileSelected;
+	ImageResource* mFileUnselected;
 	ImageResource* mFolderIcon;
 	ImageResource* mFileIcon;
 	bool updateFileList;

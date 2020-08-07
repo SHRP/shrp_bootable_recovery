@@ -62,7 +62,28 @@ GUIFileSelector::GUIFileSelector(xml_node<>* node) : GUIScrollList(node)
 		attr = child->first_attribute("nav");
 		if (attr)
 			mShowNavFolders = atoi(attr->value());
+		//Getting conditional data from XML for selectable fileSelector<SHRP>
+		attr = child->first_attribute("selectable");
+		if (attr)
+			mSelectable = atoi(attr->value());
+		//</SHRP>
 	}
+/*
+XML Template of multiple selection implementation.
+<filter folders="x" files="x" selectable="1"/>
+<select folderSelected="xx" folderUnselected="xx" fileSelected="xx" fileUnselected="xx"/>
+*/
+	//Fetching icons if Selectable true <SHRP>
+	if(mSelectable){
+		child = FindNode(node, "select");
+		if (child) {
+			mFolderSelected = LoadAttrImage(child, "folderSelected");
+			mFolderUnselected = LoadAttrImage(child, "folderUnselected");
+			mFileSelected = LoadAttrImage(child, "fileSelected");
+			mFileUnselected = LoadAttrImage(child, "fileUnselected");
+		}
+	}
+	//</SHRP>
 
 	// Handle the path variable
 	child = FindNode(node, "path");
@@ -352,14 +373,15 @@ void GUIFileSelector::RenderItem(size_t itemindex, int yPos, bool selected)
 	if (itemindex < folderSize) {
 		text = mFolderList.at(itemindex).fileName;
 		icon = mFolderIcon;
+		if(mSelectable){fetchIcon(&icon,text,1);}//<SHRP>
 		if (text == ".."){
-			fetchIcon(&icon,text);
+			fetchIcon(&icon,text);//<SHRP>
 			text = gui_lookup("up_a_level", "(Up A Level)");
 		}
 	} else {
 		text = mFileList.at(itemindex - folderSize).fileName;
 		icon = mFileIcon;
-		fetchIcon(&icon,getExtension(text));
+		mSelectable ? fetchIcon(&icon,text,2) : fetchIcon(&icon,getExtension(text));//<SHRP>
 	}
 
 	RenderStdItem(yPos, selected, icon, text.c_str());
@@ -370,7 +392,7 @@ void GUIFileSelector::NotifySelect(size_t item_selected)
 	size_t folderSize = mShowFolders ? mFolderList.size() : 0;
 	size_t fileSize = mShowFiles ? mFileList.size() : 0;
 
-	if (item_selected < folderSize + fileSize) {
+	if (item_selected < folderSize + fileSize && !mSelectable) {//<SHRP> added only && !mSelectable
 		// We've selected an item!
 		std::string str;
 		if (item_selected < folderSize) {
@@ -416,13 +438,65 @@ void GUIFileSelector::NotifySelect(size_t item_selected)
 			DataManager::SetValue(mVariable, cwd + str);
 		}
 	}
+	//<SHRP>
+	else if(item_selected < folderSize + fileSize && mSelectable){
+		std::string str;
+		if (item_selected < folderSize) {
+			str = mFolderList.at(item_selected).fileName;
+		}else if(!mVariable.empty()){
+			str = mFileList.at(item_selected - folderSize).fileName;
+		}
+		actionSelect(str);
+		updateList();
+	}
+	//</SHRP>
 	mUpdate = 1;
 }
-
+//Fetching required icons for exceptional cases like [Multiple selection, Multiple Extension Icon Filtering]
 void GUIFileSelector::fetchIcon(ImageResource** Image,string str){
 	for(vector<IcoData>::iterator ptr=Icons.begin();ptr<Icons.end();ptr++){
 		if(minUtils::compare(ptr->extn,str)){
 			*Image=ptr->icon;
 		}
 	}
+}
+
+void GUIFileSelector::fetchIcon(ImageResource** Image,string str,int mode){
+	for(vector<string>::iterator ptr=mSelectedPaths.begin();ptr<mSelectedPaths.end();ptr++){
+		if(*ptr==str){
+			if(mode==1){
+				*Image=mFolderSelected;
+			}else{
+				*Image=mFileSelected;
+			}
+			return;
+		}
+	}
+	if(mode==1){
+		*Image=mFolderUnselected;
+	}else{
+		*Image=mFileUnselected;
+	}
+	return;
+}
+//Select Unselect Handler
+void GUIFileSelector::actionSelect(string str){
+	for(vector<string>::iterator ptr=mSelectedPaths.begin();ptr<mSelectedPaths.end();ptr++){
+		if(*ptr==str){
+			mSelectedPaths.erase(ptr);
+			return;
+		}
+	}
+	mSelectedPaths.push_back(str);
+	return;
+}
+//Update the variable for further use. SetValue("mSelectedPathList", "");
+void GUIFileSelector::updateList(){
+	string tmp;
+	bool flag=true;
+	for(auto it=mSelectedPaths.begin();it<mSelectedPaths.end();it++){
+		flag ? tmp+="/"+*it : tmp+=";/"+*it;
+		flag=false;
+	}
+	DataManager::SetValue("mSelectedPathList",tmp.c_str());
 }
