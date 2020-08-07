@@ -3,11 +3,13 @@
 #include <vector>
 #include <algorithm>
 #include "gui/gui.h"
-#include "gui/pages.h"
+#include "gui/pages.hpp"
 #include "twcommon.h"
+#include "data.hpp"
 using namespace std;
 
 #include "SHRPTOOLS.hpp"
+#include "SHRPGUI.hpp"
 
 void processRefPlacement(int* var, bool isPlus, int refval){
     int tmp=*var;
@@ -17,7 +19,7 @@ void processRefPlacement(int* var, bool isPlus, int refval){
         *var = tmp - refval;
     }
 }
-string getExtension(string str,string arg="."){
+string getExtension(string str,string arg){
 	int dotPos=str.find_last_of('.');
 	if(dotPos == -1 || dotPos== (int) str.length()-1){
 		return "none";

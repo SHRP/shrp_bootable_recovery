@@ -63,6 +63,7 @@ LOCAL_SRC_FILES := \
     SHRPMAIN.cpp \
     SHRPTOOLS.cpp \
     SHRPGUI.cpp \
+    SHRPVARS.cpp \
     twrp.cpp \
     fixContexts.cpp \
     twrpTar.cpp \

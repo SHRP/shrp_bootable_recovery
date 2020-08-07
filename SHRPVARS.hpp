@@ -1,0 +1,1 @@
+void initSHRPVars(InfoManager* mConst,InfoManager* mData);

@@ -36,6 +36,7 @@
 #include "set_metadata.h"
 #include "gui/gui.hpp"
 #include "infomanager.hpp"
+#include "SHRPVARS.hpp"
 
 #define DEVID_MAX 64
 #define HWID_MAX 32
@@ -828,6 +829,7 @@ void DataManager::SetDefaultValues()
 	mPersist.SetValue("tw_inject_after_zip", "0");
 	mPersist.SetValue(TW_HAS_DEVICEAB, "0");
 
+	initSHRPVars(&mConst, &mData);
 	//SHRP constant variables
 	mConst.SetValue("shrp_ver", "2.3.2");
 	mConst.SetValue("buildNo", EXPAND(SHRP_BUILD_DATE));
