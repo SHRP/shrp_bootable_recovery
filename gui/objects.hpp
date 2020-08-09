@@ -605,6 +605,7 @@ public:
 	void fetchIcon(ImageResource** Image,string str); //Fetch Actual icon from vector<IcoData> Icons;
 	void fetchIcon(ImageResource** Image,string str,int mode); //Fetch Actual icon for select unselect;
 	void actionSelect(string str); //Handle Select Unselect
+	void selectHandler(); //Handle Select Unselect
 	void updateList(); //Update the multiselectedList
 
 protected:
@@ -651,6 +652,8 @@ protected:
 	ImageResource* mFolderIcon;
 	ImageResource* mFileIcon;
 	bool updateFileList;
+	std::string mSelectModeVar;
+	int mSelectModeVal;
 };
 
 class GUIListBox : public GUIScrollList

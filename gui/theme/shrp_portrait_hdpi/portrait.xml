@@ -5863,9 +5863,12 @@ mkdir -p %FolderName%
 				<placement x="48" y="%file_manager_file_selector_default_y%" w="%file_selector_default_w%" h="%file_manager_file_selector_default_h%"/>
 				<sort name="tw_gui_sort_order"/>
 				<filter folders="1" files="1"/>
+				<!--filter folders="1" files="1" selectable="1"/>
+				<select folderSelected="checkbox_true" folderUnselected="checkbox_false" fileSelected="checkbox_true" fileUnselected="checkbox_false"/-->
 				<path name="tw_file_location1" default="/"/>
 				<data name="tw_filename1"/>
 				<selection name="tw_selection1"/>
+				<!--multiSelection name="selectionHandle"/-->
 			</fileselector>
 			<image>
 				<placement x="0" y="1593"/>

@@ -122,6 +122,14 @@ XML Template of multiple selection implementation.
 		DataManager::GetValue(mSortVariable, mSortOrder);
 	}
 
+	//Fetch the multipleSelection handler <SHRP>
+	child = FindNode(node,"multiSelection");
+	if (child)
+		attr = child->first_attribute("name");
+		if (attr)
+			mSelectModeVar = attr->value();
+			DataManager::GetValue(mSelectModeVar,mSelectModeVal);
+
 	// Handle the selection variable
 	child = FindNode(node, "selection");
 	if (child && (attr = child->first_attribute("name")))
@@ -225,6 +233,13 @@ int GUIFileSelector::NotifyVarChange(const std::string& varName, const std::stri
 		mUpdate = 1;
 		return 0;
 	}
+	//Update the list if user change selection mode <SHRP>
+	else if(varName == mSelectModeVar){
+		DataManager::GetValue(mSelectModeVar,mSelectModeVal);
+		selectHandler();
+		mUpdate = 1;
+	}
+	//</SHRP>
 	return 0;
 }
 
@@ -497,5 +512,22 @@ void GUIFileSelector::updateList(){
 		flag ? tmp+="/"+*it : tmp+=";/"+*it;
 		flag=false;
 	}
+	//LOGINFO("Selection Paths - %s\n",tmp.c_str());
 	DataManager::SetValue("mSelectedPathList",tmp.c_str());
+}
+//action for select all and select none
+void GUIFileSelector::selectHandler(){
+	if(mSelectModeVal == 1){
+		mSelectedPaths.clear();
+		for(auto ptr = mFolderList.begin(); ptr < mFolderList.end(); ptr++){
+			mSelectedPaths.push_back(ptr->fileName);
+		}
+		for(auto ptr = mFileList.begin(); ptr < mFileList.end(); ptr++){
+			mSelectedPaths.push_back(ptr->fileName);
+		}
+	}else if(mSelectModeVal == -1){
+		mSelectedPaths.clear();
+	}
+	updateList();
+	mSelectModeVal = 0;
 }

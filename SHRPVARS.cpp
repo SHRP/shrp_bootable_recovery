@@ -137,4 +137,5 @@ void initSHRPVars(InfoManager* mConst,InfoManager* mData){
     mData->SetValue("testOperation", "None");
     mData->SetValue("testLoadToggle", "0");
     mData->SetValue("mSelectedPathList", "");
+    mData->SetValue("selectionHandle", "0");
 }
