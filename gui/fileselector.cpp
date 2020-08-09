@@ -140,7 +140,6 @@ XML Template of multiple extension implementation.
 		xml_attribute<>* tmp;
 		IcoData I;
 		tmp=child->first_attribute("type");
-		LOGINFO("FileSelector: type %s\n",tmp->value());
 		I.extn=tmp->value();
 		I.icon=LoadAttrImage(child, "icon");
 		Icons.push_back(I);
