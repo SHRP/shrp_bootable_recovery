@@ -68,3 +68,12 @@ class Hasher{
 		bool isPassCorrect();
 		static string doHash(string str);
 };
+
+//SIG Helpers
+struct storageInfo{
+	string storageLocation;
+	string freeStrVar;
+	string freePercentageVar;
+};
+
+void process_space(int size,int free,storageInfo storage);

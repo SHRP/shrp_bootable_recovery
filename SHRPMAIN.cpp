@@ -489,3 +489,57 @@ string Hasher::create_salt( size_t length ){
 
     return s;
 }
+
+
+
+//SIG Helpers
+float roundSize(float var) {
+	float value = (int)(var * 100 + .5);
+	return(float)value / 100;
+}
+void process_space(int size,int free,storageInfo storage){
+	string partition,temp,tmp;
+	int p_val_usage=0;
+	float size_g,free_g;
+	int used = size-free;
+	if(size>0){
+		if(free>=1024){
+			free_g=(float)free/1024;
+			free_g=roundSize(free_g);
+			{
+			stringstream buff;
+			buff<<free_g;
+			buff>>temp;
+			tmp=temp+" GB free of ";
+			}
+		}else{
+			{
+			stringstream buff;
+			buff<<free;
+			buff>>temp;
+			tmp=temp+" MB free of ";
+			}
+		}
+		if(size>=1024){
+			size_g=(float)size/1024;
+			size_g=roundSize(size_g);
+			{
+			stringstream buff;
+			buff<<size_g;
+			buff>>temp;
+			tmp=tmp+temp+" GB";
+			}
+		}else{
+			{
+			stringstream buff;
+			buff<<size;
+			buff>>temp;
+			tmp=temp;
+			tmp=tmp+temp+" MB";
+			}
+		}
+		p_val_usage=used*100/size;
+	}
+	DataManager::SetValue(storage.freeStrVar,(size<=0 ? "Unavailable" : tmp.c_str()));
+	DataManager::SetValue(storage.freePercentageVar,(size<=0 ? 0 : p_val_usage));
+}

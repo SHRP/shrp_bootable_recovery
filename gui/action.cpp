@@ -2437,20 +2437,34 @@ int GUIAction::shrp_magisk_msc(std::string arg __unused){//SHRP Magisk Module St
 int GUIAction::shrp_magisk_mi(std::string arg __unused){//SHRP Magisk Module Information Gatherer
 	char chr[50];
 	string name,version,author,module_path,path_1;
+	stringstream x;
 	DataManager::GetValue("c_magisk_path", module_path);
 	DataManager::GetValue("c_magisk_name", path_1);
 	module_path=module_path+path_1+"/module.prop";
 	if(TWFunc::Path_Exists(module_path)){
 		int i=0;
 		FILE *f=fopen(module_path.c_str(),"r");
+		string tmp;
 		while(i<5){
 			fgets(chr,50,f);
-			if(i==1){name=chr;}
-			if(i==2){version=chr;}
-			if(i==4){author=chr;}
+			tmp=chr;
+			tmp=tmp.substr(0,tmp.find_first_of('='));
+			if(tmp == "name"){
+				name=chr;
+			}else if(tmp == "version"){
+				version=chr;
+			}else if(tmp == "author"){
+				author=chr;
+			}
 			i++;
 		}
 		fclose(f);
+
+		//Fixes the invalid char issue
+		{x<<name;x>>name;}
+		{x<<version;x>>version;}
+		{x<<author;x>>author;}
+
 		name=name.substr(name.find_first_of('=')+1,name.length());
 		version=version.substr(version.find_first_of('=')+1,version.length());
 		author=author.substr(author.find_first_of('=')+1,author.length());
@@ -2466,17 +2480,16 @@ int GUIAction::shrp_magisk_mi(std::string arg __unused){//SHRP Magisk Module Inf
 }
 
 int GUIAction::shrp_magisk_um(std::string arg __unused){//SHRP Magisk Module Uninstaller
-	string magisk_path,module_name,cmd;
-	string shrp_path;
+
+	string magisk_path, module_name, uninstallShell;
 	DataManager::GetValue("c_magisk_path", magisk_path);
 	DataManager::GetValue("c_magisk_name", module_name);
-	shrp_path=magisk_path+module_name+"/uninstall.sh";
-	cmd="sh "+shrp_path;
-	if(TWFunc::Path_Exists(shrp_path)){
-		TWFunc::Exec_Cmd(cmd);
+	uninstallShell = magisk_path + module_name + "/uninstall.sh";
+
+	if(TWFunc::Path_Exists(uninstallShell)){
+		TWFunc::Exec_Cmd("sh "+uninstallShell);
 	}
-	cmd="rm -rf "+magisk_path+module_name;
-	TWFunc::Exec_Cmd(cmd);
+	TWFunc::Exec_Cmd("rm -rf "+magisk_path+module_name);
 	return 0;
 }
 
@@ -2488,39 +2501,37 @@ int GUIAction::flashlight(std::string arg __unused){
 	DataManager::GetValue("c_flashlight_status", trigger);
 #ifdef SHRP_CUSTOM_FLASHLIGHT
 	LOGINFO("flashlight : Using Custom flashlight path\n");
-	string p1,p2,p3;
 	DataManager::GetValue("c_flashlight_max_brightness", max_b);
-	DataManager::GetValue("c_flashlight_path_1", p1);
-	DataManager::GetValue("c_flashlight_path_2", p2);
-	DataManager::GetValue("c_flashlight_path_3", p3);
 	if(trigger=="0"){
 		DataManager::SetValue("c_flashlight_status","1");
-		cmd="echo " + max_b + " > " + p1;
+		cmd="echo " + max_b + " > " + DataManager::GetStrValue("c_flashlight_path_1");
 		TWFunc::Exec_Cmd(cmd);
 		if(p2.size()>3){
-			cmd="echo " + max_b + " > " + p1;
+			cmd="echo " + max_b + " > " + DataManager::GetStrValue("c_flashlight_path_2");
 			TWFunc::Exec_Cmd(cmd);
 		}
 		if(p3.size()>3){
-			cmd="echo 1 > " + p3;
+			cmd="echo 1 > " + DataManager::GetStrValue("c_flashlight_path_3");
 			TWFunc::Exec_Cmd(cmd);
 		}
 	}else{
 		DataManager::SetValue("c_flashlight_status","0");
-		cmd="echo 0 > " + p1;
+		cmd="echo 0 > " + DataManager::GetStrValue("c_flashlight_path_1");
 		TWFunc::Exec_Cmd(cmd);
 		if(p2.size()>3){
-			cmd="echo 0 > " + p1;
+			cmd="echo 0 > " + DataManager::GetStrValue("c_flashlight_path_2");
 			TWFunc::Exec_Cmd(cmd);
 		}
 		if(p3.size()>3){
-			cmd="echo 0 > " + p3;
+			cmd="echo 0 > " + DataManager::GetStrValue("c_flashlight_path_3");
 			TWFunc::Exec_Cmd(cmd);
 		}
 	}
 #else
 	LOGINFO("flashlight : Trying to find flashlight path\n");
 	if(TWFunc::Path_Exists("/sys/class/leds/")){
+
+		//Searching the path and fetching the max-brightness of flash
 		if(TWFunc::Path_Exists("/sys/class/leds/led:torch/")){
 			temp=1;
 			TWFunc::read_file("/sys/class/leds/led:torch/max_brightness",max_b);
@@ -2540,13 +2551,18 @@ int GUIAction::flashlight(std::string arg __unused){
 			LOGINFO("flashlight : FlashLight Does not support on your device\n");
 			return 0;
 		}
+		//Searching the switch path [if available]
 		if(TWFunc::Path_Exists("/sys/class/leds/led:switch/")){
 			switch_tmp=1;
 		}else if(TWFunc::Path_Exists("/sys/class/leds/led:switch_0/")){
 			switch_tmp=2;
 		}
+
+		//On/OFF flashlight
 		if(trigger=="0"){
 			DataManager::SetValue("c_flashlight_status","1");
+
+			//Turning on flash
 			if(temp==1){
 				cmd="echo " + max_b + " > /sys/class/leds/led:torch/brightness";
 				TWFunc::Exec_Cmd(cmd);
@@ -2567,6 +2583,7 @@ int GUIAction::flashlight(std::string arg __unused){
 				cmd="echo " + max_b + " > /sys/class/leds/led:torch-light/brightness";
 				TWFunc::Exec_Cmd(cmd);
 			}
+			//Turning on switch [If available]
 			if(switch_tmp==1){
 				cmd="echo 1 > /sys/class/leds/led:switch/brightness";
 				TWFunc::Exec_Cmd(cmd);
@@ -2576,6 +2593,8 @@ int GUIAction::flashlight(std::string arg __unused){
 			}
 		}else{
 			DataManager::SetValue("c_flashlight_status","0");
+
+			//Turning OFF flash
 			if(temp==1){
 				TWFunc::Exec_Cmd("echo 0 > /sys/class/leds/led:torch/brightness");
 			}else if(temp==2){
@@ -2590,6 +2609,7 @@ int GUIAction::flashlight(std::string arg __unused){
 			}else if(temp==5){
 				TWFunc::Exec_Cmd("echo 0 > /sys/class/leds/led:torch-light/brightness");
 			}
+			//Turning OFF switch [If available]
 			if(switch_tmp==1){
 				TWFunc::Exec_Cmd("echo 0 > /sys/class/leds/led:switch/brightness");
 			}else if(switch_tmp==2){
@@ -2604,59 +2624,36 @@ int GUIAction::flashlight(std::string arg __unused){
 }
 
 int GUIAction::sig(std::string arg __unused){
-	int size,used,free;
+	int size,free;
 	unsigned long long mb = 1048576;
 	string partition;
 	TWPartition* ptr;
-//Start_Internal_Sdcard
-	DataManager::GetValue("internal_storage_location", partition);
-	if(partition==""||partition==" "){
-		DataManager::SetValue("c_i_p","0");
-		DataManager::SetValue("c_i_status","Unavailable");
-	}else{
+	vector<storageInfo> storage;
+	storageInfo sinfo;
+	sinfo.storageLocation="internal_storage_location";
+	sinfo.freePercentageVar="c_i_p";
+	sinfo.freeStrVar="c_i_status";
+	storage.push_back(sinfo);
+	sinfo.storageLocation="external_storage_location";
+	sinfo.freePercentageVar="c_e_p";
+	sinfo.freeStrVar="c_e_status";
+	storage.push_back(sinfo);
+	sinfo.storageLocation="usb_otg_location";
+	sinfo.freePercentageVar="c_o_p";
+	sinfo.freeStrVar="c_o_status";
+	storage.push_back(sinfo);
+
+	for(auto it=storage.begin();it<storage.end();it++){
+		DataManager::GetValue(it->storageLocation, partition);
 		ptr=PartitionManager.Find_Partition_By_Path(partition);
-		if(ptr==NULL){
-			DataManager::SetValue("c_i_p","0");
-			DataManager::SetValue("c_i_status","Unavailable");
+		if(partition==""||partition==" " || ptr==NULL){
+			DataManager::SetValue(it->freeStrVar,"Unavailable");
+			DataManager::SetValue(it->freePercentageVar,"0");
 		}else{
 			size=ptr->Size / mb;
-			used=ptr->Used / mb;
 			free=ptr->Free / mb;
-			TWFunc::process_space(size,free,size-free,1);
-		}
-	}
-//Start_External_Sdcard
-	DataManager::GetValue("external_storage_location", partition);
-	if(partition==""||partition==" "){
-		DataManager::SetValue("c_e_p","0");
-		DataManager::SetValue("c_e_status","Unavailable");
-	}else{
-		ptr=PartitionManager.Find_Partition_By_Path(partition);
-		if(ptr==NULL){
-			DataManager::SetValue("c_e_p","0");
-			DataManager::SetValue("c_e_status","Unavailable");
-		}else{
-			size=ptr->Size / mb;
-			used=ptr->Used / mb;
-			free=ptr->Free / mb;
-			TWFunc::process_space(size,free,used,2);
-		}
-	}
-//Start_OTG
-	DataManager::GetValue("usb_otg_location", partition);
-	if(partition==""||partition==" "){
-		DataManager::SetValue("c_o_p","0");
-		DataManager::SetValue("c_o_status","Unavailable");
-	}else{
-		ptr=PartitionManager.Find_Partition_By_Path(partition);
-		if(ptr==NULL){
-			DataManager::SetValue("c_o_p","0");
-			DataManager::SetValue("c_o_status","Unavailable");
-		}else{
-			size=ptr->Size / mb;
-			used=ptr->Used / mb;
-			free=ptr->Free / mb;
-			TWFunc::process_space(size,free,used,3);
+			LOGINFO("Storage Info - %d %d\n",size,free);
+			process_space(size,free,*it);
 		}
 	}
 	return 0;

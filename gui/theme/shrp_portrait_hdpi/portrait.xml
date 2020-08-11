@@ -4992,7 +4992,7 @@ sh /twres/scripts/create_envAB.sh;
 			</text>
 			<text style="c_reboot_text">
 				<placement x="170" y="400"/>
-				<text>Unavailable</text>
+				<text>{@c_unavailable=Unavailable}</text>
 			</text>
 			<fill color="%nav_bg%">
 				<placement x="165" y="450" w="440" h="7"/>
@@ -5384,7 +5384,7 @@ sh /twres/scripts/create_envAB.sh;
 			</text>
 			<text style="c_reboot_text">
 				<placement x="170" y="400"/>
-				<text>Unavailable</text>
+				<text>{@c_unavailable=Unavailable}</text>
 			</text>
 			<fill color="%nav_bg%">
 				<placement x="165" y="450" w="440" h="7"/>
