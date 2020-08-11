@@ -65,5 +65,6 @@ list<string> devices={
   "pyxis",
   "j5y17lte",
   "CPH1861",
-  "on7xelte"
+  "on7xelte",
+  "gts4lvwifi"
 };
