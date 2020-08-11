@@ -39,7 +39,7 @@
 		<string name="sdext">SD-EXT</string>
 		<string name="adopted_data">Eingegliederte Daten-Partition</string>
 		<string name="adopted_storage">Eingegliederte Storage-Partition</string>
-		<string name="autostorage">Speicher</string>
+		<string name="autostorage">Storage-Partition</string>
 
 		<!-- GUI XML strings -->
 		<string name="twrp_header">Team Win Recovery Project</string>
@@ -92,8 +92,7 @@
 		<string name="folder">Ordner:</string>
 		<string name="file">Datei:</string>
 		<string name="zip_sig_chk">ZIP-Signaturprüfung</string>
-		<string name="inject_shrp_chk">SHRP nach der Installation injizieren</string>
-		<string name="inject_magisk_chk">Magisk ach der Installation injizieren</string>
+		<string name="inject_twrp_chk">TWRP nach der Installation injizieren</string>
 		<string name="install_reboot_chk">Automatischer Neustart nach Installation</string>
 		<string name="options_hdr">Einstellungen</string>
 		<string name="confirm_flash_hdr">Flashvorgang bestätigen</string>
@@ -109,6 +108,7 @@
 		<string name="install_failed">Installation fehlgeschlagen</string>
 		<string name="install_successful">Installation erfolgreich</string>
 		<string name="wipe_cache_dalvik_btn">Cache/Dalvik löschen</string>
+		<string name="wipe_dalvik_btn">Dalvik löschen</string>
 		<string name="reboot_system_btn">System neustarten</string>
 		<string name="install_sel_target">Ziel-Partition auswählen</string>
 		<string name="flash_image_select">Partition wählen, um das Image zu einzuspielen:</string>
@@ -116,8 +116,10 @@
 		<string name="flashing_image">Spiele Image ein...</string>
 		<string name="image_flashed">Image eingespielt</string>
 		<string name="wipe_cache_dalvik_confirm">Cache &amp; Dalvik löschen?</string>
+		<string name="wipe_dalvik_confirm">Dalvik löschen?</string>
 		<string name="wiping_cache_dalvik">Lösche Cache &amp; Dalvik...</string>
 		<string name="wipe_cache_dalvik_complete">Cache &amp; Dalvik gelöscht</string>
+		<string name="wipe_dalvik_complete">Dalvik gelöscht</string>
 		<string name="swipe_wipe">Löschen bestätigen</string>
 		<string name="swipe_wipe_s">   Löschen</string>
 		<string name="no_os1">Kein OS installiert! Sind Sie</string>
@@ -133,6 +135,10 @@
 		<string name="reboot_install_app_system">Als System-App installieren</string>
 		<string name="reboot_installing_app">Installiere App...</string>
 		<string name="swipe_to_install_app">TWRP App installieren</string>
+		<string name="uninstall_twrp_system_app">Deinstalliere TWRP App vom System</string>
+		<string name="uninstall_twrp_system_app_confirm">TWRP App vom System deinstallieren?</string>
+		<string name="uninstalling_twrp_system_app">Deinstalliere TWRP App vom System...</string>
+		<string name="uninstall_twrp_system_app_complete">Deinstallationder TWRP App vom System abgeschlossen</string>
 		<string name="swipe_flash">Installation bestätigen</string>
 		<string name="confirm_action">Aktion bestätigen</string>
 		<string name="back_cancel">Zurück-Taste drücken, um den Vorgang abzubrechen.</string>
@@ -144,7 +150,7 @@
 		<string name="factory_reset2">(ohne internen Speicher)</string>
 		<string name="factory_reset3">Diese Lösch-Aktion ist in der Regel</string>
 		<string name="factory_reset4">die einzige die benötigt wird.</string>
-		<string name="factory_reset5">(beinhaltet nicht die Benutzer/Sperrbildschirm)</string>
+		<string name="factory_reset5">(beinhaltet nicht die Benutzer und den Sperrbildschirm)</string>
 		<string name="factory_resetting">Werkseinstellungen herstellen...</string>
 		<string name="advanced_wipe_hdr">Erweitertes Löschen</string>
 		<string name="advanced_wipe_btn">Erweitertes Löschen</string>
@@ -295,6 +301,7 @@
 		<string name="rb_recovery_btn">Recovery</string>
 		<string name="rb_bootloader_btn">Bootloader</string>
 		<string name="rb_download_btn">Download</string>
+		<string name="rb_edl_btn">Edl</string>
 		<string name="turning_off">Ausschalten...</string>
 		<string name="swipe_power_off">Gerät ausschalten</string>
 		<string name="swipe_power_off_s">Ausschalten</string>
@@ -329,6 +336,7 @@
 		<string name="settings_tz_btn">Zeitzone</string>
 		<string name="settings_screen_btn">Bildschirm</string>
 		<string name="settings_screen_bright_btn">Helligkeit</string>
+		<string name="vibration_disabled">Vibration ist auf diesen Gerät ausgeschalten</string>
 		<string name="settings_vibration_btn">Vibration</string>
 		<string name="settings_language_btn">Sprache</string>
 		<string name="time_zone_hdr">Zeitzone</string>
@@ -365,7 +373,7 @@
 		<string name="tz_offset_15">15</string>
 		<string name="tz_offset_30">30</string>
 		<string name="tz_offset_45">45</string>
-		<string name="use_dst_chk">Sommerzeit verwenden (DST)</string>
+		<string name="use_dst_chk">Sommerzeit verwenden</string>
 		<string name="curr_tz">Aktuelle Zeitzone: %tw_time_zone%</string>
 		<string name="curr_tz_s">Aktuelle Zeitzone:</string>
 		<string name="set_tz_btn">Zeitzone einstellen</string>
@@ -501,7 +509,7 @@
 		<string name="repack">Packen</string>
 		<string name="swipe_to_install">Installieren</string>
 		<string name="installing">Installiere...</string>
-		<string name="install_complete">Installation komplett</string>
+		<string name="install_complete">Installation abgeschlossen</string>
 		<string name="unpack_error">Fehler beim Entpacken des Images.</string>
 		<string name="repack_error">Fehler beim Packen des Images.</string>
 		<string name="unpacking_image">Entpacke {1}...</string>
@@ -510,7 +518,7 @@
 		<string name="fix_recovery_loop">Recovery Bootloop reparieren</string>
 		<string name="fix_recovery_loop_confirm">Recovery Bootloop reparieren?</string>
 		<string name="fixing_recovery_loop">Recovery Bootloop wird repariert...</string>
-		<string name="fix_recovery_loop_complete">Recovery Bootloop Reparatur komplett</string>
+		<string name="fix_recovery_loop_complete">Recovery Bootloop Reparatur abgeschlossen</string>
 		<string name="fixing_recovery_loop_patch">Patche Kernel...</string>
 		<string name="fix_recovery_loop_patch_error">Fehler beim Patchen des Kernels.</string>
 		<string name="decrypt_users">Benutzer entschlüsseln</string>
@@ -575,7 +583,8 @@
 		<string name="update_part_details_done">...Fertig</string>
 		<string name="wiping_dalvik">Dalvik Cache-Verzeichnisse bereinigen...</string>
 		<string name="cleaned">Bereinigt: {1}...</string>
-		<string name="dalvik_done">-- Dalvik Cache-Verzeichnisse bereinigt!</string>
+		<string name="cache_dalvik_done">-- Dalvik Cache-Verzeichnisse bereinigt!</string>
+		<string name="dalvik_done">-- Dalvik-Verzeichnis bereinigt!</string>
 		<string name="no_andsec">Keine "Android Secure"-Partitionen gefunden.</string>
 		<string name="unable_to_locate">{1} nicht gefunden.</string>
 		<string name="wiping_datamedia">Lösche internen Speicher -- /data/media...</string>
@@ -697,7 +706,7 @@
 		<!-- These 2 items are saved in the data manager instead of resource manager, so %llu, etc is correct instead of {1} -->
 		<string name="file_progress">%llu von %llu Dateien, %i%%</string>
 		<string name="size_progress">%lluMB von %lluMB, %i%%</string>
-		<string name="decrypt_cmd" version="2">Versuche die Daten-Partition per Kommandozeile zu entschlüsseln.</string>
+		<string name="decrypt_cmd">Versuche die Daten-Partition per Kommandozeile zu entschlüsseln.</string>
 		<string name="base_pkg_err">Basis-Pakete konnten nicht geladen werden.</string>
 		<string name="simulating">Simuliere Aktionen...</string>
 		<string name="backup_cancel">Sicherung abgebrochen</string>
@@ -720,19 +729,24 @@
 		<string name="change_fs_err">Fehler beim Ändern des Dateisystems.</string>
 		<string name="theme_ver_err">Theme-Version inkompatibel zu TWRP-Version. Standard-Theme wird verwendet.</string>
 		<string name="up_a_level">(Übergeordneter Ordner)</string>
-		<string name="install_reboot" version="2">Neustart in %tw_sleep% Sekunden</string>
+		<string name="install_reboot"version="2">Neustart in %tw_sleep% Sekunden</string>
 		<string name="adbbackup_error">Fehler während ADB Backup. Abbruch..."</string>
 		<string name="adbbackup_control_error">Kein Zugriff auf ADB Control Channel</string>
 		<string name="twrp_adbbu_option">--twrp option wird für ADB Backup benötigt</string>
 		<string name="partition_not_found">Pfad: {1} wurde nicht in Partitionsliste gefunden</string>
 		<string name="copy_kernel_log">Kernel-Log wurde nach {1} kopiert</string>
-		<string name="include_kernel_log">Zusätzlich Kernel-Log kopieren</string> version="2"
-		<string name="sha2_chk">Benutze SHA2 als Hash-Algorithmus</string>
+		<string name="include_kernel_log">Zusätzlich Kernel-Log kopieren</string>
+		<string name="sha2_chk">SHA2 als Hash-Algorithmus verwenden</string>
 		<string name="unable_set_boot_slot">Fehler während Wechsel zu Slot {1}</string>
-		<string name="unmount_sys_install">Aushängen der system Partition vor der Installation einer ZIP-Datei.</string>
-		<string name="unmount_system">Aushängen der Partiton system...</string>
-		<string name="unmount_system_err">Aushängen der Partition system fehlgeschlagen</string>
-		<!--Translated By 4ndyZ-->
+		<string name="unmount_sys_install">Aushängen der System-Partition vor der Installation einer ZIP-Datei.</string>
+		<string name="unmount_system">Aushängen der System-Partiton...</string>
+		<string name="unmount_system_err">Aushängen der System-Partition fehlgeschlagen</string>
+		<string name="flash_ab_inactive">Einspielen des A/B ZIPs auf den inaktiven Slot: {1}</string>
+		<string name="flash_ab_reboot">Um weitere ZIP-Dateien einzuspielen bitte das Recovery neustartet um auf den geänderten Slot zu wechseln.</string>
+		<string name="ozip_decrypt_decryption">Starte Ozip Entschlüsselung...</string>
+		<string name="ozip_decrypt_finish">Ozip Entschlüsselung abgeschlossen!</string>
+		<!-- SHRP strings -->
+		<!--Translated by 4ndyZ-->
 		<string name="Tcredit">4ndyZ</string>
 		<string name="c_enter_pass">Passwort eingeben</string>
 		<string name="enter_pass_old">Altes Passwort eingeben</string>
@@ -909,11 +923,8 @@
 		<string name="c_fpc">Entfernen der Fingerabdrucksperre von dem System</string>
 		<string name="c_rfe">Entfernen der erzwungenen Geräteverschlüsselung</string>
 		<string name="c_c2a">Camera 2 Api Aktivator/Deaktivator</string>
-		<string name="cache_dalvik_done">-- Dalvik Cache Ordner löschen beendet!</string>
 		<string name="active_slot_install">Installation in den aktiven Slot</string>
 		<string name="remount_system_rw">[i] System als R/W wieder eingebunden!</string>
-		<string name="unpacking_image">Entpacken {1}...</string>
-		<string name="repacking_image">Packen {1}...</string>
 		<!--2.2 Strings-->
 		<string name="c_moreInfo">Weitere Informationen</string>
 		<string name="c_recType">Rec Typ</string>
@@ -931,8 +942,6 @@
 		<string name="c_show_lc">Datum auf dem Lockscreen zeigen</string>
 		<string name="c_dev_mode">Dev-Modus</string>
 		<string name="c_stock_dashboard_ico">Stock</string>
-		<string name="ozip_decrypt_decryption">Starte Ozip Entschlüsselung...</string>
-		<string name="ozip_decrypt_finish">Ozip Entschlüsselung beednet!</string>
 		<!--2.3 Strings-->
 		<string name="c_failed_info_blocked">Etwas ist falsch gelaufen</string>
 		<string name="c_line">Zeile</string>
