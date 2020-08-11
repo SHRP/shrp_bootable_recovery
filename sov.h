@@ -63,5 +63,6 @@ list<string> devices={
   "j4primelte",
   "j6primelte",
   "pyxis",
-  "j5y17lte"
+  "j5y17lte",
+  "CPH1861"
 };
