@@ -1959,7 +1959,7 @@
 			<button>
 				<placement x="944" y="%c_cleanInputYpos%"/>
 				<image resource="c_clear_input"/>
-				<action function="clearInput">tw_backup_name</action>
+				<action function="clearInput">tw_backup_name;backupname1</action>
 			</button>
 
 			<text style="c_text_dashboard">

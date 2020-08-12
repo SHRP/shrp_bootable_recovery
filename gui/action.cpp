@@ -255,7 +255,6 @@ GUIAction::GUIAction(xml_node<>* node)
 		ADD_ACTION(unZipSelector);
 		ADD_ACTION(txtEditor);
 		ADD_ACTION(execSTheme);
-		ADD_ACTION(cryptPass);
 	}
 
 	// First, get the action
@@ -2845,7 +2844,7 @@ int GUIAction::c_repack(std::string arg __unused){
 			DataManager::SetValue("tw_has_action2","0");
 			DataManager::SetValue("tw_zip_location","/tmp/work");
 			DataManager::SetValue("tw_file","newRec.img");
-			GUIAction::flashimage("guun");
+			GUIAction::flashimage("dummy");
 			LOGINFO("c_repack : Flashing modified Recovery done\n");
 			DataManager::SetValue("c_status","Processing : 98%");
 #endif
@@ -2853,9 +2852,7 @@ int GUIAction::c_repack(std::string arg __unused){
 		}
 	}
 #endif
-	int z;
-	DataManager::GetValue("c_devMode", z);
-	if(z){
+	if(DataManager::GetIntValue("c_devMode")){
 		DataManager::SetValue("tw_include_kernel_log", "1");
 		GUIAction::copylog("Dummy");
 	}
@@ -2863,31 +2860,24 @@ int GUIAction::c_repack(std::string arg __unused){
 }
 
 int GUIAction::flashOP(std::string arg){
-	int p,s=0;
-	char tmp[10];
-	p=arg.find_last_of(".");
-	if(p!=-1){
-		p++;
-		while(arg[p]!=0){
-			tmp[s++]=arg[p++];
-		}
-		tmp[s]=0;
-		arg=tmp;
-	}
+	int s=0;
+	arg=minUtils::getExtension(arg);
 	DataManager::GetValue("c_queue_enabled",s);
+
+
 #ifdef SHRP_OZIP_DECRYPT
-	if(minUtils::compare(arg,"zip")||minUtils::compare(arg,"ozip")){
+	if(minUtils::compare(arg,".zip")||minUtils::compare(arg,".ozip")){
 #else
-	if(minUtils::compare(arg,"zip")){
+	if(minUtils::compare(arg,".zip")){
 #endif
 		GUIAction::queuezip("bappa");
 		DataManager::SetValue("c_queue_enabled","1");
 		PageManager::ChangePage("flash_confirm");
 
-	}else if(minUtils::compare(arg,"img")&&s==1){
+	}else if(minUtils::compare(arg,".img")&&s==1){
 		PageManager::ChangePage("flash_confirm");
 
-	}else if(minUtils::compare(arg,"img")&&s==0){
+	}else if(minUtils::compare(arg,".img")&&s==0){
 		PageManager::ChangePage("flashimage_confirm");
 	}
 	return 0;
@@ -2953,7 +2943,7 @@ int GUIAction::unZipSelector(std::string arg){
 		int tmp=arg.find_last_of(".");
 		if(tmp!=-1){
 			DataManager::SetValue("shrpUnzipFolder",arg.substr(x,tmp-x));
-			string extn=arg.substr(tmp,arg.length()-tmp);
+			string extn=minUtils::getExtension(arg);
 			if(minUtils::compare(extn,".zip")){
 				DataManager::SetValue("isThemeFile","0");
 				DataManager::SetValue("canBeUnzip","1");
@@ -3048,25 +3038,5 @@ int GUIAction::execSTheme(std::string arg){
 		LOGINFO("SHRP Function execSTheme : Operation Failed\n");
 	}
 	TWFunc::Exec_Cmd("rm -rf /tmp/theme");
-	return 0;
-}
-
-int GUIAction::cryptPass(std::string arg){
-	minUtils::remountSystem(false);
-	string basePath=DataManager::GetStrValue("shrpBasePath");
-	if(arg=="67"){
-		TWFunc::Exec_Cmd("touch "+basePath+"/etc/enabledPass",true,true);
-		return 0;
-	}
-	if(DataManager::GetIntValue("shrp_auto_decrypt")==0){
-		if(TWFunc::Path_Exists(basePath+"/etc/enabledPass")){
-			TWFunc::Exec_Cmd("rm -rf "+basePath+"/etc/enabledPass",true,true);
-		}
-		if(TWFunc::Path_Exists(basePath+"/etc/cryptPass")){
-			TWFunc::Exec_Cmd("rm -rf "+basePath+"/etc/cryptPass",true,true);
-		}
-	}else{
-		PageManager::ChangePage("c_autoDecryptConfirm");
-	}
 	return 0;
 }
