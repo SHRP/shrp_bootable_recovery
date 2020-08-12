@@ -2890,9 +2890,10 @@ int GUIAction::shrp_zip_init(std::string arg){
 	return 0;
 }
 
-int GUIAction::clearInput(std::string arg){
-	DataManager::SetValue(arg.c_str(),"");
-	PageManager::ChangePage("backupname1");
+int GUIAction::clearInput(std::string arg){//<action function="clearInput">valueVariable;currentPage</action>
+	vector<string> x = TWFunc::Split_String(arg,";");
+	DataManager::SetValue(x.at(0),"");
+	PageManager::ChangePage(x.at(1));
 	return 0;
 }
 
