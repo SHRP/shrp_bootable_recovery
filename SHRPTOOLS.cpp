@@ -57,3 +57,12 @@ void minUtils::remountSystem(bool display){
 		gui_msg("remount_system_rw=[i] Remounted system as R/W!");
 	}
 }
+
+string minUtils::getExtension(string str,string arg){
+	int dotPos=str.find_last_of('.');
+	if(dotPos == -1 || dotPos== (int) str.length()-1){
+		return "none";
+	}else{
+		return (arg+str.substr(dotPos+1, str.length() - dotPos));
+	}
+}

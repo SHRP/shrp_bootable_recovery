@@ -7,4 +7,5 @@ class minUtils{
         static bool find(std::string str,std::string sub);
 		static bool find(std::string str,std::string sub,int dummy);
 		static void remountSystem(bool display);
+        static string getExtension(string str,string arg=".");
 };

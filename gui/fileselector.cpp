@@ -395,7 +395,7 @@ void GUIFileSelector::RenderItem(size_t itemindex, int yPos, bool selected)
 	} else {
 		text = mFileList.at(itemindex - folderSize).fileName;
 		icon = mFileIcon;
-		mSelectable ? fetchIcon(&icon,text,2) : fetchIcon(&icon,getExtension(text));//<SHRP>
+		mSelectable ? fetchIcon(&icon,text,2) : fetchIcon(&icon,minUtils::getExtension(text));//<SHRP>
 	}
 
 	RenderStdItem(yPos, selected, icon, text.c_str());

@@ -19,14 +19,6 @@ void processRefPlacement(int* var, bool isPlus, int refval){
         *var = tmp - refval;
     }
 }
-string getExtension(string str,string arg){
-	int dotPos=str.find_last_of('.');
-	if(dotPos == -1 || dotPos== (int) str.length()-1){
-		return "none";
-	}else{
-		return (arg+str.substr(dotPos+1, str.length() - dotPos));
-	}
-}
 
 vector<string> fetchExtn(string str){
     vector<string> extensions;
@@ -49,7 +41,7 @@ vector<string> fetchExtn(string str){
 
 bool isExtnMatched(vector<string> extn,string fileName){
     vector<string>::iterator ptr;
-    string fileExtn=getExtension(fileName);
+    string fileExtn=minUtils::getExtension(fileName);
     //LOGINFO("File Extension : %s\n",fileExtn.c_str());
     for(ptr=extn.begin();ptr<extn.end();ptr++){
         //LOGINFO("Comparing %s with %c\n",fileExtn.c_str(),*ptr->c_str());
