@@ -1,0 +1,770 @@
+<?xml version="1.0"?>
+<recovery>
+	<pages>
+		<page name="c_lock_ui">
+			<template name="c_page"/>
+			<template name="c_status_bar"/>
+			<text style="c_main_text_header">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
+				<text>{@c_security=Security}</text>
+			</text>
+			<text style="c_text_dashboard">
+				<conditions>
+					<condition var1="lock_enabled" op="=" var2="1"/>
+					<condition var1="patt_lock_enabled" op="=" var2="0"/>
+				</conditions>
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
+				<text>{@c_lock_status=Lock status - }{@c_password=Password}</text>
+			</text>
+			<text style="c_text_dashboard">
+				<conditions>
+					<condition var1="lock_enabled" op="=" var2="1"/>
+					<condition var1="patt_lock_enabled" op="=" var2="1"/>
+				</conditions>
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
+				<text>{@c_lock_status=Lock status - }{@c_pattern=Pattern}</text>
+			</text>
+			<text style="c_text_dashboard">
+				<conditions>
+					<condition var1="c_new" op="=" var2="1"/>
+					<condition var1="c_new_pattern" op="=" var2="1"/>
+				</conditions>
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
+				<text>{@c_lock_status=Lock status - }{@c_none=None}</text>
+			</text>
+
+			<button>
+				<conditions>
+					<condition var1="c_new" op="=" var2="1"/>
+					<condition var1="c_new_pattern" op="=" var2="1"/>
+				</conditions>
+				<placement x="860" y="1450"/>
+				<image resource="c_lock_patt"/>
+				<action function="page">c_lock_set_patt</action>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="lock_enabled" op="=" var2="1"/>
+					<condition var1="patt_lock_enabled" op="=" var2="1"/>
+				</conditions>
+				<placement x="860" y="1628"/>
+				<image resource="c_reset_lock"/>
+				<action function="page">c_lock_old_patt_confirmer</action>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="lock_enabled" op="=" var2="1"/>
+					<condition var1="patt_lock_enabled" op="=" var2="0"/>
+				</conditions>
+				<placement x="860" y="1628"/>
+				<image resource="c_reset_lock"/>
+				<action function="page">c_lock_old_confirmer</action>
+			</button>
+			<image>
+				<condition var1="c_new" op="=" var2="1"/>
+				<placement x="390" y="810"/>
+				<image resource="c_lock_bg_off"/>
+			</image>
+			<image>
+				<condition var1="c_new" op="=" var2="0"/>
+				<placement x="390" y="810"/>
+				<image resource="c_lock_bg_on"/>
+			</image>
+			<button>
+				<conditions>
+					<condition var1="c_new" op="=" var2="1"/>
+					<condition var1="c_new_pattern" op="=" var2="1"/>
+				</conditions>
+				<placement x="860" y="1628"/>
+				<image resource="c_lock_pass"/>
+				<action function="page">c_lock_set</action>
+			</button>
+			<action>
+				<touch key="back"/>
+				<action function="page">c_refresh</action>
+			</action>
+			<action>
+				<touch key="home"/>
+				<action function="page">c_refresh</action>
+			</action>
+		</page>
+        <page name="c_lock_set">
+			<template name="c_page"/>
+			<template name="c_status_bar"/>
+			<text style="c_main_text_header">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
+				<text>{@c_enter_pass=Enter Password}</text>
+			</text>
+			<text style="c_text_dashboard">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
+				<text>{@enter_pass_new=Enter your new Password}</text>
+			</text>
+			<input>
+				<placement x="60" y="%c_text_sub_y_spec%" w="%content_width%" h="%input_height%"/>
+				<text></text>
+				<data name="password_before" mask="*"/>
+				<restrict minlen="1" maxlen="32" allow="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_"/>
+				<action function="page">c_lock_set_confirm</action>
+			</input>
+			<template name="keyboardtemplate"/>
+			<action>
+				<touch key="back"/>
+				<action function="set">password_before=</action>
+				<action function="page">c_lock_ui</action>
+			</action>
+
+			<action>
+				<touch key="home"/>
+				<action function="set">password_before=</action>
+				<action function="page">c_refresh</action>
+			</action>
+		</page>
+		<page name="c_lock_set_confirm">
+			<template name="c_page"/>
+			<template name="c_status_bar"/>
+			<text style="c_main_text_header">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
+				<text>{@c_enter_pass=Enter Password}</text>
+			</text>
+			<text style="c_text_dashboard">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
+				<text>{@enter_pass_again=Enter Password Again}</text>
+			</text>
+			<input>
+				<placement x="60" y="%c_text_sub_y_spec%" w="%content_width%" h="%input_height%"/>
+				<text></text>
+				<data name="password_before_2" mask="*"/>
+				<restrict minlen="1" maxlen="32" allow="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_"/>
+				<action function="page">set_pass_check</action>
+			</input>
+			<template name="keyboardtemplate"/>
+			<action>
+				<touch key="back"/>
+				<action function="set">password_before=</action>
+				<action function="set">password_before_2=</action>
+				<action function="page">c_lock_set</action>
+			</action>
+
+			<action>
+				<touch key="home"/>
+				<action function="set">password_before=</action>
+				<action function="set">password_before_2=</action>
+				<action function="page">c_refresh</action>
+			</action>
+		</page>
+		<page name="c_lock_set_patt">
+			<template name="c_page"/>
+			<template name="c_status_bar"/>
+			<text style="c_main_text_header">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
+				<text>{@c_patt_ask=Enter Pattern}</text>
+			</text>
+			<text style="c_text_dashboard">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
+				<text>{@c_patt_new_info=Enter your new Pattern}</text>
+			</text>
+			<patternpassword>
+				<placement x="%pattern_x%" y="%row5_y%" w="%pattern_size%" h="%pattern_size%"/>
+				<dot color="%c_black%" activecolor="%c_black%" radius="%pattern_dot_dia%"/>
+				<line color="%c_black%" width="%pattern_line_w%"/>
+				<data name="password_before"/>
+				<action function="page">c_lock_set_patt_confirm</action>
+			</patternpassword>
+			<action>
+				<touch key="back"/>
+				<action function="set">password_before=</action>
+				<action function="page">c_lock_ui</action>
+			</action>
+
+			<action>
+				<touch key="home"/>
+				<action function="set">password_before=</action>
+				<action function="page">c_refresh</action>
+			</action>
+		</page>
+		<page name="c_lock_set_patt_confirm">
+			<template name="c_page"/>
+			<template name="c_status_bar"/>
+			<text style="c_main_text_header">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
+				<text>{@c_patt_ask=Enter Pattern}</text>
+			</text>
+			<text style="c_text_dashboard">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
+				<text>{@c_patt_new_info_2=Enter your new Pattern again}</text>
+			</text>
+			<patternpassword>
+				<placement x="%pattern_x%" y="%row5_y%" w="%pattern_size%" h="%pattern_size%"/>
+				<dot color="%c_black%" activecolor="%c_black%" radius="%pattern_dot_dia%"/>
+				<line color="%c_black%" width="%pattern_line_w%"/>
+				<data name="password_before_2"/>
+				<action function="page">set_patt_check</action>
+			</patternpassword>
+			<action>
+				<touch key="back"/>
+				<action function="set">password_before=</action>
+				<action function="set">password_before_2=</action>
+				<action function="page">c_lock_set</action>
+			</action>
+			<action>
+				<touch key="home"/>
+				<action function="set">password_before=</action>
+				<action function="set">password_before_2=</action>
+				<action function="page">c_refresh</action>
+			</action>
+		</page>
+		<page name="set_patt_check">
+			<template name="c_page"/>
+			<template name="c_status_bar"/>
+			<text style="c_main_text_header">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
+				<text>{@c_confirm=Confirm}</text>
+			</text>
+			<text style="c_text_dashboard">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
+				<text></text>
+			</text>
+			<button>
+				<conditions>
+					<condition var1="password_before" op="=" var2="password_before_2"/>
+					<condition var1="shrp_ab" op="=" var2="0"/>
+					<condition var1="av_express" op="=" var2="0"/>
+				</conditions>
+				<placement x="860" y="1628"/>
+				<image resource="c_ok"/>
+				<actions>
+					<action function="set">c_busy=1</action>
+					<action function="set">main_pass=%password_before_2%</action>
+					<action function="set">lock_enabled=1</action>
+					<action function="set">patt_lock_enabled=1</action>
+					<action function="set">c_new=0</action>
+					<action function="set">c_new_pattern=0</action>
+					<action function="set">password_before=</action>
+					<action function="set">password_before_2=</action>
+					<action function="set">c_status={@c_repacking=Repacking} {@recovery=Recovery}</action>
+					<action function="set_lock">2</action>
+					<action function="cmd">
+export recoveryBlock=%shrp_rec%;
+sh /twres/scripts/create_env.sh;
+					</action>
+					<action function="set">c_status={@c_flashing=Flashing} {@recovery=Recovery}</action>
+					<action function="c_repack"/>
+					<action function="set">c_status={@done=Done}</action>
+					<action function="set">c_busy=0</action>
+					<action function="page">set_pass_successful</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="password_before" op="=" var2="password_before_2"/>
+					<condition var1="shrp_ab" op="=" var2="1"/>
+					<condition var1="av_express" op="=" var2="0"/>
+				</conditions>
+				<placement x="860" y="1628"/>
+				<image resource="c_ok"/>
+				<actions>
+					<action function="set">c_busy=1</action>
+					<action function="set">main_pass=%password_before_2%</action>
+					<action function="set">lock_enabled=1</action>
+					<action function="set">patt_lock_enabled=1</action>
+					<action function="set">c_new=0</action>
+					<action function="set">c_new_pattern=0</action>
+					<action function="set">password_before=</action>
+					<action function="set">password_before_2=</action>
+					<action function="set">c_status={@c_repacking=Repacking} {@recovery=Recovery}</action>
+					<action function="set_lock">2</action>
+					<action function="cmd">
+sh /twres/scripts/create_envAB.sh;
+					</action>
+					<action function="set">c_status={@c_flashing=Flashing} {@recovery=Recovery}</action>
+					<action function="c_repack"/>
+					<action function="set">c_status={@done=Done}</action>
+					<action function="set">c_busy=0</action>
+					<action function="page">set_pass_successful</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="password_before" op="=" var2="password_before_2"/>
+					<condition var1="av_express" op="=" var2="1"/>
+				</conditions>
+				<placement x="860" y="1628"/>
+				<image resource="c_ok"/>
+				<actions>
+					<action function="set">c_busy=1</action>
+					<action function="set">main_pass=%password_before_2%</action>
+					<action function="set">lock_enabled=1</action>
+					<action function="set">patt_lock_enabled=1</action>
+					<action function="set">c_new=0</action>
+					<action function="set">c_new_pattern=0</action>
+					<action function="set">password_before=</action>
+					<action function="set">password_before_2=</action>
+					<action function="set">c_status={@c_repacking=Repacking} {@recovery=Recovery}</action>
+					<action function="set_lock">2</action>
+					<action function="set">c_status={@c_flashing=Flashing} {@recovery=Recovery}</action>
+					<action function="c_repack"/>
+					<action function="set">c_status={@done=Done}</action>
+					<action function="set">c_busy=0</action>
+					<action function="page">set_pass_successful</action>
+				</actions>
+			</button>
+			<button>
+				<condition var1="password_before" op="!=" var2="password_before_2"/>
+				<placement x="860" y="1628"/>
+				<image resource="c_ok"/>
+				<actions>
+					<action function="set">c_temp=108</action>
+					<action function="set">password_before=</action>
+					<action function="set">password_before_2=</action>
+					<action function="page">set_pass_failed</action>
+				</actions>
+			</button>
+			<template name="c_busy_status"/>
+		</page>
+		<page name="set_pass_check">
+			<template name="c_page"/>
+			<template name="c_status_bar"/>
+			<text style="c_main_text_header">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
+				<text>{@c_confirm=Confirm}</text>
+			</text>
+			<text style="c_text_dashboard">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
+				<text></text>
+			</text>
+			<button>
+				<conditions>
+					<condition var1="password_before" op="=" var2="password_before_2"/>
+					<condition var1="shrp_ab" op="=" var2="0"/>
+					<condition var1="av_express" op="=" var2="0"/>
+				</conditions>
+				<placement x="860" y="1628"/>
+				<image resource="c_ok"/>
+				<actions>
+					<action function="set">c_busy=1</action>
+					<action function="set">main_pass=%password_before_2%</action>
+					<action function="set">lock_enabled=1</action>
+					<action function="set">patt_lock_enabled=0</action>
+					<action function="set">c_new=0</action>
+					<action function="set">c_new_pattern=0</action>
+					<action function="set">password_before=</action>
+					<action function="set">password_before_2=</action>
+					<action function="set">c_status={@c_repacking=Repacking} {@recovery=Recovery}</action>
+					<action function="set_lock">1</action>
+					<action function="cmd">
+export recoveryBlock=%shrp_rec%;
+sh /twres/scripts/create_env.sh;
+					</action>
+					<action function="set">c_status={@c_flashing=Flashing} {@recovery=Recovery}</action>
+					<action function="c_repack"/>
+					<action function="set">c_status={@done=Done}</action>
+					<action function="set">c_busy=0</action>
+					<action function="page">set_pass_successful</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="password_before" op="=" var2="password_before_2"/>
+					<condition var1="shrp_ab" op="=" var2="1"/>
+					<condition var1="av_express" op="=" var2="0"/>
+				</conditions>
+				<placement x="860" y="1628"/>
+				<image resource="c_ok"/>
+				<actions>
+					<action function="set">c_busy=1</action>
+					<action function="set">main_pass=%password_before_2%</action>
+					<action function="set">lock_enabled=1</action>
+					<action function="set">patt_lock_enabled=0</action>
+					<action function="set">c_new=0</action>
+					<action function="set">c_new_pattern=0</action>
+					<action function="set">password_before=</action>
+					<action function="set">password_before_2=</action>
+					<action function="set">c_status={@c_repacking=Repacking} {@recovery=Recovery}</action>
+					<action function="set_lock">1</action>
+					<action function="cmd">
+sh /twres/scripts/create_envAB.sh;
+					</action>
+					<action function="set">c_status={@c_flashing=Flashing} {@recovery=Recovery}</action>
+					<action function="c_repack"/>
+					<action function="set">c_status={@done=Done}</action>
+					<action function="set">c_busy=0</action>
+					<action function="page">set_pass_successful</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="password_before" op="=" var2="password_before_2"/>
+					<condition var1="av_express" op="=" var2="1"/>
+				</conditions>
+				<placement x="860" y="1628"/>
+				<image resource="c_ok"/>
+				<actions>
+					<action function="set">c_busy=1</action>
+					<action function="set">main_pass=%password_before_2%</action>
+					<action function="set">lock_enabled=1</action>
+					<action function="set">patt_lock_enabled=0</action>
+					<action function="set">c_new=0</action>
+					<action function="set">c_new_pattern=0</action>
+					<action function="set">password_before=</action>
+					<action function="set">password_before_2=</action>
+					<action function="set">c_status={@c_repacking=Repacking} {@recovery=Recovery}</action>
+					<action function="set_lock">1</action>
+					<action function="set">c_status={@c_flashing=Flashing} {@recovery=Recovery}</action>
+					<action function="c_repack"/>
+					<action function="set">c_status={@done=Done}</action>
+					<action function="set">c_busy=0</action>
+					<action function="page">set_pass_successful</action>
+				</actions>
+			</button>
+			<button>
+				<condition var1="password_before" op="!=" var2="password_before_2"/>
+				<placement x="860" y="1628"/>
+				<image resource="c_ok"/>
+				<actions>
+					<action function="set">c_temp=110</action>
+					<action function="set">password_before=</action>
+					<action function="set">password_before_2=</action>
+					<action function="page">set_pass_failed</action>
+				</actions>
+			</button>
+			<template name="c_busy_status"/>
+		</page>
+		<page name="set_pass_successful">
+			<template name="c_page"/>
+			<template name="c_status_bar"/>
+			<text style="c_main_text_header_passed">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
+				<text>{@c_passed=Successful}</text>
+			</text>
+			<text style="c_text_dashboard">
+				<conditions>
+					<condition var1="patt_lock_enabled" op="=" var2="0" />
+				</conditions>
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
+				<text>{@c_passed_info=You have successfully set your password}</text>
+			</text>
+			<text style="c_text_dashboard">
+				<conditions>
+					<condition var1="patt_lock_enabled" op="=" var2="1" />
+				</conditions>
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
+				<text>{@c_passed_patt_info=You have successfully set your pattern}</text>
+			</text>
+			<button>
+				<placement x="860" y="1628"/>
+				<image resource="c_reboot"/>
+				<actions>
+					<action function="set">tw_back=reboot</action>
+					<action function="set">tw_action=reboot</action>
+					<action function="set">tw_action_param=recovery</action>
+					<action function="set">tw_reboot_param=recovery</action>
+					<action function="reboot">%tw_reboot_param%</action>
+				</actions>
+			</button>
+			<action>
+				<touch key="home"/>
+				<action function="page">c_refresh</action>
+			</action>
+		</page>
+		<page name="set_pass_failed">
+			<template name="c_page"/>
+			<template name="c_status_bar"/>
+			<text style="c_main_text_header_failed">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
+				<text>{@c_failed=Failed}</text>
+			</text>
+			<text style="c_text_dashboard">
+				<conditions>
+					<condition var1="c_temp" op="=" var2="110" />
+				</conditions>
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
+				<text>{@c_failed_same_info=Both passwords do not match}</text>
+			</text>
+			<text style="c_text_dashboard">
+				<conditions>
+					<condition var1="patt_lock_enabled" op="=" var2="108" />
+				</conditions>
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
+				<text>{@c_failed_same_info_patt=Both patterns do not match}</text>
+			</text>
+			<button>
+				<placement x="860" y="1628"/>
+				<image resource="c_ok"/>
+				<actions>
+					<action function="page">c_lock_ui</action>
+				</actions>
+			</button>
+		</page>
+
+		<!--For Pattern Reset-->
+		<page name="c_lock_old_patt_confirmer">
+			<template name="c_page"/>
+			<template name="c_status_bar"/>
+			<text style="c_main_text_header">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
+				<text>{@c_patt_ask=Enter Pattern}</text>
+			</text>
+			<text style="c_text_dashboard">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
+				<text>{@enter_patt_old=Enter your old Pattern}</text>
+			</text>
+			<patternpassword>
+				<placement x="%pattern_x%" y="%row5_y%" w="%pattern_size%" h="%pattern_size%"/>
+				<dot color="%c_black%" activecolor="%c_black%" radius="%pattern_dot_dia%"/>
+				<line color="%c_black%" width="%pattern_line_w%"/>
+				<data name="password_old"/>
+				<action function="page">c_old_patt_set_confirm</action>
+			</patternpassword>
+			<action>
+				<touch key="back"/>
+				<action function="set">password_old=</action>
+				<action function="page">c_lock_ui</action>
+			</action>
+
+			<action>
+				<touch key="home"/>
+				<action function="set">password_old=</action>
+				<action function="page">c_refresh</action>
+			</action>
+		</page>
+		<page name="c_old_patt_set_confirm">
+			<template name="c_page"/>
+			<template name="c_status_bar"/>
+			<text style="c_main_text_header">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
+				<text>{@c_confirm=Confirm}</text>
+			</text>
+			<text style="c_text_dashboard">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
+				<text></text>
+			</text>
+			<button>
+				<conditions>
+					<condition var1="password_old" op="=" var2="main_pass"/>
+					<condition var1="shrp_ab" op="=" var2="0"/>
+				</conditions>
+				<placement x="860" y="1628"/>
+				<image resource="c_ok"/>
+				<actions>
+					<action function="set">c_busy=1</action>
+					<action function="set">main_pass=</action>
+					<action function="set">password_old=</action>
+					<action function="set">c_new=1</action>
+					<action function="set">c_new_pattern=1</action>
+					<action function="set">lock_enabled=0</action>
+					<action function="set">patt_lock_enabled=0</action>
+					<action function="set">c_status={@c_repacking=Repacking} {@recovery=Recovery}</action>
+					<action function="reset_lock"/>
+					<action function="cmd">
+export recoveryBlock=%shrp_rec%;
+sh /twres/scripts/create_env.sh;
+					</action>
+					<action function="set">c_status={@c_flashing=Flashing} {@recovery=Recovery}</action>
+					<action function="c_repack"/>
+					<action function="set">c_temp=120</action>
+					<action function="set">c_status={@done=Done}</action>
+					<action function="set">c_busy=0</action>
+					<action function="page">c_reset_successful</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="password_old" op="=" var2="main_pass"/>
+					<condition var1="shrp_ab" op="=" var2="1"/>
+				</conditions>
+				<placement x="860" y="1628"/>
+				<image resource="c_ok"/>
+				<actions>
+					<action function="set">c_busy=1</action>
+					<action function="set">main_pass=</action>
+					<action function="set">password_old=</action>
+					<action function="set">c_new=1</action>
+					<action function="set">c_new_pattern=1</action>
+					<action function="set">lock_enabled=0</action>
+					<action function="set">patt_lock_enabled=0</action>
+					<action function="set">c_status={@c_repacking=Repacking} {@recovery=Recovery}</action>
+					<action function="reset_lock"/>
+					<action function="cmd">
+sh /twres/scripts/create_envAB.sh;
+					</action>
+					<action function="set">c_status={@c_flashing=Flashing} {@recovery=Recovery}</action>
+					<action function="c_repack"/>
+					<action function="set">c_temp=120</action>
+					<action function="set">c_status={@done=Done}</action>
+					<action function="set">c_busy=0</action>
+					<action function="page">c_reset_successful</action>
+				</actions>
+			</button>
+			<button>
+				<condition var1="password_old" op="!=" var2="main_pass"/>
+				<placement x="860" y="1628"/>
+				<image resource="c_ok"/>
+				<actions>
+					<action function="set">password_old=</action>
+					<action function="set">c_temp=120</action>
+					<action function="page">c_reset_incorrect</action>
+				</actions>
+			</button>
+			<template name="c_busy_status"/>
+		</page>
+		<page name="c_lock_old_confirmer">
+			<template name="c_page"/>
+			<template name="c_status_bar"/>
+			<text style="c_main_text_header">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
+				<text>{@c_enter_pass=Enter Password}</text>
+			</text>
+			<text style="c_text_dashboard">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
+				<text>{@enter_pass_old=Enter your old password}</text>
+			</text>
+			<input>
+				<placement x="60" y="%c_text_sub_y_spec%" w="%content_width%" h="%input_height%"/>
+				<text></text>
+				<data name="password_old" mask="*"/>
+				<restrict minlen="1" maxlen="32" allow="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_"/>
+				<action function="page">c_old_set_confirm</action>
+			</input>
+			<template name="keyboardtemplate"/>
+			<action>
+				<touch key="back"/>
+				<action function="set">password_old=</action>
+				<action function="page">c_lock_ui</action>
+			</action>
+
+			<action>
+				<touch key="home"/>
+				<action function="set">password_old=</action>
+				<action function="page">c_refresh</action>
+			</action>
+		</page>
+		<page name="c_old_set_confirm">
+			<template name="c_page"/>
+			<template name="c_status_bar"/>
+			<text style="c_main_text_header">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
+				<text>{@c_confirm=Confirm}</text>
+			</text>
+			<text style="c_text_dashboard">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
+				<text></text>
+			</text>
+			<button>
+				<conditions>
+					<condition var1="password_old" op="=" var2="main_pass"/>
+					<condition var1="shrp_ab" op="=" var2="0"/>
+				</conditions>
+				<placement x="860" y="1628"/>
+				<image resource="c_ok"/>
+				<actions>
+					<action function="set">c_busy=1</action>
+					<action function="set">main_pass=</action>
+					<action function="set">password_old=</action>
+					<action function="set">c_new=1</action>
+					<action function="set">c_new_pattern=1</action>
+					<action function="set">lock_enabled=0</action>
+					<action function="set">patt_lock_enabled=0</action>
+					<action function="set">c_status={@c_repacking=Repacking} {@recovery=Recovery}</action>
+					<action function="reset_lock"/>
+					<action function="cmd">
+export recoveryBlock=%shrp_rec%;
+sh /twres/scripts/create_env.sh;
+					</action>
+					<action function="set">c_status={@c_flashing=Flashing} {@recovery=Recovery}</action>
+					<action function="c_repack"/>
+					<action function="set">c_status={@done=Done}</action>
+					<action function="set">c_busy=0</action>
+					<action function="page">c_reset_successful</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="password_old" op="=" var2="main_pass"/>
+					<condition var1="shrp_ab" op="=" var2="1"/>
+				</conditions>
+				<placement x="860" y="1628"/>
+				<image resource="c_ok"/>
+				<actions>
+					<action function="set">c_busy=1</action>
+					<action function="set">main_pass=</action>
+					<action function="set">password_old=</action>
+					<action function="set">c_new=1</action>
+					<action function="set">c_new_pattern=1</action>
+					<action function="set">lock_enabled=0</action>
+					<action function="set">patt_lock_enabled=0</action>
+					<action function="set">c_status={@c_repacking=Repacking} {@recovery=Recovery}</action>
+					<action function="reset_lock"/>
+					<action function="cmd">
+sh /twres/scripts/create_envAB.sh;
+					</action>
+					<action function="set">c_status={@c_flashing=Flashing} {@recovery=Recovery}</action>
+					<action function="c_repack"/>
+					<action function="set">c_status={@done=Done}</action>
+					<action function="set">c_busy=0</action>
+					<action function="page">c_reset_successful</action>
+				</actions>
+			</button>
+			<button>
+				<condition var1="password_old" op="!=" var2="main_pass"/>
+				<placement x="860" y="1628"/>
+				<image resource="c_ok"/>
+				<actions>
+					<action function="set">password_old=</action>
+					<action function="set">c_temp=115</action>
+					<action function="page">c_reset_incorrect</action>
+				</actions>
+			</button>
+			<template name="c_busy_status"/>
+		</page>
+		<page name="c_reset_incorrect">
+			<template name="c_page"/>
+			<template name="c_status_bar"/>
+			<text style="c_main_text_header_failed">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
+				<text>{@c_failed=Failed}</text>
+			</text>
+			<text style="c_text_dashboard">
+				<conditions>
+					<condition var1="c_temp" op="=" var2="115" />
+				</conditions>
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
+				<text>{@pass_not_match=Passwords do not match!}</text>
+			</text>
+			<text style="c_text_dashboard">
+				<conditions>
+					<condition var1="c_temp" op="=" var2="120" />
+				</conditions>
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
+				<text>{@c_patt_failed_info=You typed an incorrect pattern. Click 'reload' to retry.}</text>
+			</text>
+			<button>
+				<placement x="860" y="1628"/>
+				<image resource="c_ok"/>
+				<action function="page">c_lock_ui</action>
+			</button>
+		</page>
+		<page name="c_reset_successful">
+			<template name="c_page"/>
+			<template name="c_status_bar"/>
+			<text style="c_main_text_header_passed">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
+				<text>{@c_passed=Successful}</text>
+			</text>
+			<text style="c_text_dashboard">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
+				<text>{@c_passed_reset_info=Reset Successfully}</text>
+			</text>
+			<button>
+				<placement x="860" y="1628"/>
+				<image resource="c_reboot"/>
+				<actions>
+					<action function="set">tw_back=reboot</action>
+					<action function="set">tw_action=reboot</action>
+					<action function="set">tw_action_param=recovery</action>
+					<action function="set">tw_reboot_param=recovery</action>
+					<action function="reboot">%tw_reboot_param%</action>
+				</actions>
+			</button>
+		</page>
+	</pages>
+</recovery>

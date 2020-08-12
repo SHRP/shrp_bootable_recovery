@@ -17,6 +17,29 @@
 		<xmlfile name="styles.xml"/>
 		<xmlfile name="c_page.xml"/>
 		<xmlfile name="powerPanel.xml"/>
+		<xmlfile name="pages/about.xml"/>
+		<xmlfile name="pages/action.xml"/>
+		<xmlfile name="pages/advanced.xml"/>
+		<xmlfile name="pages/backup.xml"/>
+		<xmlfile name="pages/copylog.xml"/>
+		<xmlfile name="pages/dashboard.xml"/>
+		<xmlfile name="pages/essential.xml"/>
+		<xmlfile name="pages/files.xml"/>
+		<xmlfile name="pages/install.xml"/>
+		<xmlfile name="pages/lockscreen.xml"/>
+		<xmlfile name="pages/magisk.xml"/>
+		<xmlfile name="pages/misc.xml"/>
+		<xmlfile name="pages/mount.xml"/>
+		<xmlfile name="pages/partition.xml"/>
+		<xmlfile name="pages/protection.xml"/>
+		<xmlfile name="pages/reboot.xml"/>
+		<xmlfile name="pages/restore.xml"/>
+		<xmlfile name="pages/security.xml"/>
+		<xmlfile name="pages/settings.xml"/>
+		<xmlfile name="pages/textEditor.xml"/>
+		<xmlfile name="pages/theme.xml"/>
+		<xmlfile name="pages/tweaks.xml"/>
+		<xmlfile name="pages/wipe.xml"/>
 		<xmlfile name="portrait.xml"/>
 	</include>
 

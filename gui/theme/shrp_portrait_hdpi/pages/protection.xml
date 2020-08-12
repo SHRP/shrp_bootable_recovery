@@ -1,0 +1,155 @@
+<?xml version="1.0"?>
+<recovery>
+	<pages>
+		<page name="button_check">
+			<action>
+				<conditions>
+					<condition var1="lock_enabled" op="&gt;" var2="0"/>
+					<condition var1="lock_enabled" op="&lt;" var2="2"/>
+					<condition var1="patt_lock_enabled" op="!=" var2="1"/>
+				</conditions>
+				<actions>
+					<action function="stopmtp"/>
+					<action function="page">c_pass_capture</action>
+				</actions>
+			</action>
+			<action>
+				<conditions>
+					<condition var1="lock_enabled" op="&gt;" var2="0"/>
+					<condition var1="lock_enabled" op="&lt;" var2="2"/>
+					<condition var1="patt_lock_enabled" op="&gt;" var2="0"/>
+					<condition var1="patt_lock_enabled" op="&lt;" var2="2"/>
+				</conditions>
+				<actions>
+					<action function="stopmtp"/>
+					<action function="page">c_patt_capture</action>
+				</actions>
+			</action>
+			<action>
+				<conditions>
+					<condition var1="lock_enabled" op="!=" var2="1"/>
+					<condition var1="patt_lock_enabled" op="!=" var2="1"/>
+				</conditions>
+				<actions>
+					<action function="page">main2</action>
+				</actions>
+			</action>
+		</page>
+		<page name="c_patt_capture">
+			<template name="c_page"/>
+			<template name="c_status_bar"/>
+			<text style="c_main_text_header">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
+				<text>{@c_patt_ask=Enter Pattern}</text>
+			</text>
+			<text style="c_text_dashboard">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
+				<text>{@patt_info=Your recovery is pattern protected}</text>
+			</text>
+			<patternpassword>
+				<placement x="%pattern_x%" y="%row5_y%" w="%pattern_size%" h="%pattern_size%"/>
+				<dot color="%c_black%" activecolor="%c_black%" radius="%pattern_dot_dia%"/>
+				<line color="%c_black%" width="%pattern_line_w%"/>
+				<data name="password"/>
+				<action function="unlock">%password%</action>
+			</patternpassword>
+		</page>
+
+		<page name="c_pass_capture">
+			<template name="c_page"/>
+			<template name="c_status_bar"/>
+			<text style="c_main_text_header">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
+				<text>{@c_enter_pass=Enter Password}</text>
+			</text>
+			<text style="c_text_dashboard">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
+				<text>{@pass_info=Your recovery is password protected}</text>
+			</text>
+			<input>
+				<placement x="60" y="%c_text_sub_y_spec%" w="%content_width%" h="%input_height%"/>
+				<text></text>
+				<data name="password" mask="*"/>
+				<restrict minlen="1" maxlen="32" allow="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_"/>
+				<action function="unlock">%password%</action>
+			</input>
+			<template name="keyboardtemplate"/>
+		</page>
+		<page name="pass_check">
+			<template name="c_page"/>
+			<template name="c_status_bar"/>
+			<action>
+				<condition var1="password" op="=" var2="main_pass"/>
+				<actions>
+					<action function="startmtp"/>
+					<action function="page">main2</action>
+				</actions>
+			</action>
+			<action>
+				<condition var1="password" op="!=" var2="main_pass"/>
+				<actions>
+					<action function="page">pass_failed</action>
+				</actions>
+			</action>
+		</page>
+		<page name="pass_failed">
+			<template name="c_page"/>
+			<template name="c_status_bar"/>
+			<text style="c_main_text_header_failed">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
+				<text>{@c_failed=Failed}</text>
+			</text>
+			<text style="c_text_dashboard">
+				<conditions>
+					<condition var1="patt_lock_enabled" op="=" var2="0"/>
+				</conditions>
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
+				<text>{@c_failed_info=You typed an incorrect password. Click 'reload' to retry.}</text>
+			</text>
+			<text style="c_text_dashboard">
+				<conditions>
+					<condition var1="patt_lock_enabled" op="=" var2="1"/>
+				</conditions>
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
+				<text>{@c_patt_failed_info=You typed an incorrect pattern. Click 'reload' to retry.}</text>
+			</text>
+			<button>
+				<conditions>
+					<condition var1="patt_lock_enabled" op="=" var2="0"/>
+				</conditions>
+				<placement x="860" y="1628"/>
+				<image resource="c_refresh"/>
+				<actions>
+					<action function="set">password=</action>
+					<action function="page">c_pass_capture</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="patt_lock_enabled" op="=" var2="1"/>
+				</conditions>
+				<placement x="860" y="1628"/>
+				<image resource="c_refresh"/>
+				<actions>
+					<action function="set">password=</action>
+					<action function="page">c_patt_capture</action>
+				</actions>
+			</button>
+		</page>
+		<page name="c_recBlocked">
+			<template name="c_page"/>
+			<template name="c_status_bar"/>
+			<text style="c_main_text_header_failed">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
+				<text>{@c_failed=Failed}</text>
+			</text>
+			<text style="c_text_dashboard">
+				<conditions>
+					<condition var1="patt_lock_enabled" op="=" var2="0"/>
+				</conditions>
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
+				<text>{@c_failed_info_blocked=Something went wrong}</text>
+			</text>
+		</page>
+	</pages>
+</recovery>

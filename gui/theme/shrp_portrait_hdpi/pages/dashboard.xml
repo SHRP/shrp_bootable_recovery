@@ -1,0 +1,203 @@
+<?xml version="1.0"?>
+<recovery>
+	<pages>
+		<page name="main2">
+			<template name="c_page"/>
+			<template name="c_status_bar"/>
+			<text color="%c_black%">
+				<font resource="c_header_s"/>
+				<placement x="550" y="%main_head%"/>
+				<text>{@c_skyhawk=SKY HAWK}</text>
+			</text>
+			<text style="c_text_dashboard">
+				<placement x="%c_hawk_base_column%" y="%sub_head%"/>
+				<text>{@c_essentials=Essentials}</text>
+			</text>
+			<button>
+				<placement x="99" y="%dash_ico_1st_row%"/>
+				<image resource="c_dashboard_flash"/>
+				<actions>
+					<action function="queueclear"/>
+					<action function="set">tw_selectimage=0</action>
+					<action function="page">install</action>
+				</actions>
+			</button>
+			<button style="c_dash_text_grid">
+				<placement x="69" y="%dash_txt_1st_row%"/>
+				<text>{@c_flash=Flash}</text>
+				<actions>
+					<action function="queueclear"/>
+					<action function="set">tw_selectimage=0</action>
+					<action function="page">install</action>
+				</actions>
+			</button>
+			<button>
+				<placement x="343" y="%dash_ico_1st_row%"/>
+				<image resource="c_dashboard_wipe"/>
+				<action function="page">wipe</action>
+			</button>
+			<button style="c_dash_text_grid">
+				<placement x="313" y="%dash_txt_1st_row%"/>
+				<text>{@wipe_btn=Wipe}</text>
+				<action function="page">wipe</action>
+			</button>
+			<button>
+				<placement x="587" y="%dash_ico_1st_row%"/>
+				<image resource="c_dashboard_backup"/>
+				<action function="page">backup</action>
+			</button>
+			<button style="c_dash_text_grid">
+				<placement x="557" y="%dash_txt_1st_row%"/>
+				<text>{@backup_btn=Backup}</text>
+				<action function="page">backup</action>
+			</button>
+			<button>
+				<placement x="831" y="%dash_ico_1st_row%"/>
+				<image resource="c_dashboard_restore"/>
+				<action function="page">restore</action>
+			</button>
+			<button style="c_dash_text_grid">
+				<placement x="801" y="%dash_txt_1st_row%"/>
+				<text>{@restore_btn=Restore}</text>
+				<action function="page">restore</action>
+			</button>
+
+			<button>
+				<placement x="99" y="%dash_ico_2nd_row%"/>
+				<image resource="c_dashboard_mount"/>
+				<action function="page">mount</action>
+			</button>
+			<button style="c_dash_text_grid">
+				<placement x="69" y="%dash_txt_2nd_row%"/>
+				<text>{@mount_btn=Mount}</text>
+				<action function="page">mount</action>
+			</button>
+			<button>
+				<placement x="343" y="%dash_ico_2nd_row%"/>
+				<image resource="c_dashboard_filemanager"/>
+				<action function="page">c_file_epicx</action>
+			</button>
+			<button style="c_dash_text_grid">
+				<placement x="313" y="%dash_txt_2nd_row%"/>
+				<text>{@files_btn=Files}</text>
+				<action function="page">c_file_epicx</action>
+			</button>
+			<button>
+				<placement x="587" y="%dash_ico_2nd_row%"/>
+				<image resource="c_dashboard_terminal"/>
+				<action function="page">terminalcommand</action>
+			</button>
+			<button style="c_dash_text_grid">
+				<placement x="557" y="%dash_txt_2nd_row%"/>
+				<text>{@terminal_btn=Terminal}</text>
+				<action function="page">terminalcommand</action>
+			</button>
+			<button>
+				<placement x="831" y="%dash_ico_2nd_row%"/>
+				<image resource="c_dashboard_advanced"/>
+				<action function="page">advanced</action>
+			</button>
+			<button style="c_dash_text_grid">
+				<placement x="801" y="%dash_txt_2nd_row%"/>
+				<text>{@advanced_hdr=Advanced}</text>
+				<action function="page">advanced</action>
+			</button>
+			<text style="c_text_dashboard">
+				<placement x="%c_hawk_base_column%" y="%sub_head2%"/>
+				<text>{@c_tools=Tools}</text>
+			</text>
+			<button>
+				<placement x="99" y="%dash_ico_3rd_row%"/>
+				<image resource="c_dashboard_magisk"/>
+				<actions>
+					<action function="shrp_init"/>
+					<action function="page">c_splash_magisk</action>
+				</actions>
+			</button>
+			<button style="c_dash_text_grid">
+				<placement x="69" y="%dash_txt_3rd_row%"/>
+				<text>{@c_magisk=Magisk}</text>
+				<actions>
+					<action function="shrp_init"/>
+					<action function="page">c_splash_magisk</action>
+				</actions>
+			</button>
+			<button>
+				<placement x="343" y="%dash_ico_3rd_row%"/>
+				<image resource="c_mod"/>
+				<actions>
+					<action function="shrp_init"/>
+					<action function="page">c_splash_theme</action>
+				</actions>
+			</button>
+			<button style="c_dash_text_grid">
+				<placement x="313" y="%dash_txt_3rd_row%"/>
+				<text>{@c_theme=Theme}</text>
+				<actions>
+					<action function="shrp_init"/>
+					<action function="page">c_splash_theme</action>
+				</actions>
+			</button>
+			<button>
+				<placement x="587" y="%dash_ico_3rd_row%"/>
+				<image resource="c_dashboard_addon"/>
+				<action function="page">c_addons</action>
+			</button>
+			<button style="c_dash_text_grid">
+				<placement x="557" y="%dash_txt_3rd_row%"/>
+				<text>{@c_tweaks=Tweaks}</text>
+				<action function="page">c_addons</action>
+			</button>
+			<button>
+				<placement x="831" y="%dash_ico_3rd_row%"/>
+				<image resource="c_dashboard_settings"/>
+				<action function="page">settings</action>
+			</button>
+			<button style="c_dash_text_grid">
+				<placement x="801" y="%dash_txt_3rd_row%"/>
+				<text>{@settings_btn=Settings}</text>
+				<action function="page">settings</action>
+			</button>
+			<button>
+				<placement x="99" y="%dash_ico_4th_row%"/>
+				<image resource="c_dashboard_lock"/>
+				<action function="page">c_lock_ui</action>
+			</button>
+			<button style="c_dash_text_grid">
+				<placement x="69" y="%dash_txt_4th_row%"/>
+				<text>{@c_security=Security}</text>
+				<action function="page">c_lock_ui</action>
+			</button>
+			<button>
+				<placement x="343" y="%dash_ico_4th_row%"/>
+				<image resource="c_dashboard_lang"/>
+				<action function="page">settings_language</action>
+			</button>
+			<button style="c_dash_text_grid">
+				<placement x="313" y="%dash_txt_4th_row%"/>
+				<text>{@settings_language_btn=Language}</text>
+				<action function="page">settings_language</action>
+			</button>
+			<button>
+				<placement x="587" y="%dash_ico_4th_row%"/>
+				<image resource="c_dashboard_reboot"/>
+				<action function="overlay">reboot</action>
+			</button>
+			<button style="c_dash_text_grid">
+				<placement x="557" y="%dash_txt_4th_row%"/>
+				<text>{@reboot_btn=Reboot}</text>
+				<action function="overlay">reboot</action>
+			</button>
+			<button>
+				<placement x="831" y="%dash_ico_4th_row%"/>
+				<image resource="c_dashboard_about"/>
+				<action function="page">my_info</action>
+			</button>
+			<button style="c_dash_text_grid">
+				<placement x="801" y="%dash_txt_4th_row%"/>
+				<text>{@c_about=About}</text>
+				<action function="page">my_info</action>
+			</button>
+		</page>
+	</pages>
+</recovery>

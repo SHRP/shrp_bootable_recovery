@@ -1,0 +1,1679 @@
+<?xml version="1.0"?>
+<recovery>
+	<pages>
+        <page name="c_splash_theme">
+			<template name="c_page"/>
+			<template name="c_status_bar"/>
+			<image>
+				<placement x="415" y="750"/>
+				<image resource="c_theme_splash"/>
+			</image>
+			<button style="c_text_dashboard">
+				<placement x="0" y="1100" w="1080" h="80"/>
+				<fill color="%transparent%"/>
+				<text>{@c_theme=Theme}</text>
+			</button>
+			<button>
+				<placement x="379" y="1620"/>
+				<conditions>
+					<condition var1="c_temp3" op="!=" var2="78"/>
+					<condition var1="shrp_ab" op="=" var2="0"/>
+					<condition var1="av_express" op="=" var2="0"/>
+				</conditions>
+				<image resource="c_theme_init_s" highlightresource="c_theme_init_s_hr"/>
+				<actions>
+					<action function="set">c_status={@c_init=Initializing}</action>
+					<action function="set">c_temp3=78</action>
+					<action function="cmd">
+cp -r /twres /tmp/bak/;
+export recoveryBlock=%shrp_rec%;
+sh /twres/scripts/create_env.sh;
+					</action>
+					<action function="page">c_new_shrp_theme_dashboard</action>
+				</actions>
+			</button>
+			<button>
+				<placement x="379" y="1620"/>
+				<conditions>
+					<condition var1="c_temp3" op="!=" var2="78"/>
+					<condition var1="shrp_ab" op="=" var2="1"/>
+					<condition var1="av_express" op="=" var2="0"/>
+				</conditions>
+				<image resource="c_theme_init_s" highlightresource="c_theme_init_s_hr"/>
+				<actions>
+					<action function="set">c_status={@c_init=Initializing}</action>
+					<action function="set">c_temp3=78</action>
+					<action function="cmd">
+cp -r /twres /tmp/bak/;
+sh /twres/scripts/create_envAB.sh;
+					</action>
+					<action function="page">c_new_shrp_theme_dashboard</action>
+				</actions>
+			</button>
+			<button>
+				<placement x="379" y="1620"/>
+				<conditions>
+					<condition var1="c_temp3" op="!=" var2="78"/>
+					<condition var1="av_express" op="=" var2="1"/>
+				</conditions>
+				<image resource="c_theme_init_s" highlightresource="c_theme_init_s_hr"/>
+				<actions>
+					<action function="set">c_status={@c_init=Initializing}</action>
+					<action function="set">c_temp3=78</action>
+					<action function="cmd">
+cp -r /twres /tmp/bak/;
+					</action>
+					<action function="page">c_new_shrp_theme_dashboard</action>
+				</actions>
+			</button>
+			<text>
+				<condition var1="c_temp3" op="=" var2="78"/>
+				<placement x="%c_hawk_base_column%" y="1650"/>
+				<font resource="font_s" color="%c_black%"/>
+				<text>%c_status%</text>
+			</text>
+			<action>
+				<touch key="back"/>
+				<actions>
+					<action function="page">c_refresh</action>
+				</actions>
+			</action>
+			<action>
+				<touch key="home"/>
+				<actions>
+					<action function="page">c_refresh</action>
+				</actions>
+			</action>
+		</page>
+		<page name="c_new_shrp_theme_dashboard">
+			<template name="c_page"/>
+			<template name="c_status_bar"/>
+			<text style="c_main_text_header">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
+				<text>{@c_customization=Customization}</text>
+			</text>
+			<text style="c_text_dashboard">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
+				<text>{@c_customize_rec=Customize your recovery}</text>
+			</text>
+			<button>
+				<placement x="64" y="280"/>
+				<image resource="c_theme_color_btn"/>
+				<action function="page">c_color_accents</action>
+			</button>
+			<text style="c_sub">
+				<placement x="200" y="300"/>
+				<text>{@c_theme=Theme} {@c_color=color}</text>
+			</text>
+
+			<button>
+				<placement x="64" y="410"/>
+				<image resource="c_theme_status_btn"/>
+				<action function="page">c_theme_status</action>
+			</button>
+
+			<text style="c_sub">
+				<placement x="200" y="430"/>
+				<text>{@c_status_bar=Status bar}</text>
+			</text>
+
+			<button>
+				<placement x="64" y="530"/>
+				<image resource="c_theme_daskboard_ico_btn"/>
+				<action function="page">c_theme_dash_ico</action>
+			</button>
+
+			<text style="c_sub">
+				<placement x="200" y="550"/>
+				<text>{@c_dashboard_icon=Dashboard icon}</text>
+			</text>
+
+			<button>
+				<placement x="64" y="650"/>
+				<image resource="c_theme_nav_bar_btn"/>
+				<action function="page">c_theme_nav</action>
+			</button>
+
+			<text style="c_sub">
+				<placement x="200" y="670"/>
+				<text>{@c_navb=Nav bar}</text>
+			</text>
+
+			<button>
+				<placement x="64" y="770"/>
+				<image resource="c_theme_others_btn"/>
+				<action function="page">c_theme_other</action>
+			</button>
+
+			<text style="c_sub">
+				<placement x="200" y="790"/>
+				<text>{@c_others=Others}</text>
+			</text>
+
+			<button>
+				<placement x="860" y="1450"/>
+				<condition var1="av_express" var2="1"/>
+				<image resource="c_restoreDefault"/>
+				<action function="restoredefaultsettings">theme</action>
+				<action function="set">tw_action=reboot</action>
+				<action function="set">tw_action_param=recovery</action>
+				<action function="set">tw_reboot_param=recovery</action>
+				<action function="reboot">%tw_reboot_param%</action>
+			</button>
+
+			<button>
+				<placement x="860" y="1628"/>
+				<text></text>
+				<image resource="c_apply_theme"/>
+				<actions>
+					<action function="set">c_busy=1</action>
+					<action function="cmd">
+mkdir -p /data/local/tmp
+export battery_bar=%c_battery_bar_triger%
+export statusbar=%c_status_bar_triger%
+export b_icon=%c_battery_icon_triger%
+export bp_icon=%c_battery_portrait_icon_triger%
+export bc_icon=%c_battery_circle_icon_triger%
+export battery_txt=%c_battery_txt_triger%
+export time_txt=%c_time_txt_triger%
+export r_c=%c_rounded_corner_trigger%
+export r_c_type=%c_rounded_corner_type%
+export d_i=%c_dash_ico%
+export cnt=%c_nav_type%
+export cnb=%c_nav_bg%
+export cb_w=%c_bgc%
+export ctc=%c_text_color%
+export cac=%c_acc_color%
+export cacv=%c_acc_color_val%
+export cnm=%c_notch_mode%
+export scolor=%c_scolor_status%
+cd /twres/scripts
+sh statusbar_trigger_scripts.sh
+</action>
+					<action function="set">c_status={@c_file_busy_info=Processing} : 6%</action>
+					<action function="set">c_target_destination=main2</action>
+					<action function="c_scolorHandler"/>
+					<action function="c_scolorExec">
+export x=%c_white%;
+export y=%c_scolor%;
+export z=%nav_bg%;
+sh /twres/scripts/scolorHandle.sh
+</action>
+					<action function="c_repack"/>
+					<action function="cmd">
+rm -r /tmp/work;
+rm -r /tmp/bak;
+					</action>
+					<action function="set">c_status={@c_flashing=Flashing} {@recovery=Recovery}</action>
+					<action function="set">c_status={@c_rm_o_files=Removing Old files}</action>
+					<action function="set">c_status={@done=Done}</action>
+					<action function="set">c_busy=0</action>
+					<action function="reload"/>
+				</actions>
+			</button>
+			<template name="c_busy_status"/>
+			<action>
+				<touch key="back"/>
+				<actions>
+					<action function="cmd">
+cp -r /tmp/bak/* /twres/;
+rm -r /tmp/work;
+rm -r /tmp/bak;
+					</action>
+					<action function="reload"/>
+				</actions>
+			</action>
+			<action>
+				<touch key="home"/>
+				<actions>
+					<action function="cmd">
+cp -r /tmp/bak/* /twres/;
+rm -r /tmp/work;
+rm -r /tmp/bak;
+					</action>
+					<action function="reload"/>
+				</actions>
+			</action>
+		</page>
+		<page name="c_color_accents">
+			<template name="c_page"/>
+			<template name="c_status_bar"/>
+			<text style="c_main_text_header">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
+				<text>{@c_color_two=Color}</text>
+			</text>
+			<text style="c_text_dashboard">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
+				<text>{@c_color_info=Color customization}</text>
+			</text>
+			<image>
+				<placement x="0" y="%c_custom_pos_4%"/>
+				<image resource="c_shadow"/>
+			</image>
+			<text style="c_file_menu">
+				<placement x="%c_hawk_base_column%" y="%t_1st_heading%"/>
+				<text>{@c_bg=Background} {@c_color=color}</text>
+			</text>
+			<button>
+				<placement x="%c_hawk_base_column%" y="%t_1st_row%"/>
+				<image resource="white_mode_color"/>
+				<actions>
+					<action function="cmd">
+cp "/twres/c_bg/white.xml" "/twres/bg_res.xml";
+cp /twres/c_bg_sub/c_white/*.png /twres/images;
+</action>
+					<action function="set">c_bgc=0</action>
+				</actions>
+			</button>
+			<button>
+				<condition var1="c_bgc" op="=" var2="0" />
+				<placement x="%c_hawk_base_column%" y="%t_1st_row%"/>
+				<image resource="c_applied"/>
+			</button>
+			<button>
+				<placement x="215" y="%t_1st_row%"/>
+				<image resource="wetasphalt_mode"/>
+				<actions>
+					<action function="cmd">
+cp "/twres/c_bg/wetasphalt.xml" "/twres/bg_res.xml";
+cp /twres/c_bg_sub/c_black/*.png /twres/images;
+cp /twres/c_bg_sub/c_dblue/*.png /twres/images;
+</action>
+					<action function="set">c_bgc=1</action>
+				</actions>
+			</button>
+			<button>
+				<condition var1="c_bgc" op="=" var2="1" />
+				<placement x="215" y="%t_1st_row%"/>
+				<image resource="c_applied"/>
+			</button>
+			<button>
+				<placement x="375" y="%t_1st_row%"/>
+				<image resource="midnightblue_mode"/>
+				<actions>
+					<action function="cmd">
+cp "/twres/c_bg/midnightblue.xml" "/twres/bg_res.xml";
+cp /twres/c_bg_sub/c_black/*.png /twres/images;
+cp /twres/c_bg_sub/c_aex/*.png /twres/images;
+</action>
+					<action function="set">c_bgc=2</action>
+				</actions>
+			</button>
+			<button>
+				<condition var1="c_bgc" op="=" var2="2" />
+				<placement x="375" y="%t_1st_row%"/>
+				<image resource="c_applied"/>
+			</button>
+			<button>
+				<placement x="535" y="%t_1st_row%"/>
+				<image resource="dark_black_mode_color"/>
+				<actions>
+					<action function="cmd">
+cp "/twres/c_bg/dark.xml" "/twres/bg_res.xml";
+cp /twres/c_bg_sub/c_black/*.png /twres/images;
+cp /twres/c_bg_sub/c_dark/*.png /twres/images;
+</action>
+					<action function="set">c_bgc=3</action>
+				</actions>
+			</button>
+			<button>
+				<condition var1="c_bgc" op="=" var2="3" />
+				<placement x="535" y="%t_1st_row%"/>
+				<image resource="c_applied"/>
+			</button>
+			<button>
+				<placement x="695" y="%t_1st_row%"/>
+				<image resource="pitch_black_mode_color"/>
+				<actions>
+					<action function="cmd">
+cp "/twres/c_bg/black.xml" "/twres/bg_res.xml";
+cp /twres/c_bg_sub/c_black/*.png /twres/images;
+</action>
+					<action function="set">c_bgc=4</action>
+				</actions>
+			</button>
+			<button>
+				<condition var1="c_bgc" op="=" var2="4" />
+				<placement x="695" y="%t_1st_row%"/>
+				<image resource="c_applied"/>
+			</button>
+			<text style="c_file_menu">
+				<placement x="%c_hawk_base_column%" y="%t_2nd_heading%"/>
+				<text>{@c_text=Text} {@c_color=color}</text>
+			</text>
+			<button>
+				<placement x="%c_hawk_base_column%" y="%t_2nd_row%"/>
+				<image resource="white_mode_color"/>
+				<actions>
+					<action function="cmd">
+cp "/twres/c_txt/c_white.xml" "/twres/txt_res.xml";
+</action>
+					<action function="set">c_text_color=0</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="c_text_color" op="=" var2="0" />
+				</conditions>
+				<placement x="%c_hawk_base_column%" y="%t_2nd_row%"/>
+				<image resource="c_applied"/>
+			</button>
+			<button>
+				<placement x="215" y="%t_2nd_row%"/>
+				<image resource="pitch_black_mode_color"/>
+				<actions>
+					<action function="cmd">
+cp "/twres/c_txt/c_black.xml" "/twres/txt_res.xml";
+</action>
+					<action function="set">c_text_color=1</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="c_text_color" op="=" var2="1" />
+				</conditions>
+				<placement x="215" y="%t_2nd_row%"/>
+				<image resource="c_applied"/>
+			</button>
+			<button>
+				<placement x="375" y="%t_2nd_row%"/>
+				<image resource="color_blue"/>
+				<actions>
+					<action function="cmd">
+cp "/twres/c_txt/c_blue.xml" "/twres/txt_res.xml";
+</action>
+					<action function="set">c_text_color=2</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="c_text_color" op="=" var2="2" />
+				</conditions>
+				<placement x="375" y="%t_2nd_row%"/>
+				<image resource="c_applied"/>
+			</button>
+			<button>
+				<placement x="535" y="%t_2nd_row%"/>
+				<image resource="color_teal"/>
+				<actions>
+					<action function="cmd">
+cp "/twres/c_txt/c_teal.xml" "/twres/txt_res.xml";
+</action>
+					<action function="set">c_text_color=3</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="c_text_color" op="=" var2="3" />
+				</conditions>
+				<placement x="535" y="%t_2nd_row%"/>
+				<image resource="c_applied"/>
+			</button>
+			<button>
+				<placement x="695" y="%t_2nd_row%"/>
+				<image resource="color_brown"/>
+				<actions>
+					<action function="cmd">
+cp "/twres/c_txt/c_brown.xml" "/twres/txt_res.xml";
+</action>
+					<action function="set">c_text_color=4</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="c_text_color" op="=" var2="4" />
+				</conditions>
+				<placement x="695" y="%t_2nd_row%"/>
+				<image resource="c_applied"/>
+			</button>
+			<button>
+				<placement x="%c_hawk_base_column%" y="%t_3rd_row%"/>
+				<image resource="color_indigo"/>
+				<actions>
+					<action function="cmd">
+cp "/twres/c_txt/c_indigo.xml" "/twres/txt_res.xml";
+</action>
+					<action function="set">c_text_color=5</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="c_text_color" op="=" var2="5" />
+				</conditions>
+				<placement x="%c_hawk_base_column%" y="%t_3rd_row%"/>
+				<image resource="c_applied"/>
+			</button>
+			<button>
+				<placement x="215" y="%t_3rd_row%"/>
+				<image resource="color_purple"/>
+				<actions>
+					<action function="cmd">
+cp "/twres/c_txt/c_purple.xml" "/twres/txt_res.xml";
+</action>
+					<action function="set">c_text_color=6</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="c_text_color" op="=" var2="6" />
+				</conditions>
+				<placement x="215" y="%t_3rd_row%"/>
+				<image resource="c_applied"/>
+			</button>
+			<button>
+				<placement x="375" y="%t_3rd_row%"/>
+				<image resource="color_green"/>
+				<actions>
+					<action function="cmd">
+cp "/twres/c_txt/c_green.xml" "/twres/txt_res.xml";
+</action>
+					<action function="set">c_text_color=7</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="c_text_color" op="=" var2="7" />
+				</conditions>
+				<placement x="375" y="%t_3rd_row%"/>
+				<image resource="c_applied"/>
+			</button>
+			<button>
+				<placement x="535" y="%t_3rd_row%"/>
+				<image resource="color_cyan"/>
+				<actions>
+					<action function="cmd">
+cp "/twres/c_txt/c_cyan.xml" "/twres/txt_res.xml";
+</action>
+					<action function="set">c_text_color=8</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="c_text_color" op="=" var2="8" />
+				</conditions>
+				<placement x="535" y="%t_3rd_row%"/>
+				<image resource="c_applied"/>
+			</button>
+			<button>
+				<placement x="695" y="%t_3rd_row%"/>
+				<image resource="color_yellow"/>
+				<actions>
+					<action function="cmd">
+cp "/twres/c_txt/c_yellow.xml" "/twres/txt_res.xml";
+</action>
+					<action function="set">c_text_color=9</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="c_text_color" op="=" var2="9" />
+				</conditions>
+				<placement x="695" y="%t_3rd_row%"/>
+				<image resource="c_applied"/>
+			</button>
+
+			<button>
+				<placement x="%c_hawk_base_column%" y="%t_4th_row%"/>
+				<image resource="color_orange"/>
+				<actions>
+					<action function="cmd">
+cp "/twres/c_txt/c_orange.xml" "/twres/txt_res.xml";
+</action>
+					<action function="set">c_text_color=10</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="c_text_color" op="=" var2="10" />
+				</conditions>
+				<placement x="%c_hawk_base_column%" y="%t_4th_row%"/>
+				<image resource="c_applied"/>
+			</button>
+			<button>
+				<placement x="215" y="%t_4th_row%"/>
+				<image resource="color_rr"/>
+				<actions>
+					<action function="cmd">
+cp "/twres/c_txt/c_lred.xml" "/twres/txt_res.xml";
+</action>
+					<action function="set">c_text_color=11</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="c_text_color" op="=" var2="11" />
+				</conditions>
+				<placement x="215" y="%t_4th_row%"/>
+				<image resource="c_applied"/>
+			</button>
+			<button>
+				<placement x="375" y="%t_4th_row%"/>
+				<image resource="color_red"/>
+				<actions>
+					<action function="cmd">
+cp "/twres/c_txt/c_red.xml" "/twres/txt_res.xml";
+</action>
+					<action function="set">c_text_color=12</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="c_text_color" op="=" var2="12" />
+				</conditions>
+				<placement x="375" y="%t_4th_row%"/>
+				<image resource="c_applied"/>
+			</button>
+			<button>
+				<placement x="535" y="%t_4th_row%"/>
+				<image resource="color_rpink"/>
+				<actions>
+					<action function="cmd">
+cp "/twres/c_txt/c_rpink.xml" "/twres/txt_res.xml";
+</action>
+					<action function="set">c_text_color=13</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="c_text_color" op="=" var2="13" />
+				</conditions>
+				<placement x="535" y="%t_4th_row%"/>
+				<image resource="c_applied"/>
+			</button>
+			<button>
+				<placement x="695" y="%t_4th_row%"/>
+				<image resource="color_pink"/>
+				<actions>
+					<action function="cmd">
+cp "/twres/c_txt/c_pink.xml" "/twres/txt_res.xml";
+</action>
+					<action function="set">c_text_color=14</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="c_text_color" op="=" var2="14" />
+				</conditions>
+				<placement x="695" y="%t_4th_row%"/>
+				<image resource="c_applied"/>
+			</button>
+
+			<text style="c_file_menu">
+				<placement x="%c_hawk_base_column%" y="%t_3rd_heading%"/>
+				<text>{@c_accent=Accent} {@c_color=color}</text>
+			</text>
+
+			<button>
+				<placement x="%c_hawk_base_column%" y="%t_5th_row%"/>
+				<image resource="white_mode_color"/>
+				<actions>
+					<action function="cmd">
+cp /twres/c_acc_res/white/*.png /twres/images;
+cp /twres/c_nav_sub/c_white/*.png /twres/images;
+					</action>
+					<action function="set">c_acc_color=0</action>
+					<action function="set">c_acc_color_val=#ffffff</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="c_acc_color" op="=" var2="0" />
+				</conditions>
+				<placement x="%c_hawk_base_column%" y="%t_5th_row%"/>
+				<image resource="c_applied"/>
+			</button>
+			<button>
+				<placement x="215" y="%t_5th_row%"/>
+				<image resource="pitch_black_mode_color"/>
+				<actions>
+					<action function="cmd">
+cp /twres/c_acc_res/dark/*.png /twres/images;
+cp /twres/c_nav_sub/c_dark/*.png /twres/images;
+					</action>
+					<action function="set">c_acc_color=1</action>
+					<action function="set">c_acc_color_val=#000000</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="c_acc_color" op="=" var2="1" />
+				</conditions>
+				<placement x="215" y="%t_5th_row%"/>
+				<image resource="c_applied"/>
+			</button>
+			<button>
+				<placement x="375" y="%t_5th_row%"/>
+				<image resource="color_blue"/>
+				<actions>
+					<action function="cmd">
+cp /twres/c_acc_res/blue/*.png /twres/images;
+cp /twres/c_nav_sub/c_blue/*.png /twres/images;
+					</action>
+					<action function="set">c_acc_color=2</action>
+					<action function="set">c_acc_color_val=#0088ff</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="c_acc_color" op="=" var2="2" />
+				</conditions>
+				<placement x="375" y="%t_5th_row%"/>
+				<image resource="c_applied"/>
+			</button>
+			<button>
+				<placement x="535" y="%t_5th_row%"/>
+				<image resource="color_teal"/>
+				<actions>
+					<action function="cmd">
+cp /twres/c_acc_res/teal/*.png /twres/images;
+cp /twres/c_nav_sub/c_teal/*.png /twres/images;
+					</action>
+					<action function="set">c_acc_color=3</action>
+					<action function="set">c_acc_color_val=#009688</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="c_acc_color" op="=" var2="3" />
+				</conditions>
+				<placement x="535" y="%t_5th_row%"/>
+				<image resource="c_applied"/>
+			</button>
+			<button>
+				<placement x="695" y="%t_5th_row%"/>
+				<image resource="color_brown"/>
+				<actions>
+					<action function="cmd">
+cp /twres/c_acc_res/brown/*.png /twres/images;
+cp /twres/c_nav_sub/c_brown/*.png /twres/images;
+					</action>
+					<action function="set">c_acc_color=4</action>
+					<action function="set">c_acc_color_val=#795548</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="c_acc_color" op="=" var2="4" />
+				</conditions>
+				<placement x="695" y="%t_5th_row%"/>
+				<image resource="c_applied"/>
+			</button>
+			<button>
+				<placement x="%c_hawk_base_column%" y="%t_6th_row%"/>
+				<image resource="color_indigo"/>
+				<actions>
+					<action function="cmd">
+cp /twres/c_acc_res/indigo/*.png /twres/images;
+cp /twres/c_nav_sub/c_indigo/*.png /twres/images;
+					</action>
+					<action function="set">c_acc_color=5</action>
+					<action function="set">c_acc_color_val=#3f51b5</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="c_acc_color" op="=" var2="5" />
+				</conditions>
+				<placement x="%c_hawk_base_column%" y="%t_6th_row%"/>
+				<image resource="c_applied"/>
+			</button>
+			<button>
+				<placement x="215" y="%t_6th_row%"/>
+				<image resource="color_purple"/>
+				<actions>
+					<action function="cmd">
+cp /twres/c_acc_res/purple/*.png /twres/images;
+cp /twres/c_nav_sub/c_purple/*.png /twres/images;
+					</action>
+					<action function="set">c_acc_color=6</action>
+					<action function="set">c_acc_color_val=#7750fb</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="c_acc_color" op="=" var2="6" />
+				</conditions>
+				<placement x="215" y="%t_6th_row%"/>
+				<image resource="c_applied"/>
+			</button>
+			<button>
+				<placement x="375" y="%t_6th_row%"/>
+				<image resource="color_green"/>
+				<actions>
+					<action function="cmd">
+cp /twres/c_acc_res/green/*.png /twres/images;
+cp /twres/c_nav_sub/c_green/*.png /twres/images;
+					</action>
+					<action function="set">c_acc_color=7</action>
+					<action function="set">c_acc_color_val=#21ef8b</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="c_acc_color" op="=" var2="7" />
+				</conditions>
+				<placement x="375" y="%t_6th_row%"/>
+				<image resource="c_applied"/>
+			</button>
+			<button>
+				<placement x="535" y="%t_6th_row%"/>
+				<image resource="color_cyan"/>
+				<actions>
+					<action function="cmd">
+cp /twres/c_acc_res/cyan/*.png /twres/images;
+cp /twres/c_nav_sub/c_cyan/*.png /twres/images;
+					</action>
+					<action function="set">c_acc_color=8</action>
+					<action function="set">c_acc_color_val=#00f2c4</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="c_acc_color" op="=" var2="8" />
+				</conditions>
+				<placement x="535" y="%t_6th_row%"/>
+				<image resource="c_applied"/>
+			</button>
+			<button>
+				<placement x="695" y="%t_6th_row%"/>
+				<image resource="color_yellow"/>
+				<actions>
+					<action function="cmd">
+cp /twres/c_acc_res/yellow/*.png /twres/images;
+cp /twres/c_nav_sub/c_yellow/*.png /twres/images;
+					</action>
+					<action function="set">c_acc_color=9</action>
+					<action function="set">c_acc_color_val=#ffc000</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="c_acc_color" op="=" var2="9" />
+				</conditions>
+				<placement x="695" y="%t_6th_row%"/>
+				<image resource="c_applied"/>
+			</button>
+
+			<button>
+				<placement x="%c_hawk_base_column%" y="%t_7th_row%"/>
+				<image resource="color_orange"/>
+				<actions>
+					<action function="cmd">
+cp /twres/c_acc_res/orange/*.png /twres/images;
+cp /twres/c_nav_sub/c_orange/*.png /twres/images;
+					</action>
+					<action function="set">c_acc_color=10</action>
+					<action function="set">c_acc_color_val=#ed6f01</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="c_acc_color" op="=" var2="10" />
+				</conditions>
+				<placement x="%c_hawk_base_column%" y="%t_7th_row%"/>
+				<image resource="c_applied"/>
+			</button>
+			<button>
+				<placement x="215" y="%t_7th_row%"/>
+				<image resource="color_rr"/>
+				<actions>
+					<action function="cmd">
+cp /twres/c_acc_res/lred/*.png /twres/images;
+cp /twres/c_nav_sub/c_lred/*.png /twres/images;
+					</action>
+					<action function="set">c_acc_color=11</action>
+					<action function="set">c_acc_color_val=#ff5353</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="c_acc_color" op="=" var2="11" />
+				</conditions>
+				<placement x="215" y="%t_7th_row%"/>
+				<image resource="c_applied"/>
+			</button>
+			<button>
+				<placement x="375" y="%t_7th_row%"/>
+				<image resource="color_red"/>
+				<actions>
+					<action function="cmd">
+cp /twres/c_acc_res/red/*.png /twres/images;
+cp /twres/c_nav_sub/c_red/*.png /twres/images;
+					</action>
+					<action function="set">c_acc_color=12</action>
+					<action function="set">c_acc_color_val=#e53935</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="c_acc_color" op="=" var2="12" />
+				</conditions>
+				<placement x="375" y="%t_7th_row%"/>
+				<image resource="c_applied"/>
+			</button>
+			<button>
+				<placement x="535" y="%t_7th_row%"/>
+				<image resource="color_rpink"/>
+				<actions>
+					<action function="cmd">
+cp /twres/c_acc_res/rpink/*.png /twres/images;
+cp /twres/c_nav_sub/c_rpink/*.png /twres/images;
+					</action>
+					<action function="set">c_acc_color=13</action>
+					<action function="set">c_acc_color_val=#fd0f60</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="c_acc_color" op="=" var2="13" />
+				</conditions>
+				<placement x="535" y="%t_7th_row%"/>
+				<image resource="c_applied"/>
+			</button>
+			<button>
+				<placement x="695" y="%t_7th_row%"/>
+				<image resource="color_pink"/>
+				<actions>
+					<action function="cmd">
+cp /twres/c_acc_res/pink/*.png /twres/images;
+cp /twres/c_nav_sub/c_pink/*.png /twres/images;
+					</action>
+					<action function="set">c_acc_color=14</action>
+					<action function="set">c_acc_color_val=#ff0095</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="c_acc_color" op="=" var2="14" />
+				</conditions>
+				<placement x="695" y="%t_7th_row%"/>
+				<image resource="c_applied"/>
+			</button>
+			<action>
+				<touch key="back"/>
+				<actions>
+					<action function="page">c_new_shrp_theme_dashboard</action>
+				</actions>
+			</action>
+			<action>
+				<touch key="home"/>
+				<actions>
+					<action function="page">c_new_shrp_theme_dashboard</action>
+				</actions>
+			</action>
+		</page>
+		<page name="c_theme_nav">
+			<template name="c_page"/>
+			<template name="c_status_bar"/>
+			<text style="c_main_text_header">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
+				<text>{@c_navb=Nav-bar}</text>
+			</text>
+			<text style="c_text_dashboard">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
+				<text>{@c_nav_info=Navigation Bar customization}</text>
+			</text>
+			<image>
+				<placement x="0" y="%c_custom_pos_4%"/>
+				<image resource="c_shadow"/>
+			</image>
+			<text style="c_sub">
+				<placement x="%c_hawk_base_column%" y="%t_1st_heading%"/>
+				<text>{@c_nav_s=Nav-bar style}</text>
+			</text>
+			<button>
+				<condition var1="c_nav_type" op="!=" var2="0"/>
+				<placement x="%c_hawk_base_column%" y="%t_1st_radio_pos%"/>
+				<image resource="radio_false"/>
+				<actions>
+					<action function="set">c_nav_type=0</action>
+					<action function="cmd">
+cp -a /twres/c_nav/c_default/. /twres/c_nav_sub/;
+</action>
+					<action function="navHandler">%c_acc_color%</action>
+				</actions>
+			</button>
+			<image>
+				<condition var1="c_nav_type" op="=" var2="0"/>
+				<placement x="%c_hawk_base_column%" y="%t_1st_radio_pos%"/>
+				<image resource="radio_true"/>
+			</image>
+			<text style="c_sub">
+				<placement x="130" y="%t_1st_radio_text_pos%"/>
+				<text>{@c_dc_default=Default}</text>
+			</text>
+
+			<button>
+				<condition var1="c_nav_type" op="!=" var2="1"/>
+				<placement x="%c_hawk_base_column%" y="%t_2nd_radio_pos%"/>
+				<image resource="radio_false"/>
+				<actions>
+					<action function="set">c_nav_type=1</action>
+					<action function="cmd">
+cp -a /twres/c_nav/c_samsung/. /twres/c_nav_sub/;
+</action>
+					<action function="navHandler">%c_acc_color%</action>
+				</actions>
+			</button>
+			<image>
+				<condition var1="c_nav_type" op="=" var2="1"/>
+				<placement x="%c_hawk_base_column%" y="%t_2nd_radio_pos%"/>
+				<image resource="radio_true"/>
+			</image>
+			<text style="c_sub">
+				<placement x="130" y="%t_2nd_radio_text_pos%"/>
+				<text>{@c_nav_samsung=Samsung}</text>
+			</text>
+
+			<button>
+				<condition var1="c_nav_type" op="!=" var2="2"/>
+				<placement x="%c_hawk_base_column%" y="%t_3rd_radio_pos%"/>
+				<image resource="radio_false"/>
+				<actions>
+					<action function="set">c_nav_type=2</action>
+					<action function="cmd">
+cp -a /twres/c_nav/c_nxtbit/. /twres/c_nav_sub/;
+</action>
+					<action function="navHandler">%c_acc_color%</action>
+				</actions>
+			</button>
+
+			<image>
+				<condition var1="c_nav_type" op="=" var2="2"/>
+				<placement x="%c_hawk_base_column%" y="%t_3rd_radio_pos%"/>
+				<image resource="radio_true"/>
+			</image>
+			<text style="c_sub">
+				<placement x="130" y="%t_3rd_radio_text_pos%"/>
+				<text>{@c_nav_nxt=Nxt-bit}</text>
+			</text>
+
+			<button>
+				<condition var1="c_nav_type" op="!=" var2="3"/>
+				<placement x="%c_hawk_base_column%" y="%t_4th_radio_pos%"/>
+				<image resource="radio_false"/>
+				<actions>
+					<action function="set">c_nav_type=3</action>
+					<action function="cmd">
+cp -a /twres/c_nav/c_custom/. /twres/c_nav_sub/;
+</action>
+					<action function="navHandler">%c_acc_color%</action>
+				</actions>
+			</button>
+
+			<image>
+				<condition var1="c_nav_type" op="=" var2="3"/>
+				<placement x="%c_hawk_base_column%" y="%t_4th_radio_pos%"/>
+				<image resource="radio_true"/>
+			</image>
+			<text style="c_sub">
+				<placement x="130" y="%t_4th_radio_text_pos%"/>
+				<text>{@c_custom=Custom}</text>
+			</text>
+
+			<text style="c_sub">
+				<placement x="%c_hawk_base_column%" y="%sub_head_mid%"/>
+				<text>{@options_hdr=Options}</text>
+			</text>
+			<button>
+				<conditions>
+					<condition var1="c_nav_bg" op="=" var2="1"/>
+				</conditions>
+				<placement x="%c_hawk_base_column%" y="%t_5th_checkbox_pos%"/>
+				<image resource="checkbox_true"/>
+				<actions>
+					<action function="set">c_nav_bg=0</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="c_nav_bg" op="=" var2="0"/>
+				</conditions>
+				<placement x="%c_hawk_base_column%" y="%t_5th_checkbox_pos%"/>
+				<image resource="checkbox_false"/>
+				<actions>
+					<action function="set">c_nav_bg=1</action>
+				</actions>
+			</button>
+			<text style="c_sub">
+				<placement x="130" y="%t_5th_checkbox_text_pos%"/>
+				<text>{@c_nav_bg=Nav-Bar Background}</text>
+			</text>
+			<action>
+				<touch key="back"/>
+				<actions>
+					<action function="page">c_new_shrp_theme_dashboard</action>
+				</actions>
+			</action>
+			<action>
+				<touch key="home"/>
+				<actions>
+					<action function="page">c_new_shrp_theme_dashboard</action>
+				</actions>
+			</action>
+		</page>
+        <page name="c_theme_status">
+			<template name="c_page"/>
+			<template name="c_status_bar"/>
+			<text style="c_main_text_header">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
+				<text>{@c_status_bar=Status bar}</text>
+			</text>
+			<text style="c_text_dashboard">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
+				<text>{@c_status_bar_info=Status Bar Customization}</text>
+			</text>
+			<image>
+				<placement x="0" y="%c_custom_pos_4%"/>
+				<image resource="c_shadow"/>
+			</image>
+			<text style="c_text_dashboard">
+				<placement x="%c_hawk_base_column%" y="%input_default_y%"/>
+				<text>{@c_status_bar=Status bar}</text>
+			</text>
+			<button>
+				<conditions>
+					<condition var1="c_status_bar_triger" op="=" var2="0"/>
+					<condition var1="c_notch_mode" op="=" var2="0"/>
+				</conditions>
+				<placement x="910" y="%dash_ico_1st_row%" />
+				<image resource="c_switch_off"/>
+				<actions>
+					<action function="set">c_status_bar_triger=1</action>
+					<action function="cmd">
+rm /twres/notch_handled_var.xml
+cp /twres/cache/notch_handled_var.xml /twres/
+					</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="c_status_bar_triger" op="=" var2="0"/>
+					<condition var1="c_notch_mode" op="=" var2="1"/>
+				</conditions>
+				<placement x="910" y="%dash_ico_1st_row%" />
+				<image resource="c_switch_off"/>
+				<actions>
+					<action function="set">c_status_bar_triger=1</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="c_status_bar_triger" op="=" var2="1"/>
+					<condition var1="c_notch_mode" op="=" var2="0"/>
+				</conditions>
+				<placement x="910" y="%dash_ico_1st_row%"/>
+				<image resource="c_switch_on"/>
+				<actions>
+					<action function="set">c_status_bar_triger=0</action>
+					<action function="set">c_battery_icon_triger=0</action>
+					<action function="set">c_battery_txt_triger=0</action>
+					<action function="set">c_time_txt_triger=0</action>
+					<action function="cmd">
+rm /twres/notch_handled_var.xml
+cp /twres/cache/default/notch_handled_var.xml /twres/
+					</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="c_status_bar_triger" op="=" var2="1"/>
+					<condition var1="c_notch_mode" op="=" var2="1"/>
+				</conditions>
+				<placement x="910" y="%dash_ico_1st_row%"/>
+				<image resource="c_switch_on"/>
+				<actions>
+					<action function="set">c_status_bar_triger=0</action>
+					<action function="set">c_battery_icon_triger=0</action>
+					<action function="set">c_battery_txt_triger=0</action>
+					<action function="set">c_time_txt_triger=0</action>
+				</actions>
+			</button>
+			<text style="c_sub">
+				<placement x="%c_hawk_base_column%" y="%t_1st_radio_text_pos%"/>
+				<text>{@options_hdr=Options}</text>
+			</text>
+			<button>
+				<conditions>
+					<condition var1="c_battery_bar_triger" op="=" var2="1"/>
+				</conditions>
+				<placement x="%c_hawk_base_column%" y="%t_2nd_radio_pos%"/>
+				<image resource="checkbox_true"/>
+				<actions>
+					<action function="set">c_battery_bar_triger=0</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="c_battery_bar_triger" op="=" var2="0"/>
+				</conditions>
+				<placement x="%c_hawk_base_column%" y="%t_2nd_radio_pos%"/>
+				<image resource="checkbox_false"/>
+				<actions>
+					<action function="set">c_battery_bar_triger=1</action>
+				</actions>
+			</button>
+
+			<text style="c_sub">
+				<placement x="130" y="%t_2nd_radio_text_pos%"/>
+				<text>{@c_batt_bar=Show Battery Bar}</text>
+			</text>
+			<button>
+				<conditions>
+					<condition var1="c_battery_txt_triger" op="=" var2="1"/>
+					<condition var1="c_status_bar_triger" op="=" var2="1"/>
+				</conditions>
+				<placement x="%c_hawk_base_column%" y="%t_3rd_radio_pos%"/>
+				<image resource="checkbox_true"/>
+				<actions>
+					<action function="set">c_battery_txt_triger=0</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="c_battery_txt_triger" op="=" var2="0"/>
+					<condition var1="c_status_bar_triger" op="=" var2="1"/>
+				</conditions>
+				<placement x="%c_hawk_base_column%" y="%t_3rd_radio_pos%"/>
+				<image resource="checkbox_false"/>
+				<actions>
+					<action function="set">c_battery_txt_triger=1</action>
+				</actions>
+			</button>
+			<text style="c_sub">
+				<condition var1="c_status_bar_triger" op="=" var2="1"/>
+				<placement x="130" y="%t_3rd_radio_text_pos%"/>
+				<text>{@c_show=Show} {@c_batt_per=Battery Percentage}</text>
+			</text>
+			<button>
+				<conditions>
+					<condition var1="c_battery_icon_triger" op="=" var2="1"/>
+					<condition var1="c_status_bar_triger" op="=" var2="1"/>
+				</conditions>
+				<placement x="%c_hawk_base_column%" y="%t_4th_radio_pos%"/>
+				<image resource="checkbox_true"/>
+				<actions>
+					<action function="set">c_battery_icon_triger=0</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="c_battery_icon_triger" op="=" var2="0"/>
+					<condition var1="c_status_bar_triger" op="=" var2="1"/>
+				</conditions>
+				<placement x="%c_hawk_base_column%" y="%t_4th_radio_pos%"/>
+				<image resource="checkbox_false"/>
+				<actions>
+					<action function="set">c_battery_icon_triger=1</action>
+				</actions>
+			</button>
+			<text style="c_sub">
+				<condition var1="c_status_bar_triger" op="=" var2="1"/>
+				<placement x="130" y="%t_4th_radio_text_pos%"/>
+				<text>{@c_show=Show} {@c_batt_icon=Battery Icon}</text>
+			</text>
+			<button>
+				<conditions>
+					<condition var1="c_time_txt_triger" op="=" var2="1"/>
+					<condition var1="c_status_bar_triger" op="=" var2="1"/>
+				</conditions>
+				<placement x="%c_hawk_base_column%" y="%t_5th_radio_pos%"/>
+				<image resource="checkbox_true"/>
+				<actions>
+					<action function="set">c_time_txt_triger=0</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="c_time_txt_triger" op="=" var2="0"/>
+					<condition var1="c_status_bar_triger" op="=" var2="1"/>
+				</conditions>
+				<placement x="%c_hawk_base_column%" y="%t_5th_radio_pos%"/>
+				<image resource="checkbox_false"/>
+				<actions>
+					<action function="set">c_time_txt_triger=1</action>
+				</actions>
+			</button>
+			<text style="c_sub">
+				<condition var1="c_status_bar_triger" op="=" var2="1"/>
+				<placement x="130" y="%sub_head_mid%"/>
+				<text>{@c_show=Show} {@c_time=Time}</text>
+			</text>
+			<text style="c_sub">
+				<conditions>
+					<condition var1="c_status_bar_triger" op="=" var2="1"/>
+					<condition var1="c_battery_icon_triger" op="=" var2="1"/>
+				</conditions>
+				<placement x="%c_hawk_base_column%" y="%t_5th_checkbox_text_pos%"/>
+				<text>{@c_batt_type=Battery Icon Type}</text>
+			</text>
+			<button>
+				<conditions>
+					<condition var1="c_battery_icon_triger" op="=" var2="1"/>
+					<condition var1="c_status_bar_triger" op="=" var2="1"/>
+					<condition var1="c_battery_portrait_icon_triger" op="=" var2="0"/>
+					<condition var1="c_bgc" op="=" var2="0"/>
+				</conditions>
+				<placement x="%c_hawk_base_column%" y="%t_6th_radio_pos%"/>
+				<image resource="radio_false"/>
+				<actions>
+					<action function="set">c_battery_portrait_icon_triger=1</action>
+					<action function="set">c_battery_circle_icon_triger=0</action>
+					<action function="cmd">
+cp /twres/c_battery/default/c_white/*.png /twres/c_bg_sub/c_white/;
+cp /twres/c_battery/default/c_black/*.png /twres/c_bg_sub/c_black/;
+cp /twres/c_battery/default/c_white/*.png /twres/images/;
+					</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="c_battery_icon_triger" op="=" var2="1"/>
+					<condition var1="c_status_bar_triger" op="=" var2="1"/>
+					<condition var1="c_battery_portrait_icon_triger" op="=" var2="0"/>
+					<condition var1="c_bgc" op="!=" var2="0"/>
+				</conditions>
+				<placement x="%c_hawk_base_column%" y="%t_6th_radio_pos%"/>
+				<image resource="radio_false"/>
+				<actions>
+					<action function="set">c_battery_portrait_icon_triger=1</action>
+					<action function="set">c_battery_circle_icon_triger=0</action>
+					<action function="cmd">
+cp /twres/c_battery/default/c_white/*.png /twres/c_bg_sub/c_white/;
+cp /twres/c_battery/default/c_black/*.png /twres/c_bg_sub/c_black/;
+cp /twres/c_battery/default/c_black/*.png /twres/images/;
+					</action>
+				</actions>
+			</button>
+			<image>
+				<conditions>
+					<condition var1="c_battery_icon_triger" op="=" var2="1"/>
+					<condition var1="c_status_bar_triger" op="=" var2="1"/>
+					<condition var1="c_battery_portrait_icon_triger" op="=" var2="1"/>
+				</conditions>
+				<placement x="%c_hawk_base_column%" y="%t_6th_radio_pos%"/>
+				<image resource="radio_true"/>
+			</image>
+			<text style="c_sub">
+				<conditions>
+					<condition var1="c_status_bar_triger" op="=" var2="1"/>
+					<condition var1="c_battery_icon_triger" op="=" var2="1"/>
+				</conditions>
+				<placement x="130" y="%t_6th_radio_text_pos%"/>
+				<text>{@c_batt_type_two=Portrait}</text>
+			</text>
+			<button>
+				<conditions>
+					<condition var1="c_battery_icon_triger" op="=" var2="1"/>
+					<condition var1="c_status_bar_triger" op="=" var2="1"/>
+					<condition var1="c_battery_circle_icon_triger" op="=" var2="0"/>
+					<condition var1="c_bgc" op="=" var2="0"/>
+				</conditions>
+				<placement x="%c_hawk_base_column%" y="%t_7th_radio_pos%"/>
+				<image resource="radio_false"/>
+				<actions>
+					<action function="set">c_battery_portrait_icon_triger=0</action>
+					<action function="set">c_battery_circle_icon_triger=1</action>
+					<action function="cmd">
+cp /twres/c_battery/circle/c_white/*.png /twres/c_bg_sub/c_white/;
+cp /twres/c_battery/circle/c_black/*.png /twres/c_bg_sub/c_black/;
+cp /twres/c_battery/circle/c_white/*.png /twres/images/;
+					</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="c_battery_icon_triger" op="=" var2="1"/>
+					<condition var1="c_status_bar_triger" op="=" var2="1"/>
+					<condition var1="c_battery_circle_icon_triger" op="=" var2="0"/>
+					<condition var1="c_bgc" op="!=" var2="0"/>
+				</conditions>
+				<placement x="%c_hawk_base_column%" y="%t_7th_radio_pos%"/>
+				<image resource="radio_false"/>
+				<actions>
+					<action function="set">c_battery_portrait_icon_triger=0</action>
+					<action function="set">c_battery_circle_icon_triger=1</action>
+					<action function="cmd">
+cp /twres/c_battery/circle/c_white/*.png /twres/c_bg_sub/c_white/;
+cp /twres/c_battery/circle/c_black/*.png /twres/c_bg_sub/c_black/;
+cp /twres/c_battery/circle/c_black/*.png /twres/images/;
+					</action>
+				</actions>
+			</button>
+			<image>
+				<conditions>
+					<condition var1="c_battery_icon_triger" op="=" var2="1"/>
+					<condition var1="c_status_bar_triger" op="=" var2="1"/>
+					<condition var1="c_battery_circle_icon_triger" op="=" var2="1"/>
+				</conditions>
+				<placement x="%c_hawk_base_column%" y="%t_7th_radio_pos%"/>
+				<image resource="radio_true"/>
+			</image>
+			<text style="c_sub">
+				<conditions>
+					<condition var1="c_status_bar_triger" op="=" var2="1"/>
+					<condition var1="c_battery_icon_triger" op="=" var2="1"/>
+				</conditions>
+				<placement x="130" y="%t_7th_radio_text_pos%"/>
+				<text>{@c_batt_type_one=Circle}</text>
+			</text>
+
+
+			<action>
+				<touch key="back"/>
+				<actions>
+					<action function="page">c_new_shrp_theme_dashboard</action>
+				</actions>
+			</action>
+			<action>
+				<touch key="home"/>
+				<actions>
+					<action function="page">c_new_shrp_theme_dashboard</action>
+				</actions>
+			</action>
+		</page>
+		<page name="c_theme_other">
+			<template name="c_page"/>
+			<template name="c_status_bar"/>
+			<text style="c_main_text_header">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
+				<text>{@c_others=Others}</text>
+			</text>
+			<text style="c_text_dashboard">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
+				<text>{@c_other_info=Other customizations for your recovery}</text>
+			</text>
+			<image>
+				<placement x="0" y="%c_custom_pos_4%"/>
+				<image resource="c_shadow"/>
+			</image>
+			<text style="c_text_dashboard">
+				<placement x="%c_hawk_base_column%" y="%input_default_y%"/>
+				<text>{@c_rounded_corner=Rounded Corner}</text>
+			</text>
+			<button>
+				<conditions>
+					<condition var1="c_rounded_corner_trigger" op="=" var2="0"/>
+				</conditions>
+				<placement x="910" y="%dash_ico_1st_row%" />
+				<image resource="c_switch_off"/>
+				<actions>
+					<action function="set">c_rounded_corner_trigger=1</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="c_rounded_corner_trigger" op="=" var2="1"/>
+				</conditions>
+				<placement x="910" y="%dash_ico_1st_row%"/>
+				<image resource="c_switch_on"/>
+				<actions>
+					<action function="set">c_rounded_corner_trigger=0</action>
+				</actions>
+			</button>
+			<text style="c_sub">
+				<condition var1="c_rounded_corner_trigger" op="=" var2="1"/>
+				<placement x="%c_hawk_base_column%" y="%t_1st_radio_text_pos%"/>
+				<text>{@c_radius=Radius}</text>
+			</text>
+			<button>
+				<conditions>
+					<condition var1="c_rounded_corner_trigger" op="=" var2="1"/>
+					<condition var1="c_rounded_corner_type" op="!=" var2="0"/>
+				</conditions>
+				<placement x="%c_hawk_base_column%" y="%t_2nd_radio_pos%"/>
+				<image resource="radio_false"/>
+				<actions>
+					<action function="set">c_rounded_corner_type=0</action>
+					<action function="cmd">
+cp /twres/c_rounded_res/type_1/*.png /twres/images/;
+					</action>
+				</actions>
+			</button>
+			<image>
+				<conditions>
+					<condition var1="c_rounded_corner_trigger" op="=" var2="1"/>
+					<condition var1="c_rounded_corner_type" op="=" var2="0"/>
+				</conditions>
+				<placement x="%c_hawk_base_column%" y="%t_2nd_radio_pos%"/>
+				<image resource="radio_true"/>
+			</image>
+			<text style="c_sub">
+				<placement x="130" y="%t_2nd_radio_text_pos%"/>
+				<condition var1="c_rounded_corner_trigger" op="=" var2="1"/>
+				<text>{@c_small=Small}</text>
+			</text>
+
+			<button>
+				<conditions>
+					<condition var1="c_rounded_corner_trigger" op="=" var2="1"/>
+					<condition var1="c_rounded_corner_type" op="!=" var2="1"/>
+				</conditions>
+				<placement x="%c_hawk_base_column%" y="%t_3rd_radio_pos%"/>
+				<image resource="radio_false"/>
+				<actions>
+					<action function="set">c_rounded_corner_type=1</action>
+					<action function="cmd">
+cp /twres/c_rounded_res/type_2/*.png /twres/images/;
+					</action>
+				</actions>
+			</button>
+			<image>
+				<conditions>
+					<condition var1="c_rounded_corner_trigger" op="=" var2="1"/>
+					<condition var1="c_rounded_corner_type" op="=" var2="1"/>
+				</conditions>
+				<placement x="%c_hawk_base_column%" y="%t_3rd_radio_pos%"/>
+				<image resource="radio_true"/>
+			</image>
+			<text style="c_sub">
+				<placement x="130" y="%t_3rd_radio_text_pos%"/>
+				<condition var1="c_rounded_corner_trigger" op="=" var2="1"/>
+				<text>{@c_medium=Medium}</text>
+			</text>
+
+			<button>
+				<conditions>
+					<condition var1="c_rounded_corner_trigger" op="=" var2="1"/>
+					<condition var1="c_rounded_corner_type" op="!=" var2="2"/>
+				</conditions>
+				<placement x="%c_hawk_base_column%" y="%t_4th_radio_pos%"/>
+				<image resource="radio_false"/>
+				<actions>
+					<action function="set">c_rounded_corner_type=2</action>
+					<action function="cmd">
+cp /twres/c_rounded_res/type_3/*.png /twres/images/;
+					</action>
+				</actions>
+			</button>
+			<image>
+				<conditions>
+					<condition var1="c_rounded_corner_trigger" op="=" var2="1"/>
+					<condition var1="c_rounded_corner_type" op="=" var2="2"/>
+				</conditions>
+				<placement x="%c_hawk_base_column%" y="%t_4th_radio_pos%"/>
+				<image resource="radio_true"/>
+			</image>
+			<text style="c_sub">
+				<condition var1="c_rounded_corner_trigger" op="=" var2="1"/>
+				<placement x="130" y="%t_4th_radio_text_pos%"/>
+				<text>{@c_big=Big}</text>
+			</text>
+
+			<!--checkbox>
+			  <placement x="%c_hawk_base_column%" y="1575"/>
+			  <text>{@c_secondary=Secondary Text Color}</text>
+			  <data variable="c_scolor_status"/>
+			</checkbox-->
+
+			<action>
+				<touch key="back"/>
+				<actions>
+					<action function="page">c_new_shrp_theme_dashboard</action>
+				</actions>
+			</action>
+			<action>
+				<touch key="home"/>
+				<actions>
+					<action function="page">c_new_shrp_theme_dashboard</action>
+				</actions>
+			</action>
+		</page>
+		<page name="c_theme_dash_ico">
+			<template name="c_page"/>
+			<template name="c_status_bar"/>
+			<text style="c_main_text_header">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
+				<text>{@c_icons=Icons}</text>
+			</text>
+			<text style="c_text_dashboard">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
+				<text>{@c_dc_c=Dashboard icon customization}</text>
+			</text>
+			<image>
+				<placement x="0" y="%c_custom_pos_4%"/>
+				<image resource="c_shadow"/>
+			</image>
+			<text style="c_sub">
+				<placement x="%c_hawk_base_column%" y="%t_1st_heading%"/>
+				<text>{@c_dashboard_icon=Dashboard icon}</text>
+			</text>
+			<button>
+				<conditions>
+					<condition var1="c_dash_ico" op="!=" var2="0"/>
+				</conditions>
+				<placement x="%c_hawk_base_column%" y="%t_1st_radio_pos%"/>
+				<image resource="radio_false"/>
+				<actions>
+					<action function="set">c_dash_ico=0</action>
+					<action function="cmd">
+cp /twres/c_dash_ico/default/*.png /twres/images/;
+					</action>
+				</actions>
+			</button>
+			<image>
+				<conditions>
+					<condition var1="c_dash_ico" op="=" var2="0"/>
+				</conditions>
+				<placement x="%c_hawk_base_column%" y="%t_1st_radio_pos%"/>
+				<image resource="radio_true"/>
+			</image>
+			<text style="c_sub">
+				<placement x="130" y="%t_1st_radio_text_pos%"/>
+				<text>{@c_dc_default=Default}</text>
+			</text>
+
+			<button>
+				<conditions>
+					<condition var1="c_dash_ico" op="!=" var2="1"/>
+				</conditions>
+				<placement x="%c_hawk_base_column%" y="%t_2nd_radio_pos%"/>
+				<image resource="radio_false"/>
+				<actions>
+					<action function="set">c_dash_ico=1</action>
+					<action function="cmd">
+cp /twres/c_dash_ico/stock/*.png /twres/images/;
+					</action>
+				</actions>
+			</button>
+			<image>
+				<conditions>
+					<condition var1="c_dash_ico" op="=" var2="1"/>
+				</conditions>
+				<placement x="%c_hawk_base_column%" y="%t_2nd_radio_pos%"/>
+				<image resource="radio_true"/>
+			</image>
+			<text style="c_sub">
+				<placement x="130" y="%t_2nd_radio_text_pos%"/>
+				<text>{@c_stock_dashboard_ico=Stock}</text>
+			</text>
+
+			<button>
+				<conditions>
+					<condition var1="c_dash_ico" op="!=" var2="2"/>
+				</conditions>
+				<placement x="%c_hawk_base_column%" y="%t_3rd_radio_pos%"/>
+				<image resource="radio_false"/>
+				<actions>
+					<action function="set">c_dash_ico=2</action>
+					<action function="cmd">
+cp /twres/c_dash_ico/black/*.png /twres/images/;
+					</action>
+				</actions>
+			</button>
+			<image>
+				<conditions>
+					<condition var1="c_dash_ico" op="=" var2="2"/>
+				</conditions>
+				<placement x="%c_hawk_base_column%" y="%t_3rd_radio_pos%"/>
+				<image resource="radio_true"/>
+			</image>
+			<text style="c_sub">
+				<placement x="130" y="%t_3rd_radio_text_pos%"/>
+				<text>{@c_dc_black=Black (Recommended for white background)}</text>
+			</text>
+
+			<button>
+				<conditions>
+					<condition var1="c_dash_ico" op="!=" var2="3"/>
+				</conditions>
+				<placement x="%c_hawk_base_column%" y="%t_4th_radio_pos%"/>
+				<image resource="radio_false"/>
+				<actions>
+					<action function="set">c_dash_ico=3</action>
+					<action function="cmd">
+cp /twres/c_dash_ico/white/*.png /twres/images/;
+					</action>
+				</actions>
+			</button>
+			<image>
+				<conditions>
+					<condition var1="c_dash_ico" op="=" var2="3"/>
+				</conditions>
+				<placement x="%c_hawk_base_column%" y="%t_4th_radio_pos%"/>
+				<image resource="radio_true"/>
+			</image>
+			<text style="c_sub">
+				<placement x="130" y="%t_4th_radio_text_pos%"/>
+				<text>{@c_dc_white=White (Recommended for black background)}</text>
+			</text>
+
+			<button>
+				<conditions>
+					<condition var1="c_dash_ico" op="!=" var2="4"/>
+				</conditions>
+				<placement x="%c_hawk_base_column%" y="%t_5th_radio_pos%"/>
+				<image resource="radio_false"/>
+				<actions>
+					<action function="set">c_dash_ico=4</action>
+					<action function="cmd">
+cp /twres/c_dash_ico/aex/*.png /twres/images/;
+					</action>
+				</actions>
+			</button>
+			<image>
+				<conditions>
+					<condition var1="c_dash_ico" op="=" var2="4"/>
+				</conditions>
+				<placement x="%c_hawk_base_column%" y="%t_5th_radio_pos%"/>
+				<image resource="radio_true"/>
+			</image>
+			<text style="c_sub">
+				<placement x="130" y="%sub_head_mid%"/>
+				<text>{@c_dc_aex=Aex Style}</text>
+			</text>
+			<action>
+				<touch key="back"/>
+				<actions>
+					<action function="page">c_new_shrp_theme_dashboard</action>
+				</actions>
+			</action>
+			<action>
+				<touch key="home"/>
+				<actions>
+					<action function="page">c_new_shrp_theme_dashboard</action>
+				</actions>
+			</action>
+		</page>
+	</pages>
+</recovery>

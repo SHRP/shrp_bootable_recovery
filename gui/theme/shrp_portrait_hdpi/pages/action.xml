@@ -1,0 +1,173 @@
+<?xml version="1.0"?>
+<recovery>
+	<pages>
+		<page name="confirm_action">
+			<template name="c_page"/>
+			<template name="c_status_bar"/>
+			<text style="c_main_text_header">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
+				<text>{@c_confirm=Confirm}</text>
+			</text>
+			<text style="c_text_dashboard">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
+				<text>%tw_text1%</text>
+			</text>
+			<text style="c_sub">
+				<placement x="%c_hawk_base_column%" y="%c_text_sub_y%"/>
+				<text>%tw_text2%</text>
+			</text>
+			<text style="c_sub">
+				<placement x="%c_hawk_base_column%" y="%c_text_sub_y2%"/>
+				<text>%tw_text3%</text>
+			</text>
+			<text style="c_sub">
+				<placement x="%c_hawk_base_column%" y="%c_text_sub_y3%"/>
+				<text>%tw_text4%</text>
+			</text>
+
+			<button>
+				<image resource="c_ok"/>
+				<placement x="860" y="1628"/>
+				<action function="page">action_page</action>
+			</button>
+
+
+			<action>
+				<touch key="back"/>
+				<actions>
+					<action function="set">tw_clear_destination=%tw_back%</action>
+					<action function="page">clear_vars</action>
+				</actions>
+			</action>
+
+			<action>
+				<touch key="home"/>
+				<action function="page">c_refresh</action>
+			</action>
+		</page>
+
+		<page name="action_page">
+			<template name="c_page"/>
+			<template name="c_status_bar"/>
+			<text style="c_main_text_header">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
+				<text>%tw_action_text1%</text>
+			</text>
+			<text style="c_text_dashboard">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
+				<text>%tw_action_text2%</text>
+			</text>
+			<template name="c_console_custom"/>
+			<template name="progress_bar"/>
+			<button>
+				<condition var1="tw_has_cancel" var2="1"/>
+				<placement x="860" y="1628"/>
+				<image resource="c_cancel"/>
+				<action function="%tw_cancel_action%">%tw_cancel_param%</action>
+			</button>
+
+
+			<action>
+				<condition var1="tw_operation_state" var2="1"/>
+				<actions>
+					<action function="page">action_complete</action>
+				</actions>
+			</action>
+
+			<action>
+				<condition var1="tw_has_action2" var2="0"/>
+				<actions>
+					<action function="%tw_action%">%tw_action_param%</action>
+				</actions>
+			</action>
+
+			<action>
+				<condition var1="tw_has_action2" var2="1"/>
+				<actions>
+					<action function="%tw_action%">%tw_action_param%</action>
+					<action function="%tw_action2%">%tw_action2_param%</action>
+				</actions>
+			</action>
+		</page>
+
+		<page name="singleaction_page">
+			<template name="c_page"/>
+			<template name="c_status_bar"/>
+			<text style="c_main_text_header">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
+				<text>%tw_action_text1%</text>
+			</text>
+			<text style="c_text_dashboard">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
+				<text>%tw_action_text2%</text>
+			</text>
+			<template name="c_console_custom"/>
+			<template name="progress_bar"/>
+
+			<action>
+				<condition var1="tw_operation_state" var2="1"/>
+				<actions>
+					<action function="set">tw_page_done=1</action>
+				</actions>
+			</action>
+			<action>
+				<condition var1="tw_has_action2" var2="0"/>
+				<actions>
+					<action function="%tw_action%">%tw_action_param%</action>
+				</actions>
+			</action>
+			<action>
+				<condition var1="tw_has_action2" var2="1"/>
+				<actions>
+					<action function="%tw_action%">%tw_action_param%</action>
+					<action function="%tw_action2%">%tw_action2_param%</action>
+				</actions>
+			</action>
+		</page>
+
+		<page name="action_complete">
+			<template name="c_page"/>
+			<template name="c_status_bar"/>
+			<text style="c_main_text_header_failed">
+				<condition var1="tw_operation_status" op="!=" var2="0"/>
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
+				<text>{@c_failed=Failed}</text>
+			</text>
+			<text style="c_main_text_header_passed">
+				<condition var1="tw_operation_status" var2="0"/>
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
+				<text>{@c_passed=Successful}</text>
+			</text>
+			<text style="c_text_dashboard">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
+				<text>%tw_complete_text1%</text>
+			</text>
+			<template name="c_console_custom"/>
+			<template name="c_misc_panel"/>
+
+			<button>
+				<placement x="860" y="1628"/>
+				<image resource="c_ok"/>
+				<actions>
+					<action function="set">tw_clear_destination=main2</action>
+					<action function="page">clear_vars</action>
+				</actions>
+			</button>
+			<action>
+				<touch key="home"/>
+				<actions>
+					<action function="set">tw_clear_destination=main2</action>
+					<action function="page">clear_vars</action>
+				</actions>
+			</action>
+
+			<action>
+				<touch key="back"/>
+				<actions>
+					<action function="set">tw_clear_destination=%tw_back%</action>
+					<action function="page">clear_vars</action>
+				</actions>
+			</action>
+		</page>
+	</pages>
+</recovery>

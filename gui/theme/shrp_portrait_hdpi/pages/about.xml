@@ -1,0 +1,261 @@
+<?xml version="1.0"?>
+<recovery>
+	<pages>
+		<page name="my_info">
+			<template name="c_page"/>
+			<template name="c_status_bar"/>
+			<image>
+				<placement x="135" y="75"/>
+				<image resource="c_logo"/>
+			</image>
+			<button>
+				<placement x="156" y="750"/>
+				<font resource="c_list" color="%c_black%"/>
+				<image resource="c_about_tile"/>
+				<text>{@c_shrp_about=S H R P}</text>
+			</button>
+			<button>
+				<placement x="0" y="980" w="1080" h="148"/>
+				<font resource="c_dashboard_header" color="%c_black%"/>
+				<fill color="%transparent%"/>
+				<text>{@c_maintainer=Maintainer -} %device_maintainer_name%</text>
+			</button>
+			<button style="c_text_dashboard">
+				<placement x="105" y="1100" w="221" h="170"/>
+				<fill color="%transparent%"/>
+				<text>%shrp_ver%</text>
+			</button>
+			<button style="c_reboot_text">
+				<placement x="105" y="1230" w="221" h="50"/>
+				<fill color="%transparent%"/>
+				<text>%shrp_ver_status%</text>
+			</button>
+			<button style="c_text_dashboard">
+				<placement x="430" y="1100" w="221" h="170"/>
+				<fill color="%transparent%"/>
+				<text>%tw_version%</text>
+			</button>
+			<button style="c_reboot_text">
+				<placement x="430" y="1230" w="221" h="50"/>
+				<fill color="%transparent%"/>
+				<text>{@c_twrp_ver=TWRP Version}</text>
+			</button>
+			<button style="c_text_dashboard">
+				<placement x="755" y="1100" w="221" h="170"/>
+				<fill color="%transparent%"/>
+				<text>%device_code_name%</text>
+			</button>
+			<button style="c_reboot_text">
+				<placement x="755" y="1230" w="221" h="50"/>
+				<fill color="%transparent%"/>
+				<text>{@c_device=Device}</text>
+			</button>
+
+
+			<button>
+				<placement x="0" y="1328" w="1080" h="148"/>
+				<font resource="c_dashboard_header" color="%c_black%"/>
+				<fill color="%transparent%"/>
+				<text>More Info</text>
+			</button>
+			<button style="c_text_dashboard">
+				<placement x="105" y="1440" w="221" h="170"/>
+				<fill color="%transparent%"/>
+				<text>%shrp_rec_type%</text>
+			</button>
+			<button style="c_reboot_text">
+				<placement x="105" y="1570" w="221" h="50"/>
+				<fill color="%transparent%"/>
+				<text>Rec Type</text>
+			</button>
+			<button style="c_text_dashboard">
+				<placement x="430" y="1440" w="221" h="170"/>
+				<fill color="%transparent%"/>
+				<text>%shrp_device_type%</text>
+			</button>
+			<button style="c_reboot_text">
+				<placement x="430" y="1570" w="221" h="50"/>
+				<fill color="%transparent%"/>
+				<text>Device Type</text>
+			</button>
+			<button style="c_text_dashboard">
+				<placement x="755" y="1440" w="221" h="170"/>
+				<fill color="%transparent%"/>
+				<text>{@c_credits=Credits}</text>
+				<action function="page">c_credit</action>
+			</button>
+			<button style="c_reboot_text">
+				<placement x="755" y="1570" w="221" h="50"/>
+				<fill color="%transparent%"/>
+				<text>{@c_credits=Credits} {@c_section=Section}</text>
+				<action function="page">c_credit</action>
+			</button>
+
+			<action>
+				<touch key="back"/>
+				<action function="page">c_refresh</action>
+			</action>
+
+			<action>
+				<touch key="home"/>
+				<action function="page">c_refresh</action>
+			</action>
+		</page>
+		<page name="c_credit">
+		  <template name="c_page"/>
+		  <template name="c_status_bar"/>
+		  <text style="c_main_text_header">
+		    <placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
+		    <text>{@c_credits=Credits}</text>
+		  </text>
+		  <text style="c_text_dashboard">
+		    <placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
+		    <text>{@c_credits=Credits} {@c_section=Section}</text>
+		  </text>
+
+			<image>
+				<placement x="135" y="75"/>
+				<image resource="c_logo"/>
+			</image>
+
+			<button style="c_text_dashboard">
+				<placement x="105" y="785" w="221" h="170"/>
+				<fill color="%transparent%"/>
+				<text>epicX</text>
+			</button>
+			<button style="c_reboot_text">
+				<placement x="105" y="915" w="221" h="50"/>
+				<fill color="%transparent%"/>
+				<text>Team SHRP</text>
+			</button>
+			<button style="c_text_dashboard">
+				<placement x="430" y="785" w="221" h="170"/>
+				<fill color="%transparent%"/>
+				<text>DNI9</text>
+			</button>
+			<button style="c_reboot_text">
+				<placement x="430" y="915" w="221" h="50"/>
+				<fill color="%transparent%"/>
+				<text>Team SHRP</text>
+			</button>
+			<button style="c_text_dashboard">
+				<placement x="755" y="785" w="221" h="170"/>
+				<fill color="%transparent%"/>
+				<text>Giovix92</text>
+			</button>
+			<button style="c_reboot_text">
+				<placement x="755" y="915" w="221" h="50"/>
+				<fill color="%transparent%"/>
+				<text>Team SHRP</text>
+			</button>
+
+			<button style="c_text_dashboard">
+				<placement x="105" y="1005" w="221" h="170"/>
+				<fill color="%transparent%"/>
+				<text>Teamwin</text>
+			</button>
+			<button style="c_reboot_text">
+				<placement x="105" y="1135" w="221" h="50"/>
+				<fill color="%transparent%"/>
+				<text>Base</text>
+			</button>
+			<button style="c_text_dashboard">
+				<placement x="430" y="1005" w="221" h="170"/>
+				<fill color="%transparent%"/>
+				<text>osmOsis</text>
+			</button>
+			<button style="c_reboot_text">
+				<placement x="430" y="1135" w="221" h="50"/>
+				<fill color="%transparent%"/>
+				<text>Scripts</text>
+			</button>
+			<button style="c_text_dashboard">
+				<placement x="755" y="1005" w="221" h="170"/>
+				<fill color="%transparent%"/>
+				<text>Topjohnwu</text>
+			</button>
+			<button style="c_reboot_text">
+				<placement x="755" y="1135" w="221" h="50"/>
+				<fill color="%transparent%"/>
+				<text>Magisk</text>
+			</button>
+
+			<button style="c_text_dashboard">
+				<placement x="105" y="1225" w="221" h="170"/>
+				<fill color="%transparent%"/>
+				<text>VR25</text>
+			</button>
+			<button style="c_reboot_text">
+				<placement x="85" y="1335" w="261" h="50"/>
+				<fill color="%transparent%"/>
+				<text>Magisk Manager</text>
+			</button>
+
+			<button style="c_text_dashboard">
+				<placement x="410" y="1225" w="261" h="170"/>
+				<fill color="%transparent%"/>
+				<text>steadfasterX</text>
+			</button>
+			<button style="c_reboot_text">
+				<placement x="430" y="1335" w="221" h="50"/>
+				<fill color="%transparent%"/>
+				<text>{@c_security=Security}</text>
+			</button>
+			<button style="c_text_dashboard">
+				<placement x="735" y="1225" w="261" h="170"/>
+				<fill color="%transparent%"/>
+				<text>DarthJabba9</text>
+			</button>
+			<button style="c_reboot_text">
+				<placement x="755" y="1335" w="221" h="50"/>
+				<fill color="%transparent%"/>
+				<text>/data fix</text>
+			</button>
+
+			<button style="c_text_dashboard">
+				<placement x="85" y="1445" w="241" h="170"/>
+				<fill color="%transparent%"/>
+				<text>Corsicanu</text>
+			</button>
+			<button style="c_reboot_text">
+				<placement x="105" y="1575" w="221" h="50"/>
+				<fill color="%transparent%"/>
+				<text>SAR fixes</text>
+			</button>
+
+			<button style="c_text_dashboard">
+				<placement x="410" y="1445" w="261" h="170"/>
+				<fill color="%transparent%"/>
+				<text>oddlyspaced</text>
+			</button>
+			<button style="c_reboot_text">
+				<placement x="430" y="1575" w="221" h="50"/>
+				<fill color="%transparent%"/>
+				<text>SHRP App</text>
+			</button>
+			<button style="c_text_dashboard">
+				<placement x="735" y="1445" w="261" h="170"/>
+				<fill color="%transparent%"/>
+				<text>{@Tcredit=None}</text>
+			</button>
+			<button style="c_reboot_text">
+				<placement x="755" y="1575" w="221" h="50"/>
+				<fill color="%transparent%"/>
+				<text>{@c_translation=Translation}</text>
+			</button>
+
+		  <action>
+		    <touch key="back"/>
+		    <actions>
+		      <action function="page">my_info</action>
+		    </actions>
+		  </action>
+		  <action>
+		    <touch key="home"/>
+		    <actions>
+		      <action function="page">c_refresh</action>
+		    </actions>
+		  </action>
+		</page>
+	</pages>
+</recovery>

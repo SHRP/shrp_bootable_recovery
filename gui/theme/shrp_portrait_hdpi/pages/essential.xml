@@ -1,0 +1,111 @@
+<?xml version="1.0"?>
+<recovery>
+	<pages>
+		<page name="select_storage">
+			<template name="c_page"/>
+			<template name="c_status_bar"/>
+			<text style="c_main_text_header">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
+				<text>{@autostorage=Storage}</text>
+			</text>
+
+			<partitionlist style="partitionlist_storage">
+				<data name="tw_storage_path"/>
+				<listtype name="storage"/>
+			</partitionlist>
+
+			<button>
+				<placement x="860" y="1628"/>
+				<image resource="c_ok"/>
+				<actions>
+					<action function="set">tw_clear_destination=%tw_back%</action>
+					<action function="overlay"/>
+					<action function="page">clear_vars</action>
+				</actions>
+			</button>
+
+			<button>
+				<condition var1="tw_samsung_navbar" op="!=" var2="1"/>
+				<placement x="%back_button_x%" y="%navbar_btn_y%" placement="4"/>
+				<image resource="back"/>
+				<condition var1="tw_busy" var2="0"/>
+				<actions>
+					<action function="overlay"/>
+					<action function="key">%tw_back%</action>
+				</actions>
+			</button>
+
+			<button>
+				<condition var1="tw_samsung_navbar" op="=" var2="1"/>
+				<placement x="%back_button_x%" y="%navbar_btn_y%" placement="4"/>
+				<image resource="console"/>
+				<condition var1="tw_busy" var2="0"/>
+				<action function="overlay">slideout</action>
+			</button>
+
+			<button>
+				<placement x="%center_x%" y="%navbar_btn_y%" placement="4"/>
+				<image resource="home"/>
+				<condition var1="tw_busy" var2="0"/>
+				<actions>
+					<action function="overlay"/>
+					<action function="key">home</action>
+				</actions>
+			</button>
+
+			<button>
+				<condition var1="tw_samsung_navbar" op="!=" var2="1"/>
+				<placement x="%console_button_x%" y="%navbar_btn_y%" placement="4"/>
+				<image resource="console"/>
+				<condition var1="tw_busy" var2="0"/>
+				<action function="overlay">slideout</action>
+			</button>
+
+			<button>
+				<condition var1="tw_samsung_navbar" op="=" var2="1"/>
+				<placement x="%console_button_x%" y="%navbar_btn_y%" placement="4"/>
+				<image resource="back"/>
+				<condition var1="tw_busy" var2="0"/>
+				<actions>
+					<action function="overlay"/>
+					<action function="key">%tw_back%</action>
+				</actions>
+			</button>
+
+
+			<action>
+				<touch key="power+voldown"/>
+				<action function="screenshot"/>
+			</action>
+		</page>
+        <page name="slideout">
+			<template name="c_page"/>
+			<template name="c_status_bar"/>
+			<text style="c_main_text_header">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
+				<text>{@c_slideout=Main Console}</text>
+			</text>
+			<console>
+				<placement x="%c_hawk_base_column%" y="%slideout_console_y%" w="%c_console_width%" h="%slideout_console_h%"/>
+			</console>
+			<action>
+				<touch key="back"/>
+				<action function="overlay"/>
+			</action>
+			<action>
+				<touch key="home"/>
+				<action function="overlay"/>
+			</action>
+
+			<action>
+				<touch key="power"/>
+				<action function="togglebacklight"/>
+			</action>
+
+			<action>
+				<touch key="power+voldown"/>
+				<action function="screenshot"/>
+			</action>
+		</page>
+	</pages>
+</recovery>

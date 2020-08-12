@@ -1,0 +1,1685 @@
+<?xml version="1.0"?>
+<recovery>
+	<pages>
+		<page name="filemanagerrenamefile">
+			<template name="c_page"/>
+			<template name="c_status_bar"/>
+			<text style="c_main_text_header">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
+				<text>{@fm_hdr=File Manager}</text>
+			</text>
+			<text style="c_text_dashboard">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
+				<text>{@c_file_rename=Rename %tw_fm_type%}</text>
+			</text>
+
+			<text style="c_text_dashboard">
+				<placement x="%c_hawk_base_column%" y="%c_text_sub_y_spec%"/>
+				<text>{@name=Name:}</text>
+			</text>
+
+			<fill color="nav_bg">
+				<placement x="50" y="%dash_ico_1st_row%" w="970" h="94"/>
+			</fill>
+
+			<input>
+				<placement x="80" y="%input_file_manager_y%" w="800" h="64"/>
+				<background color="%nav_bg%"/>
+				<text>%tw_filemanager_rename%</text>
+				<data name="tw_filemanager_rename"/>
+				<restrict minlen="1" maxlen="128"/>
+				<actions>
+					<action function="set">tw_fm_text2=to</action>
+					<action function="set">tw_fm_text3="%tw_file_location1%/%tw_filemanager_rename%"</action>
+					<action function="set">tw_include_text3=1</action>
+					<action function="set">tw_back=c_file_epicx</action>
+					<action function="page">c_file_epicx_action</action>
+				</actions>
+			</input>
+			<template name="keyboardtemplate"/>
+
+
+			<action>
+				<touch key="home"/>
+				<action function="set">c_file=0</action>
+				<action function="page">c_refresh</action>
+			</action>
+
+			<action>
+				<touch key="back"/>
+				<action function="set">c_file=0</action>
+				<action function="page">c_file_epicx</action>
+			</action>
+		</page>
+
+		<page name="filemanagerrenamefolder">
+			<template name="c_page"/>
+			<template name="c_status_bar"/>
+			<text style="c_main_text_header">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
+				<text>{@fm_hdr=File Manager}</text>
+			</text>
+			<text style="c_text_dashboard">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
+				<text>{@c_file_rename=Rename %tw_fm_type%}</text>
+			</text>
+
+			<text style="c_text_dashboard">
+				<placement x="%c_hawk_base_column%" y="%c_text_sub_y_spec%"/>
+				<text>{@name=Name:}</text>
+			</text>
+
+			<fill color="nav_bg">
+				<placement x="50" y="%dash_ico_1st_row%" w="970" h="94"/>
+			</fill>
+
+			<input>
+				<placement x="80" y="%input_file_manager_y%" w="800" h="64"/>
+				<background color="%nav_bg%"/>
+				<text>%tw_filemanager_rename%</text>
+				<data name="tw_filemanager_rename"/>
+				<restrict minlen="1" maxlen="128"/>
+				<actions>
+					<action function="set">tw_filename1=tw_file_location1</action>
+					<action function="set">tw_fm_text2=to</action>
+					<action function="set">tw_fm_text3=%tw_filemanager_rename%</action>
+					<action function="set">tw_include_text3=1</action>
+					<action function="set">c_file=0</action>
+					<action function="set">tw_back=c_file_epicx</action>
+					<action function="page">c_file_epicx_action</action>
+				</actions>
+			</input>
+			<template name="keyboardtemplate"/>
+
+
+			<action>
+				<touch key="home"/>
+				<action function="set">c_file=0</action>
+				<action function="page">c_refresh</action>
+			</action>
+
+			<action>
+				<touch key="back"/>
+				<action function="set">c_file=0</action>
+				<action function="page">c_file_epicx</action>
+			</action>
+		</page>
+
+		<page name="filemanagerchmod">
+			<template name="c_page"/>
+			<template name="c_status_bar"/>
+			<text style="c_main_text_header">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
+				<text>{@fm_hdr=File Manager}</text>
+			</text>
+			<text style="c_text_dashboard">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
+				<text>{@fm_set_perms_hdr=Set Permissions}</text>
+			</text>
+			<text style="c_text_dashboard">
+				<placement x="%c_hawk_base_column%" y="%c_text_sub_y_spec%"/>
+				<text>{@fm_perms=Permissions:}</text>
+			</text>
+
+			<fill color="nav_bg">
+				<placement x="50" y="%dash_ico_1st_row%" w="970" h="94"/>
+			</fill>
+
+			<input>
+				<placement x="80" y="%input_file_manager_y%" w="800" h="64"/>
+				<background color="%nav_bg%"/>
+				<text>%tw_filemanager_rename%</text>
+				<data name="tw_filemanager_rename"/>
+				<restrict minlen="3" maxlen="4" allow="0123456789"/>
+				<actions>
+					<action function="set">tw_filemanager_command=chmod %tw_filemanager_rename%</action>
+					<action function="set">tw_fm_text1=chmod %tw_filemanager_rename%</action>
+					<action function="set">c_file=0</action>
+					<action function="set">tw_back=c_file_epicx</action>
+					<action function="page">c_file_epicx_action</action>
+				</actions>
+			</input>
+
+			<template name="keyboardtemplate"/>
+			<action>
+				<condition var1="chFolder" op="=" var2="1"/>
+				<action function="set">tw_filename1=tw_file_location1</action>
+			</action>
+
+			<action>
+				<touch key="home"/>
+				<action function="set">c_file=0</action>
+				<action function="page">c_refresh</action>
+			</action>
+
+			<action>
+				<touch key="back"/>
+				<action function="set">c_file=0</action>
+				<action function="page">c_file_epicx</action>
+			</action>
+		</page>
+		<page name="c_file_menu_nxt">
+			<background color="%semi_transparent%"/>
+			<fill color="%c_white%">
+				<placement x="0" y="0" w="710" h="1920"/>
+			</fill>
+			<text style="c_text_dashboard">
+				<placement x="50" y="230"/>
+				<text>{@c_side_bar_head=Storages}</text>
+			</text>
+			<button>
+				<placement x="546" y="246"/>
+				<image resource="c_reload"/>
+				<actions>
+					<action function="refreshsizes"/>
+					<action function="sig"/>
+				</actions>
+			</button>
+			<image>
+				<placement x="50" y="350"/>
+				<image resource="c_file_root"/>
+			</image>
+			<text style="c_file_menu">
+				<placement x="170" y="350"/>
+				<text>{@c_side_bar_root=Root}</text>
+			</text>
+			<text style="c_reboot_text">
+				<placement x="170" y="400"/>
+				<text>{@c_unavailable=Unavailable}</text>
+			</text>
+			<fill color="%nav_bg%">
+				<placement x="165" y="450" w="440" h="7"/>
+			</fill>
+			<!--RootButton-->
+			<button>
+				<placement x="36" y="330" w="612" h="138"/>
+				<fill color="%transparent%"/>
+				<action function="set">tw_file_location2=/</action>
+				<action function="set">c_menu=0</action>
+				<action function="overlay"/>
+			</button>
+			<image>
+				<placement x="50" y="524"/>
+				<image resource="c_file_sdcard"/>
+			</image>
+			<text style="c_file_menu">
+				<placement x="170" y="524"/>
+				<text>{@c_side_bar_internal=Internal Storage}</text>
+			</text>
+			<text style="c_reboot_text">
+				<placement x="170" y="574"/>
+				<text>%c_i_status%</text>
+			</text>
+			<fill color="%nav_bg%">
+				<placement x="165" y="624" w="440" h="7"/>
+			</fill>
+			<!--10% 44-->
+			<fill color="%c_acc_color_val%">
+				<conditions>
+					<condition var1="c_i_p" op="&gt;" var2="0"/>
+					<condition var1="c_i_p" op="&lt;" var2="11"/>
+				</conditions>
+				<placement x="165" y="624" w="44" h="7"/>
+			</fill>
+			<!--20% 88-->
+			<fill color="%c_acc_color_val%">
+				<conditions>
+					<condition var1="c_i_p" op="&gt;" var2="10"/>
+					<condition var1="c_i_p" op="&lt;" var2="21"/>
+				</conditions>
+				<placement x="165" y="624" w="88" h="7"/>
+			</fill>
+
+			<!--30% 132-->
+			<fill color="%c_acc_color_val%">
+				<conditions>
+					<condition var1="c_i_p" op="&gt;" var2="20"/>
+					<condition var1="c_i_p" op="&lt;" var2="31"/>
+				</conditions>
+				<placement x="165" y="624" w="132" h="7"/>
+			</fill>
+
+			<!--40% 176-->
+			<fill color="%c_acc_color_val%">
+				<conditions>
+					<condition var1="c_i_p" op="&gt;" var2="30"/>
+					<condition var1="c_i_p" op="&lt;" var2="41"/>
+				</conditions>
+				<placement x="165" y="624" w="176" h="7"/>
+			</fill>
+
+			<!--50% 220-->
+			<fill color="%c_acc_color_val%">
+				<conditions>
+					<condition var1="c_i_p" op="&gt;" var2="40"/>
+					<condition var1="c_i_p" op="&lt;" var2="51"/>
+				</conditions>
+				<placement x="165" y="624" w="220" h="7"/>
+			</fill>
+
+			<!--60% 264-->
+			<fill color="%c_acc_color_val%">
+				<conditions>
+					<condition var1="c_i_p" op="&gt;" var2="50"/>
+					<condition var1="c_i_p" op="&lt;" var2="61"/>
+				</conditions>
+				<placement x="165" y="624" w="264" h="7"/>
+			</fill>
+
+			<!--70% 308-->
+			<fill color="%c_acc_color_val%">
+				<conditions>
+					<condition var1="c_i_p" op="&gt;" var2="60"/>
+					<condition var1="c_i_p" op="&lt;" var2="71"/>
+				</conditions>
+				<placement x="165" y="624" w="308" h="7"/>
+			</fill>
+
+			<!--80% 352-->
+			<fill color="%c_acc_color_val%">
+				<conditions>
+					<condition var1="c_i_p" op="&gt;" var2="70"/>
+					<condition var1="c_i_p" op="&lt;" var2="81"/>
+				</conditions>
+				<placement x="165" y="624" w="352" h="7"/>
+			</fill>
+
+			<!--90% 396-->
+			<fill color="%c_acc_color_val%">
+				<conditions>
+					<condition var1="c_i_p" op="&gt;" var2="80"/>
+					<condition var1="c_i_p" op="&lt;" var2="91"/>
+				</conditions>
+				<placement x="165" y="624" w="396" h="7"/>
+			</fill>
+
+			<!--100% 440-->
+			<fill color="%c_acc_color_val%">
+				<conditions>
+					<condition var1="c_i_p" op="&gt;" var2="90"/>
+					<condition var1="c_i_p" op="&lt;" var2="101"/>
+				</conditions>
+				<placement x="165" y="624" w="440" h="7"/>
+			</fill>
+
+			<!--InternalStorageButton-->
+			<button>
+				<placement x="36" y="504" w="612" h="138"/>
+				<fill color="%transparent%"/>
+				<action function="set">tw_file_location2=%internal_storage_location%</action>
+				<action function="set">c_menu=0</action>
+				<action function="overlay"/>
+			</button>
+
+			<image>
+				<placement x="50" y="698"/>
+				<image resource="c_file_exsdcard"/>
+			</image>
+			<text style="c_file_menu">
+				<placement x="170" y="698"/>
+				<text>{@c_side_bar_external=External Storage}</text>
+			</text>
+			<text style="c_reboot_text">
+				<placement x="170" y="748"/>
+				<text>%c_e_status%</text>
+			</text>
+			<fill color="%nav_bg%">
+				<placement x="165" y="798" w="440" h="7"/>
+			</fill>
+			<!--10% 44-->
+			<fill color="%c_acc_color_val%">
+				<conditions>
+					<condition var1="c_e_p" op="&gt;" var2="0"/>
+					<condition var1="c_e_p" op="&lt;" var2="11"/>
+				</conditions>
+				<placement x="165" y="798" w="44" h="7"/>
+			</fill>
+			<!--20% 88-->
+			<fill color="%c_acc_color_val%">
+				<conditions>
+					<condition var1="c_e_p" op="&gt;" var2="10"/>
+					<condition var1="c_e_p" op="&lt;" var2="21"/>
+				</conditions>
+				<placement x="165" y="798" w="88" h="7"/>
+			</fill>
+
+			<!--30% 132-->
+			<fill color="%c_acc_color_val%">
+				<conditions>
+					<condition var1="c_e_p" op="&gt;" var2="20"/>
+					<condition var1="c_e_p" op="&lt;" var2="31"/>
+				</conditions>
+				<placement x="165" y="798" w="132" h="7"/>
+			</fill>
+
+			<!--40% 176-->
+			<fill color="%c_acc_color_val%">
+				<conditions>
+					<condition var1="c_e_p" op="&gt;" var2="30"/>
+					<condition var1="c_e_p" op="&lt;" var2="41"/>
+				</conditions>
+				<placement x="165" y="798" w="176" h="7"/>
+			</fill>
+
+			<!--50% 220-->
+			<fill color="%c_acc_color_val%">
+				<conditions>
+					<condition var1="c_e_p" op="&gt;" var2="40"/>
+					<condition var1="c_e_p" op="&lt;" var2="51"/>
+				</conditions>
+				<placement x="165" y="798" w="220" h="7"/>
+			</fill>
+
+			<!--60% 264-->
+			<fill color="%c_acc_color_val%">
+				<conditions>
+					<condition var1="c_e_p" op="&gt;" var2="50"/>
+					<condition var1="c_e_p" op="&lt;" var2="61"/>
+				</conditions>
+				<placement x="165" y="798" w="264" h="7"/>
+			</fill>
+
+			<!--70% 308-->
+			<fill color="%c_acc_color_val%">
+				<conditions>
+					<condition var1="c_e_p" op="&gt;" var2="60"/>
+					<condition var1="c_e_p" op="&lt;" var2="71"/>
+				</conditions>
+				<placement x="165" y="798" w="308" h="7"/>
+			</fill>
+
+			<!--80% 352-->
+			<fill color="%c_acc_color_val%">
+				<conditions>
+					<condition var1="c_e_p" op="&gt;" var2="70"/>
+					<condition var1="c_e_p" op="&lt;" var2="81"/>
+				</conditions>
+				<placement x="165" y="798" w="352" h="7"/>
+			</fill>
+
+			<!--90% 396-->
+			<fill color="%c_acc_color_val%">
+				<conditions>
+					<condition var1="c_e_p" op="&gt;" var2="80"/>
+					<condition var1="c_e_p" op="&lt;" var2="91"/>
+				</conditions>
+				<placement x="165" y="798" w="396" h="7"/>
+			</fill>
+
+			<!--100% 440-->
+			<fill color="%c_acc_color_val%">
+				<conditions>
+					<condition var1="c_e_p" op="&gt;" var2="90"/>
+					<condition var1="c_e_p" op="&lt;" var2="101"/>
+				</conditions>
+				<placement x="165" y="798" w="440" h="7"/>
+			</fill>
+			<!--ExternalStorageButton-->
+			<button>
+				<placement x="36" y="678" w="612" h="138"/>
+				<fill color="%transparent%"/>
+				<action function="set">tw_file_location2=%external_storage_location%</action>
+				<action function="set">c_menu=0</action>
+				<action function="overlay"/>
+			</button>
+			<image>
+				<placement x="50" y="872"/>
+				<image resource="c_file_otg"/>
+			</image>
+			<text style="c_file_menu">
+				<placement x="170" y="872"/>
+				<text>{@c_side_bar_otg=OTG}</text>
+			</text>
+			<text style="c_reboot_text">
+				<placement x="170" y="922"/>
+				<text>%c_o_status%</text>
+			</text>
+			<fill color="%nav_bg%">
+				<placement x="165" y="972" w="440" h="7"/>
+			</fill>
+			<!--10% 44-->
+			<fill color="%c_acc_color_val%">
+				<conditions>
+					<condition var1="c_o_p" op="&gt;" var2="0"/>
+					<condition var1="c_o_p" op="&lt;" var2="11"/>
+				</conditions>
+				<placement x="165" y="972" w="44" h="7"/>
+			</fill>
+			<!--20% 88-->
+			<fill color="%c_acc_color_val%">
+				<conditions>
+					<condition var1="c_o_p" op="&gt;" var2="10"/>
+					<condition var1="c_o_p" op="&lt;" var2="21"/>
+				</conditions>
+				<placement x="165" y="972" w="88" h="7"/>
+			</fill>
+
+			<!--30% 132-->
+			<fill color="%c_acc_color_val%">
+				<conditions>
+					<condition var1="c_o_p" op="&gt;" var2="20"/>
+					<condition var1="c_o_p" op="&lt;" var2="31"/>
+				</conditions>
+				<placement x="165" y="972" w="132" h="7"/>
+			</fill>
+
+			<!--40% 176-->
+			<fill color="%c_acc_color_val%">
+				<conditions>
+					<condition var1="c_o_p" op="&gt;" var2="30"/>
+					<condition var1="c_o_p" op="&lt;" var2="41"/>
+				</conditions>
+				<placement x="165" y="972" w="176" h="7"/>
+			</fill>
+
+			<!--50% 220-->
+			<fill color="%c_acc_color_val%">
+				<conditions>
+					<condition var1="c_o_p" op="&gt;" var2="40"/>
+					<condition var1="c_o_p" op="&lt;" var2="51"/>
+				</conditions>
+				<placement x="165" y="972" w="220" h="7"/>
+			</fill>
+
+			<!--60% 264-->
+			<fill color="%c_acc_color_val%">
+				<conditions>
+					<condition var1="c_o_p" op="&gt;" var2="50"/>
+					<condition var1="c_o_p" op="&lt;" var2="61"/>
+				</conditions>
+				<placement x="165" y="972" w="264" h="7"/>
+			</fill>
+
+			<!--70% 308-->
+			<fill color="%c_acc_color_val%">
+				<conditions>
+					<condition var1="c_o_p" op="&gt;" var2="60"/>
+					<condition var1="c_o_p" op="&lt;" var2="71"/>
+				</conditions>
+				<placement x="165" y="972" w="308" h="7"/>
+			</fill>
+
+			<!--80% 352-->
+			<fill color="%c_acc_color_val%">
+				<conditions>
+					<condition var1="c_o_p" op="&gt;" var2="70"/>
+					<condition var1="c_o_p" op="&lt;" var2="81"/>
+				</conditions>
+				<placement x="165" y="972" w="352" h="7"/>
+			</fill>
+
+			<!--90% 396-->
+			<fill color="%c_acc_color_val%">
+				<conditions>
+					<condition var1="c_o_p" op="&gt;" var2="80"/>
+					<condition var1="c_o_p" op="&lt;" var2="91"/>
+				</conditions>
+				<placement x="165" y="972" w="396" h="7"/>
+			</fill>
+
+			<!--100% 440-->
+			<fill color="%c_acc_color_val%">
+				<conditions>
+					<condition var1="c_o_p" op="&gt;" var2="90"/>
+					<condition var1="c_o_p" op="&lt;" var2="101"/>
+				</conditions>
+				<placement x="165" y="972" w="440" h="7"/>
+			</fill>
+			<!--OTGStorageButton-->
+			<button>
+				<placement x="36" y="852" w="612" h="138"/>
+				<fill color="%transparent%"/>
+				<action function="set">tw_file_location2=%usb_otg_location%</action>
+				<action function="set">c_menu=0</action>
+				<action function="overlay"/>
+			</button>
+			<button>
+				<condition var1="c_menu" op="=" var2="1"/>
+				<placement x="860" y="1450"/>
+				<image resource="c_file_back"/>
+				<action function="set">c_menu=0</action>
+				<action function="overlay"/>
+			</button>
+			<action>
+				<touch key="back"/>
+				<action function="set">c_menu=0</action>
+				<action function="overlay"/>
+			</action>
+			<action>
+				<touch key="power+voldown"/>
+				<action function="screenshot"/>
+			</action>
+		</page>
+		<page name="c_file_menu">
+			<background color="%semi_transparent%"/>
+			<fill color="%c_white%">
+				<placement x="0" y="0" w="710" h="1920"/>
+			</fill>
+			<text style="c_text_dashboard">
+				<placement x="50" y="230"/>
+				<text>{@c_side_bar_head=Storages}</text>
+			</text>
+			<button>
+				<placement x="546" y="246"/>
+				<image resource="c_reload"/>
+				<actions>
+					<action function="refreshsizes"/>
+					<action function="sig"/>
+				</actions>
+			</button>
+			<image>
+				<placement x="50" y="350"/>
+				<image resource="c_file_root"/>
+			</image>
+			<text style="c_file_menu">
+				<placement x="170" y="350"/>
+				<text>{@c_side_bar_root=Root}</text>
+			</text>
+			<text style="c_reboot_text">
+				<placement x="170" y="400"/>
+				<text>{@c_unavailable=Unavailable}</text>
+			</text>
+			<fill color="%nav_bg%">
+				<placement x="165" y="450" w="440" h="7"/>
+			</fill>
+			<!--RootButton-->
+			<button>
+				<placement x="36" y="330" w="612" h="138"/>
+				<fill color="%transparent%"/>
+				<action function="set">tw_file_location1=/</action>
+				<action function="set">c_menu=0</action>
+				<action function="overlay"/>
+			</button>
+			<image>
+				<placement x="50" y="524"/>
+				<image resource="c_file_sdcard"/>
+			</image>
+			<text style="c_file_menu">
+				<placement x="170" y="524"/>
+				<text>{@c_side_bar_internal=Internal Storage}</text>
+			</text>
+			<text style="c_reboot_text">
+				<placement x="170" y="574"/>
+				<text>%c_i_status%</text>
+			</text>
+			<fill color="%nav_bg%">
+				<placement x="165" y="624" w="440" h="7"/>
+			</fill>
+			<!--10% 44-->
+			<fill color="%c_acc_color_val%">
+				<conditions>
+					<condition var1="c_i_p" op="&gt;" var2="0"/>
+					<condition var1="c_i_p" op="&lt;" var2="11"/>
+				</conditions>
+				<placement x="165" y="624" w="44" h="7"/>
+			</fill>
+			<!--20% 88-->
+			<fill color="%c_acc_color_val%">
+				<conditions>
+					<condition var1="c_i_p" op="&gt;" var2="10"/>
+					<condition var1="c_i_p" op="&lt;" var2="21"/>
+				</conditions>
+				<placement x="165" y="624" w="88" h="7"/>
+			</fill>
+
+			<!--30% 132-->
+			<fill color="%c_acc_color_val%">
+				<conditions>
+					<condition var1="c_i_p" op="&gt;" var2="20"/>
+					<condition var1="c_i_p" op="&lt;" var2="31"/>
+				</conditions>
+				<placement x="165" y="624" w="132" h="7"/>
+			</fill>
+
+			<!--40% 176-->
+			<fill color="%c_acc_color_val%">
+				<conditions>
+					<condition var1="c_i_p" op="&gt;" var2="30"/>
+					<condition var1="c_i_p" op="&lt;" var2="41"/>
+				</conditions>
+				<placement x="165" y="624" w="176" h="7"/>
+			</fill>
+
+			<!--50% 220-->
+			<fill color="%c_acc_color_val%">
+				<conditions>
+					<condition var1="c_i_p" op="&gt;" var2="40"/>
+					<condition var1="c_i_p" op="&lt;" var2="51"/>
+				</conditions>
+				<placement x="165" y="624" w="220" h="7"/>
+			</fill>
+
+			<!--60% 264-->
+			<fill color="%c_acc_color_val%">
+				<conditions>
+					<condition var1="c_i_p" op="&gt;" var2="50"/>
+					<condition var1="c_i_p" op="&lt;" var2="61"/>
+				</conditions>
+				<placement x="165" y="624" w="264" h="7"/>
+			</fill>
+
+			<!--70% 308-->
+			<fill color="%c_acc_color_val%">
+				<conditions>
+					<condition var1="c_i_p" op="&gt;" var2="60"/>
+					<condition var1="c_i_p" op="&lt;" var2="71"/>
+				</conditions>
+				<placement x="165" y="624" w="308" h="7"/>
+			</fill>
+
+			<!--80% 352-->
+			<fill color="%c_acc_color_val%">
+				<conditions>
+					<condition var1="c_i_p" op="&gt;" var2="70"/>
+					<condition var1="c_i_p" op="&lt;" var2="81"/>
+				</conditions>
+				<placement x="165" y="624" w="352" h="7"/>
+			</fill>
+
+			<!--90% 396-->
+			<fill color="%c_acc_color_val%">
+				<conditions>
+					<condition var1="c_i_p" op="&gt;" var2="80"/>
+					<condition var1="c_i_p" op="&lt;" var2="91"/>
+				</conditions>
+				<placement x="165" y="624" w="396" h="7"/>
+			</fill>
+
+			<!--100% 440-->
+			<fill color="%c_acc_color_val%">
+				<conditions>
+					<condition var1="c_i_p" op="&gt;" var2="90"/>
+					<condition var1="c_i_p" op="&lt;" var2="101"/>
+				</conditions>
+				<placement x="165" y="624" w="440" h="7"/>
+			</fill>
+
+			<!--InternalStorageButton-->
+			<button>
+				<placement x="36" y="504" w="612" h="138"/>
+				<fill color="%transparent%"/>
+				<action function="set">tw_file_location1=%internal_storage_location%</action>
+				<action function="set">c_menu=0</action>
+				<action function="overlay"/>
+			</button>
+
+			<image>
+				<placement x="50" y="698"/>
+				<image resource="c_file_exsdcard"/>
+			</image>
+			<text style="c_file_menu">
+				<placement x="170" y="698"/>
+				<text>{@c_side_bar_external=External Storage}</text>
+			</text>
+			<text style="c_reboot_text">
+				<placement x="170" y="748"/>
+				<text>%c_e_status%</text>
+			</text>
+			<fill color="%nav_bg%">
+				<placement x="165" y="798" w="440" h="7"/>
+			</fill>
+			<!--10% 44-->
+			<fill color="%c_acc_color_val%">
+				<conditions>
+					<condition var1="c_e_p" op="&gt;" var2="0"/>
+					<condition var1="c_e_p" op="&lt;" var2="11"/>
+				</conditions>
+				<placement x="165" y="798" w="44" h="7"/>
+			</fill>
+			<!--20% 88-->
+			<fill color="%c_acc_color_val%">
+				<conditions>
+					<condition var1="c_e_p" op="&gt;" var2="10"/>
+					<condition var1="c_e_p" op="&lt;" var2="21"/>
+				</conditions>
+				<placement x="165" y="798" w="88" h="7"/>
+			</fill>
+
+			<!--30% 132-->
+			<fill color="%c_acc_color_val%">
+				<conditions>
+					<condition var1="c_e_p" op="&gt;" var2="20"/>
+					<condition var1="c_e_p" op="&lt;" var2="31"/>
+				</conditions>
+				<placement x="165" y="798" w="132" h="7"/>
+			</fill>
+
+			<!--40% 176-->
+			<fill color="%c_acc_color_val%">
+				<conditions>
+					<condition var1="c_e_p" op="&gt;" var2="30"/>
+					<condition var1="c_e_p" op="&lt;" var2="41"/>
+				</conditions>
+				<placement x="165" y="798" w="176" h="7"/>
+			</fill>
+
+			<!--50% 220-->
+			<fill color="%c_acc_color_val%">
+				<conditions>
+					<condition var1="c_e_p" op="&gt;" var2="40"/>
+					<condition var1="c_e_p" op="&lt;" var2="51"/>
+				</conditions>
+				<placement x="165" y="798" w="220" h="7"/>
+			</fill>
+
+			<!--60% 264-->
+			<fill color="%c_acc_color_val%">
+				<conditions>
+					<condition var1="c_e_p" op="&gt;" var2="50"/>
+					<condition var1="c_e_p" op="&lt;" var2="61"/>
+				</conditions>
+				<placement x="165" y="798" w="264" h="7"/>
+			</fill>
+
+			<!--70% 308-->
+			<fill color="%c_acc_color_val%">
+				<conditions>
+					<condition var1="c_e_p" op="&gt;" var2="60"/>
+					<condition var1="c_e_p" op="&lt;" var2="71"/>
+				</conditions>
+				<placement x="165" y="798" w="308" h="7"/>
+			</fill>
+
+			<!--80% 352-->
+			<fill color="%c_acc_color_val%">
+				<conditions>
+					<condition var1="c_e_p" op="&gt;" var2="70"/>
+					<condition var1="c_e_p" op="&lt;" var2="81"/>
+				</conditions>
+				<placement x="165" y="798" w="352" h="7"/>
+			</fill>
+
+			<!--90% 396-->
+			<fill color="%c_acc_color_val%">
+				<conditions>
+					<condition var1="c_e_p" op="&gt;" var2="80"/>
+					<condition var1="c_e_p" op="&lt;" var2="91"/>
+				</conditions>
+				<placement x="165" y="798" w="396" h="7"/>
+			</fill>
+
+			<!--100% 440-->
+			<fill color="%c_acc_color_val%">
+				<conditions>
+					<condition var1="c_e_p" op="&gt;" var2="90"/>
+					<condition var1="c_e_p" op="&lt;" var2="101"/>
+				</conditions>
+				<placement x="165" y="798" w="440" h="7"/>
+			</fill>
+			<!--ExternalStorageButton-->
+			<button>
+				<placement x="36" y="678" w="612" h="138"/>
+				<fill color="%transparent%"/>
+				<action function="set">tw_file_location1=%external_storage_location%</action>
+				<action function="set">c_menu=0</action>
+				<action function="overlay"/>
+			</button>
+			<image>
+				<placement x="50" y="872"/>
+				<image resource="c_file_otg"/>
+			</image>
+			<text style="c_file_menu">
+				<placement x="170" y="872"/>
+				<text>{@c_side_bar_otg=OTG}</text>
+			</text>
+			<text style="c_reboot_text">
+				<placement x="170" y="922"/>
+				<text>%c_o_status%</text>
+			</text>
+			<fill color="%nav_bg%">
+				<placement x="165" y="972" w="440" h="7"/>
+			</fill>
+			<!--10% 44-->
+			<fill color="%c_acc_color_val%">
+				<conditions>
+					<condition var1="c_o_p" op="&gt;" var2="0"/>
+					<condition var1="c_o_p" op="&lt;" var2="11"/>
+				</conditions>
+				<placement x="165" y="972" w="44" h="7"/>
+			</fill>
+			<!--20% 88-->
+			<fill color="%c_acc_color_val%">
+				<conditions>
+					<condition var1="c_o_p" op="&gt;" var2="10"/>
+					<condition var1="c_o_p" op="&lt;" var2="21"/>
+				</conditions>
+				<placement x="165" y="972" w="88" h="7"/>
+			</fill>
+
+			<!--30% 132-->
+			<fill color="%c_acc_color_val%">
+				<conditions>
+					<condition var1="c_o_p" op="&gt;" var2="20"/>
+					<condition var1="c_o_p" op="&lt;" var2="31"/>
+				</conditions>
+				<placement x="165" y="972" w="132" h="7"/>
+			</fill>
+
+			<!--40% 176-->
+			<fill color="%c_acc_color_val%">
+				<conditions>
+					<condition var1="c_o_p" op="&gt;" var2="30"/>
+					<condition var1="c_o_p" op="&lt;" var2="41"/>
+				</conditions>
+				<placement x="165" y="972" w="176" h="7"/>
+			</fill>
+
+			<!--50% 220-->
+			<fill color="%c_acc_color_val%">
+				<conditions>
+					<condition var1="c_o_p" op="&gt;" var2="40"/>
+					<condition var1="c_o_p" op="&lt;" var2="51"/>
+				</conditions>
+				<placement x="165" y="972" w="220" h="7"/>
+			</fill>
+
+			<!--60% 264-->
+			<fill color="%c_acc_color_val%">
+				<conditions>
+					<condition var1="c_o_p" op="&gt;" var2="50"/>
+					<condition var1="c_o_p" op="&lt;" var2="61"/>
+				</conditions>
+				<placement x="165" y="972" w="264" h="7"/>
+			</fill>
+
+			<!--70% 308-->
+			<fill color="%c_acc_color_val%">
+				<conditions>
+					<condition var1="c_o_p" op="&gt;" var2="60"/>
+					<condition var1="c_o_p" op="&lt;" var2="71"/>
+				</conditions>
+				<placement x="165" y="972" w="308" h="7"/>
+			</fill>
+
+			<!--80% 352-->
+			<fill color="%c_acc_color_val%">
+				<conditions>
+					<condition var1="c_o_p" op="&gt;" var2="70"/>
+					<condition var1="c_o_p" op="&lt;" var2="81"/>
+				</conditions>
+				<placement x="165" y="972" w="352" h="7"/>
+			</fill>
+
+			<!--90% 396-->
+			<fill color="%c_acc_color_val%">
+				<conditions>
+					<condition var1="c_o_p" op="&gt;" var2="80"/>
+					<condition var1="c_o_p" op="&lt;" var2="91"/>
+				</conditions>
+				<placement x="165" y="972" w="396" h="7"/>
+			</fill>
+
+			<!--100% 440-->
+			<fill color="%c_acc_color_val%">
+				<conditions>
+					<condition var1="c_o_p" op="&gt;" var2="90"/>
+					<condition var1="c_o_p" op="&lt;" var2="101"/>
+				</conditions>
+				<placement x="165" y="972" w="440" h="7"/>
+			</fill>
+			<!--OTGStorageButton-->
+			<button>
+				<placement x="36" y="852" w="612" h="138"/>
+				<fill color="%transparent%"/>
+				<action function="set">tw_file_location1=%usb_otg_location%</action>
+				<action function="set">c_menu=0</action>
+				<action function="overlay"/>
+			</button>
+
+			<button>
+				<condition var1="c_menu" op="=" var2="1"/>
+				<placement x="860" y="1450"/>
+				<image resource="c_file_back"/>
+				<action function="set">c_menu=0</action>
+				<action function="overlay"/>
+			</button>
+			<action>
+				<touch key="back"/>
+				<action function="set">c_menu=0</action>
+				<action function="overlay"/>
+			</action>
+			<action>
+				<touch key="power+voldown"/>
+				<action function="screenshot"/>
+			</action>
+		</page>
+		<page name="zipName">
+			<template name="c_page"/>
+			<template name="c_status_bar"/>
+			<text style="c_main_text_header">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
+				<text>{@c_zip=Zip}</text>
+			</text>
+			<text style="c_text_dashboard">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
+				<text>{@c_zip=Zip} {@sort_by_name_only=Name}</text>
+			</text>
+			<text style="c_sub">
+				<placement x="%c_hawk_base_column%" y="%c_text_sub_y_spec%"/>
+				<text>{@name=Name:}</text>
+			</text>
+
+			<fill color="nav_bg">
+				<placement x="50" y="%dash_ico_1st_row%" w="970" h="94"/>
+			</fill>
+
+			<input>
+				<placement x="80" y="%input_file_manager_y%" w="800" h="64"/>
+				<background color="%nav_bg%"/>
+				<text>%shrp_zipName%</text>
+				<data name="shrp_zipName"/>
+				<restrict minlen="1" maxlen="64" allow=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-_.{}[]"/>
+				<actions>
+					<action function="set">c_busy=1</action>
+					<action function="set">c_status=Zipping</action>
+					<action function="cmd">
+cd %tw_file_location1%
+cd ..
+zip -r %shrp_zipName%.zip %shrp_zipFolderName%
+					</action>
+					<action function="set">c_busy=0</action>
+					<action function="page">c_file_epicx</action>
+				</actions>
+			</input>
+			<template name="keyboardtemplate"/>
+			<action>
+				<touch key="back"/>
+				<action function="page">c_file_epicx</action>
+			</action>
+			<action>
+				<touch key="power+voldown"/>
+				<action function="screenshot"/>
+			</action>
+			<template name="c_busy_status"/>
+		</page>
+		<page name="c_createFolder">
+			<template name="c_page"/>
+			<template name="c_status_bar"/>
+			<text style="c_main_text_header">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
+				<text>{@c_create=Create}</text>
+			</text>
+			<text style="c_text_dashboard">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
+				<text>{@c_create=Create} {@fm_type_folder=Folder}</text>
+			</text>
+			<text style="c_sub">
+				<placement x="%c_hawk_base_column%" y="%c_text_sub_y_spec%"/>
+				<text>{@name=Name:}</text>
+			</text>
+			<fill color="nav_bg">
+				<placement x="50" y="%dash_ico_1st_row%" w="970" h="94"/>
+			</fill>
+			<input>
+				<placement x="80" y="%input_file_manager_y%" w="800" h="64"/>
+				<background color="%nav_bg%"/>
+				<text>Newfolder</text>
+				<data name="FolderName"/>
+				<restrict minlen="1" maxlen="64" allow=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-_.{}[]"/>
+				<actions>
+					<action function="cmd">
+cd %tw_file_location1%
+mkdir -p %FolderName%
+					</action>
+					<action function="page">c_file_epicx</action>
+				</actions>
+			</input>
+			<template name="keyboardtemplate"/>
+			<action>
+				<touch key="back"/>
+				<action function="page">c_file_epicx</action>
+			</action>
+			<action>
+				<touch key="power+voldown"/>
+				<action function="screenshot"/>
+			</action>
+		</page>
+		<!-- Main Dashboard of File_manager-->
+		<page name="c_file_epicx">
+			<template name="c_page"/>
+			<template name="c_status_bar"/>
+			<template name="c_simple_sort"/>
+			<image>
+				<placement x="0" y="%file_up_shadow%"/>
+				<image resource="c_shadow"/>
+			</image>
+			<text style="c_main_text_header">
+				<placement x="70" y="%file_head%"/>
+				<text>{@files_btn=Files}</text>
+			</text>
+			<text style="c_text_dashboard">
+				<placement x="70" y="%file_sub%"/>
+				<text>%tw_file_location1%</text>
+			</text>
+
+			<fileselector>
+				<placement x="48" y="%file_manager_file_selector_default_y%" w="%file_selector_default_w%" h="%file_manager_file_selector_default_h%"/>
+				<sort name="tw_gui_sort_order"/>
+				<filter folders="1" files="1"/>
+				<!--filter folders="1" files="1" selectable="1"/>
+				<select folderSelected="checkbox_true" folderUnselected="checkbox_false" fileSelected="checkbox_true" fileUnselected="checkbox_false"/-->
+				<path name="tw_file_location1" default="/"/>
+				<data name="tw_filename1"/>
+				<selection name="tw_selection1"/>
+				<!--multiSelection name="selectionHandle"/-->
+			</fileselector>
+			<image>
+				<placement x="0" y="1593"/>
+				<image resource="c_shadow_invert"/>
+			</image>
+			<button>
+				<conditions>
+					<condition var1="c_file" op="=" var2="0" />
+				</conditions>
+				<placement x="0" y="1610"/>
+				<image resource="c_copy"/>
+				<actions>
+					<action function="set">tw_filemanager_command=cd "%tw_file_location1%" &amp;&amp; cd .. &amp;&amp; cp -R</action>
+					<action function="page">c_file_epicx_nxt</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="c_file" op="=" var2="0" />
+				</conditions>
+				<placement x="180" y="1610"/>
+				<image resource="c_cut"/>
+				<actions>
+					<action function="set">tw_filemanager_command=mv</action>
+					<action function="set">c_mv=1</action>
+					<action function="page">c_file_epicx_nxt</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="c_file" op="=" var2="0" />
+				</conditions>
+				<placement x="540" y="1610"/>
+				<image resource="c_file_delete2"/>
+				<actions>
+					<action function="set">tw_filemanager_command=rm -rf</action>
+					<action function="set">tw_include_text3=0</action>
+					<action function="page">c_file_delete</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="c_file" op="=" var2="0" />
+				</conditions>
+				<placement x="360" y="1610"/>
+				<image resource="c_rename"/>
+				<actions>
+					<action function="set">tw_filemanager_rename=tw_selection1</action>
+					<action function="set">tw_filemanager_command=cd "%tw_file_location1%" &amp;&amp; cd .. &amp;&amp; mv</action>
+					<action function="page">filemanagerrenamefolder</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="c_file" op="=" var2="0" />
+				</conditions>
+				<placement x="720" y="1610"/>
+				<image resource="c_chmod"/>
+				<actions>
+					<action function="set">chFolder=1</action>
+					<action function="set">tw_filemanager_rename=0000</action>
+					<action function="set">tw_fm_text2=</action>
+					<action function="set">tw_fm_text3=</action>
+					<action function="set">tw_include_text3=0</action>
+					<action function="set">tw_back=c_file_epicx</action>
+					<action function="page">filemanagerchmod</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="c_file" op="=" var2="0" />
+				</conditions>
+				<placement x="900" y="1610"/>
+				<image resource="c_ch755"/>
+				<actions>
+					<action function="set">chFolder=1</action>
+					<action function="set">tw_filename1=tw_file_location1</action>
+					<action function="set">tw_filemanager_command=chmod 755</action>
+					<action function="set">tw_include_text3=0</action>
+					<action function="page">c_file_epicx_action</action>
+				</actions>
+			</button>
+			<button>
+				<placement x="860" y="1090"/>
+				<conditions>
+					<condition var1="c_file" op="=" var2="0" />
+					<condition var1="tw_file_location1" op="!=" var2="/"/>
+					<condition var1="tw_file_location1" op="!=" var2="%internal_storage_location%"/>
+					<condition var1="tw_file_location1" op="!=" var2="%external_storage_location%"/>
+					<condition var1="tw_file_location1" op="!=" var2="%usb_otg_location%"/>
+				</conditions>
+				<image resource="c_archive"/>
+				<action function="shrp_zip_init">%tw_file_location1%</action>
+				<action function="set">c_menu=0</action>
+				<action function="page">zipName</action>
+			</button>
+			<button>
+				<placement x="860" y="1270"/>
+				<conditions>
+					<condition var1="c_file" op="=" var2="0" />
+				</conditions>
+				<image resource="c_createFolder"/>
+				<action function="page">c_createFolder</action>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="c_menu" op="=" var2="0" />
+					<condition var1="c_file" op="=" var2="0" />
+				</conditions>
+				<placement x="860" y="1450"/>
+				<image resource="c_menu"/>
+				<action function="set">c_menu=1</action>
+				<action function="sig"/>
+				<action function="overlay">c_file_menu</action>
+			</button>
+
+			<action>
+				<condition var1="tw_filename1" op="modified"/>
+				<condition var1="chFolder" op="=" var2="0"/>
+				<actions>
+					<action function="set">c_file=1</action>
+					<action function="unZipSelector">%tw_filename1%</action>
+					<action function="page">c_file_epicx_file_confirm</action>
+				</actions>
+			</action>
+
+			<action>
+				<touch key="home"/>
+				<action function="page">c_refresh</action>
+			</action>
+
+			<action>
+				<touch key="back"/>
+				<action function="page">c_refresh</action>
+			</action>
+		</page>
+		<page name="c_file_epicx_nxt">
+			<template name="c_page"/>
+			<template name="c_status_bar"/>
+			<template name="c_simple_sort"/>
+			<image>
+				<placement x="0" y="%file_up_shadow%"/>
+				<image resource="c_shadow"/>
+			</image>
+			<text style="c_main_text_header">
+				<placement x="70" y="%file_head%"/>
+				<text>{@files_btn=Files}</text>
+			</text>
+			<text style="c_text_dashboard">
+				<placement x="70" y="%file_sub%"/>
+				<text>%tw_file_location2%</text>
+			</text>
+			<fileselector>
+				<placement x="48" y="%file_manager_file_selector_default_y%" w="%file_selector_default_w%" h="%file_manager_file_selector_default_h%"/>
+				<sort name="tw_gui_sort_order"/>
+				<filter folders="1" files="0"/>
+				<path name="tw_file_location2" default="/"/>
+				<data name="tw_filename2"/>
+				<selection name="tw_selection2"/>
+			</fileselector>
+			<image>
+				<placement x="0" y="1593"/>
+				<image resource="c_shadow_invert"/>
+			</image>
+			<button>
+				<conditions>
+					<condition var1="c_file" op="=" var2="0" />
+					<condition var1="c_mv" op="=" var2="0" />
+				</conditions>
+				<placement x="0" y="1610"/>
+				<image resource="c_paste"/>
+				<actions>
+					<action function="set">tw_filename1=tw_file_location1</action>
+					<action function="set">tw_fm_text2=to</action>
+					<action function="set">tw_fm_text3=%tw_file_location2%</action>
+					<action function="set">tw_include_text3=1</action>
+					<action function="page">c_file_epicx_action</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="c_file" op="=" var2="1" />
+					<condition var1="c_mv" op="=" var2="0" />
+				</conditions>
+				<placement x="0" y="1610"/>
+				<image resource="c_paste"/>
+				<actions>
+					<action function="set">tw_fm_text2=to</action>
+					<action function="set">tw_fm_text3=%tw_file_location2%</action>
+					<action function="set">tw_include_text3=1</action>
+					<action function="set">c_file=0</action>
+					<action function="page">c_file_epicx_action</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="c_file" op="=" var2="0" />
+					<condition var1="c_mv" op="=" var2="1" />
+				</conditions>
+				<placement x="0" y="1610"/>
+				<image resource="c_paste"/>
+				<actions>
+					<action function="set">tw_filename1=tw_file_location1</action>
+					<action function="set">tw_fm_text3=%tw_file_location2%</action>
+					<action function="set">tw_include_text3=1</action>
+					<action function="set">c_mv=0</action>
+					<action function="page">c_file_epicx_action</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="c_file" op="=" var2="1" />
+					<condition var1="c_mv" op="=" var2="1" />
+				</conditions>
+				<placement x="0" y="1610"/>
+				<image resource="c_paste"/>
+				<actions>
+					<action function="set">tw_fm_text2=to</action>
+					<action function="set">tw_fm_text3=%tw_file_location2%</action>
+					<action function="set">tw_include_text3=1</action>
+					<action function="set">c_mv=0</action>
+					<action function="set">c_file=0</action>
+					<action function="page">c_file_epicx_action</action>
+				</actions>
+			</button>
+			<button>
+				<condition var1="c_menu" op="=" var2="0"/>
+				<placement x="860" y="1450"/>
+				<image resource="c_menu"/>
+				<action function="set">c_menu=1</action>
+				<action function="sig"/>
+				<action function="overlay">c_file_menu_nxt</action>
+			</button>
+			<action>
+				<touch key="home"/>
+				<action function="set">c_file=0</action>
+				<action function="set">c_mv=0</action>
+				<action function="page">c_refresh</action>
+			</action>
+
+			<action>
+				<touch key="back"/>
+				<action function="set">c_file=0</action>
+				<action function="set">c_mv=0</action>
+				<action function="page">c_refresh</action>
+			</action>
+		</page>
+		<page name="c_file_epicx_file_confirm">
+			<background color="%c_white%"/>
+			<text style="c_main_text_header">
+				<placement x="70" y="%file_head%"/>
+				<text>{@files_btn=Files}</text>
+			</text>
+			<text style="c_text_dashboard">
+				<placement x="70" y="%file_sub%"/>
+				<text>%tw_filename1%</text>
+			</text>
+			<template name="c_status_bar"/>
+			<!--ExperimentalStart-->
+
+			<text style="c_sub">
+			  <condition var1="is_textFile" op="=" var2="1"/>
+			  <placement x="%c_hawk_base_column%" y="%c_text_sub_y_spec%"/>
+			  <text>{@options_hdr=Options}</text>
+			</text>
+
+			<text style="c_sub">
+				<conditions>
+			  	<condition var1="av_express" op="=" var2="1"/>
+					<condition var1="isThemeFile" op="=" var2="1"/>
+				</conditions>
+			  <placement x="%c_hawk_base_column%" y="%c_text_sub_y_spec%"/>
+			  <text>{@options_hdr=Options}</text>
+			</text>
+
+			<button>
+			  <placement x="60" y="%t_1st_heading%" textplacement="6"/>
+				<conditions>
+			  	<condition var1="av_express" op="=" var2="1"/>
+					<condition var1="isThemeFile" op="=" var2="1"/>
+				</conditions>
+				<font resource="font_m" color="%c_black%"/>
+			  <text>{@c_apply_theme=Apply theme}</text>
+			  <image resource="c_applyCustomTheme"/>
+				<actions>
+			    <action function="page">c_customThemeApply</action>
+			  </actions>
+			</button>
+
+			<button>
+			  <placement x="60" y="%t_1st_heading%" textplacement="6"/>
+			  <font resource="font_m" color="%c_black%"/>
+			  <condition var1="is_textFile" op="=" var2="1"/>
+			  <text>{@c_display_text=Display text}</text>
+			  <image resource="c_displayTxt"/>
+				<actions>
+			    <action function="txtEditor">1</action>
+			  </actions>
+			</button>
+
+			<button>
+			  <placement x="60" y="%t_1st_radio_text_pos%" textplacement="6"/>
+			  <font resource="font_m" color="%c_black%"/>
+			  <condition var1="is_textFile" op="=" var2="1"/>
+			  <text>{@c_add_line=Add line}</text>
+			  <image resource="c_editTxt"/>
+				<actions>
+					<action function="set">c_para=4</action>
+			    <action function="page">pageLine</action>
+			  </actions>
+			</button>
+
+			<button>
+			  <placement x="60" y="%t_2nd_radio_text_pos%" textplacement="6"/>
+			  <font resource="font_m" color="%c_black%"/>
+			  <condition var1="is_textFile" op="=" var2="1"/>
+			  <text>{@c_replace_line=Replace line}</text>
+			  <image resource="c_editTxt"/>
+				<actions>
+					<action function="set">c_para=2</action>
+			    <action function="page">pageLine</action>
+			  </actions>
+			</button>
+
+			<button>
+			  <placement x="60" y="%t_3rd_radio_text_pos%" textplacement="6"/>
+			  <font resource="font_m" color="%c_black%"/>
+			  <condition var1="is_textFile" op="=" var2="1"/>
+			  <text>{@c_remove_line=Remove line}</text>
+			  <image resource="c_removeLine"/>
+				<actions>
+					<action function="set">c_para=6</action>
+			    <action function="page">pageLine</action>
+			  </actions>
+			</button>
+			<!--ExperimentalEnd-->
+			<fill color="%c_white%">
+				<placement x="0" y="1610" w="1080" h="310"/>
+			</fill>
+			<button>
+				<conditions>
+					<condition var1="c_file" op="=" var2="1" />
+				</conditions>
+				<placement x="0" y="1610"/>
+				<image resource="c_copy"/>
+				<actions>
+					<action function="set">tw_filemanager_command=cp</action>
+					<action function="set">canBeUnzip=0</action>
+					<action function="page">c_file_epicx_nxt</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="c_file" op="=" var2="1" />
+				</conditions>
+				<placement x="180" y="1610"/>
+				<image resource="c_cut"/>
+				<actions>
+					<action function="set">tw_filemanager_command=mv</action>
+					<action function="set">c_mv=1</action>
+					<action function="set">canBeUnzip=0</action>
+					<action function="page">c_file_epicx_nxt</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="c_file" op="=" var2="1" />
+				</conditions>
+				<placement x="540" y="1610"/>
+				<image resource="c_file_delete2"/>
+				<actions>
+					<action function="set">tw_filemanager_command=rm -rf</action>
+					<action function="set">tw_include_text3=0</action>
+					<action function="set">canBeUnzip=0</action>
+					<action function="page">c_file_delete</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="c_file" op="=" var2="1" />
+				</conditions>
+				<placement x="360" y="1610"/>
+				<image resource="c_rename"/>
+				<actions>
+					<action function="set">tw_filemanager_rename=tw_selection1</action>
+					<action function="set">tw_filemanager_command=mv</action>
+					<action function="set">canBeUnzip=0</action>
+					<action function="page">filemanagerrenamefile</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="c_file" op="=" var2="1" />
+				</conditions>
+				<placement x="720" y="1610"/>
+				<image resource="c_chmod"/>
+				<actions>
+					<action function="set">tw_filemanager_rename=0000</action>
+					<action function="set">tw_include_text3=0</action>
+					<action function="set">canBeUnzip=0</action>
+					<action function="set">tw_back=c_file_epicx</action>
+					<action function="page">filemanagerchmod</action>
+				</actions>
+			</button>
+			<button>
+				<conditions>
+					<condition var1="c_file" op="=" var2="1" />
+				</conditions>
+				<placement x="900" y="1610"/>
+				<image resource="c_ch755"/>
+				<actions>
+					<action function="set">tw_filemanager_command=chmod 755</action>
+					<action function="set">tw_include_text3=0</action>
+					<action function="set">canBeUnzip=0</action>
+					<action function="set">tw_back=c_file_epicx</action>
+					<action function="page">c_file_epicx_action</action>
+				</actions>
+			</button>
+			<button>
+				<condition var1="canBeUnzip" op="=" var2="1" />
+				<placement x="860" y="1450"/>
+				<image resource="c_unarchive"/>
+				<actions>
+					<action function="set">c_busy=1</action>
+					<action function="set">c_status=Unzipping</action>
+					<action function="cmd">
+cd %tw_file_location1%;
+mkdir -p %tw_file_location1%/%shrpUnzipFolder%;
+unzip -d %shrpUnzipFolder% %tw_filename1%;
+</action>
+					<action function="set">canBeUnzip=0</action>
+					<action function="set">c_file=0</action>
+					<action function="set">c_busy=0</action>
+					<action function="page">c_file_epicx</action>
+				</actions>
+			</button>
+			<button>
+				<condition var1="tw_samsung_navbar" op="!=" var2="1"/>
+				<placement x="%back_button_x%" y="%navbar_btn_y%" placement="4"/>
+				<image resource="back"/>
+				<condition var1="tw_busy" var2="0"/>
+				<action function="key">back</action>
+			</button>
+			<button>
+				<condition var1="tw_samsung_navbar" op="=" var2="1"/>
+				<placement x="%console_button_x%" y="%navbar_btn_y%" placement="4"/>
+				<image resource="back"/>
+				<condition var1="tw_busy" var2="0"/>
+				<action function="key">back</action>
+			</button>
+			<action>
+				<touch key="back"/>
+				<action function="set">c_file=0</action>
+				<action function="set">canBeUnzip=0</action>
+				<action function="page">c_file_epicx</action>
+			</action>
+			<action>
+				<touch key="power+voldown" />
+				<action function="screenshot" />
+			</action>
+			<template name="c_busy_status"/>
+		</page>
+		<page name="c_file_delete">
+			<background color="%semi_transparent%"/>
+			<fill color="%c_white%">
+				<placement x="90" y="710" w="910" h="520"/>
+			</fill>
+			<text>
+				<placement x="130" y="770"/>
+				<font resource="c_dashboard_header" color="%c_black%"/>
+				<text>{@c_format_data_info=Are you sure?}</text>
+			</text>
+			<button style="c_file_trans_bg_style">
+				<condition var1="c_file" op="!=" var2="1"/>
+				<placement x="740" y="1060" w="211" h="118"/>
+				<fill color="%transparent%"/>
+				<text>{@fm_delete_btn=Delete}</text>
+				<actions>
+					<action function="set">tw_filename1=tw_file_location1</action>
+					<action function="set">c_file=0</action>
+					<action function="page">c_file_epicx_action</action>
+				</actions>
+			</button>
+			<button style="c_file_trans_bg_style">
+				<condition var1="c_file" var2="1"/>
+				<placement x="740" y="1060" w="211" h="118"/>
+				<fill color="%transparent%"/>
+				<text>{@fm_delete_btn=Delete}</text>
+				<actions>
+					<action function="set">c_file=0</action>
+					<action function="page">c_file_epicx_action</action>
+				</actions>
+			</button>
+			<button style="c_file_trans_bg_style">
+				<placement x="500" y="1060" w="211" h="118"/>
+				<fill color="%transparent%"/>
+				<text>{@cancel_btn=Cancel}</text>
+				<actions>
+					<action function="set">c_file=0</action>
+					<action function="page">c_file_epicx</action>
+				</actions>
+			</button>
+		</page>
+		<page name="c_file_epicx_action">
+			<template name="c_page"/>
+			<template name="c_status_bar"/>
+			<text style="c_main_text_header">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
+				<text>{@c_file_busy=Please Wait}</text>
+			</text>
+			<text style="c_text_dashboard">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
+				<text>{@c_file_busy_info=Processing}</text>
+			</text>
+			<action>
+				<conditions>
+					<condition var1="tw_operation_state" var2="1"/>
+					<condition var1="tw_operation_status" var2="0"/>
+				</conditions>
+				<actions>
+					<action function="page">c_file_epicx</action>
+				</actions>
+			</action>
+
+			<action>
+				<conditions>
+					<condition var1="tw_operation_state" var2="1"/>
+					<condition var1="tw_operation_status" op="!=" var2="0"/>
+				</conditions>
+				<actions>
+					<action function="page">c_file_epicx</action>
+				</actions>
+			</action>
+			<action>
+				<condition var1="tw_include_text3" var2="0"/>
+				<action function="set">chFolder=0</action>
+				<action function="set">c_file=0</action>
+				<action function="set">c_mv=0</action>
+				<action function="cmd">%tw_filemanager_command% "%tw_filename1%"</action>
+			</action>
+			<action>
+				<condition var1="tw_include_text3" var2="1"/>
+				<action function="set">chFolder=0</action>
+				<action function="set">c_file=0</action>
+				<action function="set">c_mv=0</action>
+				<action function="cmd">%tw_filemanager_command% "%tw_filename1%" "%tw_fm_text3%"</action>
+			</action>
+		</page>
+		<page name="c_customThemeApply">
+			<template name="c_page"/>
+			<template name="c_status_bar"/>
+			<text style="c_main_text_header">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
+				<text>{@c_confirm=Confirm}</text>
+			</text>
+			<text style="c_text_dashboard">
+				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
+				<text>{@c_action_cancel=Press back button to cancel.}</text>
+			</text>
+			<button>
+			  <placement x="860" y="1628"/>
+			  <text></text>
+			  <image resource="c_apply_theme"/>
+			  <actions>
+					<action function="set">c_file=0</action>
+					<action function="set">canBeUnzip=0</action>
+			    <action function="set">c_busy=1</action>
+					<action function="execSTheme">%tw_filename1%</action>
+			    <action function="cmd">
+mkdir -p /data/local/tmp
+export battery_bar=%c_battery_bar_triger%
+export statusbar=%c_status_bar_triger%
+export b_icon=%c_battery_icon_triger%
+export bp_icon=%c_battery_portrait_icon_triger%
+export bc_icon=%c_battery_circle_icon_triger%
+export battery_txt=%c_battery_txt_triger%
+export time_txt=%c_time_txt_triger%
+export r_c=%c_rounded_corner_trigger%
+export r_c_type=%c_rounded_corner_type%
+export d_i=%c_dash_ico%
+export cnt=%c_nav_type%
+export cnb=%c_nav_bg%
+export cb_w=%c_bgc%
+export ctc=%c_text_color%
+export cac=%c_acc_color%
+export cacv=%c_acc_color_val%
+export cnm=%c_notch_mode%
+export scolor=%c_scolor_status%
+export bgSColor=%c_white%
+export navBgColor=%nav_bg%
+export txtSColor=%c_black%
+cd /twres/scripts
+sh statusbar_trigger_scripts.sh
+sh cthemeHelper.sh
+</action>
+					<action function="set">c_target_destination=main2</action>
+			    <action function="set">c_status={@c_file_busy_info=Processing} : 6%</action>
+			    <action function="c_repack"/>
+			    <action function="set">c_status={@c_flashing=Flashing} {@recovery=Recovery}</action>
+			    <action function="set">c_status={@c_rm_o_files=Removing Old files}</action>
+			    <action function="set">c_status={@done=Done}</action>
+			    <action function="set">c_busy=0</action>
+			    <action function="reload"/>
+			  </actions>
+			</button>
+			<template name="c_busy_status"/>
+			<action>
+				<touch key="back"/>
+				<action function="set">c_file=0</action>
+				<action function="set">canBeUnzip=0</action>
+				<action function="page">c_file_epicx</action>
+			</action>
+			<action>
+				<touch key="home"/>
+				<action function="set">c_file=0</action>
+				<action function="set">canBeUnzip=0</action>
+				<action function="page">c_refresh</action>
+			</action>
+		</page>
+	</pages>
+</recovery>
