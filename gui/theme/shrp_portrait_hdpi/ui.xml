@@ -10,6 +10,7 @@
 	</details>
 
 	<include>
+		<xmlfile name="dynamic/themeData.xml"/>
 		<xmlfile name="txt_res.xml"/>
 		<xmlfile name="notch_handled_var.xml"/>
 		<xmlfile name="c_status_bar_h.xml"/>
