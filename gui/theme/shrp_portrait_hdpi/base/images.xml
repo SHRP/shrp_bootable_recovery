@@ -1,0 +1,190 @@
+<?xml version="1.0"?>
+<recovery>
+	<details>
+		<resolution width="1080" height="1920"/>
+		<author>TeamSHRP</author>
+		<title>SKY HAWK RECOVERY PROJECT</title>
+		<description>None</description>
+		<preview>preview.png</preview>
+		<themeversion>3</themeversion>
+	</details>
+    <resources>
+		<!-- For_dashboard_icon_start-->
+		<image name="c_dashboard_about" filename="c_dashboard_about" retainaspect="1"/>
+		<image name="c_dashboard_advanced" filename="c_dashboard_advanced" retainaspect="1"/>
+		<image name="c_dashboard_backup" filename="c_dashboard_backup" retainaspect="1"/>
+		<image name="c_dashboard_filemanager" filename="c_dashboard_filemanager" retainaspect="1"/>
+		<image name="c_dashboard_flash" filename="c_dashboard_flash" retainaspect="1"/>
+		<image name="c_dashboard_magisk" filename="c_dashboard_magisk" retainaspect="1"/>
+		<image name="c_dashboard_mount" filename="c_dashboard_mount" retainaspect="1"/>
+		<image name="c_dashboard_reboot" filename="c_dashboard_reboot" retainaspect="1"/>
+		<image name="c_dashboard_restore" filename="c_dashboard_restore" retainaspect="1"/>
+		<image name="c_dashboard_settings" filename="c_dashboard_settings" retainaspect="1"/>
+		<image name="c_dashboard_terminal" filename="c_dashboard_terminal" retainaspect="1"/>
+		<image name="c_dashboard_wipe" filename="c_dashboard_wipe" retainaspect="1"/>
+		<image name="c_dashboard_addon" filename="c_dashboard_addon" retainaspect="1"/>
+		<image name="c_dashboard_more" filename="c_dashboard_more" retainaspect="1"/>
+		<!-- For_dashboard_icon_end-->
+		<image name="c_dash_text_box" filename="c_dash_text_box" retainaspect="0"/>
+		<image name="c_storage" filename="c_storage" retainaspect="1"/>
+		<image name="c_zip" filename="c_zip" retainaspect="1"/>
+		<image name="c_img" filename="c_img" retainaspect="1"/>
+		<image name="c_flash" filename="c_flash" retainaspect="1"/>
+		<image name="c_queue" filename="c_queue" retainaspect="1"/>
+		<image name="c_line" filename="c_line" retainaspect="1"/>
+		<image name="c_line_t" filename="c_line_t" retainaspect="1"/>
+		<image name="c_reboot" filename="c_reboot" retainaspect="1"/>
+		<image name="c_factory_reset" filename="c_factory_reset" retainaspect="1"/>
+		<image name="c_repair" filename="c_repair" retainaspect="1"/>
+		<image name="c_ok" filename="c_ok" retainaspect="1"/>
+		<image name="c_cancel" filename="c_cancel" retainaspect="1"/>
+		<image name="c_cut" filename="c_cut" retainaspect="1"/>
+		<image name="c_copy" filename="c_copy" retainaspect="1"/>
+		<image name="c_delete" filename="c_delete" retainaspect="1"/>
+		<image name="c_rename" filename="c_rename" retainaspect="1"/>
+		<image name="c_refresh" filename="c_refresh" retainaspect="1"/>
+		<image name="c_circle4" filename="c_circle4" retainaspect="1"/>
+		<image name="c_mtp_enabled" filename="c_mtp_enabled" retainaspect="1"/>
+		<image name="c_mtp_disabled" filename="c_mtp_disabled" retainaspect="1"/>
+		<image name="c_usb" filename="c_usb" retainaspect="1"/>
+		<image name="c_usb_disabled" filename="c_usb_disabled" retainaspect="1"/>
+		<image name="c_minus" filename="c_minus" retainaspect="1"/>
+		<image name="c_plus" filename="c_plus" retainaspect="1"/>
+		<image name="c_on_tap_unlock" filename="c_on_tap_unlock" retainaspect="1"/>
+		<image name="c_on_tap_unlock_pressed" filename="c_on_tap_unlock_pressed" retainaspect="1"/>
+		<image name="c_tab_backup_bg" filename="c_tab_backup_bg" retainaspect="1"/>
+		<image name="c_reboot_to_bootloader" filename="c_reboot_to_bootloader" retainaspect="1"/>
+		<image name="c_power_off" filename="c_power_off" retainaspect="1"/>
+		<image name="c_reboot_to_recovery" filename="c_reboot_to_recovery" retainaspect="1"/>
+		<image name="c_reboot_to_system" filename="c_reboot_to_system" retainaspect="1"/>
+		<image name="c_selinux" filename="c_selinux" retainaspect="1"/>
+		<image name="c_log" filename="c_log" retainaspect="1"/>
+		<image name="c_adb" filename="c_adb" retainaspect="1"/>
+		<image name="c_dashboard_lang" filename="c_dashboard_lang" retainaspect="1"/>
+		<image name="c_logo" filename="c_logo" retainaspect="1"/>
+		<image name="c_format_data" filename="c_format_data" retainaspect="1"/>
+		<image name="c_paste" filename="c_paste" retainaspect="1"/>
+		<image name="c_shadow" filename="c_shadow" retainaspect="1"/>
+		<image name="c_shadow_invert" filename="c_shadow_invert" retainaspect="1"/>
+		<image name="c_ch755" filename="c_ch755" retainaspect="1"/>
+		<image name="c_chmod" filename="c_chmod" retainaspect="1"/>
+		<image name="c_menu" filename="c_menu" retainaspect="1"/>
+		<image name="c_file_back" filename="c_file_back" retainaspect="1"/>
+		<image name="c_file_sdcard" filename="c_file_sdcard" retainaspect="1"/>
+		<image name="c_file_exsdcard" filename="c_file_exsdcard" retainaspect="1"/>
+		<image name="c_file_root" filename="c_file_root" retainaspect="1"/>
+		<image name="c_file_otg" filename="c_file_otg" retainaspect="1"/>
+		<image name="c_archive" filename="c_archive" retainaspect="1"/>
+		<image name="c_unarchive" filename="c_unarchive" retainaspect="1"/>
+		<image name="c_createFolder" filename="c_createFolder" retainaspect="1"/>
+		<image name="bt" filename="bt"/>
+		<image name="c_file_delete2" filename="c_file_delete2" retainaspect="1"/>
+		<image name="c_power_menu_bg" filename="c_power_menu_bg"/>
+		<image name="c_flashlight_off" filename="c_flashlight_off" retainaspect="1"/>
+		<image name="c_flashlight_on" filename="c_flashlight_on" retainaspect="1"/>
+		<image name="c_epicxsort" filename="c_epicxsort" retainaspect="1"/>
+		<image name="c_dateSort" filename="c_dateSort" retainaspect="1"/>
+		<image name="c_modules" filename="c_modules" retainaspect="1"/>
+		<image name="white_mode_color" filename="white_mode_color" retainaspect="1"/>
+		<image name="dark_black_mode_color" filename="dark_black_mode_color" retainaspect="1"/>
+		<image name="pitch_black_mode_color" filename="pitch_black_mode_color" retainaspect="1"/>
+		<image name="color_blue" filename="color_blue" retainaspect="1"/>
+		<image name="color_cyan" filename="color_cyan" retainaspect="1"/>
+		<image name="color_green" filename="color_green" retainaspect="1"/>
+		<image name="color_orange" filename="color_orange" retainaspect="1"/>
+		<image name="color_pink" filename="color_pink" retainaspect="1"/>
+		<image name="color_rr" filename="color_rr" retainaspect="1"/>
+		<image name="color_yellow" filename="color_yellow" retainaspect="1"/>
+		<image name="color_red" filename="color_red" retainaspect="1"/>
+		<image name="color_rpink" filename="color_rpink" retainaspect="1"/>
+		<image name="color_purple" filename="color_purple" retainaspect="1"/>
+		<image name="midnightblue_mode" filename="midnightblue_mode" retainaspect="1"/>
+		<image name="wetasphalt_mode" filename="wetasphalt_mode" retainaspect="1"/>
+		<image name="color_indigo" filename="color_indigo" retainaspect="1"/>
+		<image name="color_teal" filename="color_teal" retainaspect="1"/>
+		<image name="color_brown" filename="color_brown" retainaspect="1"/>
+		<image name="c_applied" filename="c_applied" retainaspect="1"/>
+		<image name="c_lock_pass" filename="c_lock_pass" retainaspect="1"/>
+		<image name="c_lock_patt" filename="c_lock_patt" retainaspect="1"/>
+		<image name="c_battery_low" filename="c_battery_low" retainaspect="1"/>
+		<image name="c_battery_20" filename="c_battery_20" retainaspect="1"/>
+		<image name="c_battery_30" filename="c_battery_30" retainaspect="1"/>
+		<image name="c_battery_50" filename="c_battery_50" retainaspect="1"/>
+		<image name="c_battery_60" filename="c_battery_60" retainaspect="1"/>
+		<image name="c_battery_80" filename="c_battery_80" retainaspect="1"/>
+		<image name="c_battery_90" filename="c_battery_90" retainaspect="1"/>
+		<image name="c_battery_full" filename="c_battery_full" retainaspect="1"/>
+		<image name="c_magisk_splash" filename="c_magisk_splash" retainaspect="1"/>
+		<image name="c_magisk_start" filename="c_magisk_start" retainaspect="1"/>
+		<image name="c_magisk_start_highlight" filename="c_magisk_start_highlight" retainaspect="1"/>
+		<image name="c_switch_on" filename="c_switch_on" retainaspect="1"/>
+		<image name="c_switch_off" filename="c_switch_off" retainaspect="1"/>
+		<image name="c_on_button" filename="c_on_button" retainaspect="1"/>
+		<image name="c_off_button" filename="c_off_button" retainaspect="1"/>
+		<image name="c_clear_input" filename="c_clear_input" retainaspect="1"/>
+		<image name="c_dashboard_lock" filename="c_dashboard_lock" retainaspect="1"/>
+		<image name="c_mod" filename="c_mod" retainaspect="1"/>
+		<image name="c_reset_lock" filename="c_reset_lock" retainaspect="1"/>
+		<image name="c_lock_bg_on" filename="c_lock_bg_on" retainaspect="1"/>
+		<image name="c_lock_bg_off" filename="c_lock_bg_off" retainaspect="1"/>
+		<image name="c_3dot_action" filename="c_3dot_action" retainaspect="1"/>
+		<image name="c_misc_panel" filename="c_misc_panel" retainaspect="1"/>
+		<image name="c_panel_copy_log" filename="c_panel_copy_log" retainaspect="1"/>
+		<image name="c_panel_reboot_recovery" filename="c_panel_reboot_recovery" retainaspect="1"/>
+		<image name="c_panel_reboot_system" filename="c_panel_reboot_system" retainaspect="1"/>
+		<image name="c_panel_wipe_cache" filename="c_panel_wipe_cache" retainaspect="1"/>
+		<image name="c_rounded_1" filename="c_rounded_1" retainaspect="0"/>
+		<image name="c_rounded_2" filename="c_rounded_2" retainaspect="0"/>
+		<image name="c_rounded_3" filename="c_rounded_3" retainaspect="0"/>
+		<image name="c_rounded_4" filename="c_rounded_4" retainaspect="0"/>
+		<image name="c_theme_init_s" filename="c_theme_init_s" retainaspect="1"/>
+		<image name="c_theme_init_s_hr" filename="c_theme_init_s_hr" retainaspect="1"/>
+		<image name="c_theme_splash" filename="c_theme_splash" retainaspect="1"/>
+		<image name="c_sd_part" filename="c_sd_part" retainaspect="1"/>
+		<image name="c_apply_theme" filename="c_apply_theme" retainaspect="1"/>
+		<image name="oka" filename="oka" retainaspect="1"/>
+		<image name="c_theme_color_btn" filename="c_theme_color_btn" retainaspect="1"/>
+		<image name="c_theme_daskboard_ico_btn" filename="c_theme_daskboard_ico_btn" retainaspect="1"/>
+		<image name="c_theme_nav_bar_btn" filename="c_theme_nav_bar_btn" retainaspect="1"/>
+		<image name="c_theme_others_btn" filename="c_theme_others_btn" retainaspect="1"/>
+		<image name="c_theme_status_btn" filename="c_theme_status_btn" retainaspect="1"/>
+		<image name="c_about_tile" filename="c_about_tile" retainaspect="1"/>
+		<image name="c_advanced" filename="c_advanced" retainaspect="1"/>
+		<image name="c_download_mode" filename="c_download_mode" retainaspect="1"/>
+		<image name="c_edl_mode" filename="c_edl_mode" retainaspect="1"/>
+        <image name="backup" filename="backup" retainaspect="1"/>
+		<image name="c_reload" filename="c_reload" retainaspect="1"/>
+		<image name="c_backup_encryption" filename="c_backup_encryption" retainaspect="1"/>
+		<image name="c_magisk_not_exist" filename="c_magisk_not_exist" retainaspect="1"/>
+		<!--epicX_image_resources_end-->
+		<image name="file" filename="file" retainaspect="1"/>
+		<image name="folder" filename="folder" retainaspect="1"/>
+		<image name="home" filename="home" retainaspect="1"/>
+		<image name="back" filename="back" retainaspect="1"/>
+		<image name="console" filename="console" retainaspect="1"/>
+		<image name="kb_show" filename="kb_show" retainaspect="1"/>
+		<image name="checkbox_false" filename="checkbox_false" retainaspect="1"/>
+		<image name="checkbox_true" filename="checkbox_true" retainaspect="1"/>
+		<image name="radio_false" filename="radio_false" retainaspect="1"/>
+		<image name="radio_true" filename="radio_true" retainaspect="1"/>
+		<image name="handle" filename="handle"/>
+		<image name="cursor" filename="cursor" retainaspect="1"/>
+		<image name="backspace" filename="backspace" retainaspect="1"/>
+		<image name="enter" filename="enter" retainaspect="1"/>
+		<image name="shift" filename="shift" retainaspect="1"/>
+		<image name="shift_fill" filename="shift_fill" retainaspect="1"/>
+		<image name="space" filename="space" retainaspect="1"/>
+		<image name="kb_arrow_left" filename="kb_arrow_left" retainaspect="1"/>
+		<image name="kb_arrow_right" filename="kb_arrow_right" retainaspect="1"/>
+		<image name="kb_arrow_up" filename="kb_arrow_up" retainaspect="1"/>
+		<image name="kb_arrow_down" filename="kb_arrow_down" retainaspect="1"/>
+		<image name="c_displayTxt" filename="c_displayTxt" retainaspect="1"/>
+		<image name="c_editTxt" filename="c_editTxt" retainaspect="1"/>
+		<image name="c_removeLine" filename="c_removeLine" retainaspect="1"/>
+		<image name="c_applyCustomTheme" filename="c_applyCustomTheme" retainaspect="1"/>
+		<image name="c_restoreDefault" filename="c_restoreDefault" retainaspect="1"/>
+		<image name="c_dashboard_userFbe" filename="c_dashboard_userFbe" retainaspect="1"/>
+		<image name="c_usersRadioOn" filename="c_usersRadioOn" retainaspect="1"/>
+		<image name="c_usersRadioOff" filename="c_usersRadioOff" retainaspect="1"/>
+	</resources>
+</recovery>

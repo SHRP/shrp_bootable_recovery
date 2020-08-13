@@ -1,5 +1,13 @@
 <?xml version="1.0"?>
 <recovery>
+    <details>
+		<resolution width="1080" height="1920"/>
+		<author>TeamSHRP</author>
+		<title>SKY HAWK RECOVERY PROJECT</title>
+		<description>None</description>
+		<preview>preview.png</preview>
+		<themeversion>3</themeversion>
+	</details>
 	<styles>
 		<style name="input">
 			<background color="%c_white%"/>
@@ -121,7 +129,7 @@
 			<icon folder="c_modules" file="file" />
 			<font resource="font_s" color="%c_black%" />
 		</style>
-    <style name="c_restore">
+        <style name="c_restore">
 			<background color="%c_white%"/>
 			<fastscroll rectcolor="%c_acc_color_val%" w="%fastscroll_w%" rectw="%fastscroll_rectw%" recth="%fastscroll_recth%" />
 			<icon folder="backup" file="backup" />
@@ -173,3 +181,4 @@
 		</style>
 	</styles>
 </recovery>
+

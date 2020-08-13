@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<recovery>
+    <details>
+		<resolution width="1080" height="1920"/>
+		<author>TeamSHRP</author>
+		<title>SKY HAWK RECOVERY PROJECT</title>
+		<description>None</description>
+		<preview>preview.png</preview>
+		<themeversion>3</themeversion>
+	</details>
+    <resources>
+		<font name="font_l" filename="Product_sans.ttf" size="54"/>
+		<font name="font_m" filename="Product_sans.ttf" size="42"/>
+		<font name="font_s" filename="Product_sans.ttf" size="36"/>
+		<font name="fixed" filename="Product_sans.ttf" size="30"/>
+		<font name="c_console_font" filename="DroidSansMono.ttf" size="30"/>
+		<font name="keylabel" filename="Product_sans.ttf" size="64"/>
+		<font name="keylabel-small" filename="Product_sans.ttf" size="46"/>
+		<font name="keylabel-longpress" filename="Product_sans.ttf" size="32"/>
+
+
+		<!-- epicX_font_styles_start-->
+		<font name="c_list" filename="Product_sans.ttf" size="75"/>
+		<font name="c_header" filename="Raleway-Light.ttf" size="90"/>
+		<font name="c_header_s" filename="Raleway-Light.ttf" size="90"/>
+		<font name="c_file_epicx" filename="Raleway-Light.ttf" size="70"/>
+		<font name="c_addon_epicx" filename="Product_sans.ttf" size="60"/>
+		<font name="c_dashboard_header" filename="Product_sans.ttf" size="50"/>
+		<font name="c_dashboard_text_sort" filename="Product_sans.ttf" size="40"/>
+		<font name="c_menu" filename="Product_sans.ttf" size="35"/>
+		<font name="c_dashboard_text" filename="Product_sans.ttf" size="30"/>
+		<font name="c_th_txt" filename="Product_sans.ttf" size="35"/>
+		<font name="c_lock_clock" filename="Product_sans.ttf" size="220"/>
+		<font name="c_hider" filename="Product_sans.ttf" size="0"/>
+		<font name="c_language" filename="RobotoCondensed-Regular.ttf" size="36"/>
+    </resources>
+</recovery>
