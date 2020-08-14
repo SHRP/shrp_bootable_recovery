@@ -76,6 +76,7 @@ GUIListBox::GUIListBox(xml_node<>* node) : GUIScrollList(node)
 				data.displayName = (*iter).displayvalue;
 				data.variableValue = (*iter).filename;
 				data.action = NULL;
+				data.icon = NULL;//<SHRP>
 				if (currentValue == (*iter).filename) {
 					data.selected = 1;
 					DataManager::SetValue("tw_language_display", (*iter).displayvalue);
@@ -92,6 +93,7 @@ GUIListBox::GUIListBox(xml_node<>* node) : GUIScrollList(node)
 					data.displayName = (*iter).userName;
 					data.variableValue = (*iter).userId;
 					data.action = NULL;
+					data.icon = NULL;//<SHRP>
 					DataManager::GetValue("tw_crypto_user_id", currentValue);
 					if (currentValue == (*iter).userId || currentValue == "") {
 						data.selected = 1;
