@@ -3,11 +3,11 @@
 	<variables>
         <!--Colors-->
 		<variable name="primaryColor" value="#0088ff"/>
-		<variable name="secondaryColor" value="#101010"/>
+		<variable name="secondaryColor" value="#ffffffff"/>
 		<variable name="accentColor" value="#0088ff"/>
-        <variable name="backgroundColor" value="#ffffffff"/>
-        <variable name="subBackgroundColor" value="#fafafa"/>
-        <variable name="navbarColor" value="#101010"/>
+        <variable name="backgroundColor" value="#010101"/>
+        <variable name="subBackgroundColor" value="#0E0E0E"/>
+        <variable name="navbarColor" value="#0088ff"/>
         <!--Toggles-->
         <variable name="batteryBarEnabled" value="0"/>
         <variable name="statusBarEnabled" value="0"/>

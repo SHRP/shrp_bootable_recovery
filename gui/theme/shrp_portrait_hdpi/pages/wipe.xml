@@ -4,15 +4,19 @@
 		<page name="wipe">
 			<template name="c_page"/>
 			<template name="c_status_bar"/>
-			<text style="c_main_text_header">
+			<text style="pageTitle">
 				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
 				<text>{@wipe_btn=Wipe}</text>
 			</text>
-			<text style="c_text_dashboard">
+			<text style="pageSubTitle">
 				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
 				<text>{@factory_reset_hdr=Factory Reset}</text>
 			</text>
-			<text style="c_sub">
+			<textbox>
+				<placement x="%c_hawk_base_column%" y="%c_text_sub_y%" w="%c_console_width%" h="500"/>
+				<text>{@factory_reset1=Wipes Data, Cache, and Dalvik} {@factory_reset2=(not including internal storage)}. {@c_fact_last=Most of the time this is the only wipe that you need.} {@c_action_cancel=Press back button to cancel.}</text>
+			</textbox>
+			<!--text style="c_sub">
 				<placement x="%c_hawk_base_column%" y="%c_text_sub_y%"/>
 				<text>{@factory_reset1=Wipes Data, Cache, and Dalvik}</text>
 			</text>
@@ -28,7 +32,7 @@
 			<text style="c_sub">
 				<placement x="%c_hawk_base_column%" y="%c_text_sub_y4%"/>
 				<text>{@c_action_cancel=Press back button to cancel.}</text>
-			</text>
+			</text-->
 			<button>
 				<placement x="424" y="%dash_ico_2nd_row%"/>
 				<image resource="c_factory_reset"/>
@@ -72,7 +76,7 @@
 					<action function="page">formatdata</action>
 				</actions>
 			</button>
-			<text style="c_sub">
+			<text style="subOptionTitle">
 				<placement x="%c_hawk_base_column%" y="%t_2nd_radio_pos%"/>
 				<text>{@wipe_btn=Wipe} {@options_hdr=Options}</text>
 			</text>

@@ -9,6 +9,28 @@
 		<themeversion>3</themeversion>
 	</details>
     <resources>
+		<!--BatteryBar Resources-->
+		<image name="c_battery_bar_001" filename="c_battery_bar_001"/>
+		<image name="c_battery_bar_005" filename="c_battery_bar_005"/>
+		<image name="c_battery_bar_010" filename="c_battery_bar_010"/>
+		<image name="c_battery_bar_015" filename="c_battery_bar_015"/>
+		<image name="c_battery_bar_020" filename="c_battery_bar_020"/>
+		<image name="c_battery_bar_025" filename="c_battery_bar_025"/>
+		<image name="c_battery_bar_030" filename="c_battery_bar_030"/>
+		<image name="c_battery_bar_035" filename="c_battery_bar_035"/>
+		<image name="c_battery_bar_040" filename="c_battery_bar_040"/>
+		<image name="c_battery_bar_045" filename="c_battery_bar_045"/>
+		<image name="c_battery_bar_050" filename="c_battery_bar_050"/>
+		<image name="c_battery_bar_055" filename="c_battery_bar_055"/>
+		<image name="c_battery_bar_060" filename="c_battery_bar_060"/>
+		<image name="c_battery_bar_065" filename="c_battery_bar_065"/>
+		<image name="c_battery_bar_070" filename="c_battery_bar_070"/>
+		<image name="c_battery_bar_075" filename="c_battery_bar_075"/>
+		<image name="c_battery_bar_080" filename="c_battery_bar_080"/>
+		<image name="c_battery_bar_085" filename="c_battery_bar_085"/>
+		<image name="c_battery_bar_090" filename="c_battery_bar_090"/>
+		<image name="c_battery_bar_095" filename="c_battery_bar_095"/>
+		<image name="c_battery_bar_100" filename="c_battery_bar_100"/>
 		<!-- For_dashboard_icon_start-->
 		<image name="c_dashboard_about" filename="c_dashboard_about" retainaspect="1"/>
 		<image name="c_dashboard_advanced" filename="c_dashboard_advanced" retainaspect="1"/>

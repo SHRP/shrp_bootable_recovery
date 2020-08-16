@@ -29,7 +29,6 @@
 		<xmlfile name="pages/dashboard.xml"/>
 		<xmlfile name="pages/essential.xml"/>
 		<xmlfile name="pages/files.xml"/>
-		<xmlfile name="pages/install.xml"/>
 		<xmlfile name="pages/lockscreen.xml"/>
 		<xmlfile name="pages/magisk.xml"/>
 		<xmlfile name="pages/misc.xml"/>
@@ -44,6 +43,7 @@
 		<xmlfile name="pages/theme.xml"/>
 		<xmlfile name="pages/tweaks.xml"/>
 		<xmlfile name="pages/wipe.xml"/>
+		<xmlfile name="pages/install.xml"/>
 		<xmlfile name="portrait.xml"/>
 	</include>
 
@@ -179,26 +179,26 @@
 			<background color="%c_white%"/>
 			<button>
 				<condition var1="tw_gui_sort_order" op="!=" var2="-1"/>
-				<placement x="776" y="%sort_button_y%"/>
+				<placement x="776" y="%rPos2%"/>
 				<image resource="c_epicxsort"/>
 				<action function="set">tw_gui_sort_order=-1</action>
 			</button>
 			<button>
 				<condition var1="tw_gui_sort_order" op="!=" var2="1"/>
-				<placement x="776" y="%sort_button_y%"/>
+				<placement x="776" y="%rPos2%"/>
 				<image resource="c_epicxsort"/>
 				<action function="set">tw_gui_sort_order=1</action>
 			</button>
 
 			<button>
 				<condition var1="tw_gui_sort_order" op="!=" var2="-2"/>
-				<placement x="920" y="%sort_button_y%"/>
+				<placement x="920" y="%rPos2%"/>
 				<image resource="c_dateSort"/>
 				<action function="set">tw_gui_sort_order=-2</action>
 			</button>
 			<button>
 				<condition var1="tw_gui_sort_order" op="!=" var2="2"/>
-				<placement x="920" y="%sort_button_y%"/>
+				<placement x="920" y="%rPos2%"/>
 				<image resource="c_dateSort"/>
 				<action function="set">tw_gui_sort_order=2</action>
 			</button>

@@ -179,6 +179,25 @@
 		<style name="patternpassword">
 			<size name="tw_gui_pattern_grid_size" default="3"/>
 		</style>
+
+		<!--New Styles-->
+		<style name="pageTitle">
+			<font resource="bigTitle" color="%primaryColor%"/>
+		</style>
+		<style name="pageSubTitle">
+			<font resource="subTitle" color="%secondaryColor%"/>
+		</style>
+		<style name="subOptionTitle">
+			<font resource="midBold" color="%primaryColor%"/>
+		</style>
+		<style name="simpleText">
+			<font resource="normal" color="%secondaryColor%"/>
+		</style>
+		<style name="textbox">
+			<background color="%backgroundColor%"/>
+			<fastscroll rectcolor="%accentColor%" w="%fastscroll_w%" linew="%fastscroll_linew%" rectw="%fastscroll_rectw%" recth="%fastscroll_recth%"/>
+			<font resource="paragraph" color="%secondaryColor%"/>
+		</style>
 	</styles>
 </recovery>
 

@@ -33,5 +33,13 @@
 		<font name="c_lock_clock" filename="Product_sans.ttf" size="220"/>
 		<font name="c_hider" filename="Product_sans.ttf" size="0"/>
 		<font name="c_language" filename="RobotoCondensed-Regular.ttf" size="36"/>
+
+
+		<!--New Font styles-->
+		<font name="bigTitle" filename="secondaryRegular.ttf" size="90"/>
+		<font name="subTitle" filename="primaryRegular.ttf" size="50"/>
+		<font name="paragraph" filename="primaryRegular.ttf" size="38"/>
+		<font name="midBold" filename="primaryBold.ttf" size="40"/>
+		<font name="normal" filename="primaryRegular.ttf" size="44"/>
     </resources>
 </recovery>
