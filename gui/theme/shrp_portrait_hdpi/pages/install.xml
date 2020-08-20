@@ -2,7 +2,7 @@
 <recovery>
 	<pages>
 		<page name="install">
-			<template name="c_page"/>
+			<template name="navCommon"/>
 			<template name="c_status_bar"/>
 			<template name="c_simple_sort"/>
 
@@ -26,7 +26,7 @@
 			</fileselector>
 
 			<button>
-				<placement x="860" y="1628"/>
+				<placement x="860" y="%rndPos105%"/>
 				<image resource="c_storage"/>
 				<actions>
 					<action function="set">tw_back=install</action>
@@ -55,10 +55,9 @@
 		</page>
 
 		<page name="flash_confirm">
-			<template name="c_page"/>
+			<template name="navCommon"/>
 			<template name="c_status_bar"/>
 			<text style="pageTitle">
-				<condition var1="tw_selectimage" var2="0"/>
 				<placement x="%c_hawk_base_column%" y="%rPos3%"/>
 				<text>{@c_flash_zip=Flash Zip}</text>
 			</text>
@@ -68,7 +67,7 @@
 			</text>
 			<textbox>
 				<placement x="%c_hawk_base_column%" y="%rPos18%" w="%c_console_width%" h="500"/>
-				<text>{@zip_warn1=This operation may install incompatible}. {@zip_warn2=Software and render your device unusable.} {@zip_back_cancel=Press back to cancel adding this zip.}</text>
+				<text>{@zip_warn1=This operation may install incompatible} {@zip_warn2=Software and render your device unusable.} {@zip_back_cancel=Press back to cancel adding this zip.}</text>
 			</textbox>
 
 			<text style="subOptionTitle">
@@ -119,13 +118,13 @@
 			</listbox>
 
 			<button style="c_queue">
-				<placement x="860" y="1270"/>
+				<placement x="860" y="%rndPos81%"/>
 				<text></text>
 				<action function="page">install</action>
 			</button>
 
 			<button>
-				<placement x="860" y="1450"/>
+				<placement x="860" y="%rndPos93%"/>
 				<image resource="c_cancel"/>
 				<actions>
 					<action function="queueclear"/>
@@ -136,9 +135,9 @@
 			</button>
 
 			<button>
-				<placement x="860" y="1628"/>
+				<placement x="860" y="%rndPos105%"/>
 				<image resource="c_ok"/>
-				<action function="page">c_flash_zip_confirmer</action>
+				<action function="overlay">c_flash_zip_confirmer</action>
 			</button>
 
 
@@ -163,15 +162,51 @@
 			</action>
 		</page>
 
+		<page name="c_flash_zip_confirmer">
+			<template name="overlayPage"/>
+
+			<button>
+				<placement x="0" y="%rndPos90%" w="1080" h="%rndPos37%"/>
+				<fill color="%backgroundColor%"/>
+			</button>
+			<text style="cnfrmHeadTitle">
+				<placement x="%c_hawk_base_column%" y="%rndPos94%"/>
+				<text>{@c_confirm=Confirm}</text>
+			</text>
+			<textbox>
+				<placement x="%c_hawk_base_column%" y="%rndPos100%" w="%c_console_width%" h="400"/>
+				<text>{@zip_warn1=This operation may install incompatible} {@zip_warn2=Software and render your device unusable.} {@zip_back_cancel=Press back to cancel adding this zip.}</text>
+			</textbox>
+
+			<button style="cnfrmBtn">
+				<placement x="700" y="%rndPos115%" w="310" h="110"/>
+				<fill color="%subBackgroundColor%"/>
+				<text>{@c_flash=Flash}</text>
+				<action function="set">isShrpZip=0</action>
+				<action function="set">c_queue_enabled=0</action>
+				<action function="overlay"/>
+				<action function="flash">flash_zip</action>
+			</button>
+
+			<button style="cnfrmBtn">
+				<placement x="360" y="%rndPos115%" w="310" h="110"/>
+				<fill color="%tranparent%"/>
+				<text>{@cancel_btn=Cancel}</text>
+				<action function="overlay"/>
+			</button>
+		</page>
+
 		<page name="flash_zip">
-			<template name="c_page"/>
+			<template name="navSecure"/>
 			<template name="c_status_bar"/>
-			<text style="c_main_text_header">
-				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
+
+			<text style="pageTitle">
+				<placement x="%c_hawk_base_column%" y="%rPos3%"/>
 				<text>{@install_zip_count_hdr=Flash Zip %tw_zip_index% of %tw_zip_queue_count%}</text>
 			</text>
-			<text style="c_text_dashboard">
-				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
+
+			<text style="pageSubTitle">
+				<placement x="%c_hawk_base_column%" y="%rPos12%"/>
 				<text>%tw_file%</text>
 			</text>
 			<template name="c_console_custom"/>
@@ -185,38 +220,32 @@
 			</action>
 		</page>
 
-		<page name="flash_done">
-			<template name="c_page"/>
+		<page name="flashimage_confirm">
+			<template name="navCommon"/>
 			<template name="c_status_bar"/>
-			<text style="c_main_text_header_failed">
-				<condition var1="tw_operation_status" op="!=" var2="0"/>
-				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
-				<text>{@c_failed=Failed}</text>
+
+			<text style="pageTitle">
+				<placement x="%c_hawk_base_column%" y="%rPos3%"/>
+				<text>{@c_flash_img=Flash Image}</text>
 			</text>
 
-			<text style="c_main_text_header_passed">
-				<condition var1="tw_operation_status" var2="0"/>
-				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
-				<text>{@c_passed=Successful}</text>
+			<text style="pageSubTitle">
+				<placement x="%c_hawk_base_column%" y="%rPos12%"/>
+				<text>{@install_sel_target=Select Target Partition}</text>
 			</text>
 
-			<action>
-				<action function="set">tw_active_slot_install=0</action>
-				<action function="set">tw_inject_after_zip=0</action>
-			</action>
+			<partitionlist>
+				<placement x="50" y="%rPos19%" w="%file_selector_default_w%" h="%file_selector_default_h%"/>
+				<icon selected="radio_true" unselected="radio_false"/>
+				<data name="tw_flash_partition"/>
+				<listtype name="flashimg"/>
+			</partitionlist>
 
-			<text style="c_text_dashboard">
-				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
-				<text>{@c_flash_finished=Flashing Finished}</text>
-			</text>
-
-			<template name="c_console_custom"/>
-			<template name="c_misc_panel"/>
 			<button>
-				<placement x="860" y="1628"/>
 				<image resource="c_ok"/>
+				<placement x="860" y="%rndPos105%"/>
 				<actions>
-					<action function="page">c_refresh</action>
+					<action function="overlay">c_flash_img_confirmer</action>
 				</actions>
 			</button>
 
@@ -232,9 +261,87 @@
 			<action>
 				<touch key="home"/>
 				<actions>
-					<action function="page">c_refresh</action>
+					<action function="set">tw_clear_destination=main2</action>
+					<action function="page">clear_vars</action>
 				</actions>
 			</action>
+		</page>
+
+		<page name="c_flash_img_confirmer">
+			<template name="overlayPage"/>
+
+			<button>
+				<placement x="0" y="%rndPos90%" w="1080" h="%rndPos37%"/>
+				<fill color="%backgroundColor%"/>
+			</button>
+			<text style="cnfrmHeadTitle">
+				<placement x="%c_hawk_base_column%" y="%rndPos94%"/>
+				<text>{@c_confirm=Confirm}</text>
+			</text>
+
+			<text style="textbox">
+				<placement x="%c_hawk_base_column%" y="%rndPos100%"/>
+				<text>{@confirm_flash_hdr=Confirm Flash}</text>
+			</text>
+
+			<button style="cnfrmBtn">
+				<placement x="700" y="%rndPos115%" w="310" h="110"/>
+				<fill color="%subBackgroundColor%"/>
+				<text>{@c_flash=Flash}</text>
+				<actions>
+					<action function="set">tw_back=flashimage_confirm</action>
+					<action function="set">tw_action=flashimage</action>
+					<action function="set">tw_has_action2=0</action>
+					<action function="set">tw_action_text1={@flashing_image=Flashing Image...}</action>
+					<action function="set">tw_action_text2=Please wait</action>
+					<action function="set">tw_complete_text1={@image_flashed=Image Flashed}</action>
+					<action function="overlay"/>
+					<action function="page">action_page</action>
+				</actions>
+				<action function="flashimage"/>
+			</button>
+
+			<button style="cnfrmBtn">
+				<placement x="360" y="%rndPos115%" w="310" h="110"/>
+				<fill color="%tranparent%"/>
+				<text>{@cancel_btn=Cancel}</text>
+				<action function="overlay"/>
+			</button>
+		</page>
+
+		<page name="flash_done">
+			<template name="navSpecial"/>
+			<template name="c_status_bar"/>
+			<text style="pageTitleOPFailed">
+				<condition var1="tw_operation_status" op="!=" var2="0"/>
+				<placement x="%c_hawk_base_column%" y="%rPos3%"/>
+				<text>{@c_failed=Failed}</text>
+			</text>
+
+			<text style="pageTitle">
+				<condition var1="tw_operation_status" var2="0"/>
+				<placement x="%c_hawk_base_column%" y="%rPos3%"/>
+				<text>{@c_passed=Successful}</text>
+			</text>
+
+			<action>
+				<action function="set">tw_active_slot_install=0</action>
+				<action function="set">tw_inject_after_zip=0</action>
+			</action>
+
+			<text style="pageSubTitle">
+				<placement x="%c_hawk_base_column%" y="%rPos12%"/>
+				<text>{@c_flash_finished=Flashing Finished}</text>
+			</text>
+
+			<template name="c_console_custom"/>
+			<button>
+				<placement x="860" y="%rndPos105%"/>
+				<image resource="c_ok"/>
+				<actions>
+					<action function="page">c_refresh</action>
+				</actions>
+			</button>
 
 			<action>
 				<conditions>
@@ -250,21 +357,21 @@
 		</page>
 
 		<page name="flash_sleep_and_reboot">
-			<template name="c_page"/>
+			<template name="navSecure"/>
 			<template name="c_status_bar"/>
-			<text style="c_main_text_header">
-				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
+			<text style="pageTitle">
+				<placement x="%c_hawk_base_column%" y="%rPos3%"/>
 				<text>{@c_flashing_zip=Flashing Zip}</text>
 			</text>
-			<text style="c_text_dashboard">
-				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
+			<text style="pageSubTitle">
+				<placement x="%c_hawk_base_column%" y="%rPos12%"/>
 				<text>{@install_reboot=Rebooting in %tw_sleep% secs(s)}</text>
 			</text>
 			<template name="c_console_custom"/>
 			<template name="progress_bar"/>
 			<button>
 				<condition var1="tw_sleep" op="&gt;" var2="0"/>
-				<placement x="860" y="1628"/>
+				<placement x="860" y="%rndPos105%"/>
 				<image resource="c_cancel"/>
 				<actions>
 					<action function="set">tw_install_reboot=0</action>
@@ -293,116 +400,6 @@
 					<action function="set">tw_reboot_param=system</action>
 					<action function="reboot">%tw_reboot_param%</action>
 				</actions>
-			</action>
-		</page>
-
-		<page name="flashimage_confirm">
-			<template name="c_page"/>
-			<template name="c_status_bar"/>
-			<text style="c_main_text_header">
-				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
-				<text>{@c_flash_img=Flash Image}</text>
-			</text>
-			<text style="c_text_dashboard">
-				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
-				<text>{@install_sel_target=Select Target Partition}</text>
-			</text>
-			<partitionlist>
-				<placement x="50" y="%file_selector_default_y%" w="%file_selector_default_w%" h="%file_selector_default_h%"/>
-				<icon selected="radio_true" unselected="radio_false"/>
-				<data name="tw_flash_partition"/>
-				<listtype name="flashimg"/>
-			</partitionlist>
-
-			<button>
-				<image resource="c_ok"/>
-				<placement x="860" y="1628"/>
-				<actions>
-					<action function="page">c_flash_img_confirmer</action>
-				</actions>
-			</button>
-
-
-			<action>
-				<touch key="back"/>
-				<actions>
-					<action function="set">tw_clear_destination=install</action>
-					<action function="page">clear_vars</action>
-				</actions>
-			</action>
-
-			<action>
-				<touch key="home"/>
-				<actions>
-					<action function="set">tw_clear_destination=main2</action>
-					<action function="page">clear_vars</action>
-				</actions>
-			</action>
-		</page>
-
-		<page name="c_flash_img_confirmer">
-			<template name="c_page"/>
-			<template name="c_status_bar"/>
-			<text style="c_main_text_header">
-				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
-				<text>{@c_confirm=Confirm}</text>
-			</text>
-			<text style="c_text_dashboard">
-				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
-				<text>{@confirm_flash_hdr=Confirm Flash}</text>
-			</text>
-			<button>
-				<placement x="860" y="1628"/>
-				<image resource="c_flash"/>
-				<actions>
-					<action function="set">tw_back=flashimage_confirm</action>
-					<action function="set">tw_action=flashimage</action>
-					<action function="set">tw_has_action2=0</action>
-					<action function="set">tw_action_text1={@flashing_image=Flashing Image...}</action>
-					<action function="set">tw_action_text2=Please wait</action>
-					<action function="set">tw_complete_text1={@image_flashed=Image Flashed}</action>
-					<action function="page">action_page</action>
-				</actions>
-				<action function="flashimage"/>
-			</button>
-			<action>
-				<touch key="back"/>
-				<action function="page">flashimage_confirm</action>
-			</action>
-			<action>
-				<touch key="home"/>
-				<action function="page">c_refresh</action>
-			</action>
-		</page>
-		<page name="c_flash_zip_confirmer">
-			<template name="c_page"/>
-			<template name="c_status_bar"/>
-			<text style="c_main_text_header">
-				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
-				<text>{@c_confirm=Confirm}</text>
-			</text>
-			<text style="c_text_dashboard">
-				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
-				<text>{@confirm_flash_hdr=Confirm Flash}</text>
-			</text>
-
-			<button>
-				<placement x="860" y="1628"/>
-				<image resource="c_flash"/>
-				<action function="set">isShrpZip=0</action>
-				<action function="set">c_queue_enabled=0</action>
-				<action function="flash">flash_zip</action>
-			</button>
-			<action>
-				<touch key="back"/>
-				<action function="page">flash_confirm</action>
-			</action>
-			<action>
-				<touch key="home"/>
-				<action function="set">isShrpZip=0</action>
-				<action function="queueclear"/>
-				<action function="set">c_queue_enabled=0</action>
-				<action function="page">c_refresh</action>
 			</action>
 		</page>
 	</pages>
