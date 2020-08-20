@@ -4,22 +4,22 @@
 		<page name="copylog">
 			<template name="c_page"/>
 			<template name="c_status_bar"/>
-			<text style="c_main_text_header">
-				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
+			<text style="pageTitle">
+				<placement x="%c_hawk_base_column%" y="%rPos3%"/>
 				<text>{@c_logs=Logs}</text>
 			</text>
-			<text style="c_text_dashboard">
-				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
+			<text style="pageSubTitle">
+				<placement x="%c_hawk_base_column%" y="%rPos12%"/>
 				<text>{@copying_log=Copy Logs to SD Card}</text>
 			</text>
 
 			<checkbox>
-				<placement x="%c_hawk_base_column%" y="%c_text_sub_y%"/>
+				<placement x="%c_hawk_base_column%" y="%rPos19%"/>
 				<text>{@include_kernel_log=Include Kernel Log}</text>
 				<data variable="tw_include_kernel_log" value="1"/>
 			</checkbox>
 			<button>
-				<placement x="860" y="1628"/>
+				<placement x="860" y="%rndPos105%"/>
 				<image resource="c_ok"/>
 				<actions>
 					<action function="set">tw_back=advanced</action>
