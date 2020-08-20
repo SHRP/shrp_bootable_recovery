@@ -172,7 +172,7 @@
 		<template name="c_console_custom">
 			<background color="%c_white%"/>
 			<console>
-				<placement x="55" y="%c_text_sub_y%" w="%c_console_width%" h="%default_console_c_h%"/>
+				<placement x="55" y="%rPos19%" w="%c_console_width%" h="%default_console_c_h%"/>
 			</console>
 		</template>
 		<template name="c_simple_sort">

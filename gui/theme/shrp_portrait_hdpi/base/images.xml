@@ -208,5 +208,18 @@
 		<image name="c_dashboard_userFbe" filename="c_dashboard_userFbe" retainaspect="1"/>
 		<image name="c_usersRadioOn" filename="c_usersRadioOn" retainaspect="1"/>
 		<image name="c_usersRadioOff" filename="c_usersRadioOff" retainaspect="1"/>
+
+
+
+		<!--New Images-->
+		<image name="actionCopyLog" filename="actionCopyLog" retainaspect="1"/>
+		<image name="actionWipe" filename="actionWipe" retainaspect="1"/>
+		<image name="actionRebootRecovery" filename="actionRebootRecovery" retainaspect="1"/>
+		<image name="actionRebootSystem" filename="actionRebootSystem" retainaspect="1"/>
+		<image name="actionOption" filename="actionOption" retainaspect="1"/>
+
+		<image name="fileArchive" filename="fileArchive" retainaspect="1"/>
+		<image name="fileImg" filename="fileImg" retainaspect="1"/>
+		<image name="fileTheme" filename="fileTheme" retainaspect="1"/>
 	</resources>
 </recovery>

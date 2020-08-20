@@ -9,11 +9,6 @@
 		<themeversion>3</themeversion>
 	</details>
 	<styles>
-		<style name="input">
-			<background color="%c_white%"/>
-			<cursor color="%c_black%" hasfocus="1" width="%input_line_width%"/>
-			<font resource="font_m" color="%c_black%"/>
-		</style>
 		<style name="checkbox">
 			<font resource="c_dashboard_text_sort" color="%c_black%"/>
 			<image checked="checkbox_true" unchecked="checkbox_false"/>
@@ -119,7 +114,10 @@
 			<background color="%c_white%"/>
 			<fastscroll rectcolor="%c_acc_color_val%" w="%fastscroll_w%" linew="%fastscroll_linew%" rectw="%fastscroll_rectw%" recth="%fastscroll_recth%"/>
 			<ico type=".." icon="c_usersRadioOn" />
-			<ico type=".zip" icon="c_usersRadioOff" />
+			<ico type=".zip" icon="fileArchive" />
+			<ico type=".ozip" icon="fileArchive" />
+			<ico type=".img" icon="fileImg" />
+			<ico type=".stheme" icon="fileTheme" />
 			<icon folder="folder" file="file" />
 			<font resource="font_s" color="%c_black%" />
 		</style>
@@ -184,19 +182,43 @@
 		<style name="pageTitle">
 			<font resource="bigTitle" color="%primaryColor%"/>
 		</style>
+		<style name="pageTitleOPFailed">
+			<font resource="bigTitle" color="#FF0000"/>
+		</style>
+
 		<style name="pageSubTitle">
 			<font resource="subTitle" color="%secondaryColor%"/>
 		</style>
+
 		<style name="subOptionTitle">
 			<font resource="midBold" color="%primaryColor%"/>
 		</style>
+
 		<style name="simpleText">
 			<font resource="normal" color="%secondaryColor%"/>
 		</style>
+
+		<style name="warnInfoText">
+			<font resource="paragraph" color="#FF0000"/>
+		</style>
+		
 		<style name="textbox">
 			<background color="%backgroundColor%"/>
 			<fastscroll rectcolor="%accentColor%" w="%fastscroll_w%" linew="%fastscroll_linew%" rectw="%fastscroll_rectw%" recth="%fastscroll_recth%"/>
 			<font resource="paragraph" color="%secondaryColor%"/>
+		</style>
+		<style name="input">
+			<background color="%subBackgroundColor%"/>
+			<cursor color="%secondaryColor%" hasfocus="1" width="%input_line_width%"/>
+			<font resource="normal" color="%secondaryColor%"/>
+		</style>
+
+		<style name="cnfrmHeadTitle">
+			<font resource="largeBold" color="%primaryColor%"/>
+		</style>
+		<style name="cnfrmBtn">
+			<highlight color="%highlight_color%"/>
+			<font resource="midBold" color="%primaryColor%"/>
 		</style>
 	</styles>
 </recovery>

@@ -40,6 +40,7 @@
 		<font name="subTitle" filename="primaryRegular.ttf" size="50"/>
 		<font name="paragraph" filename="primaryRegular.ttf" size="38"/>
 		<font name="midBold" filename="primaryBold.ttf" size="40"/>
+		<font name="largeBold" filename="primaryBold.ttf" size="44"/>
 		<font name="normal" filename="primaryRegular.ttf" size="44"/>
     </resources>
 </recovery>

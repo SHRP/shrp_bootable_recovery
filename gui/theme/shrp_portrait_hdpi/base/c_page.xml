@@ -74,6 +74,11 @@
 		</template>
 		<!--For Common-->
 		<template name="navCommon">
+			<background color="%c_white%"/>
+			<fill color="%nav_bg%">
+				<condition var1="c_nav_bg" op="=" var2="1"/>
+				<placement x="0" y="1780" h="140" w="1080"/>
+			</fill>
 			<button>
 				<condition var1="tw_samsung_navbar" op="!=" var2="1"/>
 				<placement x="%back_button_x%" y="%navbar_btn_y%" placement="4"/>
@@ -124,6 +129,11 @@
 		</template>
 		<!--For secure Cases only where user cannot navigate through nav-->
 		<template name="navSecure">
+			<background color="%c_white%"/>
+			<fill color="%nav_bg%">
+				<condition var1="c_nav_bg" op="=" var2="1"/>
+				<placement x="0" y="1780" h="140" w="1080"/>
+			</fill>
 			<button>
 				<condition var1="tw_samsung_navbar" op="=" var2="1"/>
 				<placement x="%back_button_x%" y="%navbar_btn_y%" placement="4"/>
@@ -141,6 +151,11 @@
 		</template>
 		<!--Only Back Button of NAV-->
 		<template name="navBackOnly">
+			<background color="%c_white%"/>
+			<fill color="%nav_bg%">
+				<condition var1="c_nav_bg" op="=" var2="1"/>
+				<placement x="0" y="1780" h="140" w="1080"/>
+			</fill>
 			<button>
 				<condition var1="tw_samsung_navbar" op="!=" var2="1"/>
 				<placement x="%back_button_x%" y="%navbar_btn_y%" placement="4"/>
@@ -168,6 +183,11 @@
 		</template>
 		<!--For Common-->
 		<template name="navHome">
+			<background color="%c_white%"/>
+			<fill color="%nav_bg%">
+				<condition var1="c_nav_bg" op="=" var2="1"/>
+				<placement x="0" y="1780" h="140" w="1080"/>
+			</fill>
 			<button>
 				<placement x="%center_x%" y="%navbar_btn_y%" placement="4"/>
 				<image resource="console"/>
@@ -187,11 +207,21 @@
 		</template>
 		<!--For ActionPage-->
 		<template name="navSpecial">
+			<background color="%c_white%"/>
+			<fill color="%nav_bg%">
+				<condition var1="c_nav_bg" op="=" var2="1"/>
+				<placement x="0" y="1780" h="140" w="1080"/>
+			</fill>
+			<background color="%c_white%"/>
+			<fill color="%nav_bg%">
+				<condition var1="c_nav_bg" op="=" var2="1"/>
+				<placement x="0" y="1780" h="140" w="1080"/>
+			</fill>
 			<button>
 				<placement x="%center_x%" y="%navbar_btn_y%" placement="4"/>
-				<image resource="console"/><!--Need to change this resources too--><!--SHRP PENDING-->
+				<image resource="actionOption"/>
 				<condition var1="tw_busy" var2="0"/>
-				<action function="overlay">%shrpOverlay%</action>
+				<action function="overlay">actionOptions</action>
 			</button>
 
 			<action>
