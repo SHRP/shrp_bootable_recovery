@@ -33,7 +33,7 @@ void initSHRPVars(InfoManager* mConst,InfoManager* mData){
     // mConst->SetValue("rPos28", "420");
     // mConst->SetValue("rPos29", "435");
     // mConst->SetValue("rPos30", "450");
-    mConst->SetValue("rPos31", "465");
+    mConst->SetValue("rPos31", "465");//2
     // mConst->SetValue("rPos32", "480");
     mConst->SetValue("rPos33", "495");
     // mConst->SetValue("rPos34", "510");
@@ -269,4 +269,6 @@ void initSHRPVars(InfoManager* mConst,InfoManager* mData){
     mData->SetValue("testLoadToggle", "0");
     mData->SetValue("mSelectedPathList", "");
     mData->SetValue("selectionHandle", "0");
+
+    mData->SetValue("passNotMatched", "0");
 }

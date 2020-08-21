@@ -2673,12 +2673,15 @@ int GUIAction::unlock(std::string arg){
 			PartitionManager.Enable_MTP();
 			DataManager::SetValue("main_pass",arg.c_str());
 			//PageManager Will Change The Page
+			DataManager::SetValue("passNotMatched","0");
 			PageManager::ChangePage("main2");
 		}else{
 			property_set("shrp.lock", "1");
 			LOGINFO("%s: Failed verifying the given password!\n", __func__);
 			//PageManager Will Loop The Page
-			PageManager::ChangePage("pass_failed");
+			DataManager::SetValue("passNotMatched","1");
+			DataManager::SetValue("password","");
+			H.lock_pass=="1" ? PageManager::ChangePage("c_pass_capture") : PageManager::ChangePage("c_patt_capture");
 		}
 	}
 	return 0;
