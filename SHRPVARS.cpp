@@ -271,4 +271,5 @@ void initSHRPVars(InfoManager* mConst,InfoManager* mData){
     mData->SetValue("selectionHandle", "0");
 
     mData->SetValue("passNotMatched", "0");
+    mData->SetValue("autoOverlayHandler", "0");
 }

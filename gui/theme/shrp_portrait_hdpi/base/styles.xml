@@ -168,10 +168,10 @@
 		</style>
 
 		<style name="slidervalue">
-			<resource handle="handle"/>
-			<font resource="c_hider" color="%c_white%"/>
-			<colors line="%c_acc_color_val%"/>
-			<dimensions lineh="%slidervalue_lineh%" linepadding="%slidervalue_padding%" sliderw="%slidervalue_sliderw%" sliderh="%slidervalue_sliderh%"/>
+			<resource handle="sliderDot"/>
+			<font resource="c_hider" color="%backgroundColor%"/>
+			<colors line="%secondaryColor%"/>
+			<dimensions lineh="8" linepadding="0" sliderw="41" sliderh="41"/>
 		</style>
 
 		<style name="patternpassword">

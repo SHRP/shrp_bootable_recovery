@@ -221,5 +221,11 @@
 		<image name="fileArchive" filename="fileArchive" retainaspect="1"/>
 		<image name="fileImg" filename="fileImg" retainaspect="1"/>
 		<image name="fileTheme" filename="fileTheme" retainaspect="1"/>
+
+
+		<image name="controlFlashOff" filename="controlFlashOff" retainaspect="1"/>
+		<image name="controlFlashOn" filename="controlFlashOn" retainaspect="1"/>
+		<image name="controlLock" filename="controlLock" retainaspect="1"/>
+		<image name="sliderDot" filename="sliderDot" retainaspect="1"/>
 	</resources>
 </recovery>

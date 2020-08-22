@@ -75,7 +75,7 @@
 		<!--For Common-->
 		<template name="navCommon">
 			<background color="%c_white%"/>
-			<fill color="%nav_bg%">
+			<fill color="%subBackgroundColor%">
 				<condition var1="c_nav_bg" op="=" var2="1"/>
 				<placement x="0" y="1780" h="140" w="1080"/>
 			</fill>
@@ -127,10 +127,35 @@
 				<action function="screenshot"/>
 			</action>
 		</template>
+		<!--For MainConsole-->
+		<template name="navSlideout">
+			<background color="%c_white%"/>
+			<fill color="%subBackgroundColor%">
+				<condition var1="c_nav_bg" op="=" var2="1"/>
+				<placement x="0" y="1780" h="140" w="1080"/>
+			</fill>
+
+			<button>
+				<placement x="%center_x%" y="%navbar_btn_y%" placement="4"/>
+				<image resource="home"/>
+				<condition var1="tw_busy" var2="0"/>
+				<action function="key">home</action>
+			</button>
+
+			<action>
+				<touch key="power"/>
+				<action function="togglebacklight"/>
+			</action>
+
+			<action>
+				<touch key="power+voldown"/>
+				<action function="screenshot"/>
+			</action>
+		</template>
 		<!--For secure Cases only where user cannot navigate through nav-->
 		<template name="navSecure">
 			<background color="%c_white%"/>
-			<fill color="%nav_bg%">
+			<fill color="%subBackgroundColor%">
 				<condition var1="c_nav_bg" op="=" var2="1"/>
 				<placement x="0" y="1780" h="140" w="1080"/>
 			</fill>
@@ -152,7 +177,7 @@
 		<!--Only Back Button of NAV-->
 		<template name="navBackOnly">
 			<background color="%c_white%"/>
-			<fill color="%nav_bg%">
+			<fill color="%subBackgroundColor%">
 				<condition var1="c_nav_bg" op="=" var2="1"/>
 				<placement x="0" y="1780" h="140" w="1080"/>
 			</fill>
@@ -184,7 +209,7 @@
 		<!--For Common-->
 		<template name="navHome">
 			<background color="%c_white%"/>
-			<fill color="%nav_bg%">
+			<fill color="%subBackgroundColor%">
 				<condition var1="c_nav_bg" op="=" var2="1"/>
 				<placement x="0" y="1780" h="140" w="1080"/>
 			</fill>
@@ -208,12 +233,8 @@
 		<!--For ActionPage-->
 		<template name="navSpecial">
 			<background color="%c_white%"/>
-			<fill color="%nav_bg%">
-				<condition var1="c_nav_bg" op="=" var2="1"/>
-				<placement x="0" y="1780" h="140" w="1080"/>
-			</fill>
 			<background color="%c_white%"/>
-			<fill color="%nav_bg%">
+			<fill color="%subBackgroundColor%">
 				<condition var1="c_nav_bg" op="=" var2="1"/>
 				<placement x="0" y="1780" h="140" w="1080"/>
 			</fill>
