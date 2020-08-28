@@ -686,6 +686,15 @@ protected:
 		GUIAction* action;
 		std::vector<Condition> mConditions;
 	};
+	//<SHRP>
+	struct addonInfo{
+		string name; //DisplayNameOfAddon
+		string info; //InfoAbout Addon
+		string fileName; //AddonFileName
+		string confirmBtnText; //ConfirmButtonText
+		string successfulText; //ConfirmButtonText
+	};
+	//</SHRP>
 
 protected:
 	std::vector<ListItem> mListItems;
@@ -696,6 +705,7 @@ protected:
 	ImageResource* mIconUnselected;
 	bool isCheckList;
 	bool isTextParsed;
+	vector<addonInfo> addons;//<SHRP>
 };
 
 class GUIPartitionList : public GUIScrollList

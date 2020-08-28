@@ -27,6 +27,7 @@ extern "C" {
 #include "objects.hpp"
 #include "../data.hpp"
 #include "../partitions.hpp"
+#include "../twrp-functions.hpp"
 #include "pages.hpp"
 
 extern std::vector<language_struct> Language_List;
@@ -105,6 +106,192 @@ GUIListBox::GUIListBox(xml_node<>* node) : GUIScrollList(node)
 				}
 			}
 		}
+		//<SHRP>
+		else if(mVariable == "shrpTweaks"){
+#ifndef SHRP_EXCLUDE_DEFAULT_ADDONS
+			{
+				addonInfo aItem;
+				aItem.name="Substratum Overlay Disabler [Normal]";
+				aItem.info="This will disable substratum overlays.";
+				aItem.confirmBtnText="Disable";
+				aItem.successfulText="Disabled";
+				aItem.fileName="s_oms.zip";
+				addons.push_back(aItem);
+			}
+			{
+				addonInfo aItem;
+				aItem.name="Substratum Overlay Disabler [Legacy]";
+				aItem.info="This will disable substratum overlays. Note - Legacy Only.";
+				aItem.confirmBtnText="Disable";
+				aItem.successfulText="Disabled";
+				aItem.fileName="s_non_oms.zip";
+				addons.push_back(aItem);
+			}
+			{
+				addonInfo aItem;
+				aItem.name="Clear system lock";
+				aItem.info="This addon will remove your android system lock.";
+				aItem.confirmBtnText="Clear";
+				aItem.successfulText="Removed";
+				aItem.fileName="rfp.zip";
+				addons.push_back(aItem);
+			}
+			{
+				addonInfo aItem;
+				aItem.name="Disable Force Encryption";
+				aItem.info="This will disable force encryption of your device.";
+				aItem.confirmBtnText="Disable";
+				aItem.successfulText="Disabled";
+				aItem.fileName="c_fixed_encryption.zip";
+				addons.push_back(aItem);
+			}
+			{
+				addonInfo aItem;
+				aItem.name="Enable Camera 2 Api";
+				aItem.info="This will enable camera 2 api in your system. Note - Works only in Qualcomm devices.";
+				aItem.confirmBtnText="Enable";
+				aItem.successfulText="Enabled";
+				aItem.fileName="api2on.zip";
+				addons.push_back(aItem);
+			}
+			{
+				addonInfo aItem;
+				aItem.name="Disable Camera 2 Api";
+				aItem.info="This will disable camera 2 api in your system. Note - Works only in Qualcomm devices.";
+				aItem.confirmBtnText="Disable";
+				aItem.successfulText="Disabled";
+				aItem.fileName="api2off.zip";
+				addons.push_back(aItem);
+			}
+
+#endif
+			{
+#ifdef SHRP_EXTERNAL_ADDON_1_NAME
+				addonInfo aItem;
+				aItem.name=EXPAND(SHRP_EXTERNAL_ADDON_1_NAME);
+#endif
+#ifdef SHRP_EXTERNAL_ADDON_1_INFO
+				aItem.info=EXPAND(SHRP_EXTERNAL_ADDON_1_INFO);
+#endif
+#ifdef SHRP_EXTERNAL_ADDON_1_BTN_TEXT
+				aItem.confirmBtnText=EXPAND(SHRP_EXTERNAL_ADDON_1_BTN_TEXT);
+#endif
+#ifdef SHRP_EXTERNAL_ADDON_1_SUCCESSFUL_TEXT
+				aItem.successfulText=EXPAND(SHRP_EXTERNAL_ADDON_1_SUCCESSFUL_TEXT);
+#endif
+#ifdef SHRP_EXTERNAL_ADDON_1_FILENAME
+				aItem.fileName=EXPAND(SHRP_EXTERNAL_ADDON_1_FILENAME);
+				addons.push_back(aItem);
+#endif
+			}
+			{
+#ifdef SHRP_EXTERNAL_ADDON_2_NAME
+				addonInfo aItem;
+				aItem.name=EXPAND(SHRP_EXTERNAL_ADDON_2_NAME);
+#endif
+#ifdef SHRP_EXTERNAL_ADDON_2_INFO
+				aItem.info=EXPAND(SHRP_EXTERNAL_ADDON_2_INFO);
+#endif
+#ifdef SHRP_EXTERNAL_ADDON_2_BTN_TEXT
+				aItem.confirmBtnText=EXPAND(SHRP_EXTERNAL_ADDON_2_BTN_TEXT);
+#endif
+#ifdef SHRP_EXTERNAL_ADDON_2_SUCCESSFUL_TEXT
+				aItem.successfulText=EXPAND(SHRP_EXTERNAL_ADDON_2_SUCCESSFUL_TEXT);
+#endif
+#ifdef SHRP_EXTERNAL_ADDON_2_FILENAME
+				aItem.fileName=EXPAND(SHRP_EXTERNAL_ADDON_2_FILENAME);
+				addons.push_back(aItem);
+#endif
+			}
+			{
+#ifdef SHRP_EXTERNAL_ADDON_3_NAME
+				addonInfo aItem;
+				aItem.name=EXPAND(SHRP_EXTERNAL_ADDON_3_NAME);
+#endif
+#ifdef SHRP_EXTERNAL_ADDON_3_INFO
+				aItem.info=EXPAND(SHRP_EXTERNAL_ADDON_3_INFO);
+#endif
+#ifdef SHRP_EXTERNAL_ADDON_3_BTN_TEXT
+				aItem.confirmBtnText=EXPAND(SHRP_EXTERNAL_ADDON_3_BTN_TEXT);
+#endif
+#ifdef SHRP_EXTERNAL_ADDON_3_SUCCESSFUL_TEXT
+				aItem.successfulText=EXPAND(SHRP_EXTERNAL_ADDON_3_SUCCESSFUL_TEXT);
+#endif
+#ifdef SHRP_EXTERNAL_ADDON_3_FILENAME
+				aItem.fileName=EXPAND(SHRP_EXTERNAL_ADDON_3_FILENAME);
+				addons.push_back(aItem);
+#endif
+			}
+			{
+#ifdef SHRP_EXTERNAL_ADDON_4_NAME
+				addonInfo aItem;
+				aItem.name=EXPAND(SHRP_EXTERNAL_ADDON_4_NAME);
+#endif
+#ifdef SHRP_EXTERNAL_ADDON_4_INFO
+				aItem.info=EXPAND(SHRP_EXTERNAL_ADDON_4_INFO);
+#endif
+#ifdef SHRP_EXTERNAL_ADDON_4_BTN_TEXT
+				aItem.confirmBtnText=EXPAND(SHRP_EXTERNAL_ADDON_4_BTN_TEXT);
+#endif
+#ifdef SHRP_EXTERNAL_ADDON_4_SUCCESSFUL_TEXT
+				aItem.successfulText=EXPAND(SHRP_EXTERNAL_ADDON_4_SUCCESSFUL_TEXT);
+#endif
+#ifdef SHRP_EXTERNAL_ADDON_4_FILENAME
+				aItem.fileName=EXPAND(SHRP_EXTERNAL_ADDON_4_FILENAME);
+				addons.push_back(aItem);
+#endif
+			}
+			{
+#ifdef SHRP_EXTERNAL_ADDON_5_NAME
+				addonInfo aItem;
+				aItem.name=EXPAND(SHRP_EXTERNAL_ADDON_5_NAME);
+#endif
+#ifdef SHRP_EXTERNAL_ADDON_5_INFO
+				aItem.info=EXPAND(SHRP_EXTERNAL_ADDON_5_INFO);
+#endif
+#ifdef SHRP_EXTERNAL_ADDON_5_BTN_TEXT
+				aItem.confirmBtnText=EXPAND(SHRP_EXTERNAL_ADDON_5_BTN_TEXT);
+#endif
+#ifdef SHRP_EXTERNAL_ADDON_5_SUCCESSFUL_TEXT
+				aItem.successfulText=EXPAND(SHRP_EXTERNAL_ADDON_5_SUCCESSFUL_TEXT);
+#endif
+#ifdef SHRP_EXTERNAL_ADDON_5_FILENAME
+				aItem.fileName=EXPAND(SHRP_EXTERNAL_ADDON_5_FILENAME);
+				addons.push_back(aItem);
+#endif
+			}
+			{
+#ifdef SHRP_EXTERNAL_ADDON_6_NAME
+				addonInfo aItem;
+				aItem.name=EXPAND(SHRP_EXTERNAL_ADDON_6_NAME);
+#endif
+#ifdef SHRP_EXTERNAL_ADDON_6_INFO
+				aItem.info=EXPAND(SHRP_EXTERNAL_ADDON_6_INFO);
+#endif
+#ifdef SHRP_EXTERNAL_ADDON_6_BTN_TEXT
+				aItem.confirmBtnText=EXPAND(SHRP_EXTERNAL_ADDON_6_BTN_TEXT);
+#endif
+#ifdef SHRP_EXTERNAL_ADDON_6_SUCCESSFUL_TEXT
+				aItem.successfulText=EXPAND(SHRP_EXTERNAL_ADDON_6_SUCCESSFUL_TEXT);
+#endif
+#ifdef SHRP_EXTERNAL_ADDON_6_FILENAME
+				aItem.fileName=EXPAND(SHRP_EXTERNAL_ADDON_6_FILENAME);
+				addons.push_back(aItem);
+#endif
+			}
+			mListItems.clear();
+			for(auto ptr=addons.begin(); ptr<addons.end(); ptr++){
+				ListItem data;
+				data.displayName=ptr->name;
+				data.variableName="dummy";
+				data.variableValue = "";
+				data.action = NULL;
+				data.icon = NULL;//<SHRP>
+				data.selected = 0;
+				mListItems.push_back(data);
+			}
+		}
+		//</SHRP>
 	} else
 		allowSelection = false;  // allows using listbox as a read-only list or menu
 
@@ -305,6 +492,26 @@ void GUIListBox::NotifySelect(size_t item_selected)
 
 	ListItem& item = mListItems[mVisibleItems[item_selected]];
 
+	//<SHRP>
+		if(mVariable == "shrpTweaks"){
+			for(auto ptr=addons.begin(); ptr<addons.end(); ptr++){
+				if(item.displayName == ptr->name){
+
+					DataManager::SetValue("shrpTweakName",ptr->name);
+					DataManager::SetValue("shrpTweakInfo",ptr->info == "" ? "Confirm Flash" : ptr->info);
+					DataManager::SetValue("shrpTweakConfirm",ptr->confirmBtnText == "" ? "Flash" : ptr->confirmBtnText);
+					DataManager::SetValue("shrpTweakFinish",ptr->successfulText == "" ? "Successful" : ptr->successfulText);
+
+					if(TWFunc::Path_Exists("/sdcard/SHRP/addons/"+ptr->fileName)){
+						DataManager::SetValue("shrpTweakFileName","/sdcard/SHRP/addons/"+ptr->fileName);
+					}else{
+						DataManager::SetValue("shrpTweakFileName","/twres/addons/"+ptr->fileName);
+					}
+					break;
+				}
+			}
+		}
+	//</SHRP>
 	if (isCheckList) {
 		int selected = 1 - item.selected;
 		item.selected = selected;

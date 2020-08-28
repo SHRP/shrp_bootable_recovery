@@ -2,160 +2,41 @@
 <recovery>
 	<pages>
 		<page name="c_addons">
-			<template name="c_page"/>
+			<template name="navCommon"/>
 			<template name="c_status_bar"/>
 
-			<text style="c_main_text_header">
-				<placement x="%c_hawk_base_column%" y="%c_hawk_base_first_header%"/>
+			<text style="pageTitle">
+				<placement x="%c_hawk_base_column%" y="%rPos3%"/>
 				<text>{@c_tweaks=Tweaks}</text>
 			</text>
-			<text style="c_text_dashboard">
-				<placement x="%c_hawk_base_column%" y="%c_hawk_base_second_header%"/>
+			<text style="pageSubTitle">
+				<placement x="%c_hawk_base_column%" y="%rPos12%"/>
 				<text>{@c_tweaks_info=Collection of tweaks}</text>
 			</text>
-			<text style="c_addon_special">
-				<placement x="%c_hawk_base_column%" y="%c_text_sub_y%"/>
-				<text>{@c_subs=Substratum Overlay}</text>
-			</text>
-			<text style="c_sub">
-				<placement x="%c_hawk_base_column%" y="%c_backup_partition_list_y%"/>
-				<text>{@substratum_overlay=Substratum Overlay Disabler}</text>
-			</text>
-			<text style="c_sub">
-				<placement x="%c_hawk_base_column%" y="%ca_3%"/>
-				<text>{@c_credit=Credit - }ProjekT</text>
-			</text>
-			<button style="c_positive_btn">
-				<placement x="764" y="%t_1st_radio_text_pos%"/>
-				<text>{@c_normal=Normal}</text>
-				<actions>
-					<action function="set">tw_back=c_addons</action>
-					<action function="set">tw_filename=/sdcard/SHRP/addons/s_oms.zip</action>
-					<action function="set">tw_action=queuezip</action>
-					<action function="set">tw_has_action2=1</action>
-					<action function="set">tw_action2=flash</action>
-					<action function="set">tw_action2_param=flash_zip</action>
-					<action function="set">tw_text1={@confirm_flash_hdr=Confirm Flash}</action>
-					<action function="set">tw_complete_text1={@done=Done}</action>
-					<action function="page">confirm_action</action>
-				</actions>
-			</button>
-			<button style="c_negative_btn">
-				<placement x="448" y="%t_1st_radio_text_pos%"/>
-				<text>{@c_legacy=Legacy}</text>
-				<actions>
-					<action function="set">tw_back=c_addons</action>
-					<action function="set">tw_filename=/sdcard/SHRP/addons/s_non_oms.zip</action>
-					<action function="set">tw_action=queuezip</action>
-					<action function="set">tw_has_action2=1</action>
-					<action function="set">tw_action2=flash</action>
-					<action function="set">tw_action2_param=flash_zip</action>
-					<action function="set">tw_text1={@confirm_flash_hdr=Confirm Flash}</action>
-					<action function="set">tw_complete_text1={@done=Done}</action>
-					<action function="page">confirm_action</action>
-				</actions>
-			</button>
 
 
-			<text style="c_addon_special">
-				<placement x="%c_hawk_base_column%" y="%t_2nd_heading%"/>
-				<text>{@c_cfp=Clear Fingerprint}</text>
-			</text>
-			<text style="c_sub">
-				<placement x="%c_hawk_base_column%" y="%ca_5%"/>
-				<text>{@c_fpc=Remove fingerprint lock from system}</text>
-			</text>
-			<text style="c_sub">
-				<placement x="%c_hawk_base_column%" y="%ca_6%"/>
-				<text>{@c_credit=Credit - }N/A</text>
-			</text>
-			<button style="c_negative_btn">
-				<placement x="764" y="%ca_7%"/>
-				<text>{@c_clear=Clear}</text>
-				<actions>
-					<action function="set">tw_back=c_addons</action>
-					<action function="set">tw_filename=/sdcard/SHRP/addons/rfp.zip</action>
-					<action function="set">tw_action=queuezip</action>
-					<action function="set">tw_has_action2=1</action>
-					<action function="set">tw_action2=flash</action>
-					<action function="set">tw_action2_param=flash_zip</action>
-					<action function="set">tw_text1={@confirm_flash_hdr=Confirm Flash}</action>
-					<action function="set">tw_complete_text1={@done=Done}</action>
-					<action function="page">confirm_action</action>
-				</actions>
-			</button>
+			<listbox style="customListbox">
+				<placement x="%c_hawk_base_column%" y="%rPos18%" w="%file_selector_default_w%" h="1100"/>
+				<icon selected="addonIcon" unselected="addonIcon" />
+				<data name="shrpTweaks" />
+			</listbox>
 
-			<text style="c_addon_special">
-				<placement x="%c_hawk_base_column%" y="%ca_8%"/>
-				<text>{@c_fc=Force Encryption}</text>
-			</text>
-			<text style="c_sub">
-				<placement x="%c_hawk_base_column%" y="%ca_9%"/>
-				<text>{@c_rfe=Remove force encryption from your device}</text>
-			</text>
-			<text style="c_sub">
-				<placement x="%c_hawk_base_column%" y="%ca_10%"/>
-				<text>{@c_credit=Credit - }N/A</text>
-			</text>
-			<button style="c_negative_btn">
-				<placement x="764" y="%ca_11%"/>
-				<text>{@c_disable=Disable}</text>
-				<actions>
-					<action function="set">tw_back=c_addons</action>
-					<action function="set">tw_filename=/sdcard/SHRP/addons/c_fixed_encryption.zip</action>
-					<action function="set">tw_action=queuezip</action>
-					<action function="set">tw_has_action2=1</action>
-					<action function="set">tw_action2=flash</action>
-					<action function="set">tw_action2_param=flash_zip</action>
-					<action function="set">tw_text1={@confirm_flash_hdr=Confirm Flash}</action>
-					<action function="set">tw_complete_text1={@done=Done}</action>
-					<action function="page">confirm_action</action>
-				</actions>
-			</button>
 
-			<text style="c_addon_special">
-				<placement x="%c_hawk_base_column%" y="%ca_12%"/>
-				<text>{@c_c2api=Camera 2 Api}</text>
-			</text>
-			<text style="c_sub">
-				<placement x="%c_hawk_base_column%" y="%ca_13%"/>
-				<text>{@c_c2a=Camera 2 Api enabler/disabler}</text>
-			</text>
-			<text style="c_sub">
-				<placement x="%c_hawk_base_column%" y="%t_6th_row%"/>
-				<text>{@c_credit=Credit - }Dev</text>
-			</text>
-			<button style="c_positive_btn">
-				<placement x="764" y="%ca_14%"/>
-				<text>{@c_enable=Enable}</text>
+			<action>
 				<actions>
-					<action function="set">tw_back=c_addons</action>
-					<action function="set">tw_filename=/sdcard/SHRP/addons/api2on.zip</action>
-					<action function="set">tw_action=queuezip</action>
-					<action function="set">tw_has_action2=1</action>
-					<action function="set">tw_action2=flash</action>
-					<action function="set">tw_action2_param=flash_zip</action>
-					<action function="set">tw_text1={@confirm_flash_hdr=Confirm Flash}</action>
-					<action function="set">tw_complete_text1={@c_enabled=Enabled}</action>
-					<action function="page">confirm_action</action>
+					<action function="set">shrpTweakName=</action>
+					<action function="set">shrpTweakInfo=</action>
+					<action function="set">shrpFileName=</action>
 				</actions>
-			</button>
-			<button style="c_negative_btn">
-				<placement x="448" y="%ca_14%"/>
-				<text>{@c_disable=Disable}</text>
+			</action>
+			<action>
+				<conditions>
+					<condition var1="shrpTweakName" op="modified"/>
+				</conditions>
 				<actions>
-					<action function="set">tw_back=c_addons</action>
-					<action function="set">tw_filename=/sdcard/SHRP/addons/api2off.zip</action>
-					<action function="set">tw_action=queuezip</action>
-					<action function="set">tw_has_action2=1</action>
-					<action function="set">tw_action2=flash</action>
-					<action function="set">tw_action2_param=flash_zip</action>
-					<action function="set">tw_text1={@confirm_flash_hdr=Confirm Flash}</action>
-					<action function="set">tw_complete_text1={@c_disabled=Disabled}</action>
-					<action function="page">confirm_action</action>
+					<action function="overlay">tweakConfirm</action>
 				</actions>
-			</button>
-
+			</action>
 			<action>
 				<touch key="back"/>
 				<actions>
@@ -168,6 +49,48 @@
 					<action function="page">c_refresh</action>
 				</actions>
 			</action>
+		</page>
+
+		<page name="tweakConfirm">
+			<template name="overlayPage"/>
+
+			<button>
+				<placement x="0" y="%rndPos90%" w="1080" h="%rndPos37%"/>
+				<fill color="%backgroundColor%"/>
+			</button>
+			<text style="cnfrmHeadTitle">
+				<placement x="%c_hawk_base_column%" y="%rndPos94%"/>
+				<text>%shrpTweakName%</text>
+			</text>
+			<textbox>
+				<placement x="%c_hawk_base_column%" y="%rndPos100%" w="%c_console_width%" h="400"/>
+				<text>%shrpTweakInfo%</text>
+			</textbox>
+
+			<button style="cnfrmBtn">
+				<placement x="700" y="%rndPos115%" w="310" h="110"/>
+				<fill color="%subBackgroundColor%"/>
+				<text>%shrpTweakConfirm%</text>
+				<actions>
+					<action function="set">tw_back=c_addons</action>
+					<action function="set">tw_filename=%shrpFileName%</action>
+					<action function="set">tw_action=queuezip</action>
+					<action function="set">tw_has_action2=1</action>
+					<action function="set">tw_action2=flash</action>
+					<action function="set">tw_action2_param=flash_zip</action>
+					<action function="set">tw_text1={@confirm_flash_hdr=Confirm Flash}</action>
+					<action function="set">tw_complete_text1=%shrpTweakFinish%</action>
+					<action function="overlay"/>
+					<action function="page">action_page</action>
+				</actions>
+			</button>
+
+			<button style="cnfrmBtn">
+				<placement x="360" y="%rndPos115%" w="310" h="110"/>
+				<fill color="%tranparent%"/>
+				<text>{@cancel_btn=Cancel}</text>
+				<action function="overlay"/>
+			</button>
 		</page>
 	</pages>
 </recovery>

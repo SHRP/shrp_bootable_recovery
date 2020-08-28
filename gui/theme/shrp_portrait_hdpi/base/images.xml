@@ -227,5 +227,7 @@
 		<image name="controlFlashOn" filename="controlFlashOn" retainaspect="1"/>
 		<image name="controlLock" filename="controlLock" retainaspect="1"/>
 		<image name="sliderDot" filename="sliderDot" retainaspect="1"/>
+
+		<image name="addonIcon" filename="addonIcon" retainaspect="1"/>
 	</resources>
 </recovery>

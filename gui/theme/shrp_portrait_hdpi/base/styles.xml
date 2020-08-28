@@ -212,6 +212,11 @@
 			<cursor color="%secondaryColor%" hasfocus="1" width="%input_line_width%"/>
 			<font resource="normal" color="%secondaryColor%"/>
 		</style>
+		<style name="customListbox">
+			<background color="%backgroundColor%"/>
+			<fastscroll rectcolor="%accentColor%" w="%fastscroll_w%" rectw="%fastscroll_rectw%" recth="%fastscroll_recth%"/>
+			<font resource="paragraph" color="%secondaryColor%"/>
+		</style>
 
 		<style name="cnfrmHeadTitle">
 			<font resource="largeBold" color="%primaryColor%"/>

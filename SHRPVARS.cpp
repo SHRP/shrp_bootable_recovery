@@ -405,4 +405,10 @@ void initSHRPVars(InfoManager* mConst,InfoManager* mData){
 
     mData->SetValue("passNotMatched", "0");
     mData->SetValue("autoOverlayHandler", "0");
+
+    mData->SetValue("shrpTweakName", "");
+    mData->SetValue("shrpTweakInfo", "");
+    mData->SetValue("shrpTweakFileName", "");
+    mData->SetValue("shrpTweakConfirm", "");
+    mData->SetValue("shrpTweakFinish", "");
 }
