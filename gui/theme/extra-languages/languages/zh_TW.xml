@@ -935,9 +935,9 @@
 		<string name="c_enter_text">輸入您的文字</string>
 		<string name="c_apply_theme">應用主題</string>
 		<string name="c_display_text">顯示文字</string>
-		<string name="c_add_line">加入行</string>
-		<string name="c_replace_line">更換行</string>
-		<string name="c_remove_line">清除行</string>
+		<string name="c_add_line">加入行數</string>
+		<string name="c_replace_line">更換行數</string>
+		<string name="c_remove_line">清除行數</string>
 		<string name="c_secondary">次要的文字顏色r</string>
 
 		<string name="c_disable_theme_survival">禁用SHRP主題生存</string>
