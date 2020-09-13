@@ -726,8 +726,8 @@
 		<string name="include_kernel_log">包含内核日志</string>
 		<string name="sha2_chk">使用 SHA2 进行散列校验</string>
 		<string name="unable_set_boot_slot">更改 bootloader 启动分区至 {1} 错误</string>
-		<!--Translated By LeChenOS-->
-		<string name="Tcredit">LeChenOS</string>
+		<!--Translated By LeChenOS and TipzTeam-->
+		<string name="Tcredit">LeChenOS, TipzTeam</string>
 		<string name="c_enter_pass">输入密码</string>
 		<string name="enter_pass_old">输入旧密码</string>
 		<string name="enter_pass_new">输入新密码</string>
@@ -927,5 +927,24 @@
 		<string name="c_stock_dashboard_ico">Stock</string>
 		<string name="ozip_decrypt_decryption">正在解密ozip文件...</string>
 		<string name="ozip_decrypt_finish">解密ozip文件成功</string>
+		<!--2.3 Strings-->
+		<string name="c_failed_info_blocked">出现了错误</string>
+		<string name="c_line">行</string>
+		<string name="c_line_no">行数</string>
+		<string name="c_enter_line_no">輸入行数</string>
+		<string name="c_enter_text">输入您的文字</string>
+		<string name="c_apply_theme">应用主题</string>
+		<string name="c_display_text">显示文字</string>
+		<string name="c_add_line">加入行数</string>
+		<string name="c_replace_line">更換行数</string>
+		<string name="c_remove_line">清除行数</string>
+		<string name="c_secondary">次要的文字颜色</string>
+
+		<string name="c_disable_theme_survival">禁用SHRP主题生存</string>
+		<string name="c_disable_auto_reboot_ota">防止安装OTA后自动重启</string>
+		<string name="c_magisk_install_after_ota">安装OTA后自动安装Mgaisk</string>
+		<string name="unmount_sys_install">安装OTA前卸下System分区</string>
+		<string name="unmount_system">正在卸下System分区...</string>
+		<string name="unmount_system_err">卸下System分区失敗</string>
 	</resources>
 </language>
