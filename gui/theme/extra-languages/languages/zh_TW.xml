@@ -927,5 +927,24 @@
 		<string name ="c_stock_dashboard_ico">Stock</string>
 		<string name ="ozip_decrypt_decryption">正在解密ozip文件... </string>
 		<string name ="ozip_decrypt_finish">解密ozip文件成功</string>
+		<!--2.3 Strings-->
+		<string name="c_failed_info_blocked">出現了錯誤</string>
+		<string name="c_line">行</string>
+		<string name="c_line_no">行數</string>
+		<string name="c_enter_line_no">輸入行數</string>
+		<string name="c_enter_text">輸入您的文字</string>
+		<string name="c_apply_theme">應用主題</string>
+		<string name="c_display_text">顯示文字</string>
+		<string name="c_add_line">加入行</string>
+		<string name="c_replace_line">更換行</string>
+		<string name="c_remove_line">清除行</string>
+		<string name="c_secondary">次要的文字顏色r</string>
+
+		<string name="c_disable_theme_survival">禁用SHRP主題生存</string>
+		<string name="c_disable_auto_reboot_ota">防止安裝OTA後自動重啟</string>
+		<string name="c_magisk_install_after_ota">安裝OTA後自動安裝Mgaisk</string>
+		<string name="unmount_sys_install">安裝OTA前卸下System分區</string>
+		<string name="unmount_system">正在卸下System分區...</string>
+		<string name="unmount_system_err">卸下System分區失敗</string>
 	</resources>
 </language>
