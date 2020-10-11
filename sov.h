@@ -67,6 +67,7 @@ list<string> devices={
   "CPH1861",
   "on7xelte",
   "gts4lvwifi",
+  "ef71",
   "RMX2030",
   "RMX1941",
   "RMX1911",
