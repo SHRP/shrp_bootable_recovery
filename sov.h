@@ -69,5 +69,6 @@ list<string> devices={
   "gts4lvwifi",
   "RMX2030",
   "RMX1941",
-  "RMX1911"
+  "RMX1911",
+  "RMX1831"
 };
