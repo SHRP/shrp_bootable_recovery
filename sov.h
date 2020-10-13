@@ -32,6 +32,7 @@ list<string> devices={
   "kenzo",
   "rosy",
   "a50",
+  "a40",
   "a7y17lte",
   "beyond0lte",
   "beyond1lte",
