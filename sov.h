@@ -73,5 +73,6 @@ list<string> devices={
   "RMX1941",
   "RMX1911",
   "RMX1831",
-  "RMX1901"
+  "RMX1901",
+  "holland1"
 };
